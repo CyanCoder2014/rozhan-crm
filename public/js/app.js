@@ -3630,8 +3630,8 @@ var auth = {
     return {
       companies: [],
       userData: {
-        email: "basepro@local.com",
-        password: "12345678"
+        email: "admin@admin.com",
+        password: "admin$app#"
       }
     };
   },
@@ -3645,7 +3645,7 @@ var auth = {
         console.log(response.data.token);
       })["catch"](function (response) {
         console.log(response);
-        alert("Could not create your company");
+        alert("unAuthorised");
       });
     }
   }
@@ -59386,15 +59386,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!*********************************************************!*\
   !*** ./resources/js/components/layout/headerLayout.vue ***!
   \*********************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _headerLayout_vue_vue_type_template_id_4206623e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./headerLayout.vue?vue&type=template&id=4206623e& */ "./resources/js/components/layout/headerLayout.vue?vue&type=template&id=4206623e&");
 /* harmony import */ var _headerLayout_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./headerLayout.vue?vue&type=script&lang=js& */ "./resources/js/components/layout/headerLayout.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _headerLayout_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _headerLayout_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -59424,7 +59423,7 @@ component.options.__file = "resources/js/components/layout/headerLayout.vue"
 /*!**********************************************************************************!*\
   !*** ./resources/js/components/layout/headerLayout.vue?vue&type=script&lang=js& ***!
   \**********************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -59611,8 +59610,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\wamp\new www\_gitlab\Beauty\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\wamp\new www\_gitlab\Beauty\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\xampp\htdocs\BeautyPlus\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\xampp\htdocs\BeautyPlus\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
