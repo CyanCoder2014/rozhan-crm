@@ -4,14 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PersonService extends Model
+class ServiceCategory extends Model
 {
-
-    protected $fillable=[
-        'person_id',
-        'service_id',
+    protected $fillable = [
+        'parent_id',
         'title',
-        'note',
+        'image',
+        'description',
+        'number',
+        'star',
         'type',
         'state',
         'created_by',

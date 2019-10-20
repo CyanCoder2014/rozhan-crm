@@ -23,7 +23,6 @@ class Service extends Model
         'tax',
         'min_time',
         'max_time',
-        'default_discount',
         'type',
         'star',
         'state',

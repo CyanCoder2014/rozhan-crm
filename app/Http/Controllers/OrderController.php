@@ -3,16 +3,13 @@
 namespace App\Http\Controllers;
 
 
-use App\Contact;
+use App\Http\Requests\OrderRequest;
 use App\Order;
 use App\Repositories\Interfaces\AppRepository;
-use App\Repositories\OrderSrv;
-use App\Repositories\RoleRepository;
-use App\Repositories\UserRepository;
-use App\User;
+use App\Repositories\OrderSrvImpl;
 use Illuminate\Http\Request;
 
-class OrderController extends BaseAPIController
+class OrderController extends Controller
 {
 
     protected $ContactRepository;
@@ -20,7 +17,7 @@ class OrderController extends BaseAPIController
     protected $orderService;
 
 
-    public function __construct(AppRepository $appRepository , OrderSrv $orderService)
+    public function __construct(AppRepository $appRepository , OrderSrvImpl $orderService)
     {
         $this->appRepository = $appRepository;
         $this->model = new Order();
@@ -32,61 +29,38 @@ class OrderController extends BaseAPIController
 
 
 
-    public function addOrder()
+    public function index()
     {
-
-        // show persons of services after select services
-
-        // create order
-        // check timing of selected persons    // خطا نمونه:  خانم محمودی در بازه انخابی حاضر نیستند
-        // add services to order
-        // add persons to order
-        // add timing
-
-
-
+        $data = $this->appRepository->getAll($this->model);
+        return $this->response($data);
     }
 
 
-    public function editOrder()
+    public function show($id)
     {
-
+        $data = $this->appRepository->getById($id, $this->model);
+        return $this->response($data);
     }
 
 
-    public function deleteOrder()
+    public function update(Request $request, $id)
     {
 
+        $data = $this->appRepository->edit($request , $id, $this->model);
+        return $this->response($data);
     }
 
 
-    public function changeOrderState()
+    public function store(OrderRequest $request)
     {
-
+        $data = $this->orderService->addOrder();
+        return $this->response($data);
     }
 
-
-    public function makePayment()
+    public function destroy($id)
     {
-
-    }
-
-
-    public function printPayment()
-    {
-
-    }
-
-
-    public function payPayment()
-    {
-
-    }
-
-
-    public function revokePayment()
-    {
-
+        $data = $this->appRepository->delete( $id, $this->model);
+        return '';
     }
 
 

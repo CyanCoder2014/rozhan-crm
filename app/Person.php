@@ -6,6 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class Person extends Model
 {
+    protected $table='persons';
+
+    protected $fillable=[
+        'user_id',
+        'name',
+        'image',
+        'family',
+        'description',
+        'min_time',
+        'score',
+        'star',
+        'type',
+        'state',
+        'created_by',
+        'updated_by',
+        'deleted_on',
+    ];
 
     ////////////////// relations //////////////////////////
     public function services(){

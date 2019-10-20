@@ -44,9 +44,9 @@ class OrderSrvImpl implements OrderSrv
 
     public function addOrder()
     {
-        $services =\request()->services;
+        $services =\request('services');
 
-        DB::transaction(function () use ($services){
+        return DB::transaction(function () use ($services){
 
             $order = Order::create([
                 'user_id' => auth()->id(),
@@ -68,18 +68,17 @@ class OrderSrvImpl implements OrderSrv
             ]);
 
 
-            foreach ($services as $service_id => $person_id){
-                $service = Service::findOrFail($service_id);
-                $person = Person::findOrFail($person_id);
+            foreach ($services as $serv){
+                $service = Service::findOrFail($serv['service_id']);
+                $person = Person::findOrFail($serv['person_id']);
                 if (! $person->hasService($service))
                     return 'perosn has not a service';
-
-
                 if (!$this->Booking($order,$service,$person,\request('date'),\request('start_at'),\request('end_at')))
                     return 'perosn is not available';
 
 
             }
+            return $order;
         });
 
 
