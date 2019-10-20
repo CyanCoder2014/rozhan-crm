@@ -1,0 +1,15 @@
+{
+    "name": "RolePermissionModule",
+    "alias": "rolepermissionmodule",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\RolePermissionModule\\Providers\\RolePermissionModuleServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": [
+        "spatie/laravel-permission"
+    ]
+}

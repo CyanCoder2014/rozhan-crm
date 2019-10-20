@@ -1,0 +1,25 @@
+{
+    "name": "nwidart/rolepermissionmodule",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\RolePermissionModule\\Providers\\RolePermissionModuleServiceProvider"
+            ],
+            "aliases": {
+                
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\RolePermissionModule\\": ""
+        }
+    }
+}

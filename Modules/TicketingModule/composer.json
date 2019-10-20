@@ -1,0 +1,25 @@
+{
+    "name": "nwidart/ticketingmodule",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\TicketingModule\\Providers\\TicketingModuleServiceProvider"
+            ],
+            "aliases": {
+                
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\TicketingModule\\": ""
+        }
+    }
+}

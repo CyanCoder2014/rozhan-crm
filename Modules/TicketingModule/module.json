@@ -1,0 +1,13 @@
+{
+    "name": "TicketingModule",
+    "alias": "ticketingmodule",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\TicketingModule\\Providers\\TicketingModuleServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
