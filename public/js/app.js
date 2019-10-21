@@ -2191,11 +2191,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 var auth = {
   headers: {
     Authorization: 'bearer ' + localStorage.getItem('token')
@@ -2207,8 +2202,7 @@ var auth = {
       company: {
         name: '',
         address: '',
-        website: '',
-        email: ''
+        website: ''
       }
     };
   },
@@ -2220,9 +2214,10 @@ var auth = {
         app.$router.push({
           path: '/companies'
         });
+        console.log(resp);
       })["catch"](function (resp) {
         console.log(resp);
-        alert("Could not create your company");
+        alert("امکان افزودن آیتم وجود ندارد؟");
       });
     }
   }
@@ -2283,11 +2278,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 var auth = {
   headers: {
     Authorization: 'bearer ' + localStorage.getItem('token')
@@ -2297,33 +2287,32 @@ var auth = {
   mounted: function mounted() {
     var app = this;
     var id = app.$route.params.id;
-    app.companyId = id;
+    app.itemId = id;
     axios.get('/api/companies/' + id, auth).then(function (resp) {
-      app.company = resp.data;
+      app.item = resp.data;
     })["catch"](function () {
-      alert("Could not load your company"); //                    console.log('a: ' + auth)
+      alert("Could not load your item"); //                    console.log('a: ' + auth)
     });
   },
   data: function data() {
     return {
-      companyId: null,
-      company: {
+      itemId: null,
+      item: {
         name: '',
         address: '',
-        website: '',
-        email: ''
+        website: ''
       }
     };
   },
   methods: {
     saveForm: function saveForm() {
       var app = this;
-      var newCompany = app.company;
-      axios.patch('/api/companies/' + app.companyId, newCompany, auth).then(function (resp) {
+      var newCompany = app.item;
+      axios.patch('/api/companies/' + app.itemId, newCompany, auth).then(function (resp) {
         app.$router.replace('/companies');
       })["catch"](function (resp) {
         console.log(resp);
-        alert("Could not update your company");
+        alert("امکان ویرایش آیتم وجود ندارد؟");
       });
     }
   }
@@ -2397,11 +2386,7 @@ var auth = {
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      companies: [],
-      userData: {
-        email: "basepro@local.com",
-        password: "12345678"
-      }
+      companies: []
     };
   },
   mounted: function mounted() {
@@ -2417,18 +2402,6 @@ var auth = {
     });
   },
   methods: {
-    login: function login() {
-      var app = this;
-      var userData = app.userData;
-      axios.post('/api/v1/login', userData).then(function (response) {
-        //                        app.$router.push({path: '/'});
-        localStorage.setItem('token', response.data.token);
-        console.log(response.data.token);
-      })["catch"](function (response) {
-        console.log(response);
-        alert("Could not create  ");
-      });
-    },
     deleteEntry: function deleteEntry(id, index) {
       if (confirm("از حذف آیتم مطمئن هستید؟")) {
         var app = this;
@@ -2502,6 +2475,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var auth = {
   headers: {
     Authorization: 'bearer ' + localStorage.getItem('token')
@@ -2510,25 +2513,37 @@ var auth = {
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      company: {
-        name: '',
+      item: {
+        user_id: '1',
+        //                    personal_code: '',
+        image: '',
+        first_name: '',
+        last_name: '',
+        mobile: '',
+        email: '',
+        tell: '',
+        country: '',
+        city: '',
         address: '',
-        website: '',
-        email: ''
+        location: '',
+        post_code: '',
+        national_code: '',
+        type: '',
+        state: ''
       }
     };
   },
   methods: {
     saveForm: function saveForm() {
       var app = this;
-      var newCompany = app.company;
-      axios.post('/api/companies', newCompany, auth).then(function (resp) {
+      var newItem = app.item;
+      axios.post('/api/contacts', newItem, auth).then(function (resp) {
         app.$router.push({
-          path: '/companies'
+          path: '/contacts'
         });
       })["catch"](function (resp) {
         console.log(resp);
-        alert("Could not create your company");
+        alert("امکان افزودن آیتم وجود ندارد؟");
       });
     }
   }
@@ -2594,6 +2609,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var auth = {
   headers: {
     Authorization: 'bearer ' + localStorage.getItem('token')
@@ -2603,33 +2648,36 @@ var auth = {
   mounted: function mounted() {
     var app = this;
     var id = app.$route.params.id;
-    app.companyId = id;
-    axios.get('/api/companies/' + id, auth).then(function (resp) {
-      app.company = resp.data;
+    app.itemId = id;
+    axios.get('/api/contacts/' + id, auth).then(function (resp) {
+      app.item = resp.data.data;
     })["catch"](function () {
-      alert("Could not load your company"); //                    console.log('a: ' + auth)
+      alert("بارگذاری آیتم امکان پذیر نیست"); //                    console.log('a: ' + auth)
     });
   },
   data: function data() {
     return {
-      companyId: null,
-      company: {
-        name: '',
-        address: '',
-        website: '',
-        email: ''
+      itemId: null,
+      item: {
+        first_name: '',
+        last_name: '',
+        mobile: '',
+        email: '',
+        tell: '',
+        city: '',
+        address: ''
       }
     };
   },
   methods: {
     saveForm: function saveForm() {
       var app = this;
-      var newCompany = app.company;
-      axios.patch('/api/companies/' + app.companyId, newCompany, auth).then(function (resp) {
-        app.$router.replace('/companies');
+      var newItem = app.item;
+      axios.patch('/api/contacts/' + app.itemId, newItem, auth).then(function (resp) {
+        app.$router.replace('/contacts');
       })["catch"](function (resp) {
         console.log(resp);
-        alert("Could not update your company");
+        alert("امکان ویرایش آیتم وجود ندارد؟");
       });
     }
   }
@@ -2695,6 +2743,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var auth = {
   headers: {
     Authorization: 'bearer ' + localStorage.getItem('token')
@@ -2703,14 +2762,14 @@ var auth = {
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      companies: []
+      items: []
     };
   },
   mounted: function mounted() {
     var _this = this;
 
     axios.get('/api/contacts', auth).then(function (response) {
-      _this.companies = response.data.data; //                    console.log(this.companies);
+      _this.items = response.data.data; //                    console.log(this.items);
     })["catch"](function (error) {
       console.log(error);
       _this.errored = true;
@@ -2723,9 +2782,9 @@ var auth = {
       if (confirm("از حذف آیتم مطمئن هستید؟")) {
         var app = this;
         axios["delete"]('/api/contacts/' + id, auth).then(function (resp) {
-          app.companies.splice(index, 1);
+          app.items.splice(index, 1);
         })["catch"](function (resp) {
-          alert("Could not delete company");
+          alert("امکان حذف آیتم وجود ندارد");
         });
       }
     }
@@ -41085,36 +41144,6 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-xs-12 form-group" }, [
-                    _c("label", { staticClass: "control-label" }, [
-                      _vm._v("عنوان")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.company.email,
-                          expression: "company.email"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.company.email },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.company, "email", $event.target.value)
-                        }
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
                 _vm._m(0)
               ]
             )
@@ -41204,19 +41233,19 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.company.name,
-                          expression: "company.name"
+                          value: _vm.item.name,
+                          expression: "item.name"
                         }
                       ],
                       staticClass: "form-control",
                       attrs: { type: "text" },
-                      domProps: { value: _vm.company.name },
+                      domProps: { value: _vm.item.name },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(_vm.company, "name", $event.target.value)
+                          _vm.$set(_vm.item, "name", $event.target.value)
                         }
                       }
                     })
@@ -41234,19 +41263,19 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.company.address,
-                          expression: "company.address"
+                          value: _vm.item.address,
+                          expression: "item.address"
                         }
                       ],
                       staticClass: "form-control",
                       attrs: { type: "text" },
-                      domProps: { value: _vm.company.address },
+                      domProps: { value: _vm.item.address },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(_vm.company, "address", $event.target.value)
+                          _vm.$set(_vm.item, "address", $event.target.value)
                         }
                       }
                     })
@@ -41264,49 +41293,19 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.company.website,
-                          expression: "company.website"
+                          value: _vm.item.website,
+                          expression: "item.website"
                         }
                       ],
                       staticClass: "form-control",
                       attrs: { type: "text" },
-                      domProps: { value: _vm.company.website },
+                      domProps: { value: _vm.item.website },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(_vm.company, "website", $event.target.value)
-                        }
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-xs-12 form-group" }, [
-                    _c("label", { staticClass: "control-label" }, [
-                      _vm._v(" عنوان")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.company.email,
-                          expression: "company.email"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.company.email },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.company, "email", $event.target.value)
+                          _vm.$set(_vm.item, "website", $event.target.value)
                         }
                       }
                     })
@@ -41396,7 +41395,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(company.website))]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(company.email))]),
+                    _c("td", [_vm._v(_vm._s(company.name))]),
                     _vm._v(" "),
                     _c(
                       "td",
@@ -41505,7 +41504,7 @@ var render = function() {
           [
             _c(
               "router-link",
-              { staticClass: "btn btn-default", attrs: { to: "/companies" } },
+              { staticClass: "btn btn-default", attrs: { to: "/contacts" } },
               [_vm._v("بازگشت")]
             )
           ],
@@ -41530,7 +41529,7 @@ var render = function() {
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-xs-12 form-group" }, [
                     _c("label", { staticClass: "control-label" }, [
-                      _vm._v("عنوان ")
+                      _vm._v("نام ")
                     ]),
                     _vm._v(" "),
                     _c("input", {
@@ -41538,19 +41537,19 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.company.name,
-                          expression: "company.name"
+                          value: _vm.item.first_name,
+                          expression: "item.first_name"
                         }
                       ],
                       staticClass: "form-control",
                       attrs: { type: "text" },
-                      domProps: { value: _vm.company.name },
+                      domProps: { value: _vm.item.first_name },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(_vm.company, "name", $event.target.value)
+                          _vm.$set(_vm.item, "first_name", $event.target.value)
                         }
                       }
                     })
@@ -41560,7 +41559,7 @@ var render = function() {
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-xs-12 form-group" }, [
                     _c("label", { staticClass: "control-label" }, [
-                      _vm._v("عنوان")
+                      _vm._v("نام خانوادگی")
                     ]),
                     _vm._v(" "),
                     _c("input", {
@@ -41568,19 +41567,19 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.company.address,
-                          expression: "company.address"
+                          value: _vm.item.last_name,
+                          expression: "item.last_name"
                         }
                       ],
                       staticClass: "form-control",
                       attrs: { type: "text" },
-                      domProps: { value: _vm.company.address },
+                      domProps: { value: _vm.item.last_name },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(_vm.company, "address", $event.target.value)
+                          _vm.$set(_vm.item, "last_name", $event.target.value)
                         }
                       }
                     })
@@ -41590,7 +41589,7 @@ var render = function() {
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-xs-12 form-group" }, [
                     _c("label", { staticClass: "control-label" }, [
-                      _vm._v("عنوان")
+                      _vm._v("موبایل")
                     ]),
                     _vm._v(" "),
                     _c("input", {
@@ -41598,19 +41597,19 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.company.website,
-                          expression: "company.website"
+                          value: _vm.item.mobile,
+                          expression: "item.mobile"
                         }
                       ],
                       staticClass: "form-control",
                       attrs: { type: "text" },
-                      domProps: { value: _vm.company.website },
+                      domProps: { value: _vm.item.mobile },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(_vm.company, "website", $event.target.value)
+                          _vm.$set(_vm.item, "mobile", $event.target.value)
                         }
                       }
                     })
@@ -41620,7 +41619,7 @@ var render = function() {
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-xs-12 form-group" }, [
                     _c("label", { staticClass: "control-label" }, [
-                      _vm._v("عنوان")
+                      _vm._v("ایمیل")
                     ]),
                     _vm._v(" "),
                     _c("input", {
@@ -41628,19 +41627,146 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.company.email,
-                          expression: "company.email"
+                          value: _vm.item.email,
+                          expression: "item.email"
                         }
                       ],
                       staticClass: "form-control",
                       attrs: { type: "text" },
-                      domProps: { value: _vm.company.email },
+                      domProps: { value: _vm.item.email },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(_vm.company, "email", $event.target.value)
+                          _vm.$set(_vm.item, "email", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-xs-12 form-group" }, [
+                    _c("label", { staticClass: "control-label" }, [
+                      _vm._v("تلفن")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.item.tell,
+                          expression: "item.tell"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.item.tell },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.item, "tell", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-xs-12 form-group" }, [
+                    _c("label", { staticClass: "control-label" }, [
+                      _vm._v("شهر")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.item.city,
+                            expression: "item.city"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.item,
+                              "city",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { selected: "", value: "1" } }, [
+                          _vm._v("تهران")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "1" } }, [
+                          _vm._v("کرج")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "1" } }, [
+                          _vm._v("اصفهان")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "1" } }, [
+                          _vm._v("اهواز")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "1" } }, [
+                          _vm._v("مشهد")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "1" } }, [
+                          _vm._v("تبریز")
+                        ])
+                      ]
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-xs-12 form-group" }, [
+                    _c("label", { staticClass: "control-label" }, [
+                      _vm._v("آدرس")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.item.address,
+                          expression: "item.address"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.item.address },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.item, "address", $event.target.value)
                         }
                       }
                     })
@@ -41703,7 +41829,7 @@ var render = function() {
           [
             _c(
               "router-link",
-              { staticClass: "btn btn-default", attrs: { to: "/companies" } },
+              { staticClass: "btn btn-default", attrs: { to: "/contacts" } },
               [_vm._v("بازگشت")]
             )
           ],
@@ -41728,7 +41854,7 @@ var render = function() {
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-xs-12 form-group" }, [
                     _c("label", { staticClass: "control-label" }, [
-                      _vm._v(" عنوان")
+                      _vm._v("نام ")
                     ]),
                     _vm._v(" "),
                     _c("input", {
@@ -41736,19 +41862,19 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.company.name,
-                          expression: "company.name"
+                          value: _vm.item.first_name,
+                          expression: "item.first_name"
                         }
                       ],
                       staticClass: "form-control",
                       attrs: { type: "text" },
-                      domProps: { value: _vm.company.name },
+                      domProps: { value: _vm.item.first_name },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(_vm.company, "name", $event.target.value)
+                          _vm.$set(_vm.item, "first_name", $event.target.value)
                         }
                       }
                     })
@@ -41758,7 +41884,7 @@ var render = function() {
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-xs-12 form-group" }, [
                     _c("label", { staticClass: "control-label" }, [
-                      _vm._v("عنوان ")
+                      _vm._v("نام خانوادگی")
                     ]),
                     _vm._v(" "),
                     _c("input", {
@@ -41766,19 +41892,19 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.company.address,
-                          expression: "company.address"
+                          value: _vm.item.last_name,
+                          expression: "item.last_name"
                         }
                       ],
                       staticClass: "form-control",
                       attrs: { type: "text" },
-                      domProps: { value: _vm.company.address },
+                      domProps: { value: _vm.item.last_name },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(_vm.company, "address", $event.target.value)
+                          _vm.$set(_vm.item, "last_name", $event.target.value)
                         }
                       }
                     })
@@ -41788,7 +41914,7 @@ var render = function() {
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-xs-12 form-group" }, [
                     _c("label", { staticClass: "control-label" }, [
-                      _vm._v(" عنوان")
+                      _vm._v("موبایل")
                     ]),
                     _vm._v(" "),
                     _c("input", {
@@ -41796,19 +41922,19 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.company.website,
-                          expression: "company.website"
+                          value: _vm.item.mobile,
+                          expression: "item.mobile"
                         }
                       ],
                       staticClass: "form-control",
                       attrs: { type: "text" },
-                      domProps: { value: _vm.company.website },
+                      domProps: { value: _vm.item.mobile },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(_vm.company, "website", $event.target.value)
+                          _vm.$set(_vm.item, "mobile", $event.target.value)
                         }
                       }
                     })
@@ -41818,7 +41944,7 @@ var render = function() {
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-xs-12 form-group" }, [
                     _c("label", { staticClass: "control-label" }, [
-                      _vm._v(" عنوان")
+                      _vm._v("ایمیل")
                     ]),
                     _vm._v(" "),
                     _c("input", {
@@ -41826,19 +41952,146 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.company.email,
-                          expression: "company.email"
+                          value: _vm.item.email,
+                          expression: "item.email"
                         }
                       ],
                       staticClass: "form-control",
                       attrs: { type: "text" },
-                      domProps: { value: _vm.company.email },
+                      domProps: { value: _vm.item.email },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(_vm.company, "email", $event.target.value)
+                          _vm.$set(_vm.item, "email", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-xs-12 form-group" }, [
+                    _c("label", { staticClass: "control-label" }, [
+                      _vm._v("تلفن")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.item.tell,
+                          expression: "item.tell"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.item.tell },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.item, "tell", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-xs-12 form-group" }, [
+                    _c("label", { staticClass: "control-label" }, [
+                      _vm._v("شهر")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.item.city,
+                            expression: "item.city"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.item,
+                              "city",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { selected: "", value: "1" } }, [
+                          _vm._v("تهران")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "1" } }, [
+                          _vm._v("کرج")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "1" } }, [
+                          _vm._v("اصفهان")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "1" } }, [
+                          _vm._v("اهواز")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "1" } }, [
+                          _vm._v("مشهد")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "1" } }, [
+                          _vm._v("تبریز")
+                        ])
+                      ]
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-xs-12 form-group" }, [
+                    _c("label", { staticClass: "control-label" }, [
+                      _vm._v("آدرس")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.item.address,
+                          expression: "item.address"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.item.address },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.item, "address", $event.target.value)
                         }
                       }
                     })
@@ -41903,7 +42156,7 @@ var render = function() {
               "router-link",
               {
                 staticClass: "btn btn-success",
-                attrs: { to: { name: "create-contacts" } }
+                attrs: { to: { name: "create-contact" } }
               },
               [_vm._v("افزودن")]
             )
@@ -41914,66 +42167,78 @@ var render = function() {
         _c("div", { staticClass: "panel panel-default " }, [
           _c("div", { staticClass: "panel-heading" }, [_vm._v("لیست ")]),
           _vm._v(" "),
-          _c("div", { staticClass: "panel-body" }, [
-            _c("table", { staticClass: "table table-bordered table-striped" }, [
-              _vm._m(0),
-              _vm._v(" "),
+          _c("div", { staticClass: "panel-body  " }, [
+            _c("div", { staticClass: "table-responsive" }, [
               _c(
-                "tbody",
-                _vm._l(_vm.companies, function(company, index) {
-                  return _c("tr", { attrs: { id: "companies" } }, [
-                    _c("td", [_vm._v(_vm._s(company.name))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(company.address))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(company.website))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(company.email))]),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      [
-                        _c(
-                          "router-link",
-                          {
-                            staticClass: "btn btn-xs btn-default",
-                            attrs: {
-                              to: {
-                                name: "edit-company",
-                                params: { id: company.id }
-                              }
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "\n                            ویرایش\n                        "
-                            )
-                          ]
-                        ),
+                "table",
+                {
+                  staticClass: "table table-bordered table-striped table-hover"
+                },
+                [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.items, function(item, index) {
+                      return _c("tr", { attrs: { id: "items" } }, [
+                        _c("td", [_vm._v(_vm._s(item.first_name))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(item.last_name))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(item.mobile))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(item.email))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(item.tell))]),
+                        _vm._v(" "),
+                        _vm._m(1, true),
                         _vm._v(" "),
                         _c(
-                          "a",
-                          {
-                            staticClass: "btn btn-xs btn-danger",
-                            attrs: { href: "#" },
-                            on: {
-                              click: function($event) {
-                                return _vm.deleteEntry(company.id, index)
-                              }
-                            }
-                          },
+                          "td",
                           [
-                            _vm._v(
-                              "\n                            حذف\n                        "
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "btn btn-xs btn-default",
+                                attrs: {
+                                  to: {
+                                    name: "edit-contact",
+                                    params: { id: item.id }
+                                  }
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                            ویرایش\n                        "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                staticClass: "btn btn-xs btn-danger",
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.deleteEntry(item.id, index)
+                                  }
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                            حذف\n                        "
+                                )
+                              ]
                             )
-                          ]
+                          ],
+                          1
                         )
-                      ],
-                      1
-                    )
-                  ])
-                }),
-                0
+                      ])
+                    }),
+                    0
+                  )
+                ]
               )
             ])
           ])
@@ -41989,16 +42254,28 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v(" عنوان")]),
+        _c("th", [_vm._v(" نام")]),
         _vm._v(" "),
-        _c("th", [_vm._v("عنوان")]),
+        _c("th", [_vm._v("نام خانوادگی")]),
         _vm._v(" "),
-        _c("th", [_vm._v("عنوان")]),
+        _c("th", [_vm._v("موبایل")]),
         _vm._v(" "),
-        _c("th", [_vm._v("عنوان ")]),
+        _c("th", [_vm._v("ایمیل ")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("تلفن ")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("وضعیت ")]),
         _vm._v(" "),
         _c("th", { attrs: { width: "100" } }, [_vm._v(" ")])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("span", { staticClass: "badge badge-warning" }, [_vm._v("مشتری")])
     ])
   }
 ]
@@ -43345,11 +43622,10 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "navbar-custom-menu" }, [
           _c(
-            "a",
+            "button",
             {
               staticClass: "btn btn-xs btn-default",
               staticStyle: { "margin-top": "15px" },
-              attrs: { href: "#" },
               on: {
                 click: function($event) {
                   return _vm.login()
@@ -43811,7 +44087,7 @@ var staticRenderFns = [
               ]),
               _vm._v(" "),
               _c("li", [
-                _c("a", { attrs: { href: "/" } }, [
+                _c("a", { attrs: { href: "#/contacts" } }, [
                   _c("i", { staticClass: "fa fa-book" }),
                   _vm._v(" "),
                   _c("span", [_vm._v("مدیریت مشتریان")])
