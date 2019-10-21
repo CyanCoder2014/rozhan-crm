@@ -12,8 +12,8 @@ use Illuminate\Http\Request;
 class OrderController extends Controller
 {
 
-    protected $ContactRepository;
-    protected $contact;
+    protected $appRepository;
+    protected $model;
     protected $orderService;
 
 
