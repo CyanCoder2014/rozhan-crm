@@ -31,6 +31,12 @@ class Person extends Model
     public function timing(){
         return $this->hasMany(PersonTiming::class);
     }
+    public function OrderServices(){
+        return $this->hasMany(OrderService::class);
+    }
+    public function Orders(){
+        return $this->hasManyThrough(Order::class,OrderService::class,'person_id','id','id','order_id');
+    }
     ///////////////////////////////////////////////////////
     public function hasService(Service $service):bool{
         if ($this->services()->where('service_id', $service->id)->count() > 0)
@@ -43,9 +49,22 @@ class Person extends Model
         if ($this->timing()->where('date', $date)
                 ->where('start','<=', $start_at)
                 ->where('end','>=', $end_at)
+                ->count() == 0)
+            return false;
+        if ($this->OrderServices()->where('date', $date)
+                ->where(function ($query) use ($start_at,$end_at){
+                    return $query->where(function ($query) use ($start_at){
+                        return $query->where('start','<=', $start_at)
+                            ->where('end','>', $start_at);
+                    })
+                        ->orWhere(function ($query) use ($end_at){
+                            return $query->where('start','<', $end_at)
+                                ->where('end','>=', $end_at);
+                        });
+                })
                 ->count() > 0)
-            return true;
-        return false;
+            return false;
+        return true;
 
     }
 }

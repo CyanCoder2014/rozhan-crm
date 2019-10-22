@@ -36,6 +36,8 @@ class Service extends Model
     }
 
     public function priceCalculate(){
-        return $this->price;
+        if($this->price)
+            return $this->price+($this->price*$this->tax/100);
+        return 0;
     }
 }
