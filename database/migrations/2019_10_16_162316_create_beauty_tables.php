@@ -156,7 +156,7 @@ class CreateBeautyTables extends Migration
 
         Schema::create('service_categories', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('parent_id')->unsigned();
+            $table->bigInteger('parent_id')->unsigned()->nullable();
             $table->foreign('parent_id')->references('id')->on('service_categories')->onDelete('cascade');
             $table->string('title')->nullable();
             $table->string('image')->nullable();
@@ -387,8 +387,8 @@ class CreateBeautyTables extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->bigInteger('service_id')->unsigned();
-            $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
+//            $table->bigInteger('service_id')->unsigned();
+//            $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
             $table->string('title')->nullable();
             $table->string('description')->nullable();
             $table->string('file')->nullable();
