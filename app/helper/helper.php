@@ -4,7 +4,7 @@ function validate_jalili($date): bool{
   return preg_match('^[1-4]\d{3}\/((0[1-6]\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\/(30|([1-2][0-9])|(0[1-9]))))$^',unpersian($date));
 }
 function validate_time($time): bool{
-  return preg_match('/(?:[01]\d|2[0123]):(?:[012345]\d):(?:[012345]\d)/',unpersian($time));
+  return preg_match('/(?:[01]\d|2[0123]):(:[012345]\d):(?:[012345]\d)|(^[01]\d|2[0123]):(?:[012345]\d)/',unpersian($time));
 }
 function validate_jalili_datetime($datetime): bool{
     $datetime = explode(' ', preg_replace('/\s+/', ' ',unpersian($datetime)));
@@ -66,7 +66,6 @@ function to_georgian_date($date)
 function to_georgian($dateTime)
 {
     $datetime = explode(' ', preg_replace('/\s+/', ' ',unpersian($dateTime)));
-
     if(validate_jalili($datetime[0]) && validate_time($datetime[1]??'')){
         $date = explode('/', unpersian($datetime[0]));
         $date = implode('-', jalali_to123_gregorian((int)$date[0], (int)$date[1], (int)$date[2]));
