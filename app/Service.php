@@ -6,7 +6,36 @@ use Illuminate\Database\Eloquent\Model;
 
 class Service extends Model
 {
-    protected $fillable = ['name', 'address', 'website', 'email'];
 
-    public $timestamps = false;
+    protected $fillable = [
+        'parent_id',
+        'service_categories_id',
+        'title',
+        'image',
+        'description',
+        'initial_number',
+        'remaining_number',
+        'blocked_number',
+        'reserved',
+        'price',
+        'predicted_price',
+        'default_discount',
+        'tax',
+        'min_time',
+        'max_time',
+        'type',
+        'star',
+        'state',
+        'created_by',
+        'updated_by',
+        'deleted_on'
+    ];
+
+    public function parent(){
+        return $this->belongsTo(static::class);
+    }
+
+    public function priceCalculate(){
+        return $this->price;
+    }
 }

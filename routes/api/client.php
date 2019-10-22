@@ -11,7 +11,10 @@ Route::namespace('v1')->prefix('v1')->group(function () {
         Route::middleware(['jwt.auth', 'permission:read-profile'])->get('/profile', function (Request $request) {
             return $request->user();
         });
+        Route::middlware('jwt.auth')->group(function (){
+            Route::resources('services','OrderController');
 
+        });
         Route::middleware(['jwt.auth'])->post('/reset-password', 'UserController@resetPassword');
     });
 

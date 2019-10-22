@@ -35,9 +35,9 @@ class CreateBeautyTables extends Migration
 
             $table->bigInteger('type')->nullable();   // lead, opportunity, coworker, ....
             $table->bigInteger('state')->nullable();
-            $table->bigInteger('created_by')->index()->unsigned()->nullable();
+            $table->bigInteger('created_by')->unsigned()->nullable();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
-            $table->bigInteger('updated_by')->index()->unsigned()->nullable();
+            $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->dateTime('deleted_on')->nullable();
@@ -47,7 +47,7 @@ class CreateBeautyTables extends Migration
 
         Schema::create('user_profiles', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('contact_id')->index()->unsigned();
+            $table->bigInteger('contact_id')->unsigned();
             $table->foreign('contact_id')->references('id')->on('contacts')->onDelete('cascade');
             $table->string('age')->nullable();
             $table->string('major')->nullable();
@@ -61,9 +61,9 @@ class CreateBeautyTables extends Migration
 
             $table->bigInteger('type')->nullable();
             $table->bigInteger('state')->nullable();
-            $table->bigInteger('created_by')->index()->unsigned()->nullable();
+            $table->bigInteger('created_by')->unsigned()->nullable();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
-            $table->bigInteger('updated_by')->index()->unsigned()->nullable();
+            $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->dateTime('deleted_on')->nullable();
@@ -73,16 +73,16 @@ class CreateBeautyTables extends Migration
 
         Schema::create('networks', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('contact_id')->index()->unsigned();
+            $table->bigInteger('contact_id')->unsigned();
             $table->foreign('contact_id')->references('id')->on('contacts')->onDelete('cascade');
             $table->string('title')->nullable();
             $table->string('link')->nullable();
 
             $table->bigInteger('type')->nullable();   // web, social media, ...
             $table->bigInteger('state')->nullable();
-            $table->bigInteger('created_by')->index()->unsigned()->nullable();
+            $table->bigInteger('created_by')->unsigned()->nullable();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
-            $table->bigInteger('updated_by')->index()->unsigned()->nullable();
+            $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->dateTime('deleted_on')->nullable();
@@ -92,7 +92,7 @@ class CreateBeautyTables extends Migration
 
         Schema::create('favorites', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('contact_id')->index()->unsigned();
+            $table->bigInteger('contact_id')->unsigned();
             $table->foreign('contact_id')->references('id')->on('contacts')->onDelete('cascade');
             $table->string('title')->nullable();
             $table->string('description')->nullable();
@@ -101,9 +101,9 @@ class CreateBeautyTables extends Migration
 
             $table->string('type')->nullable(); //  fields
             $table->string('state')->nullable();
-            $table->bigInteger('created_by')->index()->unsigned()->nullable();
+            $table->bigInteger('created_by')->unsigned()->nullable();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
-            $table->bigInteger('updated_by')->index()->unsigned()->nullable();
+            $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->dateTime('deleted_on')->nullable();
@@ -113,7 +113,7 @@ class CreateBeautyTables extends Migration
 
         Schema::create('special_dates', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('contact_id')->index()->unsigned();
+            $table->bigInteger('contact_id')->unsigned();
             $table->foreign('contact_id')->references('id')->on('contacts')->onDelete('cascade');
             $table->string('title')->nullable();
             $table->dateTime('special_date')->nullable();
@@ -121,9 +121,9 @@ class CreateBeautyTables extends Migration
 
             $table->bigInteger('type')->nullable(); //  engaged date, birthday, ...;
             $table->bigInteger('state')->nullable();
-            $table->bigInteger('created_by')->index()->unsigned()->nullable();
+            $table->bigInteger('created_by')->unsigned()->nullable();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
-            $table->bigInteger('updated_by')->index()->unsigned()->nullable();
+            $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->dateTime('deleted_on')->nullable();
@@ -132,7 +132,7 @@ class CreateBeautyTables extends Migration
 
         Schema::create('fields', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('contact_id')->index()->unsigned();
+            $table->bigInteger('contact_id')->unsigned();
             $table->foreign('contact_id')->references('id')->on('contacts')->onDelete('cascade');
             $table->string('title')->nullable();
             $table->string('description')->nullable();
@@ -143,9 +143,9 @@ class CreateBeautyTables extends Migration
 
             $table->string('type')->nullable(); //  fields
             $table->string('state')->nullable();
-            $table->bigInteger('created_by')->index()->unsigned()->nullable();
+            $table->bigInteger('created_by')->unsigned()->nullable();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
-            $table->bigInteger('updated_by')->index()->unsigned()->nullable();
+            $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->dateTime('deleted_on')->nullable();
@@ -156,7 +156,7 @@ class CreateBeautyTables extends Migration
 
         Schema::create('service_categories', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('parent_id')->index()->unsigned();
+            $table->bigInteger('parent_id')->unsigned();
             $table->foreign('parent_id')->references('id')->on('service_categories')->onDelete('cascade');
             $table->string('title')->nullable();
             $table->string('image')->nullable();
@@ -166,9 +166,9 @@ class CreateBeautyTables extends Migration
 
             $table->bigInteger('type')->nullable(); //
             $table->string('state')->nullable();
-            $table->bigInteger('created_by')->index()->unsigned()->nullable();
+            $table->bigInteger('created_by')->unsigned()->nullable();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
-            $table->bigInteger('updated_by')->index()->unsigned()->nullable();
+            $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->dateTime('deleted_on')->nullable();
@@ -178,9 +178,9 @@ class CreateBeautyTables extends Migration
 
         Schema::create('services', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('parent_id')->index()->unsigned();
+            $table->bigInteger('parent_id')->unsigned()->nullable();
             $table->foreign('parent_id')->references('id')->on('services')->onDelete('cascade');
-            $table->bigInteger('service_categories_id')->index()->unsigned();
+            $table->bigInteger('service_categories_id')->unsigned();
             $table->foreign('service_categories_id')->references('id')->on('service_categories')->onDelete('cascade');
             $table->string('title')->nullable();
             $table->string('image')->nullable();
@@ -199,9 +199,9 @@ class CreateBeautyTables extends Migration
 
             $table->string('type')->nullable(); //
             $table->string('state')->nullable();
-            $table->bigInteger('created_by')->index()->unsigned()->nullable();
+            $table->bigInteger('created_by')->unsigned()->nullable();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
-            $table->bigInteger('updated_by')->index()->unsigned()->nullable();
+            $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->dateTime('deleted_on')->nullable();
@@ -214,7 +214,7 @@ class CreateBeautyTables extends Migration
 
         Schema::create('product_categories', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('parent_id')->index()->unsigned();
+            $table->bigInteger('parent_id')->unsigned()->nullable();
             $table->foreign('parent_id')->references('id')->on('product_categories')->onDelete('cascade');
             $table->string('title')->nullable();
             $table->string('image')->nullable();
@@ -223,9 +223,9 @@ class CreateBeautyTables extends Migration
 
             $table->bigInteger('type')->nullable(); //
             $table->string('state')->nullable();
-            $table->bigInteger('created_by')->index()->unsigned()->nullable();
+            $table->bigInteger('created_by')->unsigned()->nullable();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
-            $table->bigInteger('updated_by')->index()->unsigned()->nullable();
+            $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->dateTime('deleted_on')->nullable();
@@ -235,9 +235,9 @@ class CreateBeautyTables extends Migration
 
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('product_id')->index()->unsigned();
+            $table->bigInteger('product_id')->unsigned();
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->bigInteger('product_category_id')->index()->unsigned();
+            $table->bigInteger('product_category_id')->unsigned();
             $table->foreign('product_category_id')->references('id')->on('product_categories')->onDelete('cascade');
             $table->string('title')->nullable();
             $table->string('image')->nullable();
@@ -256,9 +256,9 @@ class CreateBeautyTables extends Migration
 
             $table->string('type')->nullable(); //
             $table->string('state')->nullable();
-            $table->bigInteger('created_by')->index()->unsigned()->nullable();
+            $table->bigInteger('created_by')->unsigned()->nullable();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
-            $table->bigInteger('updated_by')->index()->unsigned()->nullable();
+            $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->dateTime('deleted_on')->nullable();
@@ -268,7 +268,7 @@ class CreateBeautyTables extends Migration
 
         Schema::create('persons', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('user_id')->index()->unsigned();
+            $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('name')->nullable();
             $table->string('image')->nullable();
@@ -280,9 +280,9 @@ class CreateBeautyTables extends Migration
 
             $table->string('type')->nullable(); //
             $table->string('state')->nullable();
-            $table->bigInteger('created_by')->index()->unsigned()->nullable();
+            $table->bigInteger('created_by')->unsigned()->nullable();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
-            $table->bigInteger('updated_by')->index()->unsigned()->nullable();
+            $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->dateTime('deleted_on')->nullable();
@@ -291,7 +291,7 @@ class CreateBeautyTables extends Migration
 
         Schema::create('person_timings', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('person_id')->index()->unsigned();
+            $table->bigInteger('person_id')->unsigned();
             $table->foreign('person_id')->references('id')->on('persons')->onDelete('cascade');
 
             $table->string('title')->nullable();
@@ -303,9 +303,9 @@ class CreateBeautyTables extends Migration
 
             $table->string('type')->nullable(); //
             $table->string('state')->nullable();
-            $table->bigInteger('created_by')->index()->unsigned()->nullable();
+            $table->bigInteger('created_by')->unsigned()->nullable();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
-            $table->bigInteger('updated_by')->index()->unsigned()->nullable();
+            $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->dateTime('deleted_on')->nullable();
@@ -316,18 +316,18 @@ class CreateBeautyTables extends Migration
 
         Schema::create('person_services', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('person_id')->index()->unsigned();
+            $table->bigInteger('person_id')->unsigned();
             $table->foreign('person_id')->references('id')->on('persons')->onDelete('cascade');
-            $table->bigInteger('service_id')->index()->unsigned();
+            $table->bigInteger('service_id')->unsigned();
             $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
             $table->string('title')->nullable();
             $table->string('note')->nullable();
 
             $table->string('type')->nullable(); //
             $table->string('state')->nullable();
-            $table->bigInteger('created_by')->index()->unsigned()->nullable();
+            $table->bigInteger('created_by')->unsigned()->nullable();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
-            $table->bigInteger('updated_by')->index()->unsigned()->nullable();
+            $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->dateTime('deleted_on')->nullable();
@@ -338,7 +338,7 @@ class CreateBeautyTables extends Migration
 
         Schema::create('packages', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('service_id')->index()->unsigned();
+            $table->bigInteger('service_id')->unsigned();
             $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
             $table->string('title')->nullable();
             $table->string('note')->nullable();
@@ -352,9 +352,9 @@ class CreateBeautyTables extends Migration
 
             $table->string('type')->nullable(); //
             $table->string('state')->nullable();
-            $table->bigInteger('created_by')->index()->unsigned()->nullable();
+            $table->bigInteger('created_by')->unsigned()->nullable();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
-            $table->bigInteger('updated_by')->index()->unsigned()->nullable();
+            $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->dateTime('deleted_on')->nullable();
@@ -364,18 +364,18 @@ class CreateBeautyTables extends Migration
 
         Schema::create('packages_services', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('package_id')->index()->unsigned();
+            $table->bigInteger('package_id')->unsigned();
             $table->foreign('package_id')->references('id')->on('packages')->onDelete('cascade');
-            $table->bigInteger('service_id')->index()->unsigned();
+            $table->bigInteger('service_id')->unsigned();
             $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
             $table->string('note')->nullable();
             $table->bigInteger('discount')->nullable();
 
             $table->string('type')->nullable(); //
             $table->string('state')->nullable();
-            $table->bigInteger('created_by')->index()->unsigned()->nullable();
+            $table->bigInteger('created_by')->unsigned()->nullable();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
-            $table->bigInteger('updated_by')->index()->unsigned()->nullable();
+            $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->dateTime('deleted_on')->nullable();
@@ -385,9 +385,9 @@ class CreateBeautyTables extends Migration
 
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('user_id')->index()->unsigned();
+            $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->bigInteger('service_id')->index()->unsigned();
+            $table->bigInteger('service_id')->unsigned();
             $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
             $table->string('title')->nullable();
             $table->string('description')->nullable();
@@ -402,21 +402,23 @@ class CreateBeautyTables extends Migration
 
             $table->string('type')->nullable(); // request, order, payment
             $table->string('state')->nullable();
-            $table->bigInteger('created_by')->index()->unsigned()->nullable();
+            $table->bigInteger('created_by')->unsigned()->nullable();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
-            $table->bigInteger('updated_by')->index()->unsigned()->nullable();
+            $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->dateTime('deleted_on')->nullable();
         });
 
 
-        Schema::create('orders_services', function (Blueprint $table) {
+        Schema::create('order_services', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('order_id')->index()->unsigned();
+            $table->bigInteger('order_id')->unsigned();
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
-            $table->bigInteger('service_id')->index()->unsigned();
+            $table->bigInteger('service_id')->unsigned();
             $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
+            $table->bigInteger('person_id')->unsigned();
+            $table->foreign('person_id')->references('id')->on('persons')->onDelete('cascade');
             $table->string('note')->nullable();
             $table->bigInteger('number')->nullable();
             $table->bigInteger('price')->nullable();
@@ -428,9 +430,9 @@ class CreateBeautyTables extends Migration
 
             $table->string('type')->nullable(); //
             $table->string('state')->nullable();
-            $table->bigInteger('created_by')->index()->unsigned()->nullable();
+            $table->bigInteger('created_by')->unsigned()->nullable();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
-            $table->bigInteger('updated_by')->index()->unsigned()->nullable();
+            $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->dateTime('deleted_on')->nullable();
@@ -441,9 +443,9 @@ class CreateBeautyTables extends Migration
 
         Schema::create('orders_products', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('order_id')->index()->unsigned();
+            $table->bigInteger('order_id')->unsigned();
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
-            $table->bigInteger('product_id')->index()->unsigned();
+            $table->bigInteger('product_id')->unsigned();
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->string('note')->nullable();
             $table->bigInteger('unit')->nullable();
@@ -457,9 +459,9 @@ class CreateBeautyTables extends Migration
 
             $table->string('type')->nullable(); //
             $table->string('state')->nullable();
-            $table->bigInteger('created_by')->index()->unsigned()->nullable();
+            $table->bigInteger('created_by')->unsigned()->nullable();
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
-            $table->bigInteger('updated_by')->index()->unsigned()->nullable();
+            $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
             $table->dateTime('deleted_on')->nullable();
