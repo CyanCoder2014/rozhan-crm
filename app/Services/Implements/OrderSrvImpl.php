@@ -9,6 +9,7 @@ use App\OrderService;
 use App\Person;
 use App\Service;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -34,51 +35,68 @@ class OrderSrvImpl implements OrderSrv
      *                              [
      *                                  service_id => ,
      *                                  person_id =>
+     *                                  note =>
      *                              ]
      *              ]
      *              ->date (date)
      *              ->start_at (time)
      *              ->end_at (time)
+     *              ->description
      *
+     * @output [
+     *              message
+     *              data
+     *          ]
      */
 
-    public function addOrder()
+    public function addOrder(Request $request)
     {
-        $services =\request('services');
 
-        return DB::transaction(function () use ($services){
 
+        return DB::transaction(function () use ($request){
+            $services =$request->services;
+            $start = Carbon::createFromFormat('Y-m-d H:i',to_georgian($request->date.' '.$request->start_at));
             $order = Order::create([
                 'user_id' => auth()->id(),
                 'title' => null,
-                'description' => null,
+                'description' => $request->description,
                 'file' => null,
                 'general_price' => null,
                 'general_discount' => null,
                 'general_tax' => null,
                 'final_price' => null,
-                'general_date' => null,
-                'general_start' => null,
-                'general_end' => null,
+                'general_date' => $start->format('Y-m-d'),
+                'general_start' => $request->start_at,
+                'general_end' => $request->end_at,
                 'type' => null,
-                'state' => null,
+                'state' => Order::created_status,
                 'created_by' => auth()->id(),
                 'updated_by' => null,
                 'deleted_on' => null,
             ]);
 
 
+
+            $price = 0;
             foreach ($services as $serv){
                 $service = Service::findOrFail($serv['service_id']);
                 $person = Person::findOrFail($serv['person_id']);
-                if (! $person->hasService($service))
-                    return 'perosn has not a service';
-                if (!$this->Booking($order,$service,$person,\request('date'),\request('start_at'),\request('end_at')))
-                    return 'perosn is not available';
+//                dd(to_georgian($request->date.' '.$request->start_at));
 
+                if (! $person->hasService($service))
+                    return ['message' =>'perosn has not a service'];
+                if (!$this->Booking($order,$service,$person,
+                    $start->format('Y-m-d'),$start->format('H:i'),$start->addMinutes($service->max_time)->format('H:i:s')
+                    ,$serv['note']??null))
+                    return ['message' =>'perosn is not available'];
+                $price += $service->priceCalculate();
 
             }
-            return $order;
+            $order->general_end = $start->format('H:i:s');
+            $order->final_price = $price;
+            $order->save();
+
+            return ['message' =>'successful','data' =>$order];
         });
 
 
@@ -97,9 +115,76 @@ class OrderSrvImpl implements OrderSrv
 
     }
 
-
-    public function editOrder()
+    /**
+     * @input $request
+     *              ->order_id
+     *              ->services =[
+     *                              [
+     *                                  service_id => ,
+     *                                  person_id =>
+     *                                  note =>
+     *                              ]
+     *              ]
+     *              ->date (date)
+     *              ->start_at (time)
+     *              ->end_at (time)
+     *              ->description
+     *
+     * @output [
+     *              message
+     *              data
+     *          ]
+     */
+    public function editOrder(Request $request ,Order $order)
     {
+        return DB::transaction(function () use ($request,$order){
+            $services =$request->services;
+            $start = Carbon::createFromFormat('Y-m-d H:i',to_georgian($request->date.' '.$request->start_at));
+            if(! $order->is_editable())
+                return ['message' =>'order is not editable'];
+            $order->fill([
+                'user_id' => auth()->id(),
+                'title' => null,
+                'description' => $request->description,
+                'file' => null,
+                'general_price' => null,
+                'general_discount' => null,
+                'general_tax' => null,
+                'final_price' => null,
+                'general_date' => $start->format('Y-m-d'),
+                'general_start' => $request->start_at,
+                'general_end' => $request->end_at,
+                'type' => null,
+                'state' => Order::created_status,
+                'created_by' => auth()->id(),
+                'updated_by' => null,
+                'deleted_on' => null,
+            ]);
+
+
+
+            $price = 0;
+            $oldServices = $order->services;
+            foreach ($services as $serv){
+                $service = Service::findOrFail($serv['service_id']);
+                $person = Person::findOrFail($serv['person_id']);
+
+                if (! $person->hasService($service))
+                    return ['message' =>'perosn has not a service'];
+                if (!$this->Booking($order,$service,$person,
+                    $start->format('Y-m-d'),$start->format('H:i'),$start->addMinutes($service->max_time)->format('H:i:s')
+                    ,$serv['note']??null,
+                    $oldServices->shift()))
+                    return ['message' =>'perosn is not available'];
+                $price += $service->priceCalculate();
+
+            }
+            $order->general_end = $start->format('H:i:s');
+            $order->final_price = $price;
+            $order->save();
+
+            return ['message' =>'successful','data' =>$order];
+        });
 
     }
 
@@ -141,25 +226,29 @@ class OrderSrvImpl implements OrderSrv
 
 
 
-    private function Booking(Order $order,Service $service,Person $person,$date,$start_time,$end_time):bool {
+    private function Booking(Order $order,Service $service,Person $person,$date,$start_time,$end_time,$note,OrderService $orderService= null):bool {
         if(! $person->isAvailabe($date,$start_time,$end_time))
             return false;
-        OrderService::create([
+        if (!$orderService)
+            $orderService = new OrderService();
+        $orderService->fill([
             'order_id' => $order->id,
             'service_id' => $service->id,
             'person_id'=> $person->id,
-            'note' => null,
+            'note' => $note,
             'number' => null,
             'price' => $service->price,
             'discount' => $service->default_discount,
             'tax' => $service->tax,
             'date' => $date,
             'start' => $start_time ,
-            'state' => null,
+            'end' => $end_time ,
+            'state' => OrderService::created_status,
             'created_by' => $order->user_id,
             'updated_by' => null,
             'deleted_on' => null,
         ]);
+        $orderService->save();
 
         return true;
     }

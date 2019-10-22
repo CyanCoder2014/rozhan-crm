@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+    const created_status = 0;
 
     protected $fillable=[
         'user_id',
@@ -25,4 +26,8 @@ class Order extends Model
         'updated_by',
         'deleted_on',
     ];
+
+    public function is_editable(){
+        return true;
+    }
 }

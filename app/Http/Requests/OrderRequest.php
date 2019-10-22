@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class OrderRequest extends FormRequest
+class OrderRequest extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,9 +26,13 @@ class OrderRequest extends FormRequest
         return [
             'services.*.service_id' => ['required','exists:services,id'],
             'services.*.person_id' => ['required','exists:persons,id'],
-            'date' => ['required'],
-            'start_at' => ['required'],
-            'end_at' => ['required']
+            'date' => ['required',function ($attribute, $value, $fail) {
+                if (!validate_jalili($value)) {
+                    $fail($attribute.' is not jalili time.');
+                }
+            }],
+            'start_at' => ['required','date_format:H:i'],
+            'end_at' => ['required','date_format:H:i']
         ];
     }
 }

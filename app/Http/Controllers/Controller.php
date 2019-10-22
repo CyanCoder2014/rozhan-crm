@@ -15,10 +15,10 @@ class Controller extends BaseController
     public $response;
 
 
-    public function response($data){
+    public function response($data,$message=null){
 
         $response['data'] = $data;
-        $response['message'] = 'null';
+        $response['message'] = $message;
 
         return $response;
     }

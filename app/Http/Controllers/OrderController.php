@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Requests\OrderRequest;
+use App\Http\Requests\UpdateOrderRequest;
 use App\Order;
 use App\Repositories\Interfaces\AppRepository;
 use App\Repositories\OrderSrvImpl;
@@ -43,7 +44,7 @@ class OrderController extends Controller
     }
 
 
-    public function update(Request $request, $id)
+    public function update(OrderRequest $request, $id)
     {
 
         $data = $this->appRepository->edit($request , $id, $this->model);
@@ -53,8 +54,8 @@ class OrderController extends Controller
 
     public function store(OrderRequest $request)
     {
-        $data = $this->orderService->addOrder();
-        return $this->response($data);
+        $array = $this->orderService->addOrder($request);
+        return $this->response($array['data']??null,$array['message']??null);
     }
 
     public function destroy($id)

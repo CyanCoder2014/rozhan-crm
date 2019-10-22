@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class OrderService extends Model
 {
+    const created_status = 0;
 
     protected $fillable=[
         'order_id',
@@ -18,6 +19,7 @@ class OrderService extends Model
         'tax',
         'date',
         'start',
+        'end',
         'state',
         'created_by',
         'updated_by',
