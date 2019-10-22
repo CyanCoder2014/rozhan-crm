@@ -4596,7 +4596,171 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      checkedHealths: []
+    };
+  } //  data: () => ({
+  //  checkedHealths: []
+  //   }),
+  // mounted: function(){
+  //     jQuery('input').iCheck({
+  //       checkboxClass: 'icheckbox_square-green',
+  //       radioClass: 'iradio_square-green',
+  //       increaseArea: '20%' // optional
+  //   });
+  //   jQuery('input').on('ifChecked', function(e){
+  //     app.$data.checkedHealths.push($(this).val());
+  //   });
+  //   jQuery('input').on('ifUnchecked', function(e){
+  //     let data = app.$data.checkedHealths;
+  //     data.splice(data.indexOf($(this).val()),1)
+  //   });
+  // }
+  ,
+  methods: {
+    getValue: function getValue() {
+      console.log(1);
+    }
+  }
+});
 
 /***/ }),
 
@@ -9434,6 +9598,25 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 // module
 exports.push([module.i, "\n.inline-block {\n  width: 200px;\n  display: inline-block;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/order/request.vue?vue&type=style&index=0&lang=css&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/order/request.vue?vue&type=style&index=0&lang=css& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* This css is for normalizing styles. You can skip this. */\n*,\n*:before,\n*:after {\n    box-sizing: border-box;\n    margin: 0;\n    padding: 0;\n}\n.new {\n    padding: 50px;\n}\n.form-group2 {\n    display: block;\n    margin-bottom: 15px;\n}\n.form-group2 input {\n    padding: 0;\n    height: initial;\n    width: initial;\n    margin-bottom: 0;\n    display: none;\n    cursor: pointer;\n}\n.form-group2 label {\n    position: relative;\n    cursor: pointer;\n}\n.form-group2 label:before {\n    content: '';\n    -webkit-appearance: none;\n    background-color: transparent;\n    border: 2px solid lightgray;\n    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);\n    padding: 10px;\n    display: inline-block;\n    position: relative;\n    vertical-align: middle;\n    cursor: pointer;\n    margin-right: 5px;\n}\n.form-group2 input:checked+label:after {\n     content: '';\ndisplay: block;\nposition: absolute;\ntop: 2px;\nright: 13px;\nwidth: 8px;\nheight: 14px;\nborder: solid #d54e21;\nborder-width: 0 4px 4px 0;\ntransform: rotate(45deg);\n}\n.form-group3 label:before {\n    content: '';\n    -webkit-appearance: none;\n    background-color: transparent;\n    border: 2px solid lightgray;\n    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);\n    padding: 10px;\n    display: inline-block;\n    position: relative;\n    vertical-align: middle;\n    cursor: pointer;\n    margin-right: 5px;\n}\n.form-group3 input:checked+label:after {\n     content: '';\ndisplay: block;\nposition: absolute;\ntop: 2px;\nright: 13px;\nwidth: 8px;\nheight: 14px;\nborder: solid #d54e21;\nborder-width: 0 4px 4px 0;\ntransform: rotate(45deg);\n}\n", ""]);
 
 // exports
 
@@ -40316,6 +40499,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/order/request.vue?vue&type=style&index=0&lang=css&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/order/request.vue?vue&type=style&index=0&lang=css& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./request.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/order/request.vue?vue&type=style&index=0&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/lib/addStyles.js":
 /*!****************************************************!*\
   !*** ./node_modules/style-loader/lib/addStyles.js ***!
@@ -43166,7 +43379,7 @@ var staticRenderFns = [
         _c("section", { staticClass: "content-header" }, [
           _c("h1", [
             _vm._v("\n      پنل مدیریت\n      "),
-            _c("small", [_vm._v("ورژن ۱.۳")])
+            _c("small", [_vm._v("ورژن ۱.7")])
           ]),
           _vm._v(" "),
           _c("ol", { staticClass: "breadcrumb" }, [
@@ -43177,7 +43390,7 @@ var staticRenderFns = [
               ])
             ]),
             _vm._v(" "),
-            _c("li", { staticClass: "active" }, [_vm._v("Beauty+")])
+            _c("li", { staticClass: "active" }, [_vm._v("Beauty++")])
           ])
         ]),
         _vm._v(" "),
@@ -44707,7 +44920,7 @@ var staticRenderFns = [
               _vm._v(" "),
               _c("div", { staticClass: "box-body" }, [
                 _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("  از ساعت")]),
+                  _c("label", [_vm._v(" از ساعت")]),
                   _vm._v(" "),
                   _c("div", { staticClass: "input-group" }, [
                     _c("input", {
@@ -44722,7 +44935,7 @@ var staticRenderFns = [
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("  تا ساعت")]),
+                  _c("label", [_vm._v(" تا ساعت")]),
                   _vm._v(" "),
                   _c("div", { staticClass: "input-group" }, [
                     _c("input", {
@@ -44794,10 +45007,14 @@ var staticRenderFns = [
                     _c("tr", [
                       _c("td", [
                         _c("label", [
-                          _c("input", {
-                            staticClass: "minimal-red",
-                            attrs: { type: "checkbox" }
-                          })
+                          _c("div", { staticClass: "form-group2" }, [
+                            _c("input", {
+                              staticClass: "label2",
+                              attrs: { type: "checkbox", id: "html1" }
+                            }),
+                            _vm._v(" "),
+                            _c("label", { attrs: { for: "html1" } })
+                          ])
                         ])
                       ]),
                       _vm._v(" "),
@@ -44816,7 +45033,7 @@ var staticRenderFns = [
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(
-                          "\n                    سارا جلالی\n                   "
+                          "\n                                    سارا جلالی\n                                "
                         )
                       ]),
                       _vm._v(" "),
@@ -44839,10 +45056,13 @@ var staticRenderFns = [
                     _c("tr", [
                       _c("td", [
                         _c("label", [
-                          _c("input", {
-                            staticClass: "minimal-red",
-                            attrs: { type: "checkbox", checked: "" }
-                          })
+                          _c("div", { staticClass: "form-group2" }, [
+                            _c("input", {
+                              attrs: { type: "checkbox", id: "html2" }
+                            }),
+                            _vm._v(" "),
+                            _c("label", { attrs: { for: "html2" } })
+                          ])
                         ])
                       ]),
                       _vm._v(" "),
@@ -44861,7 +45081,7 @@ var staticRenderFns = [
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(
-                          "\n                    مریم قوی دل\n                  "
+                          "\n                                    مریم قوی دل\n                                "
                         )
                       ]),
                       _vm._v(" "),
@@ -44884,10 +45104,13 @@ var staticRenderFns = [
                     _c("tr", [
                       _c("td", [
                         _c("label", [
-                          _c("input", {
-                            staticClass: "minimal-red",
-                            attrs: { type: "checkbox" }
-                          })
+                          _c("div", { staticClass: "form-group2" }, [
+                            _c("input", {
+                              attrs: { type: "checkbox", id: "html3" }
+                            }),
+                            _vm._v(" "),
+                            _c("label", { attrs: { for: "html3" } })
+                          ])
                         ])
                       ]),
                       _vm._v(" "),
@@ -44906,7 +45129,7 @@ var staticRenderFns = [
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(
-                          "\n                    مرضیه خانم\n                  "
+                          "\n                                    مرضیه خانم\n                                "
                         )
                       ]),
                       _vm._v(" "),
@@ -44936,10 +45159,13 @@ var staticRenderFns = [
                     _c("tr", [
                       _c("td", [
                         _c("label", [
-                          _c("input", {
-                            staticClass: "minimal-red",
-                            attrs: { type: "checkbox" }
-                          })
+                          _c("div", { staticClass: "form-group2" }, [
+                            _c("input", {
+                              attrs: { type: "checkbox", id: "html4" }
+                            }),
+                            _vm._v(" "),
+                            _c("label", { attrs: { for: "html4" } })
+                          ])
                         ])
                       ]),
                       _vm._v(" "),
@@ -44958,7 +45184,7 @@ var staticRenderFns = [
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(
-                          "\n                    ستاره بهادری\n                  "
+                          "\n                                    ستاره بهادری\n                                "
                         )
                       ]),
                       _vm._v(" "),
@@ -45063,7 +45289,9 @@ var staticRenderFns = [
                         attrs: { "data-toggle": "dropdown", href: "#" }
                       },
                       [
-                        _vm._v("\n                  فروش لوازم "),
+                        _vm._v(
+                          "\n                                    فروش لوازم "
+                        ),
                         _c("span", { staticClass: "caret" })
                       ]
                     ),
@@ -45079,7 +45307,7 @@ var staticRenderFns = [
                               href: "#"
                             }
                           },
-                          [_vm._v("  رنگ مو")]
+                          [_vm._v(" رنگ مو")]
                         )
                       ]),
                       _vm._v(" "),
@@ -45093,7 +45321,11 @@ var staticRenderFns = [
                               href: "#"
                             }
                           },
-                          [_vm._v("  تقویت کننده مو ")]
+                          [
+                            _vm._v(
+                              " تقویت کننده\n                                            مو "
+                            )
+                          ]
                         )
                       ]),
                       _vm._v(" "),
@@ -45107,7 +45339,7 @@ var staticRenderFns = [
                               href: "#"
                             }
                           },
-                          [_vm._v("  اکستنشن")]
+                          [_vm._v(" اکستنشن")]
                         )
                       ]),
                       _vm._v(" "),
@@ -45126,7 +45358,11 @@ var staticRenderFns = [
                               href: "#"
                             }
                           },
-                          [_vm._v("  خدمات عروس")]
+                          [
+                            _vm._v(
+                              " خدمات\n                                            عروس"
+                            )
+                          ]
                         )
                       ])
                     ])
@@ -45220,7 +45456,7 @@ var staticRenderFns = [
                           _vm._v(" "),
                           _c("div", { staticClass: "pull-left" }, [
                             _vm._v(
-                              "\n                      1-50/200\n                      "
+                              "\n                                            1-50/200\n                                            "
                             ),
                             _c("div", { staticClass: "btn-group" }, [
                               _c(
@@ -45261,10 +45497,25 @@ var staticRenderFns = [
                                 _c("tbody", [
                                   _c("tr", [
                                     _c("td", [
-                                      _c("input", {
-                                        staticClass: "flat-red",
-                                        attrs: { type: "checkbox" }
-                                      })
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass: "form-group2 form-group3"
+                                        },
+                                        [
+                                          _c("input", {
+                                            staticClass: "label11",
+                                            attrs: {
+                                              type: "checkbox",
+                                              id: "html11"
+                                            }
+                                          }),
+                                          _vm._v(" "),
+                                          _c("label", {
+                                            attrs: { for: "html11" }
+                                          })
+                                        ]
+                                      )
                                     ]),
                                     _vm._v(" "),
                                     _c("td", { staticClass: "mailbox-star" }, [
@@ -45279,7 +45530,11 @@ var staticRenderFns = [
                                       _c(
                                         "a",
                                         { attrs: { href: "read-mail.html" } },
-                                        [_vm._v("رنگ مو  ")]
+                                        [
+                                          _vm._v(
+                                            "ssssssرنگ مو\n                                                        "
+                                          )
+                                        ]
                                       )
                                     ]),
                                     _vm._v(" "),
@@ -45287,51 +45542,9 @@ var staticRenderFns = [
                                       "td",
                                       { staticClass: "mailbox-subject" },
                                       [
-                                        _c("b", [_vm._v("  500,0000 تومان ")]),
-                                        _vm._v(" مش\n                        ")
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c("td", {
-                                      staticClass: "mailbox-attachment"
-                                    }),
-                                    _vm._v(" "),
-                                    _c("td", { staticClass: "mailbox-date" }, [
-                                      _vm._v("۱ ساعت ")
-                                    ])
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("tr", [
-                                    _c("td", [
-                                      _c("input", {
-                                        staticClass: "flat-red",
-                                        attrs: { type: "checkbox" }
-                                      })
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("td", { staticClass: "mailbox-star" }, [
-                                      _c("a", { attrs: { href: "#" } }, [
-                                        _c("i", {
-                                          staticClass: "fa fa-star text-yellow"
-                                        })
-                                      ])
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("td", { staticClass: "mailbox-name" }, [
-                                      _c(
-                                        "a",
-                                        { attrs: { href: "read-mail.html" } },
-                                        [_vm._v("رنگ مو  ")]
-                                      )
-                                    ]),
-                                    _vm._v(" "),
-                                    _c(
-                                      "td",
-                                      { staticClass: "mailbox-subject" },
-                                      [
-                                        _c("b", [_vm._v("  500,0000 تومان ")]),
+                                        _c("b", [_vm._v(" 500,0000 تومان ")]),
                                         _vm._v(
-                                          " هایلایت\n                        "
+                                          " مش\n                                                    "
                                         )
                                       ]
                                     ),
@@ -45347,6 +45560,65 @@ var staticRenderFns = [
                                   _vm._v(" "),
                                   _c("tr", [
                                     _c("td", [
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass: "form-group2 form-group3"
+                                        },
+                                        [
+                                          _c("input", {
+                                            staticClass: "label2",
+                                            attrs: {
+                                              type: "checkbox",
+                                              id: "html10"
+                                            }
+                                          }),
+                                          _vm._v(" "),
+                                          _c("label", {
+                                            attrs: { for: "html10" }
+                                          })
+                                        ]
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", { staticClass: "mailbox-star" }, [
+                                      _c("a", { attrs: { href: "#" } }, [
+                                        _c("i", {
+                                          staticClass: "fa fa-star text-yellow"
+                                        })
+                                      ])
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", { staticClass: "mailbox-name" }, [
+                                      _c(
+                                        "a",
+                                        { attrs: { href: "read-mail.html" } },
+                                        [_vm._v("ssرنگ مو ")]
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "td",
+                                      { staticClass: "mailbox-subject" },
+                                      [
+                                        _c("b", [_vm._v(" 500,0000 تومان ")]),
+                                        _vm._v(
+                                          " هایلایت\n                                                    "
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("td", {
+                                      staticClass: "mailbox-attachment"
+                                    }),
+                                    _vm._v(" "),
+                                    _c("td", { staticClass: "mailbox-date" }, [
+                                      _vm._v("12 ساعت ")
+                                    ])
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("tr", [
+                                    _c("td", [
                                       _c("input", {
                                         staticClass: "flat-red",
                                         attrs: { type: "checkbox" }
@@ -45365,7 +45637,7 @@ var staticRenderFns = [
                                       _c(
                                         "a",
                                         { attrs: { href: "read-mail.html" } },
-                                        [_vm._v("رنگ مو  ")]
+                                        [_vm._v("رنگ مو ")]
                                       )
                                     ]),
                                     _vm._v(" "),
@@ -45373,9 +45645,9 @@ var staticRenderFns = [
                                       "td",
                                       { staticClass: "mailbox-subject" },
                                       [
-                                        _c("b", [_vm._v("  500,000 تومان ")]),
+                                        _c("b", [_vm._v(" 500,000 تومان ")]),
                                         _vm._v(
-                                          " سان‌لایت\n                        "
+                                          " سان‌لایت\n                                                    "
                                         )
                                       ]
                                     ),
@@ -45417,8 +45689,10 @@ var staticRenderFns = [
                                       "td",
                                       { staticClass: "mailbox-subject" },
                                       [
-                                        _c("b", [_vm._v("  300,000 تومان ")]),
-                                        _vm._v(" کوپ\n                        ")
+                                        _c("b", [_vm._v(" 300,000 تومان ")]),
+                                        _vm._v(
+                                          " کوپ\n                                                    "
+                                        )
                                       ]
                                     ),
                                     _vm._v(" "),
@@ -45459,9 +45733,9 @@ var staticRenderFns = [
                                       "td",
                                       { staticClass: "mailbox-subject" },
                                       [
-                                        _c("b", [_vm._v("  100,000 تومان ")]),
+                                        _c("b", [_vm._v(" 100,000 تومان ")]),
                                         _vm._v(
-                                          " کوتاه کردن\n                        "
+                                          " کوتاه کردن\n                                                    "
                                         )
                                       ]
                                     ),
@@ -45503,9 +45777,9 @@ var staticRenderFns = [
                                       "td",
                                       { staticClass: "mailbox-subject" },
                                       [
-                                        _c("b", [_vm._v("  200,000 تومان ")]),
+                                        _c("b", [_vm._v(" 200,000 تومان ")]),
                                         _vm._v(
-                                          " آمبره\n                        "
+                                          " آمبره\n                                                    "
                                         )
                                       ]
                                     ),
@@ -45547,9 +45821,9 @@ var staticRenderFns = [
                                       "td",
                                       { staticClass: "mailbox-subject" },
                                       [
-                                        _c("b", [_vm._v("  100,000 تومان ")]),
+                                        _c("b", [_vm._v(" 100,000 تومان ")]),
                                         _vm._v(
-                                          " برس‌پیچ\n                        "
+                                          " برس‌پیچ\n                                                    "
                                         )
                                       ]
                                     ),
@@ -45591,9 +45865,9 @@ var staticRenderFns = [
                                       "td",
                                       { staticClass: "mailbox-subject" },
                                       [
-                                        _c("b", [_vm._v("  100,000 تومان ")]),
+                                        _c("b", [_vm._v(" 100,000 تومان ")]),
                                         _vm._v(
-                                          " لخت کردن\n                        "
+                                          " لخت کردن\n                                                    "
                                         )
                                       ]
                                     ),
@@ -45635,9 +45909,9 @@ var staticRenderFns = [
                                       "td",
                                       { staticClass: "mailbox-subject" },
                                       [
-                                        _c("b", [_vm._v("  100,000 تومان ")]),
+                                        _c("b", [_vm._v(" 100,000 تومان ")]),
                                         _vm._v(
-                                          " آفریقایی\n                        "
+                                          " آفریقایی\n                                                    "
                                         )
                                       ]
                                     ),
@@ -45671,7 +45945,7 @@ var staticRenderFns = [
                                       _c(
                                         "a",
                                         { attrs: { href: "read-mail.html" } },
-                                        [_vm._v("کراتینه  ")]
+                                        [_vm._v("کراتینه ")]
                                       )
                                     ]),
                                     _vm._v(" "),
@@ -45679,9 +45953,9 @@ var staticRenderFns = [
                                       "td",
                                       { staticClass: "mailbox-subject" },
                                       [
-                                        _c("b", [_vm._v("  300,0000 تومان ")]),
+                                        _c("b", [_vm._v(" 300,0000 تومان ")]),
                                         _vm._v(
-                                          "  ...\n                        "
+                                          " ...\n                                                    "
                                         )
                                       ]
                                     ),
@@ -45755,7 +46029,7 @@ var staticRenderFns = [
                           _vm._v(" "),
                           _c("div", { staticClass: "pull-left" }, [
                             _vm._v(
-                              "\n                      1-50/200\n                      "
+                              "\n                                            1-50/200\n                                            "
                             ),
                             _c("div", { staticClass: "btn-group" }, [
                               _c(
@@ -45864,7 +46138,7 @@ var staticRenderFns = [
                           _vm._v(" "),
                           _c("div", { staticClass: "pull-left" }, [
                             _vm._v(
-                              "\n                      1-50/200\n                      "
+                              "\n                                            1-50/200\n                                            "
                             ),
                             _c("div", { staticClass: "btn-group" }, [
                               _c(
@@ -45905,6 +46179,31 @@ var staticRenderFns = [
                                 _c("tbody", [
                                   _c("tr", [
                                     _c("td", [
+                                      _vm._v(
+                                        "\n                                                        sssssssssssssssssss\n                                                        "
+                                      ),
+                                      _c("input", {
+                                        attrs: { type: "checkbox" }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("input", {
+                                        attrs: { type: "checkbox", checked: "" }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("input", {
+                                        attrs: { type: "radio", name: "iCheck" }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("input", {
+                                        attrs: {
+                                          type: "radio",
+                                          name: "iCheck",
+                                          checked: ""
+                                        }
+                                      })
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
                                       _c("input", {
                                         staticClass: "flat-red",
                                         attrs: { type: "checkbox" }
@@ -45923,7 +46222,7 @@ var staticRenderFns = [
                                       _c(
                                         "a",
                                         { attrs: { href: "read-mail.html" } },
-                                        [_vm._v("کاشت ناخن   ")]
+                                        [_vm._v("کاشت ناخن ")]
                                       )
                                     ]),
                                     _vm._v(" "),
@@ -45931,9 +46230,9 @@ var staticRenderFns = [
                                       "td",
                                       { staticClass: "mailbox-subject" },
                                       [
-                                        _c("b", [_vm._v("  200,0000 تومان ")]),
+                                        _c("b", [_vm._v(" 200,0000 تومان ")]),
                                         _vm._v(
-                                          " طبیعی\n                        "
+                                          " طبیعی\n                                                    "
                                         )
                                       ]
                                     ),
@@ -45967,7 +46266,7 @@ var staticRenderFns = [
                                       _c(
                                         "a",
                                         { attrs: { href: "read-mail.html" } },
-                                        [_vm._v("کاشت ناخن   ")]
+                                        [_vm._v("کاشت ناخن ")]
                                       )
                                     ]),
                                     _vm._v(" "),
@@ -45975,9 +46274,9 @@ var staticRenderFns = [
                                       "td",
                                       { staticClass: "mailbox-subject" },
                                       [
-                                        _c("b", [_vm._v("  100,0000 تومان ")]),
+                                        _c("b", [_vm._v(" 100,0000 تومان ")]),
                                         _vm._v(
-                                          " مصنوعی\n                        "
+                                          " مصنوعی\n                                                    "
                                         )
                                       ]
                                     ),
@@ -46011,14 +46310,14 @@ var staticRenderFns = [
                                       _c(
                                         "a",
                                         { attrs: { href: "read-mail.html" } },
-                                        [_vm._v("مانیکور   ")]
+                                        [_vm._v("مانیکور ")]
                                       )
                                     ]),
                                     _vm._v(" "),
                                     _c(
                                       "td",
                                       { staticClass: "mailbox-subject" },
-                                      [_c("b", [_vm._v("  100,0000 تومان ")])]
+                                      [_c("b", [_vm._v(" 100,0000 تومان ")])]
                                     ),
                                     _vm._v(" "),
                                     _c("td", {
@@ -46050,14 +46349,14 @@ var staticRenderFns = [
                                       _c(
                                         "a",
                                         { attrs: { href: "read-mail.html" } },
-                                        [_vm._v("پدی‌کور   ")]
+                                        [_vm._v("پدی‌کور ")]
                                       )
                                     ]),
                                     _vm._v(" "),
                                     _c(
                                       "td",
                                       { staticClass: "mailbox-subject" },
-                                      [_c("b", [_vm._v("  100,0000 تومان ")])]
+                                      [_c("b", [_vm._v(" 100,0000 تومان ")])]
                                     ),
                                     _vm._v(" "),
                                     _c("td", {
@@ -46089,14 +46388,14 @@ var staticRenderFns = [
                                       _c(
                                         "a",
                                         { attrs: { href: "read-mail.html" } },
-                                        [_vm._v("ژلیش   ")]
+                                        [_vm._v("ژلیش ")]
                                       )
                                     ]),
                                     _vm._v(" "),
                                     _c(
                                       "td",
                                       { staticClass: "mailbox-subject" },
-                                      [_c("b", [_vm._v("  100,0000 تومان ")])]
+                                      [_c("b", [_vm._v(" 100,0000 تومان ")])]
                                     ),
                                     _vm._v(" "),
                                     _c("td", {
@@ -46128,7 +46427,7 @@ var staticRenderFns = [
                                       _c(
                                         "a",
                                         { attrs: { href: "read-mail.html" } },
-                                        [_vm._v("لاک ناخن   ")]
+                                        [_vm._v("لاک ناخن ")]
                                       )
                                     ]),
                                     _vm._v(" "),
@@ -46136,9 +46435,9 @@ var staticRenderFns = [
                                       "td",
                                       { staticClass: "mailbox-subject" },
                                       [
-                                        _c("b", [_vm._v("  100,0000 تومان ")]),
+                                        _c("b", [_vm._v(" 100,0000 تومان ")]),
                                         _vm._v(
-                                          " تک رنگ\n                        "
+                                          " تک رنگ\n                                                    "
                                         )
                                       ]
                                     ),
@@ -46172,7 +46471,7 @@ var staticRenderFns = [
                                       _c(
                                         "a",
                                         { attrs: { href: "read-mail.html" } },
-                                        [_vm._v("لاک ناخن   ")]
+                                        [_vm._v("لاک ناخن ")]
                                       )
                                     ]),
                                     _vm._v(" "),
@@ -46180,9 +46479,9 @@ var staticRenderFns = [
                                       "td",
                                       { staticClass: "mailbox-subject" },
                                       [
-                                        _c("b", [_vm._v("  150,0000 تومان ")]),
+                                        _c("b", [_vm._v(" 150,0000 تومان ")]),
                                         _vm._v(
-                                          " فرنچ\n                        "
+                                          " فرنچ\n                                                    "
                                         )
                                       ]
                                     ),
@@ -46216,7 +46515,7 @@ var staticRenderFns = [
                                       _c(
                                         "a",
                                         { attrs: { href: "read-mail.html" } },
-                                        [_vm._v("لاک ناخن   ")]
+                                        [_vm._v("لاک ناخن ")]
                                       )
                                     ]),
                                     _vm._v(" "),
@@ -46224,9 +46523,9 @@ var staticRenderFns = [
                                       "td",
                                       { staticClass: "mailbox-subject" },
                                       [
-                                        _c("b", [_vm._v("  75,0000 تومان ")]),
+                                        _c("b", [_vm._v(" 75,0000 تومان ")]),
                                         _vm._v(
-                                          " برق ناخن\n                        "
+                                          " برق ناخن\n                                                    "
                                         )
                                       ]
                                     ),
@@ -46260,14 +46559,14 @@ var staticRenderFns = [
                                       _c(
                                         "a",
                                         { attrs: { href: "read-mail.html" } },
-                                        [_vm._v("ریمور  ")]
+                                        [_vm._v("ریمور ")]
                                       )
                                     ]),
                                     _vm._v(" "),
                                     _c(
                                       "td",
                                       { staticClass: "mailbox-subject" },
-                                      [_c("b", [_vm._v("  50,0000 تومان ")])]
+                                      [_c("b", [_vm._v(" 50,0000 تومان ")])]
                                     ),
                                     _vm._v(" "),
                                     _c("td", {
@@ -46339,7 +46638,7 @@ var staticRenderFns = [
                           _vm._v(" "),
                           _c("div", { staticClass: "pull-left" }, [
                             _vm._v(
-                              "\n                      1-50/200\n                      "
+                              "\n                                            1-50/200\n                                            "
                             ),
                             _c("div", { staticClass: "btn-group" }, [
                               _c(
@@ -46448,7 +46747,7 @@ var staticRenderFns = [
                           _vm._v(" "),
                           _c("div", { staticClass: "pull-left" }, [
                             _vm._v(
-                              "\n                      1-50/200\n                      "
+                              "\n                                            1-50/200\n                                            "
                             ),
                             _c("div", { staticClass: "btn-group" }, [
                               _c(
@@ -46507,7 +46806,11 @@ var staticRenderFns = [
                                       _c(
                                         "a",
                                         { attrs: { href: "read-mail.html" } },
-                                        [_vm._v("ماسک و پاکسازی  ")]
+                                        [
+                                          _vm._v(
+                                            "ماسک و پاکسازی\n                                                        "
+                                          )
+                                        ]
                                       )
                                     ]),
                                     _vm._v(" "),
@@ -46515,9 +46818,9 @@ var staticRenderFns = [
                                       "td",
                                       { staticClass: "mailbox-subject" },
                                       [
-                                        _c("b", [_vm._v("  200,0000 تومان ")]),
+                                        _c("b", [_vm._v(" 200,0000 تومان ")]),
                                         _vm._v(
-                                          " ماسک تمشک و عسل\n                        "
+                                          " ماسک تمشک و\n                                                        عسل\n                                                    "
                                         )
                                       ]
                                     ),
@@ -46551,7 +46854,11 @@ var staticRenderFns = [
                                       _c(
                                         "a",
                                         { attrs: { href: "read-mail.html" } },
-                                        [_vm._v("ماسک و پاکسازی  ")]
+                                        [
+                                          _vm._v(
+                                            "ماسک و پاکسازی\n                                                        "
+                                          )
+                                        ]
                                       )
                                     ]),
                                     _vm._v(" "),
@@ -46559,9 +46866,9 @@ var staticRenderFns = [
                                       "td",
                                       { staticClass: "mailbox-subject" },
                                       [
-                                        _c("b", [_vm._v("  200,0000 تومان ")]),
+                                        _c("b", [_vm._v(" 200,0000 تومان ")]),
                                         _vm._v(
-                                          " ماسک شیرو عسل\n                        "
+                                          " ماسک شیرو\n                                                        عسل\n                                                    "
                                         )
                                       ]
                                     ),
@@ -46595,7 +46902,11 @@ var staticRenderFns = [
                                       _c(
                                         "a",
                                         { attrs: { href: "read-mail.html" } },
-                                        [_vm._v("ماسک و پاکسازی  ")]
+                                        [
+                                          _vm._v(
+                                            "ماسک و پاکسازی\n                                                        "
+                                          )
+                                        ]
                                       )
                                     ]),
                                     _vm._v(" "),
@@ -46603,9 +46914,9 @@ var staticRenderFns = [
                                       "td",
                                       { staticClass: "mailbox-subject" },
                                       [
-                                        _c("b", [_vm._v("  200,0000 تومان ")]),
+                                        _c("b", [_vm._v(" 200,0000 تومان ")]),
                                         _vm._v(
-                                          " پاکسازی و آبرسانی\n                        "
+                                          " پاکسازی و\n                                                        آبرسانی\n                                                    "
                                         )
                                       ]
                                     ),
@@ -46639,14 +46950,18 @@ var staticRenderFns = [
                                       _c(
                                         "a",
                                         { attrs: { href: "read-mail.html" } },
-                                        [_vm._v("اصلاح صورت  ")]
+                                        [
+                                          _vm._v(
+                                            "اصلاح صورت\n                                                        "
+                                          )
+                                        ]
                                       )
                                     ]),
                                     _vm._v(" "),
                                     _c(
                                       "td",
                                       { staticClass: "mailbox-subject" },
-                                      [_c("b", [_vm._v("  300,0000 تومان ")])]
+                                      [_c("b", [_vm._v(" 300,0000 تومان ")])]
                                     ),
                                     _vm._v(" "),
                                     _c("td", {
@@ -46718,7 +47033,7 @@ var staticRenderFns = [
                           _vm._v(" "),
                           _c("div", { staticClass: "pull-left" }, [
                             _vm._v(
-                              "\n                      1-50/200\n                      "
+                              "\n                                            1-50/200\n                                            "
                             ),
                             _c("div", { staticClass: "btn-group" }, [
                               _c(
@@ -61016,7 +61331,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _request_vue_vue_type_template_id_e58964da___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./request.vue?vue&type=template&id=e58964da& */ "./resources/js/components/order/request.vue?vue&type=template&id=e58964da&");
 /* harmony import */ var _request_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./request.vue?vue&type=script&lang=js& */ "./resources/js/components/order/request.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _request_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./request.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/order/request.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -61024,7 +61341,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _request_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _request_vue_vue_type_template_id_e58964da___WEBPACK_IMPORTED_MODULE_0__["render"],
   _request_vue_vue_type_template_id_e58964da___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -61053,6 +61370,22 @@ component.options.__file = "resources/js/components/order/request.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_request_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./request.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/order/request.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_request_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/order/request.vue?vue&type=style&index=0&lang=css&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/order/request.vue?vue&type=style&index=0&lang=css& ***!
+  \************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_request_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./request.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/order/request.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_request_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_request_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_request_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_request_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_request_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 

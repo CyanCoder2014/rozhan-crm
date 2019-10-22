@@ -480,10 +480,10 @@ a:focus {
   position: absolute;
   right: 55px;
 }
-/* .user-panel > .info > p {
+.user-panel > .info > p {
   font-weight: 600;
   margin-bottom: 9px;
-} */
+}
 .user-panel > .info > a {
   text-decoration: none;
   padding-left: 5px;
