@@ -37,7 +37,7 @@ class AppRepositoryImpl implements AppRepository
 
     public function getPaginated($num = 20, $page = 1,  $model)
     {
-        return  $model->paginate();
+        return  $model->paginate($num);
 
     }
 

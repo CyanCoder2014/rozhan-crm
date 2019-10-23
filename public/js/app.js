@@ -4862,7 +4862,7 @@ var auth = {
     return {
       item: {
         user_id: '1',
-        //                    personal_code: '',
+        //                  personal_code: '',
         image: '',
         first_name: '',
         last_name: '',
@@ -4884,9 +4884,9 @@ var auth = {
     saveForm: function saveForm() {
       var app = this;
       var newItem = app.item;
-      axios.post('/api/contacts', newItem, auth).then(function (resp) {
+      axios.post('/api/services', newItem, auth).then(function (resp) {
         app.$router.push({
-          path: '/contacts'
+          path: '/services'
         });
       })["catch"](function (resp) {
         console.log(resp);
@@ -47107,7 +47107,7 @@ var render = function() {
           [
             _c(
               "router-link",
-              { staticClass: "btn btn-default", attrs: { to: "/contacts" } },
+              { staticClass: "btn btn-default", attrs: { to: "/services" } },
               [_vm._v("بازگشت")]
             )
           ],

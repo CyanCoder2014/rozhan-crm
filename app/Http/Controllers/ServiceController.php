@@ -13,16 +13,21 @@ class ServiceController extends BaseAPIController
         $this->model = new Service();
     }
 
+
     public function store()
     {
         \request()->request->add(['created_by' => auth()->id()]);
         return parent::store();
     }
+
+
     public function update($id)
     {
         \request()->request->add(['updated_by' => auth()->id()]);
         return parent::update($id);
     }
+
+
     protected function validationRules()
     {
         return [
