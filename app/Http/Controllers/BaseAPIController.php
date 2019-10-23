@@ -18,8 +18,10 @@ use Illuminate\Support\Facades\Hash;
 
 class BaseAPIController extends Controller
 {
-
-    protected $appRepository;
+    /**
+     * @var AppRepository
+     */
+    protected  $appRepository;
     protected $model;
 
 
@@ -39,17 +41,20 @@ class BaseAPIController extends Controller
     }
 
 
-    public function update(Request $request, $id)
+    public function update($id)
     {
+        \request()->validate($this->validationRules(),$this->validationMessages(),$this->validationAttributes());
 
-        $data = $this->appRepository->edit($request , $id, $this->model);
+        $data = $this->appRepository->edit(\request()->all() , $id, $this->model);
         return $this->response($data);
     }
 
 
-    public function store(Request $request)
+    public function store()
     {
-        $data = $this->appRepository->add($request , $this->model);
+        \request()->validate($this->validationRules(),$this->validationMessages(),$this->validationAttributes());
+
+        $data = $this->appRepository->add(\request()->all() , $this->model);
         return $this->response($data);
     }
 
@@ -57,6 +62,16 @@ class BaseAPIController extends Controller
     {
         $data = $this->appRepository->delete( $id, $this->model);
         return '';
+    }
+
+    protected function validationRules(){
+        return [];
+    }
+    protected function validationAttributes(){
+        return [];
+    }
+    protected function validationMessages(){
+        return [];
     }
 
 

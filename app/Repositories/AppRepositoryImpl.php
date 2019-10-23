@@ -48,9 +48,9 @@ class AppRepositoryImpl implements AppRepository
     }
 
 
-    public function add(Request $request,  $model)
+    public function add($parameters,  $model)
     {
-        $data =  $model->create($request->all());
+        $data =  $model->create($parameters);
         return $data;
     }
 
@@ -58,10 +58,10 @@ class AppRepositoryImpl implements AppRepository
     public function addArray(){}
 
 
-    public function edit(Request $request, $id,  $model)
+    public function edit($parameters, $id,  $model)
     {
         $data =  $model->findOrFail($id);
-        $data->update($request->all());
+        $data->update($parameters);
 
         return $data;
     }

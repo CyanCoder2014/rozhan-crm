@@ -16,9 +16,9 @@ interface AppRepository
     public function getAll( $model);
     public function getPaginated($num = 20, $page = 1,  $model);
     public function getById($id,  $model);
-    public function add(Request $request,  $model);
+    public function add($parameters,  $model);
     public function addArray();
-    public function edit(Request $request, $id,  $model);
+    public function edit($parameters, $id,  $model);
     public function editArray();
     public function delete($id,  $model);
     public function deleteArray();
