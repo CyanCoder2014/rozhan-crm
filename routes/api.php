@@ -47,6 +47,7 @@ Route::middleware(['jwt.auth'])->resource('companies', 'CompaniesController');
 Route::middleware(['jwt.auth'])->resource('contacts', 'ContactController');
 
 Route::middleware(['jwt.auth'])->resource('serviceCategories', 'ServiceCategoryController');
+Route::middleware(['jwt.auth'])->resource('services', 'ServiceController');
 Route::middleware(['jwt.auth'])->resource('orders', 'OrderController');
 Route::middleware(['jwt.auth'])->post('addOrder', 'OrderController@addOrder');
 Route::middleware(['jwt.auth'])->post('editOrder', 'OrderController@editOrder');
