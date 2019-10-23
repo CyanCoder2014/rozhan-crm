@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\BaseAPIController;
-use App\Http\Requests\ServiceCategoryRequest;
+
 use App\Repositories\AppRepositoryImpl;
 use App\ServiceCategory;
-use Illuminate\Http\Request;
 
-class AdminServiceCategoryController extends BaseAPIController
+class ServiceCategoryController extends BaseAPIController
 {
     public function __construct(AppRepositoryImpl $appRepository)
     {
