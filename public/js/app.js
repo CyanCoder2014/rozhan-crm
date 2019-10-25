@@ -4996,7 +4996,7 @@ var auth = {
     var app = this;
     var id = app.$route.params.id;
     app.itemId = id;
-    axios.get('/api/contacts/' + id, auth).then(function (resp) {
+    axios.get('/api/services/' + id, auth).then(function (resp) {
       app.item = resp.data.data;
     })["catch"](function () {
       alert("بارگذاری آیتم امکان پذیر نیست"); //                    console.log('a: ' + auth)
@@ -5020,8 +5020,8 @@ var auth = {
     saveForm: function saveForm() {
       var app = this;
       var newItem = app.item;
-      axios.patch('/api/contacts/' + app.itemId, newItem, auth).then(function (resp) {
-        app.$router.replace('/contacts');
+      axios.patch('/api/services/' + app.itemId, newItem, auth).then(function (resp) {
+        app.$router.replace('/services');
       })["catch"](function (resp) {
         console.log(resp);
         alert("امکان ویرایش آیتم وجود ندارد؟");
@@ -5115,7 +5115,7 @@ var auth = {
   mounted: function mounted() {
     var _this = this;
 
-    axios.get('/api/contacts', auth).then(function (response) {
+    axios.get('/api/services', auth).then(function (response) {
       _this.items = response.data.data; //                    console.log(this.items);
     })["catch"](function (error) {
       console.log(error);
@@ -5128,7 +5128,7 @@ var auth = {
     deleteEntry: function deleteEntry(id, index) {
       if (confirm("از حذف آیتم مطمئن هستید؟")) {
         var app = this;
-        axios["delete"]('/api/contacts/' + id, auth).then(function (resp) {
+        axios["delete"]('/api/services/' + id, auth).then(function (resp) {
           app.items.splice(index, 1);
         })["catch"](function (resp) {
           alert("امکان حذف آیتم وجود ندارد");
@@ -47432,7 +47432,7 @@ var render = function() {
           [
             _c(
               "router-link",
-              { staticClass: "btn btn-default", attrs: { to: "/contacts" } },
+              { staticClass: "btn btn-default", attrs: { to: "/services" } },
               [_vm._v("بازگشت")]
             )
           ],
@@ -47759,7 +47759,7 @@ var render = function() {
               "router-link",
               {
                 staticClass: "btn btn-success",
-                attrs: { to: { name: "create-contact" } }
+                attrs: { to: { name: "create-service" } }
               },
               [_vm._v("افزودن")]
             )
