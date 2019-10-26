@@ -4889,6 +4889,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 var auth = {
   headers: {
     Authorization: 'bearer ' + localStorage.getItem('token')
@@ -60264,7 +60272,21 @@ Vue.use(VueRouter); // 1. Define route components.
 
 
 
- // 2. Define some routes
+ // import { extend } from 'vee-validate';
+// import { required } from 'vee-validate/dist/rules';
+//
+// // Add the required rule
+// extend('required', {
+//     ...required,
+//     message: 'This field is required'
+// });
+//
+// import { ValidationProvider } from 'vee-validate';
+//
+// // Register it globally
+// // main.js or any entry file.
+// Vue.component('ValidationProvider', ValidationProvider);
+// 2. Define some routes
 // Each route should map to a component. The "component" can
 // either be an actual component constructor created via
 // `Vue.extend()`, or just a component options object.
