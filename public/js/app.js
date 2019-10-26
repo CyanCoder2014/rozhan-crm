@@ -5103,6 +5103,11 @@ var auth = {
     axios.get('/api/services/' + id, auth).then(function (resp) {
       app.item = resp.data.data;
     })["catch"](function () {
+      alert("بارگذاری دسته بندی ها امکان پذیر نیست"); //                    console.log('a: ' + auth)
+    });
+    axios.get('/api/serviceCategories', auth).then(function (resp) {
+      app.service_categories = resp.data.data;
+    })["catch"](function () {
       alert("بارگذاری آیتم امکان پذیر نیست"); //                    console.log('a: ' + auth)
     });
   },
