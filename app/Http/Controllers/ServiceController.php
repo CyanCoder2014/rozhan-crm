@@ -14,6 +14,13 @@ class ServiceController extends BaseAPIController
     }
 
 
+    public function index()
+    {
+        $data = Service::with('serviceCategory')->get();
+        return $this->response($data);
+    }
+
+
     public function store()
     {
         \request()->request->add(['created_by' => auth()->id()]);
@@ -34,7 +41,7 @@ class ServiceController extends BaseAPIController
             'parent_id'=>['nullable','exists:services,id'],
             'service_categories_id'=>['required','exists:service_categories,id'],
             'title'=>['string','required'],
-            'image'=>['image'],
+//            'image'=>['image'],
             'description'=>[],
             'initial_number'=>[],
             'remaining_number'=>[],

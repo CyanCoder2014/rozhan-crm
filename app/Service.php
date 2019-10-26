@@ -35,6 +35,12 @@ class Service extends Model
         return $this->belongsTo(static::class);
     }
 
+
+    public function serviceCategory(){
+        return $this->belongsTo('App\ServiceCategory', 'service_categories_id');
+    }
+
+
     public function priceCalculate(){
         if($this->price)
             return $this->price+($this->price*$this->tax/100);
