@@ -28,6 +28,7 @@
         "@fortawesome/free-solid-svg-icons": "^5.11.2",
         "@fortawesome/vue-fontawesome": "^0.1.7",
         "persian-datepicker": "^1.2.0",
+        "vee-validate": "^3.0.11",
         "vue-axios": "^2.1.5",
         "vue-router": "^3.1.3"
     }
