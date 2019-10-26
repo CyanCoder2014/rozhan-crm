@@ -120,7 +120,8 @@ class Handler extends ExceptionHandler
         return response()->json([
             'status'     => false,
             'message'    => $exception->getMessage(),
-            'message_fa' => implode(' ', Arr::flatten($exception->errors()))
+            'messages' => $exception->errors(),
+            'messages_fa' => Arr::flatten($exception->errors())
         ], 400);
     }
 }

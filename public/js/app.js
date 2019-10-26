@@ -4852,6 +4852,43 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var auth = {
   headers: {
     Authorization: 'bearer ' + localStorage.getItem('token')
@@ -4861,36 +4898,46 @@ var auth = {
   data: function data() {
     return {
       item: {
-        user_id: '1',
-        //                  personal_code: '',
-        image: '',
-        first_name: '',
-        last_name: '',
-        mobile: '',
-        email: '',
-        tell: '',
-        country: '',
-        city: '',
-        address: '',
-        location: '',
-        post_code: '',
-        national_code: '',
-        type: '',
-        state: ''
-      }
+        parent_id: '',
+        service_categories_id: '1',
+        title: '',
+        image: null,
+        description: '',
+        initial_number: '',
+        price: '',
+        tax: 0,
+        min_time: '',
+        max_time: ''
+      },
+      errors: [],
+      service_categories: []
     };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get('/api/serviceCategories', auth).then(function (response) {
+      _this.service_categories = response.data.data;
+    })["catch"](function (error) {
+      console.log(error);
+      _this.errored = true;
+    });
   },
   methods: {
     saveForm: function saveForm() {
+      var _this2 = this;
+
       var app = this;
       var newItem = app.item;
       axios.post('/api/services', newItem, auth).then(function (resp) {
         app.$router.push({
           path: '/services'
         });
-      })["catch"](function (resp) {
         console.log(resp);
-        alert("امکان افزودن آیتم وجود ندارد؟");
+      })["catch"](function (e) {
+        _this2.errors.push(e.response.data.messages);
+
+        alert(resp + "امکان افزودن آیتم وجود ندارد؟");
       });
     }
   }
@@ -4907,6 +4954,63 @@ var auth = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5006,14 +5110,19 @@ var auth = {
     return {
       itemId: null,
       item: {
-        first_name: '',
-        last_name: '',
-        mobile: '',
-        email: '',
-        tell: '',
-        city: '',
-        address: ''
-      }
+        parent_id: '',
+        service_categories_id: '1',
+        title: '',
+        image: null,
+        description: '',
+        initial_number: '',
+        price: '',
+        tax: 0,
+        min_time: '',
+        max_time: ''
+      },
+      errors: [],
+      service_categories: []
     };
   },
   methods: {
@@ -5024,6 +5133,7 @@ var auth = {
         app.$router.replace('/services');
       })["catch"](function (resp) {
         console.log(resp);
+        this.errors.push(resp.response.data.messages);
         alert("امکان ویرایش آیتم وجود ندارد؟");
       });
     }
@@ -5041,6 +5151,7 @@ var auth = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -5134,6 +5245,14 @@ var auth = {
           alert("امکان حذف آیتم وجود ندارد");
         });
       }
+    },
+    getRelation: function getRelation(id) {
+      axios.get('/api/services/' + id, auth).then(function (resp) {
+        console.log(resp.data.data.id);
+        return resp.data.data.id;
+      })["catch"](function (resp) {
+        return 'نا مشخص';
+      });
     }
   }
 });
@@ -47129,160 +47248,37 @@ var render = function() {
                 }
               },
               [
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-xs-12 form-group" }, [
-                    _c("label", { staticClass: "control-label" }, [
-                      _vm._v("نام ")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.item.first_name,
-                          expression: "item.first_name"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.item.first_name },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.item, "first_name", $event.target.value)
-                        }
-                      }
-                    })
-                  ])
-                ]),
+                _vm.errors && _vm.errors.length
+                  ? _c(
+                      "ul",
+                      { staticClass: "container " },
+                      _vm._l(_vm.errors[0], function(error) {
+                        return _c("li", { staticClass: "text-danger" }, [
+                          _c(
+                            "ul",
+                            _vm._l(error, function(error_message) {
+                              return _c("li", { staticClass: "text-danger" }, [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(error_message) +
+                                    "\n                            "
+                                )
+                              ])
+                            }),
+                            0
+                          ),
+                          _vm._v(" "),
+                          _c("hr")
+                        ])
+                      }),
+                      0
+                    )
+                  : _vm._e(),
                 _vm._v(" "),
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-xs-12 form-group" }, [
                     _c("label", { staticClass: "control-label" }, [
-                      _vm._v("نام خانوادگی")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.item.last_name,
-                          expression: "item.last_name"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.item.last_name },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.item, "last_name", $event.target.value)
-                        }
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-xs-12 form-group" }, [
-                    _c("label", { staticClass: "control-label" }, [
-                      _vm._v("موبایل")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.item.mobile,
-                          expression: "item.mobile"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.item.mobile },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.item, "mobile", $event.target.value)
-                        }
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-xs-12 form-group" }, [
-                    _c("label", { staticClass: "control-label" }, [
-                      _vm._v("ایمیل")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.item.email,
-                          expression: "item.email"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.item.email },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.item, "email", $event.target.value)
-                        }
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-xs-12 form-group" }, [
-                    _c("label", { staticClass: "control-label" }, [
-                      _vm._v("تلفن")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.item.tell,
-                          expression: "item.tell"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.item.tell },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.item, "tell", $event.target.value)
-                        }
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-xs-12 form-group" }, [
-                    _c("label", { staticClass: "control-label" }, [
-                      _vm._v("شهر")
+                      _vm._v("دسته بندی")
                     ]),
                     _vm._v(" "),
                     _c(
@@ -47292,8 +47288,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.item.city,
-                            expression: "item.city"
+                            value: _vm.item.service_categories_id,
+                            expression: "item.service_categories_id"
                           }
                         ],
                         staticClass: "form-control",
@@ -47309,7 +47305,7 @@ var render = function() {
                               })
                             _vm.$set(
                               _vm.item,
-                              "city",
+                              "service_categories_id",
                               $event.target.multiple
                                 ? $$selectedVal
                                 : $$selectedVal[0]
@@ -47317,31 +47313,22 @@ var render = function() {
                           }
                         }
                       },
-                      [
-                        _c("option", { attrs: { selected: "", value: "1" } }, [
-                          _vm._v("تهران")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "1" } }, [
-                          _vm._v("کرج")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "1" } }, [
-                          _vm._v("اصفهان")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "1" } }, [
-                          _vm._v("اهواز")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "1" } }, [
-                          _vm._v("مشهد")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "1" } }, [
-                          _vm._v("تبریز")
-                        ])
-                      ]
+                      _vm._l(_vm.service_categories, function(
+                        service_category
+                      ) {
+                        return _c(
+                          "option",
+                          { domProps: { value: service_category.id } },
+                          [
+                            _vm._v(
+                              "\n                            " +
+                                _vm._s(service_category.title) +
+                                "\n                        "
+                            )
+                          ]
+                        )
+                      }),
+                      0
                     )
                   ])
                 ]),
@@ -47349,7 +47336,7 @@ var render = function() {
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-xs-12 form-group" }, [
                     _c("label", { staticClass: "control-label" }, [
-                      _vm._v("آدرس")
+                      _vm._v(" عنوان")
                     ]),
                     _vm._v(" "),
                     _c("input", {
@@ -47357,19 +47344,173 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.item.address,
-                          expression: "item.address"
+                          value: _vm.item.title,
+                          expression: "item.title"
                         }
                       ],
                       staticClass: "form-control",
                       attrs: { type: "text" },
-                      domProps: { value: _vm.item.address },
+                      domProps: { value: _vm.item.title },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(_vm.item, "address", $event.target.value)
+                          _vm.$set(_vm.item, "title", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-xs-12 form-group" }, [
+                    _c("label", { staticClass: "control-label" }, [
+                      _vm._v("توضیحات")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.item.description,
+                          expression: "item.description"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.item.description },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.item, "description", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-xs-12 form-group" }, [
+                    _c("label", { staticClass: "control-label" }, [
+                      _vm._v("تعداد ارائه خدمت")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.item.initial_number,
+                          expression: "item.initial_number"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.item.initial_number },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.item,
+                            "initial_number",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-xs-12 form-group" }, [
+                    _c("label", { staticClass: "control-label" }, [
+                      _vm._v("قیمت")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.item.price,
+                          expression: "item.price"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.item.price },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.item, "price", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-xs-12 form-group" }, [
+                    _c("label", { staticClass: "control-label" }, [
+                      _vm._v("حداقل زمان")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.item.min_time,
+                          expression: "item.min_time"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.item.min_time },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.item, "min_time", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-xs-12 form-group" }, [
+                    _c("label", { staticClass: "control-label" }, [
+                      _vm._v("حداکثر زمان")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.item.max_time,
+                          expression: "item.max_time"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.item.max_time },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.item, "max_time", $event.target.value)
                         }
                       }
                     })
@@ -47454,160 +47595,37 @@ var render = function() {
                 }
               },
               [
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-xs-12 form-group" }, [
-                    _c("label", { staticClass: "control-label" }, [
-                      _vm._v("نام ")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.item.first_name,
-                          expression: "item.first_name"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.item.first_name },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.item, "first_name", $event.target.value)
-                        }
-                      }
-                    })
-                  ])
-                ]),
+                _vm.errors && _vm.errors.length
+                  ? _c(
+                      "ul",
+                      { staticClass: "container " },
+                      _vm._l(_vm.errors[0], function(error) {
+                        return _c("li", { staticClass: "text-danger" }, [
+                          _c(
+                            "ul",
+                            _vm._l(error, function(error_message) {
+                              return _c("li", { staticClass: "text-danger" }, [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(error_message) +
+                                    "\n                            "
+                                )
+                              ])
+                            }),
+                            0
+                          ),
+                          _vm._v(" "),
+                          _c("hr")
+                        ])
+                      }),
+                      0
+                    )
+                  : _vm._e(),
                 _vm._v(" "),
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-xs-12 form-group" }, [
                     _c("label", { staticClass: "control-label" }, [
-                      _vm._v("نام خانوادگی")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.item.last_name,
-                          expression: "item.last_name"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.item.last_name },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.item, "last_name", $event.target.value)
-                        }
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-xs-12 form-group" }, [
-                    _c("label", { staticClass: "control-label" }, [
-                      _vm._v("موبایل")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.item.mobile,
-                          expression: "item.mobile"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.item.mobile },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.item, "mobile", $event.target.value)
-                        }
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-xs-12 form-group" }, [
-                    _c("label", { staticClass: "control-label" }, [
-                      _vm._v("ایمیل")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.item.email,
-                          expression: "item.email"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.item.email },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.item, "email", $event.target.value)
-                        }
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-xs-12 form-group" }, [
-                    _c("label", { staticClass: "control-label" }, [
-                      _vm._v("تلفن")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.item.tell,
-                          expression: "item.tell"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.item.tell },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.item, "tell", $event.target.value)
-                        }
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-xs-12 form-group" }, [
-                    _c("label", { staticClass: "control-label" }, [
-                      _vm._v("شهر")
+                      _vm._v("دسته بندی")
                     ]),
                     _vm._v(" "),
                     _c(
@@ -47617,8 +47635,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.item.city,
-                            expression: "item.city"
+                            value: _vm.item.service_categories_id,
+                            expression: "item.service_categories_id"
                           }
                         ],
                         staticClass: "form-control",
@@ -47634,7 +47652,7 @@ var render = function() {
                               })
                             _vm.$set(
                               _vm.item,
-                              "city",
+                              "service_categories_id",
                               $event.target.multiple
                                 ? $$selectedVal
                                 : $$selectedVal[0]
@@ -47642,31 +47660,22 @@ var render = function() {
                           }
                         }
                       },
-                      [
-                        _c("option", { attrs: { selected: "", value: "1" } }, [
-                          _vm._v("تهران")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "1" } }, [
-                          _vm._v("کرج")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "1" } }, [
-                          _vm._v("اصفهان")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "1" } }, [
-                          _vm._v("اهواز")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "1" } }, [
-                          _vm._v("مشهد")
-                        ]),
-                        _vm._v(" "),
-                        _c("option", { attrs: { value: "1" } }, [
-                          _vm._v("تبریز")
-                        ])
-                      ]
+                      _vm._l(_vm.service_categories, function(
+                        service_category
+                      ) {
+                        return _c(
+                          "option",
+                          { domProps: { value: service_category.id } },
+                          [
+                            _vm._v(
+                              "\n                                " +
+                                _vm._s(service_category.title) +
+                                "\n                            "
+                            )
+                          ]
+                        )
+                      }),
+                      0
                     )
                   ])
                 ]),
@@ -47674,7 +47683,7 @@ var render = function() {
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-xs-12 form-group" }, [
                     _c("label", { staticClass: "control-label" }, [
-                      _vm._v("آدرس")
+                      _vm._v(" عنوان")
                     ]),
                     _vm._v(" "),
                     _c("input", {
@@ -47682,19 +47691,173 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.item.address,
-                          expression: "item.address"
+                          value: _vm.item.title,
+                          expression: "item.title"
                         }
                       ],
                       staticClass: "form-control",
                       attrs: { type: "text" },
-                      domProps: { value: _vm.item.address },
+                      domProps: { value: _vm.item.title },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(_vm.item, "address", $event.target.value)
+                          _vm.$set(_vm.item, "title", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-xs-12 form-group" }, [
+                    _c("label", { staticClass: "control-label" }, [
+                      _vm._v("توضیحات")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.item.description,
+                          expression: "item.description"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.item.description },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.item, "description", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-xs-12 form-group" }, [
+                    _c("label", { staticClass: "control-label" }, [
+                      _vm._v("تعداد ارائه خدمت")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.item.initial_number,
+                          expression: "item.initial_number"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.item.initial_number },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.item,
+                            "initial_number",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-xs-12 form-group" }, [
+                    _c("label", { staticClass: "control-label" }, [
+                      _vm._v("قیمت")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.item.price,
+                          expression: "item.price"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.item.price },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.item, "price", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-xs-12 form-group" }, [
+                    _c("label", { staticClass: "control-label" }, [
+                      _vm._v("حداقل زمان")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.item.min_time,
+                          expression: "item.min_time"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.item.min_time },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.item, "min_time", $event.target.value)
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-xs-12 form-group" }, [
+                    _c("label", { staticClass: "control-label" }, [
+                      _vm._v("حداکثر زمان")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.item.max_time,
+                          expression: "item.max_time"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.item.max_time },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.item, "max_time", $event.target.value)
                         }
                       }
                     })
@@ -47784,17 +47947,17 @@ var render = function() {
                     "tbody",
                     _vm._l(_vm.items, function(item, index) {
                       return _c("tr", { attrs: { id: "items" } }, [
-                        _c("td", [_vm._v(_vm._s(item.first_name))]),
+                        _c("td", [_vm._v(_vm._s(item.service_category.title))]),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(item.last_name))]),
+                        _c("td", [_vm._v(_vm._s(item.title))]),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(item.mobile))]),
+                        _c("td", [_vm._v(_vm._s(item.image))]),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(item.email))]),
+                        _c("td", [_vm._v(_vm._s(item.price))]),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(item.tell))]),
+                        _c("td", [_vm._v(_vm._s(item.min_time))]),
                         _vm._v(" "),
-                        _vm._m(1, true),
+                        _c("td", [_vm._v(_vm._s(item.max_time))]),
                         _vm._v(" "),
                         _c(
                           "td",
@@ -47805,7 +47968,7 @@ var render = function() {
                                 staticClass: "btn btn-xs btn-default",
                                 attrs: {
                                   to: {
-                                    name: "edit-contact",
+                                    name: "edit-service",
                                     params: { id: item.id }
                                   }
                                 }
@@ -47857,28 +48020,20 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v(" نام")]),
+        _c("th", [_vm._v(" دسته بندی ")]),
         _vm._v(" "),
-        _c("th", [_vm._v("نام خانوادگی")]),
+        _c("th", [_vm._v(" عنوان")]),
         _vm._v(" "),
-        _c("th", [_vm._v("موبایل")]),
+        _c("th", [_vm._v("تصویر")]),
         _vm._v(" "),
-        _c("th", [_vm._v("ایمیل ")]),
+        _c("th", [_vm._v("قیمت ")]),
         _vm._v(" "),
-        _c("th", [_vm._v("تلفن ")]),
+        _c("th", [_vm._v("حداقل زمان ")]),
         _vm._v(" "),
-        _c("th", [_vm._v("وضعیت ")]),
+        _c("th", [_vm._v("حداکثر زمان")]),
         _vm._v(" "),
         _c("th", { attrs: { width: "100" } }, [_vm._v(" ")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("span", { staticClass: "badge badge-warning" }, [_vm._v("مشتری")])
     ])
   }
 ]
