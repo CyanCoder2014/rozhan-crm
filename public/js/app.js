@@ -4470,354 +4470,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+var auth = {
+  headers: {
+    Authorization: 'bearer ' + localStorage.getItem('token')
+  }
+};
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      items: [],
+      persons: [],
       date: '',
       startdata: '',
       checkedHealths: []
@@ -4840,6 +4502,26 @@ __webpack_require__.r(__webpack_exports__);
   //   });
   // }
   ,
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get('/api/services', auth).then(function (response) {
+      _this.items = response.data.data; //                    console.log(this.items);
+    })["catch"](function (error) {
+      console.log(error);
+      _this.errored = true;
+    })["finally"](function () {
+      return _this.loading = false;
+    });
+    axios.get('/api/persons', auth).then(function (response) {
+      _this.persons = response.data.data; //                    console.log(this.items);
+    })["catch"](function (error) {
+      console.log(error);
+      _this.errored = true;
+    })["finally"](function () {
+      return _this.loading = false;
+    });
+  },
   methods: {
     getValue: function getValue() {
       console.log(1);
@@ -10214,7 +9896,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    /* This css is for normalizing styles. You can skip this. */\n*,\n    *:before,\n    *:after {\n        box-sizing: border-box;\n        margin: 0;\n        padding: 0;\n}\n.new {\n        padding: 50px;\n}\n.form-group2 {\n        display: block;\n        margin-bottom: 15px;\n}\n.form-group2 input {\n        padding: 0;\n        height: initial;\n        width: initial;\n        margin-bottom: 0;\n        display: none;\n        cursor: pointer;\n}\n.form-group2 label {\n        position: relative;\n        cursor: pointer;\n}\n.form-group2 label:before {\n        content: '';\n        -webkit-appearance: none;\n        background-color: transparent;\n        border: 2px solid lightgray;\n        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);\n        padding: 10px;\n        display: inline-block;\n        position: relative;\n        vertical-align: middle;\n        cursor: pointer;\n        margin-right: 5px;\n}\n.form-group2 input:checked+label:after {\n         content: '';\n    display: block;\n    position: absolute;\n    top: 2px;\n    right: 13px;\n    width: 8px;\n    height: 14px;\n    border: solid #d54e21;\n    border-width: 0 4px 4px 0;\n    transform: rotate(45deg);\n}\n.form-group3 label:before {\n        content: '';\n        -webkit-appearance: none;\n        background-color: transparent;\n        border: 2px solid lightgray;\n        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);\n        padding: 10px;\n        display: inline-block;\n        position: relative;\n        vertical-align: middle;\n        cursor: pointer;\n        margin-right: 5px;\n}\n.form-group3 input:checked+label:after {\n         content: '';\n    display: block;\n    position: absolute;\n    top: 2px;\n    right: 13px;\n    width: 8px;\n    height: 14px;\n    border: solid #d54e21;\n    border-width: 0 4px 4px 0;\n    transform: rotate(45deg);\n}\n@-webkit-keyframes click-wave {\n0% {\n    height: 40px;\n    width: 40px;\n    opacity: 0.35;\n    position: relative;\n}\n100% {\n    height: 200px;\n    width: 200px;\n    margin-left: -80px;\n    margin-top: -80px;\n    opacity: 0;\n}\n}\n@keyframes click-wave {\n0% {\n    height: 40px;\n    width: 40px;\n    opacity: 0.35;\n    position: relative;\n}\n100% {\n    height: 200px;\n    width: 200px;\n    margin-left: -80px;\n    margin-top: -80px;\n    opacity: 0;\n}\n}\n.option-input {\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  -ms-appearance: none;\n  -o-appearance: none;\n  appearance: none;\n  position: relative;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  height: 20px;\n  width: 20px;\n  transition: all 0.15s ease-out 0s;\n  background: #cbd1d8;\n  border: none;\n  color: #fff;\n  cursor: pointer;\n  display: inline-block;\n  margin-right: 0.5rem;\n  outline: none;\n  position: relative;\n  z-index: 1000;\n      vertical-align: bottom;\n      margin: 0 !important;\n}\n.option-input:hover {\n  background: #9faab7;\n}\n.option-input:checked {\n  background: #40e0d0;\n}\n.option-input:checked::before {\n  height: 20px;\n  width: 20px;\n  position: absolute;\n  content: '\\2714';\n  display: inline-block;\n  /* font-size: 26.66667px; */\n  text-align: center;\n  /* line-height: 40px; */\n}\n.option-input:checked::after {\n  -webkit-animation: click-wave 0.65s;\n  animation: click-wave 0.65s;\n  background: #40e0d0;\n  content: '';\n  display: block;\n  position: relative;\n  z-index: 100;\n  outline: 0;\n}\ninput[type=file]:focus, input[type=checkbox]:focus, input[type=radio]:focus{\n    outline: 0 !important;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    /* This css is for normalizing styles. You can skip this. */\n*,\n    *:before,\n    *:after {\n        box-sizing: border-box;\n        margin: 0;\n        padding: 0;\n}\n.new {\n        padding: 50px;\n}\n.form-group2 {\n        display: block;\n        margin-bottom: 15px;\n}\n.form-group2 input {\n        padding: 0;\n        height: initial;\n        width: initial;\n        margin-bottom: 0;\n        display: none;\n        cursor: pointer;\n}\n.form-group2 label {\n        position: relative;\n        cursor: pointer;\n}\n.form-group2 label:before {\n        content: '';\n        -webkit-appearance: none;\n        background-color: transparent;\n        border: 2px solid lightgray;\n        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);\n        padding: 10px;\n        display: inline-block;\n        position: relative;\n        vertical-align: middle;\n        cursor: pointer;\n        margin-right: 5px;\n}\n.form-group2 input:checked+label:after {\n         content: '';\n    display: block;\n    position: absolute;\n    top: 2px;\n    right: 13px;\n    width: 8px;\n    height: 14px;\n    border: solid #d54e21;\n    border-width: 0 4px 4px 0;\n    transform: rotate(45deg);\n}\n.form-group3 label:before {\n        content: '';\n        -webkit-appearance: none;\n        background-color: transparent;\n        border: 2px solid lightgray;\n        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);\n        padding: 10px;\n        display: inline-block;\n        position: relative;\n        vertical-align: middle;\n        cursor: pointer;\n        margin-right: 5px;\n}\n.form-group3 input:checked+label:after {\n         content: '';\n    display: block;\n    position: absolute;\n    top: 2px;\n    right: 13px;\n    width: 8px;\n    height: 14px;\n    border: solid #d54e21;\n    border-width: 0 4px 4px 0;\n    transform: rotate(45deg);\n}\n@-webkit-keyframes click-wave {\n0% {\n    height: 40px;\n    width: 40px;\n    opacity: 0.35;\n    position: relative;\n}\n100% {\n    height: 200px;\n    width: 200px;\n    margin-left: -80px;\n    margin-top: -80px;\n    opacity: 0;\n}\n}\n@keyframes click-wave {\n0% {\n    height: 40px;\n    width: 40px;\n    opacity: 0.35;\n    position: relative;\n}\n100% {\n    height: 200px;\n    width: 200px;\n    margin-left: -80px;\n    margin-top: -80px;\n    opacity: 0;\n}\n}\n.option-input {\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  -ms-appearance: none;\n  -o-appearance: none;\n  appearance: none;\n  position: relative;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  height: 20px;\n  width: 20px;\n  transition: all 0.15s ease-out 0s;\n  background: #cbd1d8;\n  border: none;\n  color: #fff;\n  cursor: pointer;\n  display: inline-block;\n  margin-right: 0.5rem;\n  outline: none;\n  position: relative;\n  z-index: 1000;\n      vertical-align: bottom;\n      margin: 0 !important;\n}\n.option-input:hover {\n  background: #9faab7;\n}\n.option-input:checked {\n  background: #40e0d0;\n}\n.option-input:checked::before {\n  height: 20px;\n  width: 20px;\n  position: absolute;\n  content: '\\2714';\n  display: inline-block;\n  /* font-size: 26.66667px; */\n  text-align: center;\n  /* line-height: 40px; */\n}\n.option-input:checked::after {\n  -webkit-animation: click-wave 0.65s;\n  animation: click-wave 0.65s;\n  background: #40e0d0;\n  content: '';\n  display: block;\n  position: relative;\n  z-index: 100;\n  outline: 0;\n}\ninput[type=file]:focus, input[type=checkbox]:focus, input[type=radio]:focus{\n    outline: 0 !important;\n}\n", ""]);
 
 // exports
 
@@ -64715,6 +64397,7 @@ var render = function() {
                     _c("custom-time-picker", {
                       attrs: {
                         format: "HH:mm",
+                        placeholder: "ساعت را انتخاب کنید",
                         type: "time",
                         jumpMinute: 15,
                         roundMinute: true
@@ -64734,7 +64417,47 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _vm._m(1),
+          _c("div", { staticClass: "box" }, [
+            _vm._m(1),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "box-body",
+                staticStyle: { "max-height": "220px", "overflow-y": "scroll" }
+              },
+              [
+                _c(
+                  "table",
+                  { staticClass: "table table-bordered" },
+                  [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _vm._l(_vm.persons, function(person, index) {
+                      return _c("tr", { attrs: { id: "persons" } }, [
+                        _vm._m(3, true),
+                        _vm._v(" "),
+                        _vm._m(4, true),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            "\n                                    " +
+                              _vm._s(person.name) +
+                              "\n\n                                "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _vm._m(5, true)
+                      ])
+                    })
+                  ],
+                  2
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _vm._m(6)
+          ]),
           _vm._v(" "),
           _c(
             "a",
@@ -64746,7 +64469,104 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _vm._m(2)
+        _c("div", { staticClass: "col-md-8" }, [
+          _c("div", { staticClass: "box box-primary" }, [
+            _c("div", { staticClass: "nav-tabs-custom" }, [
+              _vm._m(7),
+              _vm._v(" "),
+              _c("div", { staticClass: "tab-content" }, [
+                _c(
+                  "div",
+                  { staticClass: "tab-pane active", attrs: { id: "tab_1" } },
+                  [
+                    _vm._m(8),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "box-body no-padding" }, [
+                      _c(
+                        "div",
+                        { staticClass: "table-responsive mailbox-messages" },
+                        [
+                          _c(
+                            "table",
+                            { staticClass: "table table-hover table-striped" },
+                            [
+                              _c(
+                                "tbody",
+                                _vm._l(_vm.items, function(item, index) {
+                                  return _c("tr", { attrs: { id: "items" } }, [
+                                    _c("td", [
+                                      _c("div", [
+                                        _c("input", {
+                                          staticClass: "option-input checkbox ",
+                                          attrs: { type: "checkbox" }
+                                        }),
+                                        _vm._v(
+                                          "\n                                                       \n\n                                                      " +
+                                            _vm._s(item.title) +
+                                            "\n                                                        \n                                                  "
+                                        )
+                                      ])
+                                    ]),
+                                    _vm._v(" "),
+                                    _vm._m(9, true),
+                                    _vm._v(" "),
+                                    _c("td", { staticClass: "mailbox-name" }, [
+                                      _c(
+                                        "a",
+                                        { attrs: { href: "read-mail.html" } },
+                                        [
+                                          _vm._v(
+                                            _vm._s(
+                                              item.service_category.title
+                                            ) +
+                                              "\n                                                        "
+                                          )
+                                        ]
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "td",
+                                      { staticClass: "mailbox-subject" },
+                                      [
+                                        _c("b", [
+                                          _vm._v(
+                                            " " + _vm._s(item.price) + " تومان "
+                                          )
+                                        ])
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("td", {
+                                      staticClass: "mailbox-attachment"
+                                    }),
+                                    _vm._v(" "),
+                                    _c("td", { staticClass: "mailbox-date" }, [
+                                      _vm._v(
+                                        " " + _vm._s(item.max_time) + " دقیقه "
+                                      )
+                                    ])
+                                  ])
+                                }),
+                                0
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(10)
+                  ]
+                ),
+                _vm._v(" "),
+                _vm._m(11),
+                _vm._v(" "),
+                _vm._m(12)
+              ])
+            ])
+          ])
+        ])
       ])
     ])
   ])
@@ -64774,251 +64594,43 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "box" }, [
-      _c(
-        "div",
-        {
-          staticClass: "box-header with-border",
-          staticStyle: { "background-color": "#9E86D9", color: "#fff" }
-        },
-        [_c("h3", { staticClass: "box-title" }, [_vm._v(" انتخاب آرایشگر")])]
-      ),
+    return _c(
+      "div",
+      {
+        staticClass: "box-header with-border",
+        staticStyle: { "background-color": "#9E86D9", color: "#fff" }
+      },
+      [_c("h3", { staticClass: "box-title" }, [_vm._v(" انتخاب آرایشگر")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("th", { staticStyle: { width: "10px" } }),
       _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "box-body",
-          staticStyle: { "max-height": "220px", "overflow-y": "scroll" }
-        },
-        [
-          _c("table", { staticClass: "table table-bordered" }, [
-            _c("tr", [
-              _c("th", { staticStyle: { width: "10px" } }, [_vm._v("#")]),
-              _vm._v(" "),
-              _c("th", [_vm._v("تصویر")]),
-              _vm._v(" "),
-              _c("th", [_vm._v("آرایشگر")]),
-              _vm._v(" "),
-              _c("th", [_vm._v("وقت خالی")]),
-              _vm._v(" "),
-              _c("th", { staticStyle: { width: "40px" } }, [_vm._v(" خدمات")])
-            ]),
-            _vm._v(" "),
-            _c("tr", [
-              _c("td", [
-                _c("label", [
-                  _c("div", { staticClass: "form-group2" }, [
-                    _c("input", {
-                      staticClass: "label2",
-                      attrs: { type: "checkbox", id: "html1" }
-                    }),
-                    _vm._v(" "),
-                    _c("label", { attrs: { for: "html1" } })
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _c("div", { staticClass: "center-block text-center" }, [
-                  _c("img", {
-                    staticClass: "img-circle",
-                    staticStyle: { width: "40px" },
-                    attrs: {
-                      src: "dist/img/user7-128x128.jpg",
-                      alt: "User Image"
-                    }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _vm._v(
-                  "\n                                    سارا جلالی\n                                "
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _c("div", { staticClass: "progress progress-xs" }, [
-                  _c("div", {
-                    staticClass: "progress-bar progress-bar-danger",
-                    staticStyle: { width: "55%" }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _c("span", { staticClass: "badge bg-light-blue" }, [
-                  _vm._v("مو")
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("tr", [
-              _c("td", [
-                _c("label", [
-                  _c("div", { staticClass: "form-group2" }, [
-                    _c("input", { attrs: { type: "checkbox", id: "html2" } }),
-                    _vm._v(" "),
-                    _c("label", { attrs: { for: "html2" } })
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _c("div", { staticClass: "center-block text-center" }, [
-                  _c("img", {
-                    staticClass: "img-circle",
-                    staticStyle: { width: "40px" },
-                    attrs: {
-                      src: "dist/img/user3-128x128.jpg",
-                      alt: "User Image"
-                    }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _vm._v(
-                  "\n                                    مریم قوی دل\n                                "
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _c("div", { staticClass: "progress progress-xs" }, [
-                  _c("div", {
-                    staticClass: "progress-bar progress-bar-yellow",
-                    staticStyle: { width: "70%" }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _c("span", { staticClass: "badge bg-light-blue" }, [
-                  _vm._v("ناخن")
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("tr", [
-              _c("td", [
-                _c("label", [
-                  _c("div", { staticClass: "form-group2" }, [
-                    _c("input", { attrs: { type: "checkbox", id: "html3" } }),
-                    _vm._v(" "),
-                    _c("label", { attrs: { for: "html3" } })
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _c("div", { staticClass: "center-block text-center" }, [
-                  _c("img", {
-                    staticClass: "img-circle",
-                    staticStyle: { width: "40px" },
-                    attrs: {
-                      src: "dist/img/user5-128x128.jpg",
-                      alt: "User Image"
-                    }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _vm._v(
-                  "\n                                    مرضیه خانم\n                                "
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _c(
-                  "div",
-                  {
-                    staticClass: "progress progress-xs progress-striped active"
-                  },
-                  [
-                    _c("div", {
-                      staticClass: "progress-bar progress-bar-danger",
-                      staticStyle: { width: "30%" }
-                    })
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _c("span", { staticClass: "badge bg-light-blue" }, [
-                  _vm._v("مو")
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("tr", [
-              _c("td", [
-                _c("label", [
-                  _c("div", { staticClass: "form-group2" }, [
-                    _c("input", { attrs: { type: "checkbox", id: "html4" } }),
-                    _vm._v(" "),
-                    _c("label", { attrs: { for: "html4" } })
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _c("div", { staticClass: "center-block text-center" }, [
-                  _c("img", {
-                    staticClass: "img-circle",
-                    staticStyle: { width: "40px" },
-                    attrs: { src: "dist/img/avatar2.png", alt: "User Image" }
-                  })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _vm._v(
-                  "\n                                    ستاره بهادری\n                                "
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _c(
-                  "div",
-                  {
-                    staticClass: "progress progress-xs progress-striped active"
-                  },
-                  [
-                    _c("div", {
-                      staticClass: "progress-bar progress-bar-success",
-                      staticStyle: { width: "90%" }
-                    })
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("td", [
-                _c("span", { staticClass: "badge bg-light-blue" }, [
-                  _vm._v("ابرو")
-                ])
-              ])
-            ])
-          ])
-        ]
-      ),
+      _c("th", [_vm._v("تصویر")]),
       _vm._v(" "),
-      _c("div", { staticClass: "box-footer clearfix" }, [
-        _c(
-          "ul",
-          { staticClass: "pagination pagination-sm no-margin pull-right" },
-          [
-            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("«")])]),
-            _vm._v(" "),
-            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("1")])]),
-            _vm._v(" "),
-            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("2")])]),
-            _vm._v(" "),
-            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("3")])]),
-            _vm._v(" "),
-            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("»")])])
-          ]
-        )
+      _c("th", [_vm._v("آرایشگر")]),
+      _vm._v(" "),
+      _c("th", { staticStyle: { width: "40px" } }, [_vm._v(" خدمات")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("label", [
+        _c("div", { staticClass: "form-group2" }, [
+          _c("input", {
+            staticClass: "label2",
+            attrs: { type: "checkbox", id: "html1" }
+          }),
+          _vm._v(" "),
+          _c("label", { attrs: { for: "html1" } })
+        ])
       ])
     ])
   },
@@ -65026,1519 +64638,573 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-8" }, [
-      _c("div", { staticClass: "box box-primary" }, [
-        _c("div", { staticClass: "nav-tabs-custom" }, [
-          _c("ul", { staticClass: "nav nav-tabs" }, [
-            _c("li", {}, [
+    return _c("td", [
+      _c("div", { staticClass: "center-block text-center" }, [
+        _c("img", {
+          staticClass: "img-circle",
+          staticStyle: { width: "40px" },
+          attrs: { src: "dist/img/user3-128x128.jpg", alt: "User Image" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("span", { staticClass: "badge bg-light-blue" }, [_vm._v("مو")]),
+      _vm._v(" "),
+      _c("span", { staticClass: "badge bg-light-blue" }, [_vm._v("ناخن")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "box-footer clearfix" }, [
+      _c(
+        "ul",
+        { staticClass: "pagination pagination-sm no-margin pull-right" },
+        [
+          _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("»")])]),
+          _vm._v(" "),
+          _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("1")])]),
+          _vm._v(" "),
+          _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v(" «")])])
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("ul", { staticClass: "nav nav-tabs" }, [
+      _c("li", {}, [
+        _c(
+          "a",
+          {
+            staticClass: "active",
+            attrs: { href: "#tab_1", "data-toggle": "tab" }
+          },
+          [_vm._v("خدمات  ")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("li", { staticClass: "pull-right" }, [
+        _c("a", { staticClass: "text-muted", attrs: { href: "#" } }, [
+          _c("i", { staticClass: "fa fa-gear" })
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "box-header with-border" }, [
+      _c("h3", { staticClass: "box-title" }, [_vm._v("خدمات ")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "box-tools pull-right" }, [
+        _c("div", { staticClass: "has-feedback" }, [
+          _c("input", {
+            staticClass: "form-control input-sm",
+            attrs: { type: "text", placeholder: "جستجو" }
+          }),
+          _vm._v(" "),
+          _c("span", {
+            staticClass: "glyphicon glyphicon-search form-control-feedback"
+          })
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", { staticClass: "mailbox-star" }, [
+      _c("a", { attrs: { href: "#" } }, [
+        _c("i", { staticClass: "fa fa-star text-yellow" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "box-footer no-padding" }, [
+      _c("div", { staticClass: "mailbox-controls" }, [
+        _c("div", { staticClass: "pull-left" }, [
+          _vm._v(
+            "\n                                            1/1\n                                            "
+          ),
+          _c("div", { staticClass: "btn-group" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-default btn-sm",
+                attrs: { type: "button" }
+              },
+              [_c("i", { staticClass: "fa  fa-chevron-left" })]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-default btn-sm",
+                attrs: { type: "button" }
+              },
+              [_c("i", { staticClass: "fa fa-chevron-right" })]
+            )
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "tab-pane", attrs: { id: "tab_2" } }, [
+      _c("div", { staticClass: "box-header with-border" }, [
+        _c("h3", { staticClass: "box-title" }, [_vm._v("خدمات ناخن")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "box-tools pull-right" }, [
+          _c("div", { staticClass: "has-feedback" }, [
+            _c("input", {
+              staticClass: "form-control input-sm",
+              attrs: { type: "text", placeholder: "جستجو" }
+            }),
+            _vm._v(" "),
+            _c("span", {
+              staticClass: "glyphicon glyphicon-search form-control-feedback"
+            })
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "box-body no-padding" }, [
+        _c("div", { staticClass: "mailbox-controls" }, [
+          _c("div", { staticClass: "pull-right" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-default btn-sm checkbox-toggle",
+                attrs: { type: "button" }
+              },
+              [_c("i", { staticClass: "fa fa-square-o" })]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "btn-group" }, [
               _c(
-                "a",
+                "button",
                 {
-                  staticClass: "active",
-                  attrs: { href: "#tab_1", "data-toggle": "tab" }
+                  staticClass: "btn btn-default btn-sm",
+                  attrs: { type: "button" }
                 },
-                [_vm._v("خدمات مو ")]
-              )
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "#tab_2", "data-toggle": "tab" } }, [
-                _vm._v("خدمات ناخن ")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "#tab_3", "data-toggle": "tab" } }, [
-                _vm._v("خدمات ابرو ")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "dropdown" }, [
-              _c(
-                "a",
-                {
-                  staticClass: "dropdown-toggle",
-                  attrs: { "data-toggle": "dropdown", href: "#" }
-                },
-                [
-                  _vm._v("\n                                    فروش لوازم "),
-                  _c("span", { staticClass: "caret" })
-                ]
+                [_c("i", { staticClass: "fa fa-trash-o" })]
               ),
               _vm._v(" "),
-              _c("ul", { staticClass: "dropdown-menu" }, [
-                _c("li", { attrs: { role: "presentation" } }, [
-                  _c(
-                    "a",
-                    { attrs: { role: "menuitem", tabindex: "-1", href: "#" } },
-                    [_vm._v(" رنگ مو")]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("li", { attrs: { role: "presentation" } }, [
-                  _c(
-                    "a",
-                    { attrs: { role: "menuitem", tabindex: "-1", href: "#" } },
-                    [
-                      _vm._v(
-                        " تقویت کننده\n                                            مو "
-                      )
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("li", { attrs: { role: "presentation" } }, [
-                  _c(
-                    "a",
-                    { attrs: { role: "menuitem", tabindex: "-1", href: "#" } },
-                    [_vm._v(" اکستنشن")]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("li", {
-                  staticClass: "divider",
-                  attrs: { role: "presentation" }
-                }),
-                _vm._v(" "),
-                _c("li", { attrs: { role: "presentation" } }, [
-                  _c(
-                    "a",
-                    { attrs: { role: "menuitem", tabindex: "-1", href: "#" } },
-                    [
-                      _vm._v(
-                        " خدمات\n                                            عروس"
-                      )
-                    ]
-                  )
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "pull-right" }, [
-              _c("a", { staticClass: "text-muted", attrs: { href: "#" } }, [
-                _c("i", { staticClass: "fa fa-gear" })
-              ])
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-default btn-sm",
+                  attrs: { type: "button" }
+                },
+                [_c("i", { staticClass: "fa fa-reply" })]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-default btn-sm",
+                  attrs: { type: "button" }
+                },
+                [_c("i", { staticClass: "fa fa-share" })]
+              )
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "tab-content" }, [
-            _c(
-              "div",
-              { staticClass: "tab-pane active", attrs: { id: "tab_1" } },
-              [
-                _c("div", { staticClass: "box-header with-border" }, [
-                  _c("h3", { staticClass: "box-title" }, [_vm._v("خدمات مو")]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "box-tools pull-right" }, [
-                    _c("div", { staticClass: "has-feedback" }, [
-                      _c("input", {
-                        staticClass: "form-control input-sm",
-                        attrs: { type: "text", placeholder: "جستجو" }
-                      }),
-                      _vm._v(" "),
-                      _c("span", {
-                        staticClass:
-                          "glyphicon glyphicon-search form-control-feedback"
-                      })
-                    ])
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-default btn-sm",
+              attrs: { type: "button" }
+            },
+            [_c("i", { staticClass: "fa fa-refresh" })]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "pull-left" }, [
+            _vm._v(
+              "\n                                            1-50/200\n                                            "
+            ),
+            _c("div", { staticClass: "btn-group" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-default btn-sm",
+                  attrs: { type: "button" }
+                },
+                [_c("i", { staticClass: "fa fa-chevron-right" })]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-default btn-sm",
+                  attrs: { type: "button" }
+                },
+                [_c("i", { staticClass: "fa fa-chevron-left" })]
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "table-responsive mailbox-messages" }, [
+          _c("table", { staticClass: "table table-hover table-striped" }, [
+            _c("tbody", [
+              _c("tr", [
+                _c("td", [
+                  _c("div", { staticClass: "label" }, [
+                    _c("input", {
+                      staticClass: "option-input checkbox",
+                      attrs: { type: "checkbox" }
+                    }),
+                    _vm._v(
+                      "\n                                                            Checkbox\n                                                        "
+                    )
                   ])
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "box-body no-padding" }, [
-                  _c("div", { staticClass: "mailbox-controls" }, [
-                    _c("div", { staticClass: "pull-right" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-default btn-sm checkbox-toggle",
-                          attrs: { type: "button" }
-                        },
-                        [_c("i", { staticClass: "fa fa-square-o" })]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "btn-group" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-default btn-sm",
-                            attrs: { type: "button" }
-                          },
-                          [_c("i", { staticClass: "fa fa-trash-o" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-default btn-sm",
-                            attrs: { type: "button" }
-                          },
-                          [_c("i", { staticClass: "fa fa-reply" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-default btn-sm",
-                            attrs: { type: "button" }
-                          },
-                          [_c("i", { staticClass: "fa fa-share" })]
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-default btn-sm",
-                        attrs: { type: "button" }
-                      },
-                      [_c("i", { staticClass: "fa fa-refresh" })]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "pull-left" }, [
-                      _vm._v(
-                        "\n                                            1-50/200\n                                            "
-                      ),
-                      _c("div", { staticClass: "btn-group" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-default btn-sm",
-                            attrs: { type: "button" }
-                          },
-                          [_c("i", { staticClass: "fa fa-chevron-right" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-default btn-sm",
-                            attrs: { type: "button" }
-                          },
-                          [_c("i", { staticClass: "fa fa-chevron-left" })]
-                        )
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "table-responsive mailbox-messages" },
-                    [
-                      _c(
-                        "table",
-                        { staticClass: "table table-hover table-striped" },
-                        [
-                          _c("tbody", [
-                            _c("tr", [
-                              _c("td", [
-                                _c("div", [
-                                  _c("input", {
-                                    staticClass: "option-input checkbox",
-                                    attrs: { type: "checkbox" }
-                                  }),
-                                  _vm._v(
-                                    "\n                                                        Checkbox2\n                                                        \n                                                  "
-                                  )
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-star" }, [
-                                _c("a", { attrs: { href: "#" } }, [
-                                  _c("i", {
-                                    staticClass: "fa fa-star text-yellow"
-                                  })
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-name" }, [
-                                _c("a", { attrs: { href: "read-mail.html" } }, [
-                                  _vm._v(
-                                    "ssssssرنگ مو\n                                                        "
-                                  )
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-subject" }, [
-                                _c("b", [_vm._v(" 500,0000 تومان ")]),
-                                _vm._v(
-                                  " مش\n                                                    "
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-attachment" }),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-date" }, [
-                                _vm._v("۱ ساعت ")
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("tr", [
-                              _c("td", [
-                                _c("div", [
-                                  _c("input", {
-                                    staticClass: "option-input checkbox",
-                                    attrs: { type: "checkbox" }
-                                  }),
-                                  _vm._v(
-                                    "\n                                                        Checkbox\n                                                    "
-                                  )
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-star" }, [
-                                _c("a", { attrs: { href: "#" } }, [
-                                  _c("i", {
-                                    staticClass: "fa fa-star text-yellow"
-                                  })
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-name" }, [
-                                _c("a", { attrs: { href: "read-mail.html" } }, [
-                                  _vm._v("ssرنگ مو ")
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-subject" }, [
-                                _c("b", [_vm._v(" 500,0000 تومان ")]),
-                                _vm._v(
-                                  " هایلایت\n                                                    "
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-attachment" }),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-date" }, [
-                                _vm._v("12 ساعت ")
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("tr", [
-                              _c("td", [
-                                _c("input", {
-                                  staticClass: "flat-red",
-                                  attrs: { type: "checkbox" }
-                                })
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-star" }, [
-                                _c("a", { attrs: { href: "#" } }, [
-                                  _c("i", {
-                                    staticClass: "fa fa-star text-yellow"
-                                  })
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-name" }, [
-                                _c("a", { attrs: { href: "read-mail.html" } }, [
-                                  _vm._v("رنگ مو ")
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-subject" }, [
-                                _c("b", [_vm._v(" 500,000 تومان ")]),
-                                _vm._v(
-                                  " سان‌لایت\n                                                    "
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-attachment" }),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-date" }, [
-                                _vm._v("۱ ساعت ")
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("tr", [
-                              _c("td", [
-                                _c("input", {
-                                  staticClass: "flat-red",
-                                  attrs: { type: "checkbox" }
-                                })
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-star" }, [
-                                _c("a", { attrs: { href: "#" } }, [
-                                  _c("i", {
-                                    staticClass: "fa fa-star text-yellow"
-                                  })
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-name" }, [
-                                _c("a", { attrs: { href: "read-mail.html" } }, [
-                                  _vm._v("اصلاح مو ")
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-subject" }, [
-                                _c("b", [_vm._v(" 300,000 تومان ")]),
-                                _vm._v(
-                                  " کوپ\n                                                    "
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-attachment" }),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-date" }, [
-                                _vm._v("45 دقیقه ")
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("tr", [
-                              _c("td", [
-                                _c("input", {
-                                  staticClass: "flat-red",
-                                  attrs: { type: "checkbox" }
-                                })
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-star" }, [
-                                _c("a", { attrs: { href: "#" } }, [
-                                  _c("i", {
-                                    staticClass: "fa fa-star text-yellow"
-                                  })
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-name" }, [
-                                _c("a", { attrs: { href: "read-mail.html" } }, [
-                                  _vm._v("اصلاح مو ")
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-subject" }, [
-                                _c("b", [_vm._v(" 100,000 تومان ")]),
-                                _vm._v(
-                                  " کوتاه کردن\n                                                    "
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-attachment" }),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-date" }, [
-                                _vm._v("30 دقیقه ")
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("tr", [
-                              _c("td", [
-                                _c("input", {
-                                  staticClass: "flat-red",
-                                  attrs: { type: "checkbox" }
-                                })
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-star" }, [
-                                _c("a", { attrs: { href: "#" } }, [
-                                  _c("i", {
-                                    staticClass: "fa fa-star text-yellow"
-                                  })
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-name" }, [
-                                _c("a", { attrs: { href: "read-mail.html" } }, [
-                                  _vm._v("رنگ مو ")
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-subject" }, [
-                                _c("b", [_vm._v(" 200,000 تومان ")]),
-                                _vm._v(
-                                  " آمبره\n                                                    "
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-attachment" }),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-date" }, [
-                                _vm._v("30 دقیقه ")
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("tr", [
-                              _c("td", [
-                                _c("input", {
-                                  staticClass: "flat-red",
-                                  attrs: { type: "checkbox" }
-                                })
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-star" }, [
-                                _c("a", { attrs: { href: "#" } }, [
-                                  _c("i", {
-                                    staticClass: "fa fa-star text-yellow"
-                                  })
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-name" }, [
-                                _c("a", { attrs: { href: "read-mail.html" } }, [
-                                  _vm._v("براشینگ ")
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-subject" }, [
-                                _c("b", [_vm._v(" 100,000 تومان ")]),
-                                _vm._v(
-                                  " برس‌پیچ\n                                                    "
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-attachment" }),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-date" }, [
-                                _vm._v("30 دقیقه ")
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("tr", [
-                              _c("td", [
-                                _c("input", {
-                                  staticClass: "flat-red",
-                                  attrs: { type: "checkbox" }
-                                })
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-star" }, [
-                                _c("a", { attrs: { href: "#" } }, [
-                                  _c("i", {
-                                    staticClass: "fa fa-star text-yellow"
-                                  })
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-name" }, [
-                                _c("a", { attrs: { href: "read-mail.html" } }, [
-                                  _vm._v("براشینگ ")
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-subject" }, [
-                                _c("b", [_vm._v(" 100,000 تومان ")]),
-                                _vm._v(
-                                  " لخت کردن\n                                                    "
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-attachment" }),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-date" }, [
-                                _vm._v("30 دقیقه ")
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("tr", [
-                              _c("td", [
-                                _c("input", {
-                                  staticClass: "flat-red",
-                                  attrs: { type: "checkbox" }
-                                })
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-star" }, [
-                                _c("a", { attrs: { href: "#" } }, [
-                                  _c("i", {
-                                    staticClass: "fa fa-star text-yellow"
-                                  })
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-name" }, [
-                                _c("a", { attrs: { href: "read-mail.html" } }, [
-                                  _vm._v("بافت مو ")
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-subject" }, [
-                                _c("b", [_vm._v(" 100,000 تومان ")]),
-                                _vm._v(
-                                  " آفریقایی\n                                                    "
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-attachment" }),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-date" }, [
-                                _vm._v("30 دقیقه ")
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("tr", [
-                              _c("td", [
-                                _c("input", {
-                                  staticClass: "flat-red",
-                                  attrs: { type: "checkbox" }
-                                })
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-star" }, [
-                                _c("a", { attrs: { href: "#" } }, [
-                                  _c("i", {
-                                    staticClass: "fa fa-star text-yellow"
-                                  })
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-name" }, [
-                                _c("a", { attrs: { href: "read-mail.html" } }, [
-                                  _vm._v("کراتینه ")
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-subject" }, [
-                                _c("b", [_vm._v(" 300,0000 تومان ")]),
-                                _vm._v(
-                                  " ...\n                                                    "
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-attachment" }),
-                              _vm._v(" "),
-                              _c("td", { staticClass: "mailbox-date" }, [
-                                _vm._v("50 دقیقه ")
-                              ])
-                            ])
-                          ])
-                        ]
-                      )
-                    ]
+                _c("td", [
+                  _c("input", {
+                    staticClass: "flat-red",
+                    attrs: { type: "checkbox" }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "mailbox-star" }, [
+                  _c("a", { attrs: { href: "#" } }, [
+                    _c("i", { staticClass: "fa fa-star text-yellow" })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "mailbox-name" }, [
+                  _c("a", { attrs: { href: "read-mail.html" } }, [
+                    _vm._v("کاشت ناخن ")
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "mailbox-subject" }, [
+                  _c("b", [_vm._v(" 200,0000 تومان ")]),
+                  _vm._v(
+                    " طبیعی\n                                                    "
                   )
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "box-footer no-padding" }, [
-                  _c("div", { staticClass: "mailbox-controls" }, [
-                    _c("div", { staticClass: "pull-right" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-default btn-sm checkbox-toggle",
-                          attrs: { type: "button" }
-                        },
-                        [_c("i", { staticClass: "fa fa-square-o" })]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "btn-group" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-default btn-sm",
-                            attrs: { type: "button" }
-                          },
-                          [_c("i", { staticClass: "fa fa-trash-o" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-default btn-sm",
-                            attrs: { type: "button" }
-                          },
-                          [_c("i", { staticClass: "fa fa-reply" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-default btn-sm",
-                            attrs: { type: "button" }
-                          },
-                          [_c("i", { staticClass: "fa fa-share" })]
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-default btn-sm",
-                        attrs: { type: "button" }
-                      },
-                      [_c("i", { staticClass: "fa fa-refresh" })]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "pull-left" }, [
-                      _vm._v(
-                        "\n                                            1-50/200\n                                            "
-                      ),
-                      _c("div", { staticClass: "btn-group" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-default btn-sm",
-                            attrs: { type: "button" }
-                          },
-                          [_c("i", { staticClass: "fa fa-chevron-right" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-default btn-sm",
-                            attrs: { type: "button" }
-                          },
-                          [_c("i", { staticClass: "fa fa-chevron-left" })]
-                        )
-                      ])
-                    ])
-                  ])
-                ])
-              ]
+                _c("td", { staticClass: "mailbox-attachment" }),
+                _vm._v(" "),
+                _c("td", { staticClass: "mailbox-date" }, [_vm._v("50 دقیقه ")])
+              ])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "box-footer no-padding" }, [
+        _c("div", { staticClass: "mailbox-controls" }, [
+          _c("div", { staticClass: "pull-right" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-default btn-sm checkbox-toggle",
+                attrs: { type: "button" }
+              },
+              [_c("i", { staticClass: "fa fa-square-o" })]
             ),
             _vm._v(" "),
-            _c("div", { staticClass: "tab-pane", attrs: { id: "tab_2" } }, [
-              _c("div", { staticClass: "box-header with-border" }, [
-                _c("h3", { staticClass: "box-title" }, [_vm._v("خدمات ناخن")]),
-                _vm._v(" "),
-                _c("div", { staticClass: "box-tools pull-right" }, [
-                  _c("div", { staticClass: "has-feedback" }, [
-                    _c("input", {
-                      staticClass: "form-control input-sm",
-                      attrs: { type: "text", placeholder: "جستجو" }
-                    }),
-                    _vm._v(" "),
-                    _c("span", {
-                      staticClass:
-                        "glyphicon glyphicon-search form-control-feedback"
-                    })
-                  ])
-                ])
-              ]),
+            _c("div", { staticClass: "btn-group" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-default btn-sm",
+                  attrs: { type: "button" }
+                },
+                [_c("i", { staticClass: "fa fa-trash-o" })]
+              ),
               _vm._v(" "),
-              _c("div", { staticClass: "box-body no-padding" }, [
-                _c("div", { staticClass: "mailbox-controls" }, [
-                  _c("div", { staticClass: "pull-right" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-default btn-sm checkbox-toggle",
-                        attrs: { type: "button" }
-                      },
-                      [_c("i", { staticClass: "fa fa-square-o" })]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "btn-group" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-default btn-sm",
-                          attrs: { type: "button" }
-                        },
-                        [_c("i", { staticClass: "fa fa-trash-o" })]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-default btn-sm",
-                          attrs: { type: "button" }
-                        },
-                        [_c("i", { staticClass: "fa fa-reply" })]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-default btn-sm",
-                          attrs: { type: "button" }
-                        },
-                        [_c("i", { staticClass: "fa fa-share" })]
-                      )
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-default btn-sm",
-                      attrs: { type: "button" }
-                    },
-                    [_c("i", { staticClass: "fa fa-refresh" })]
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "pull-left" }, [
-                    _vm._v(
-                      "\n                                            1-50/200\n                                            "
-                    ),
-                    _c("div", { staticClass: "btn-group" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-default btn-sm",
-                          attrs: { type: "button" }
-                        },
-                        [_c("i", { staticClass: "fa fa-chevron-right" })]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-default btn-sm",
-                          attrs: { type: "button" }
-                        },
-                        [_c("i", { staticClass: "fa fa-chevron-left" })]
-                      )
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "table-responsive mailbox-messages" },
-                  [
-                    _c(
-                      "table",
-                      { staticClass: "table table-hover table-striped" },
-                      [
-                        _c("tbody", [
-                          _c("tr", [
-                            _c("td", [
-                              _c("div", { staticClass: "label" }, [
-                                _c("input", {
-                                  staticClass: "option-input checkbox",
-                                  attrs: { type: "checkbox" }
-                                }),
-                                _vm._v(
-                                  "\n                                                            Checkbox\n                                                        "
-                                )
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("td", [
-                              _c("input", {
-                                staticClass: "flat-red",
-                                attrs: { type: "checkbox" }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-star" }, [
-                              _c("a", { attrs: { href: "#" } }, [
-                                _c("i", {
-                                  staticClass: "fa fa-star text-yellow"
-                                })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-name" }, [
-                              _c("a", { attrs: { href: "read-mail.html" } }, [
-                                _vm._v("کاشت ناخن ")
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-subject" }, [
-                              _c("b", [_vm._v(" 200,0000 تومان ")]),
-                              _vm._v(
-                                " طبیعی\n                                                    "
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-attachment" }),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-date" }, [
-                              _vm._v("50 دقیقه ")
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", [
-                              _c("input", {
-                                staticClass: "flat-red",
-                                attrs: { type: "checkbox" }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-star" }, [
-                              _c("a", { attrs: { href: "#" } }, [
-                                _c("i", {
-                                  staticClass: "fa fa-star text-yellow"
-                                })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-name" }, [
-                              _c("a", { attrs: { href: "read-mail.html" } }, [
-                                _vm._v("کاشت ناخن ")
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-subject" }, [
-                              _c("b", [_vm._v(" 100,0000 تومان ")]),
-                              _vm._v(
-                                " مصنوعی\n                                                    "
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-attachment" }),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-date" }, [
-                              _vm._v("50 دقیقه ")
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", [
-                              _c("input", {
-                                staticClass: "flat-red",
-                                attrs: { type: "checkbox" }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-star" }, [
-                              _c("a", { attrs: { href: "#" } }, [
-                                _c("i", {
-                                  staticClass: "fa fa-star text-yellow"
-                                })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-name" }, [
-                              _c("a", { attrs: { href: "read-mail.html" } }, [
-                                _vm._v("مانیکور ")
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-subject" }, [
-                              _c("b", [_vm._v(" 100,0000 تومان ")])
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-attachment" }),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-date" }, [
-                              _vm._v("40 دقیقه ")
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", [
-                              _c("input", {
-                                staticClass: "flat-red",
-                                attrs: { type: "checkbox" }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-star" }, [
-                              _c("a", { attrs: { href: "#" } }, [
-                                _c("i", {
-                                  staticClass: "fa fa-star text-yellow"
-                                })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-name" }, [
-                              _c("a", { attrs: { href: "read-mail.html" } }, [
-                                _vm._v("پدی‌کور ")
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-subject" }, [
-                              _c("b", [_vm._v(" 100,0000 تومان ")])
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-attachment" }),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-date" }, [
-                              _vm._v("40 دقیقه ")
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", [
-                              _c("input", {
-                                staticClass: "flat-red",
-                                attrs: { type: "checkbox" }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-star" }, [
-                              _c("a", { attrs: { href: "#" } }, [
-                                _c("i", {
-                                  staticClass: "fa fa-star text-yellow"
-                                })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-name" }, [
-                              _c("a", { attrs: { href: "read-mail.html" } }, [
-                                _vm._v("ژلیش ")
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-subject" }, [
-                              _c("b", [_vm._v(" 100,0000 تومان ")])
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-attachment" }),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-date" }, [
-                              _vm._v("40 دقیقه ")
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", [
-                              _c("input", {
-                                staticClass: "flat-red",
-                                attrs: { type: "checkbox" }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-star" }, [
-                              _c("a", { attrs: { href: "#" } }, [
-                                _c("i", {
-                                  staticClass: "fa fa-star text-yellow"
-                                })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-name" }, [
-                              _c("a", { attrs: { href: "read-mail.html" } }, [
-                                _vm._v("لاک ناخن ")
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-subject" }, [
-                              _c("b", [_vm._v(" 100,0000 تومان ")]),
-                              _vm._v(
-                                " تک رنگ\n                                                    "
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-attachment" }),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-date" }, [
-                              _vm._v("15 دقیقه ")
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", [
-                              _c("input", {
-                                staticClass: "flat-red",
-                                attrs: { type: "checkbox" }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-star" }, [
-                              _c("a", { attrs: { href: "#" } }, [
-                                _c("i", {
-                                  staticClass: "fa fa-star text-yellow"
-                                })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-name" }, [
-                              _c("a", { attrs: { href: "read-mail.html" } }, [
-                                _vm._v("لاک ناخن ")
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-subject" }, [
-                              _c("b", [_vm._v(" 150,0000 تومان ")]),
-                              _vm._v(
-                                " فرنچ\n                                                    "
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-attachment" }),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-date" }, [
-                              _vm._v("30 دقیقه ")
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", [
-                              _c("input", {
-                                staticClass: "flat-red",
-                                attrs: { type: "checkbox" }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-star" }, [
-                              _c("a", { attrs: { href: "#" } }, [
-                                _c("i", {
-                                  staticClass: "fa fa-star text-yellow"
-                                })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-name" }, [
-                              _c("a", { attrs: { href: "read-mail.html" } }, [
-                                _vm._v("لاک ناخن ")
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-subject" }, [
-                              _c("b", [_vm._v(" 75,0000 تومان ")]),
-                              _vm._v(
-                                " برق ناخن\n                                                    "
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-attachment" }),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-date" }, [
-                              _vm._v("15 دقیقه ")
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", [
-                              _c("input", {
-                                staticClass: "flat-red",
-                                attrs: { type: "checkbox" }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-star" }, [
-                              _c("a", { attrs: { href: "#" } }, [
-                                _c("i", {
-                                  staticClass: "fa fa-star text-yellow"
-                                })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-name" }, [
-                              _c("a", { attrs: { href: "read-mail.html" } }, [
-                                _vm._v("ریمور ")
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-subject" }, [
-                              _c("b", [_vm._v(" 50,0000 تومان ")])
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-attachment" }),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-date" }, [
-                              _vm._v("15 دقیقه ")
-                            ])
-                          ])
-                        ])
-                      ]
-                    )
-                  ]
-                )
-              ]),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-default btn-sm",
+                  attrs: { type: "button" }
+                },
+                [_c("i", { staticClass: "fa fa-reply" })]
+              ),
               _vm._v(" "),
-              _c("div", { staticClass: "box-footer no-padding" }, [
-                _c("div", { staticClass: "mailbox-controls" }, [
-                  _c("div", { staticClass: "pull-right" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-default btn-sm checkbox-toggle",
-                        attrs: { type: "button" }
-                      },
-                      [_c("i", { staticClass: "fa fa-square-o" })]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "btn-group" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-default btn-sm",
-                          attrs: { type: "button" }
-                        },
-                        [_c("i", { staticClass: "fa fa-trash-o" })]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-default btn-sm",
-                          attrs: { type: "button" }
-                        },
-                        [_c("i", { staticClass: "fa fa-reply" })]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-default btn-sm",
-                          attrs: { type: "button" }
-                        },
-                        [_c("i", { staticClass: "fa fa-share" })]
-                      )
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-default btn-sm",
-                      attrs: { type: "button" }
-                    },
-                    [_c("i", { staticClass: "fa fa-refresh" })]
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "pull-left" }, [
-                    _vm._v(
-                      "\n                                            1-50/200\n                                            "
-                    ),
-                    _c("div", { staticClass: "btn-group" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-default btn-sm",
-                          attrs: { type: "button" }
-                        },
-                        [_c("i", { staticClass: "fa fa-chevron-right" })]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-default btn-sm",
-                          attrs: { type: "button" }
-                        },
-                        [_c("i", { staticClass: "fa fa-chevron-left" })]
-                      )
-                    ])
-                  ])
-                ])
-              ])
-            ]),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-default btn-sm",
+                  attrs: { type: "button" }
+                },
+                [_c("i", { staticClass: "fa fa-share" })]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-default btn-sm",
+              attrs: { type: "button" }
+            },
+            [_c("i", { staticClass: "fa fa-refresh" })]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "pull-left" }, [
+            _vm._v(
+              "\n                                            1-50/200\n                                            "
+            ),
+            _c("div", { staticClass: "btn-group" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-default btn-sm",
+                  attrs: { type: "button" }
+                },
+                [_c("i", { staticClass: "fa fa-chevron-right" })]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-default btn-sm",
+                  attrs: { type: "button" }
+                },
+                [_c("i", { staticClass: "fa fa-chevron-left" })]
+              )
+            ])
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "tab-pane", attrs: { id: "tab_3" } }, [
+      _c("div", { staticClass: "box-header with-border" }, [
+        _c("h3", { staticClass: "box-title" }, [_vm._v("خدمات صورت")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "box-tools pull-right" }, [
+          _c("div", { staticClass: "has-feedback" }, [
+            _c("input", {
+              staticClass: "form-control input-sm",
+              attrs: { type: "text", placeholder: "جستجو" }
+            }),
             _vm._v(" "),
-            _c("div", { staticClass: "tab-pane", attrs: { id: "tab_3" } }, [
-              _c("div", { staticClass: "box-header with-border" }, [
-                _c("h3", { staticClass: "box-title" }, [_vm._v("خدمات صورت")]),
-                _vm._v(" "),
-                _c("div", { staticClass: "box-tools pull-right" }, [
-                  _c("div", { staticClass: "has-feedback" }, [
-                    _c("input", {
-                      staticClass: "form-control input-sm",
-                      attrs: { type: "text", placeholder: "جستجو" }
-                    }),
-                    _vm._v(" "),
-                    _c("span", {
-                      staticClass:
-                        "glyphicon glyphicon-search form-control-feedback"
-                    })
-                  ])
-                ])
-              ]),
+            _c("span", {
+              staticClass: "glyphicon glyphicon-search form-control-feedback"
+            })
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "box-body no-padding" }, [
+        _c("div", { staticClass: "mailbox-controls" }, [
+          _c("div", { staticClass: "pull-right" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-default btn-sm checkbox-toggle",
+                attrs: { type: "button" }
+              },
+              [_c("i", { staticClass: "fa fa-square-o" })]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "btn-group" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-default btn-sm",
+                  attrs: { type: "button" }
+                },
+                [_c("i", { staticClass: "fa fa-trash-o" })]
+              ),
               _vm._v(" "),
-              _c("div", { staticClass: "box-body no-padding" }, [
-                _c("div", { staticClass: "mailbox-controls" }, [
-                  _c("div", { staticClass: "pull-right" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-default btn-sm checkbox-toggle",
-                        attrs: { type: "button" }
-                      },
-                      [_c("i", { staticClass: "fa fa-square-o" })]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "btn-group" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-default btn-sm",
-                          attrs: { type: "button" }
-                        },
-                        [_c("i", { staticClass: "fa fa-trash-o" })]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-default btn-sm",
-                          attrs: { type: "button" }
-                        },
-                        [_c("i", { staticClass: "fa fa-reply" })]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-default btn-sm",
-                          attrs: { type: "button" }
-                        },
-                        [_c("i", { staticClass: "fa fa-share" })]
-                      )
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-default btn-sm",
-                      attrs: { type: "button" }
-                    },
-                    [_c("i", { staticClass: "fa fa-refresh" })]
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "pull-left" }, [
-                    _vm._v(
-                      "\n                                            1-50/200\n                                            "
-                    ),
-                    _c("div", { staticClass: "btn-group" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-default btn-sm",
-                          attrs: { type: "button" }
-                        },
-                        [_c("i", { staticClass: "fa fa-chevron-right" })]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-default btn-sm",
-                          attrs: { type: "button" }
-                        },
-                        [_c("i", { staticClass: "fa fa-chevron-left" })]
-                      )
-                    ])
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-default btn-sm",
+                  attrs: { type: "button" }
+                },
+                [_c("i", { staticClass: "fa fa-reply" })]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-default btn-sm",
+                  attrs: { type: "button" }
+                },
+                [_c("i", { staticClass: "fa fa-share" })]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-default btn-sm",
+              attrs: { type: "button" }
+            },
+            [_c("i", { staticClass: "fa fa-refresh" })]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "pull-left" }, [
+            _vm._v(
+              "\n                                            1-50/200\n                                            "
+            ),
+            _c("div", { staticClass: "btn-group" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-default btn-sm",
+                  attrs: { type: "button" }
+                },
+                [_c("i", { staticClass: "fa fa-chevron-right" })]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-default btn-sm",
+                  attrs: { type: "button" }
+                },
+                [_c("i", { staticClass: "fa fa-chevron-left" })]
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "table-responsive mailbox-messages" }, [
+          _c("table", { staticClass: "table table-hover table-striped" }, [
+            _c("tbody", [
+              _c("tr", [
+                _c("td", [
+                  _c("input", {
+                    staticClass: "flat-red",
+                    attrs: { type: "checkbox" }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "mailbox-star" }, [
+                  _c("a", { attrs: { href: "#" } }, [
+                    _c("i", { staticClass: "fa fa-star text-yellow" })
                   ])
                 ]),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "table-responsive mailbox-messages" },
-                  [
-                    _c(
-                      "table",
-                      { staticClass: "table table-hover table-striped" },
-                      [
-                        _c("tbody", [
-                          _c("tr", [
-                            _c("td", [
-                              _c("input", {
-                                staticClass: "flat-red",
-                                attrs: { type: "checkbox" }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-star" }, [
-                              _c("a", { attrs: { href: "#" } }, [
-                                _c("i", {
-                                  staticClass: "fa fa-star text-yellow"
-                                })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-name" }, [
-                              _c("a", { attrs: { href: "read-mail.html" } }, [
-                                _vm._v(
-                                  "ماسک و پاکسازی\n                                                        "
-                                )
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-subject" }, [
-                              _c("b", [_vm._v(" 200,0000 تومان ")]),
-                              _vm._v(
-                                " ماسک تمشک و\n                                                        عسل\n                                                    "
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-attachment" }),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-date" }, [
-                              _vm._v("50 دقیقه ")
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", [
-                              _c("input", {
-                                staticClass: "flat-red",
-                                attrs: { type: "checkbox" }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-star" }, [
-                              _c("a", { attrs: { href: "#" } }, [
-                                _c("i", {
-                                  staticClass: "fa fa-star text-yellow"
-                                })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-name" }, [
-                              _c("a", { attrs: { href: "read-mail.html" } }, [
-                                _vm._v(
-                                  "ماسک و پاکسازی\n                                                        "
-                                )
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-subject" }, [
-                              _c("b", [_vm._v(" 200,0000 تومان ")]),
-                              _vm._v(
-                                " ماسک شیرو\n                                                        عسل\n                                                    "
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-attachment" }),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-date" }, [
-                              _vm._v("50 دقیقه ")
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", [
-                              _c("input", {
-                                staticClass: "flat-red",
-                                attrs: { type: "checkbox" }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-star" }, [
-                              _c("a", { attrs: { href: "#" } }, [
-                                _c("i", {
-                                  staticClass: "fa fa-star text-yellow"
-                                })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-name" }, [
-                              _c("a", { attrs: { href: "read-mail.html" } }, [
-                                _vm._v(
-                                  "ماسک و پاکسازی\n                                                        "
-                                )
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-subject" }, [
-                              _c("b", [_vm._v(" 200,0000 تومان ")]),
-                              _vm._v(
-                                " پاکسازی و\n                                                        آبرسانی\n                                                    "
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-attachment" }),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-date" }, [
-                              _vm._v("50 دقیقه ")
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("tr", [
-                            _c("td", [
-                              _c("input", {
-                                staticClass: "flat-red",
-                                attrs: { type: "checkbox" }
-                              })
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-star" }, [
-                              _c("a", { attrs: { href: "#" } }, [
-                                _c("i", {
-                                  staticClass: "fa fa-star text-yellow"
-                                })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-name" }, [
-                              _c("a", { attrs: { href: "read-mail.html" } }, [
-                                _vm._v(
-                                  "اصلاح صورت\n                                                        "
-                                )
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-subject" }, [
-                              _c("b", [_vm._v(" 300,0000 تومان ")])
-                            ]),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-attachment" }),
-                            _vm._v(" "),
-                            _c("td", { staticClass: "mailbox-date" }, [
-                              _vm._v("50 دقیقه ")
-                            ])
-                          ])
-                        ])
-                      ]
-                    )
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "box-footer no-padding" }, [
-                _c("div", { staticClass: "mailbox-controls" }, [
-                  _c("div", { staticClass: "pull-right" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-default btn-sm checkbox-toggle",
-                        attrs: { type: "button" }
-                      },
-                      [_c("i", { staticClass: "fa fa-square-o" })]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "btn-group" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-default btn-sm",
-                          attrs: { type: "button" }
-                        },
-                        [_c("i", { staticClass: "fa fa-trash-o" })]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-default btn-sm",
-                          attrs: { type: "button" }
-                        },
-                        [_c("i", { staticClass: "fa fa-reply" })]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-default btn-sm",
-                          attrs: { type: "button" }
-                        },
-                        [_c("i", { staticClass: "fa fa-share" })]
-                      )
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-default btn-sm",
-                      attrs: { type: "button" }
-                    },
-                    [_c("i", { staticClass: "fa fa-refresh" })]
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "pull-left" }, [
+                _c("td", { staticClass: "mailbox-name" }, [
+                  _c("a", { attrs: { href: "read-mail.html" } }, [
                     _vm._v(
-                      "\n                                            1-50/200\n                                            "
-                    ),
-                    _c("div", { staticClass: "btn-group" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-default btn-sm",
-                          attrs: { type: "button" }
-                        },
-                        [_c("i", { staticClass: "fa fa-chevron-right" })]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-default btn-sm",
-                          attrs: { type: "button" }
-                        },
-                        [_c("i", { staticClass: "fa fa-chevron-left" })]
-                      )
-                    ])
+                      "ماسک و پاکسازی\n                                                        "
+                    )
                   ])
-                ])
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "mailbox-subject" }, [
+                  _c("b", [_vm._v(" 200,0000 تومان ")]),
+                  _vm._v(
+                    " ماسک تمشک و\n                                                        عسل\n                                                    "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "mailbox-attachment" }),
+                _vm._v(" "),
+                _c("td", { staticClass: "mailbox-date" }, [_vm._v("50 دقیقه ")])
               ])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "box-footer no-padding" }, [
+        _c("div", { staticClass: "mailbox-controls" }, [
+          _c("div", { staticClass: "pull-right" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-default btn-sm checkbox-toggle",
+                attrs: { type: "button" }
+              },
+              [_c("i", { staticClass: "fa fa-square-o" })]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "btn-group" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-default btn-sm",
+                  attrs: { type: "button" }
+                },
+                [_c("i", { staticClass: "fa fa-trash-o" })]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-default btn-sm",
+                  attrs: { type: "button" }
+                },
+                [_c("i", { staticClass: "fa fa-reply" })]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-default btn-sm",
+                  attrs: { type: "button" }
+                },
+                [_c("i", { staticClass: "fa fa-share" })]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-default btn-sm",
+              attrs: { type: "button" }
+            },
+            [_c("i", { staticClass: "fa fa-refresh" })]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "pull-left" }, [
+            _vm._v(
+              "\n                                            1-50/200\n                                            "
+            ),
+            _c("div", { staticClass: "btn-group" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-default btn-sm",
+                  attrs: { type: "button" }
+                },
+                [_c("i", { staticClass: "fa fa-chevron-right" })]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-default btn-sm",
+                  attrs: { type: "button" }
+                },
+                [_c("i", { staticClass: "fa fa-chevron-left" })]
+              )
             ])
           ])
         ])
@@ -80229,7 +78895,7 @@ Vue.use(vue_persian_datetime_picker__WEBPACK_IMPORTED_MODULE_0___default.a, {
     format: 'jYYYY-jMM-jDD',
     editable: false,
     inputClass: 'form-control my-custom-class-name',
-    placeholder: 'تاریخ و زمان را انتخاب کنید',
+    placeholder: 'تاریخ را انتخاب کنید',
     altFormat: 'YYYY-MM-DD HH:mm',
     color: '#00acc1',
     autoSubmit: true //...
