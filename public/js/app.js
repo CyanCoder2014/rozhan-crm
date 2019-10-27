@@ -4815,10 +4815,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -4917,12 +4913,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 var auth = {
   headers: {
     Authorization: 'bearer ' + localStorage.getItem('token')
@@ -4937,7 +4927,7 @@ var auth = {
   mounted: function mounted() {
     var _this = this;
 
-    axios.get('/api/services', auth).then(function (response) {
+    axios.get('/api/serviceCategories', auth).then(function (response) {
       _this.items = response.data.data; //                    console.log(this.items);
     })["catch"](function (error) {
       console.log(error);
@@ -4950,7 +4940,7 @@ var auth = {
     deleteEntry: function deleteEntry(id, index) {
       if (confirm("از حذف آیتم مطمئن هستید؟")) {
         var app = this;
-        axios["delete"]('/api/services/' + id, auth).then(function (resp) {
+        axios["delete"]('/api/serviceCategories/' + id, auth).then(function (resp) {
           app.items.splice(index, 1);
         })["catch"](function (resp) {
           alert("امکان حذف آیتم وجود ندارد");
@@ -5048,53 +5038,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 var auth = {
   headers: {
     Authorization: 'bearer ' + localStorage.getItem('token')
@@ -5105,18 +5048,11 @@ var auth = {
     return {
       item: {
         parent_id: '',
-        service_categories_id: '1',
         title: '',
         image: null,
-        description: '',
-        initial_number: '',
-        price: '',
-        tax: 0,
-        min_time: '',
-        max_time: ''
+        description: ''
       },
-      errors: [],
-      service_categories: []
+      errors: []
     };
   },
   mounted: function mounted() {
@@ -5135,9 +5071,9 @@ var auth = {
 
       var app = this;
       var newItem = app.item;
-      axios.post('/api/services', newItem, auth).then(function (resp) {
+      axios.post('/api/serviceCategories', newItem, auth).then(function (resp) {
         app.$router.push({
-          path: '/services'
+          path: '/serviceCategories'
         });
         console.log(resp);
       })["catch"](function (e) {
@@ -5247,55 +5183,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 var auth = {
   headers: {
     Authorization: 'bearer ' + localStorage.getItem('token')
@@ -5306,42 +5193,32 @@ var auth = {
     var app = this;
     var id = app.$route.params.id;
     app.itemId = id;
-    axios.get('/api/services/' + id, auth).then(function (resp) {
+    axios.get('/api/serviceCategories/' + id, auth).then(function (resp) {
       app.item = resp.data.data;
     })["catch"](function () {
       alert("بارگذاری دسته بندی ها امکان پذیر نیست"); //                    console.log('a: ' + auth)
-    });
-    axios.get('/api/serviceCategories', auth).then(function (resp) {
-      app.service_categories = resp.data.data;
-    })["catch"](function () {
-      alert("بارگذاری آیتم امکان پذیر نیست"); //                    console.log('a: ' + auth)
     });
   },
   data: function data() {
     return {
       itemId: null,
       item: {
-        parent_id: '',
-        service_categories_id: '1',
-        title: '',
-        image: null,
-        description: '',
-        initial_number: '',
-        price: '',
-        tax: 0,
-        min_time: '',
-        max_time: ''
+        item: {
+          parent_id: '',
+          title: '',
+          image: null,
+          description: ''
+        }
       },
-      errors: [],
-      service_categories: []
+      errors: []
     };
   },
   methods: {
     saveForm: function saveForm() {
       var app = this;
       var newItem = app.item;
-      axios.patch('/api/services/' + app.itemId, newItem, auth).then(function (resp) {
-        app.$router.replace('/services');
+      axios.patch('/api/serviceCategories/' + app.itemId, newItem, auth).then(function (resp) {
+        app.$router.replace('/serviceCategories');
       })["catch"](function (resp) {
         console.log(resp);
         this.errors.push(resp.response.data.messages);
@@ -10337,7 +10214,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    /* This css is for normalizing styles. You can skip this. */\n*,\n    *:before,\n    *:after {\n        box-sizing: border-box;\n        margin: 0;\n        padding: 0;\n}\n.new {\n        padding: 50px;\n}\n.form-group2 {\n        display: block;\n        margin-bottom: 15px;\n}\n.form-group2 input {\n        padding: 0;\n        height: initial;\n        width: initial;\n        margin-bottom: 0;\n        display: none;\n        cursor: pointer;\n}\n.form-group2 label {\n        position: relative;\n        cursor: pointer;\n}\n.form-group2 label:before {\n        content: '';\n        -webkit-appearance: none;\n        background-color: transparent;\n        border: 2px solid lightgray;\n        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);\n        padding: 10px;\n        display: inline-block;\n        position: relative;\n        vertical-align: middle;\n        cursor: pointer;\n        margin-right: 5px;\n}\n.form-group2 input:checked+label:after {\n         content: '';\n    display: block;\n    position: absolute;\n    top: 2px;\n    right: 13px;\n    width: 8px;\n    height: 14px;\n    border: solid #d54e21;\n    border-width: 0 4px 4px 0;\n    transform: rotate(45deg);\n}\n.form-group3 label:before {\n        content: '';\n        -webkit-appearance: none;\n        background-color: transparent;\n        border: 2px solid lightgray;\n        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);\n        padding: 10px;\n        display: inline-block;\n        position: relative;\n        vertical-align: middle;\n        cursor: pointer;\n        margin-right: 5px;\n}\n.form-group3 input:checked+label:after {\n         content: '';\n    display: block;\n    position: absolute;\n    top: 2px;\n    right: 13px;\n    width: 8px;\n    height: 14px;\n    border: solid #d54e21;\n    border-width: 0 4px 4px 0;\n    transform: rotate(45deg);\n}\n@-webkit-keyframes click-wave {\n0% {\n    height: 40px;\n    width: 40px;\n    opacity: 0.35;\n    position: relative;\n}\n100% {\n    height: 200px;\n    width: 200px;\n    margin-left: -80px;\n    margin-top: -80px;\n    opacity: 0;\n}\n}\n@keyframes click-wave {\n0% {\n    height: 40px;\n    width: 40px;\n    opacity: 0.35;\n    position: relative;\n}\n100% {\n    height: 200px;\n    width: 200px;\n    margin-left: -80px;\n    margin-top: -80px;\n    opacity: 0;\n}\n}\n.option-input {\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  -ms-appearance: none;\n  -o-appearance: none;\n  appearance: none;\n  position: relative;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  height: 20px;\n  width: 20px;\n  transition: all 0.15s ease-out 0s;\n  background: #cbd1d8;\n  border: none;\n  color: #fff;\n  cursor: pointer;\n  display: inline-block;\n  margin-right: 0.5rem;\n  outline: none;\n  position: relative;\n  z-index: 1000;\n      vertical-align: bottom;\n      margin: 0 !important;\n}\n.option-input:hover {\n  background: #9faab7;\n}\n.option-input:checked {\n  background: #40e0d0;\n}\n.option-input:checked::before {\n  height: 20px;\n  width: 20px;\n  position: absolute;\n  content: '\\2714';\n  display: inline-block;\n  /* font-size: 26.66667px; */\n  text-align: center;\n  /* line-height: 40px; */\n}\n.option-input:checked::after {\n  -webkit-animation: click-wave 0.65s;\n  animation: click-wave 0.65s;\n  background: #40e0d0;\n  content: '';\n  display: block;\n  position: relative;\n  z-index: 100;\n  outline: 0;\n}\ninput[type=file]:focus, input[type=checkbox]:focus, input[type=radio]:focus{\n    outline: 0 !important;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    /* This css is for normalizing styles. You can skip this. */\n*,\n    *:before,\n    *:after {\n        box-sizing: border-box;\n        margin: 0;\n        padding: 0;\n}\n.new {\n        padding: 50px;\n}\n.form-group2 {\n        display: block;\n        margin-bottom: 15px;\n}\n.form-group2 input {\n        padding: 0;\n        height: initial;\n        width: initial;\n        margin-bottom: 0;\n        display: none;\n        cursor: pointer;\n}\n.form-group2 label {\n        position: relative;\n        cursor: pointer;\n}\n.form-group2 label:before {\n        content: '';\n        -webkit-appearance: none;\n        background-color: transparent;\n        border: 2px solid lightgray;\n        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);\n        padding: 10px;\n        display: inline-block;\n        position: relative;\n        vertical-align: middle;\n        cursor: pointer;\n        margin-right: 5px;\n}\n.form-group2 input:checked+label:after {\n         content: '';\n    display: block;\n    position: absolute;\n    top: 2px;\n    right: 13px;\n    width: 8px;\n    height: 14px;\n    border: solid #d54e21;\n    border-width: 0 4px 4px 0;\n    transform: rotate(45deg);\n}\n.form-group3 label:before {\n        content: '';\n        -webkit-appearance: none;\n        background-color: transparent;\n        border: 2px solid lightgray;\n        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);\n        padding: 10px;\n        display: inline-block;\n        position: relative;\n        vertical-align: middle;\n        cursor: pointer;\n        margin-right: 5px;\n}\n.form-group3 input:checked+label:after {\n         content: '';\n    display: block;\n    position: absolute;\n    top: 2px;\n    right: 13px;\n    width: 8px;\n    height: 14px;\n    border: solid #d54e21;\n    border-width: 0 4px 4px 0;\n    transform: rotate(45deg);\n}\n@-webkit-keyframes click-wave {\n0% {\n    height: 40px;\n    width: 40px;\n    opacity: 0.35;\n    position: relative;\n}\n100% {\n    height: 200px;\n    width: 200px;\n    margin-left: -80px;\n    margin-top: -80px;\n    opacity: 0;\n}\n}\n@keyframes click-wave {\n0% {\n    height: 40px;\n    width: 40px;\n    opacity: 0.35;\n    position: relative;\n}\n100% {\n    height: 200px;\n    width: 200px;\n    margin-left: -80px;\n    margin-top: -80px;\n    opacity: 0;\n}\n}\n.option-input {\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  -ms-appearance: none;\n  -o-appearance: none;\n  appearance: none;\n  position: relative;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  height: 20px;\n  width: 20px;\n  transition: all 0.15s ease-out 0s;\n  background: #cbd1d8;\n  border: none;\n  color: #fff;\n  cursor: pointer;\n  display: inline-block;\n  margin-right: 0.5rem;\n  outline: none;\n  position: relative;\n  z-index: 1000;\n      vertical-align: bottom;\n      margin: 0 !important;\n}\n.option-input:hover {\n  background: #9faab7;\n}\n.option-input:checked {\n  background: #40e0d0;\n}\n.option-input:checked::before {\n  height: 20px;\n  width: 20px;\n  position: absolute;\n  content: '\\2714';\n  display: inline-block;\n  /* font-size: 26.66667px; */\n  text-align: center;\n  /* line-height: 40px; */\n}\n.option-input:checked::after {\n  -webkit-animation: click-wave 0.65s;\n  animation: click-wave 0.65s;\n  background: #40e0d0;\n  content: '';\n  display: block;\n  position: relative;\n  z-index: 100;\n  outline: 0;\n}\ninput[type=file]:focus, input[type=checkbox]:focus, input[type=radio]:focus{\n    outline: 0 !important;\n}\n", ""]);
 
 // exports
 
@@ -62394,7 +62271,7 @@ var render = function() {
     "div",
     { staticClass: "content-wrapper" },
     [
-      _c("custom-date-picker", {
+      _c("custom-time-picker", {
         model: {
           value: _vm.date,
           callback: function($$v) {
@@ -64116,10 +63993,10 @@ var render = function() {
             staticStyle: {
               margin: "9px 40px",
               padding: "5px 20px",
-              "background-color": "#fccddd",
+              "background-color": "#fff",
               "border-color": "#673AB7",
               "font-weight": "bold",
-              color: "#000"
+              color: "#222"
             },
             attrs: { to: "/request" }
           },
@@ -64575,7 +64452,7 @@ var staticRenderFns = [
             _c("li", { staticClass: "header" }, [_vm._v(" منو")]),
             _vm._v(" "),
             _c("li", { staticClass: "active" }, [
-              _c("a", { attrs: { href: "https://adminlte.io/docs" } }, [
+              _c("a", { attrs: { href: "#/" } }, [
                 _c("i", { staticClass: "fa fa-book" }),
                 _vm._v(" "),
                 _c("span", [_vm._v("پنل مدیریت")])
@@ -64583,7 +64460,7 @@ var staticRenderFns = [
             ]),
             _vm._v(" "),
             _c("li", [
-              _c("a", { attrs: { href: "https://adminlte.io/docs" } }, [
+              _c("a", { attrs: { href: "#/contacts" } }, [
                 _c("i", { staticClass: "fa fa-book" }),
                 _vm._v(" "),
                 _c("span", [_vm._v("مدیریت مشتریان")])
@@ -64591,7 +64468,7 @@ var staticRenderFns = [
             ]),
             _vm._v(" "),
             _c("li", [
-              _c("a", { attrs: { href: "https://adminlte.io/docs" } }, [
+              _c("a", { attrs: { href: "#/services" } }, [
                 _c("i", { staticClass: "fa fa-book" }),
                 _vm._v(" "),
                 _c("span", [_vm._v("مدیریت خدمات")])
@@ -64599,7 +64476,7 @@ var staticRenderFns = [
             ]),
             _vm._v(" "),
             _c("li", [
-              _c("a", { attrs: { href: "https://adminlte.io/docs" } }, [
+              _c("a", { attrs: { href: "#/serviceCategories" } }, [
                 _c("i", { staticClass: "fa fa-book" }),
                 _vm._v(" "),
                 _c("span", [_vm._v("مدیریت موجودی کالا")])
@@ -64607,7 +64484,7 @@ var staticRenderFns = [
             ]),
             _vm._v(" "),
             _c("li", [
-              _c("a", { attrs: { href: "https://adminlte.io/docs" } }, [
+              _c("a", { attrs: { href: "#/persons" } }, [
                 _c("i", { staticClass: "fa fa-book" }),
                 _vm._v(" "),
                 _c("span", [_vm._v("مدیریت پرسنل (آرایشگر)")])
@@ -64615,7 +64492,7 @@ var staticRenderFns = [
             ]),
             _vm._v(" "),
             _c("li", [
-              _c("a", { attrs: { href: "https://adminlte.io/docs" } }, [
+              _c("a", { attrs: { href: "#/orders" } }, [
                 _c("i", { staticClass: "fa fa-book" }),
                 _vm._v(" "),
                 _c("span", [_vm._v("   لیست درخواست ها")])
@@ -64623,7 +64500,7 @@ var staticRenderFns = [
             ]),
             _vm._v(" "),
             _c("li", [
-              _c("a", { attrs: { href: "https://adminlte.io/docs" } }, [
+              _c("a", { attrs: { href: "#/payments" } }, [
                 _c("i", { staticClass: "fa fa-book" }),
                 _vm._v(" "),
                 _c("span", [_vm._v("  لیست پرداخت مشتریان")])
@@ -64631,7 +64508,7 @@ var staticRenderFns = [
             ]),
             _vm._v(" "),
             _c("li", [
-              _c("a", { attrs: { href: "https://adminlte.io/docs" } }, [
+              _c("a", { attrs: { href: "#/Scheduler" } }, [
                 _c("i", { staticClass: "fa fa-book" }),
                 _vm._v(" "),
                 _c("span", [_vm._v("  تقویم کاری ")])
@@ -64639,7 +64516,7 @@ var staticRenderFns = [
             ]),
             _vm._v(" "),
             _c("li", [
-              _c("a", { attrs: { href: "https://adminlte.io/docs" } }, [
+              _c("a", { attrs: { href: "#/messages" } }, [
                 _c("i", { staticClass: "fa fa-book" }),
                 _vm._v(" "),
                 _c("span", [_vm._v("  اتوماسیون پیامک ")])
@@ -64806,10 +64683,6 @@ var render = function() {
             _vm._m(0),
             _vm._v(" "),
             _c("div", { staticClass: "box-body" }, [
-              _vm._m(1),
-              _vm._v(" "),
-              _vm._m(2),
-              _vm._v(" "),
               _c("div", { staticClass: "form-group" }, [
                 _c("label", [_vm._v("انتخاب روز ")]),
                 _vm._v(" "),
@@ -64817,7 +64690,7 @@ var render = function() {
                   "div",
                   {},
                   [
-                    _c("custom-date-picker", {
+                    _c("custom-time-picker", {
                       attrs: { timezone: true },
                       model: {
                         value: _vm.date,
@@ -64830,11 +64703,38 @@ var render = function() {
                   ],
                   1
                 )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", [_vm._v(" از ساعت")]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {},
+                  [
+                    _c("custom-time-picker", {
+                      attrs: {
+                        format: "HH:mm",
+                        type: "time",
+                        jumpMinute: 15,
+                        roundMinute: true
+                      },
+                      model: {
+                        value: _vm.time,
+                        callback: function($$v) {
+                          _vm.time = $$v
+                        },
+                        expression: "time"
+                      }
+                    })
+                  ],
+                  1
+                )
               ])
             ])
           ]),
           _vm._v(" "),
-          _vm._m(3),
+          _vm._m(1),
           _vm._v(" "),
           _c(
             "a",
@@ -64846,7 +64746,7 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _vm._m(4)
+        _vm._m(2)
       ])
     ])
   ])
@@ -64874,44 +64774,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", [_vm._v(" از ساعت")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "input-group" }, [
-        _c("input", {
-          staticClass: "form-control timepicker",
-          attrs: { type: "time" }
-        }),
-        _vm._v(" "),
-        _c("div", { staticClass: "input-group-addon" }, [
-          _c("i", { staticClass: "fa fa-clock-o" })
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", [_vm._v(" تا ساعت")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "input-group" }, [
-        _c("input", {
-          staticClass: "form-control timepicker",
-          attrs: { type: "time" }
-        }),
-        _vm._v(" "),
-        _c("div", { staticClass: "input-group-addon" }, [
-          _c("i", { staticClass: "fa fa-clock-o" })
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "box" }, [
       _c(
         "div",
@@ -64926,7 +64788,7 @@ var staticRenderFns = [
         "div",
         {
           staticClass: "box-body",
-          staticStyle: { "max-height": "150px", "overflow-y": "scroll" }
+          staticStyle: { "max-height": "220px", "overflow-y": "scroll" }
         },
         [
           _c("table", { staticClass: "table table-bordered" }, [
@@ -66721,7 +66583,7 @@ var render = function() {
               "router-link",
               {
                 staticClass: "btn btn-success",
-                attrs: { to: { name: "create-service" } }
+                attrs: { to: { name: "create-serviceCategory" } }
               },
               [_vm._v("افزودن")]
             )
@@ -66746,17 +66608,11 @@ var render = function() {
                     "tbody",
                     _vm._l(_vm.items, function(item, index) {
                       return _c("tr", { attrs: { id: "items" } }, [
-                        _c("td", [_vm._v(_vm._s(item.service_category.title))]),
-                        _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(item.title))]),
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(item.image))]),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(item.price))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(item.min_time))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(item.max_time))]),
+                        _c("td", [_vm._v(_vm._s(item.description))]),
                         _vm._v(" "),
                         _c(
                           "td",
@@ -66767,7 +66623,7 @@ var render = function() {
                                 staticClass: "btn btn-xs btn-default",
                                 attrs: {
                                   to: {
-                                    name: "edit-service",
+                                    name: "edit-serviceCategory",
                                     params: { id: item.id }
                                   }
                                 }
@@ -66819,17 +66675,11 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v(" دسته بندی ")]),
-        _vm._v(" "),
         _c("th", [_vm._v(" عنوان")]),
         _vm._v(" "),
         _c("th", [_vm._v("تصویر")]),
         _vm._v(" "),
-        _c("th", [_vm._v("قیمت ")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("حداقل زمان ")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("حداکثر زمان")]),
+        _c("th", [_vm._v("توضیحات ")]),
         _vm._v(" "),
         _c("th", { attrs: { width: "100" } }, [_vm._v(" ")])
       ])
@@ -66871,7 +66721,10 @@ var render = function() {
           [
             _c(
               "router-link",
-              { staticClass: "btn btn-default", attrs: { to: "/services" } },
+              {
+                staticClass: "btn btn-default",
+                attrs: { to: "/serviceCategories" }
+              },
               [_vm._v("بازگشت")]
             )
           ],
@@ -66899,14 +66752,19 @@ var render = function() {
                       { staticClass: "container " },
                       _vm._l(_vm.errors[0], function(error) {
                         return _c("li", { staticClass: "text-danger" }, [
+                          _vm._v(
+                            "\n" +
+                              _vm._s(error) +
+                              "\n                            "
+                          ),
                           _c(
                             "ul",
                             _vm._l(error, function(error_message) {
                               return _c("li", { staticClass: "text-danger" }, [
                                 _vm._v(
-                                  "\n                                " +
+                                  "\n                                    " +
                                     _vm._s(error_message) +
-                                    "\n                            "
+                                    "\n                                "
                                 )
                               ])
                             }),
@@ -66919,64 +66777,6 @@ var render = function() {
                       0
                     )
                   : _vm._e(),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-xs-12 form-group" }, [
-                    _c("label", { staticClass: "control-label" }, [
-                      _vm._v("دسته بندی")
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.item.service_categories_id,
-                            expression: "item.service_categories_id"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.item,
-                              "service_categories_id",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          }
-                        }
-                      },
-                      _vm._l(_vm.service_categories, function(
-                        service_category
-                      ) {
-                        return _c(
-                          "option",
-                          { domProps: { value: service_category.id } },
-                          [
-                            _vm._v(
-                              "\n                            " +
-                                _vm._s(service_category.title) +
-                                "\n                        "
-                            )
-                          ]
-                        )
-                      }),
-                      0
-                    )
-                  ])
-                ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-xs-12 form-group" }, [
@@ -67032,130 +66832,6 @@ var render = function() {
                             return
                           }
                           _vm.$set(_vm.item, "description", $event.target.value)
-                        }
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-xs-12 form-group" }, [
-                    _c("label", { staticClass: "control-label" }, [
-                      _vm._v("تعداد ارائه خدمت")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.item.initial_number,
-                          expression: "item.initial_number"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.item.initial_number },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.item,
-                            "initial_number",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-xs-12 form-group" }, [
-                    _c("label", { staticClass: "control-label" }, [
-                      _vm._v("قیمت")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.item.price,
-                          expression: "item.price"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.item.price },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.item, "price", $event.target.value)
-                        }
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-xs-12 form-group" }, [
-                    _c("label", { staticClass: "control-label" }, [
-                      _vm._v("حداقل زمان")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.item.min_time,
-                          expression: "item.min_time"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.item.min_time },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.item, "min_time", $event.target.value)
-                        }
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-xs-12 form-group" }, [
-                    _c("label", { staticClass: "control-label" }, [
-                      _vm._v("حداکثر زمان")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.item.max_time,
-                          expression: "item.max_time"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.item.max_time },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.item, "max_time", $event.target.value)
                         }
                       }
                     })
@@ -67218,7 +66894,10 @@ var render = function() {
           [
             _c(
               "router-link",
-              { staticClass: "btn btn-default", attrs: { to: "/services" } },
+              {
+                staticClass: "btn btn-default",
+                attrs: { to: "/serviceCategories" }
+              },
               [_vm._v("بازگشت")]
             )
           ],
@@ -67266,64 +66945,6 @@ var render = function() {
                       0
                     )
                   : _vm._e(),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-xs-12 form-group" }, [
-                    _c("label", { staticClass: "control-label" }, [
-                      _vm._v("دسته بندی")
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.item.service_categories_id,
-                            expression: "item.service_categories_id"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.item,
-                              "service_categories_id",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          }
-                        }
-                      },
-                      _vm._l(_vm.service_categories, function(
-                        service_category
-                      ) {
-                        return _c(
-                          "option",
-                          { domProps: { value: service_category.id } },
-                          [
-                            _vm._v(
-                              "\n                                " +
-                                _vm._s(service_category.title) +
-                                "\n                            "
-                            )
-                          ]
-                        )
-                      }),
-                      0
-                    )
-                  ])
-                ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-xs-12 form-group" }, [
@@ -67379,130 +67000,6 @@ var render = function() {
                             return
                           }
                           _vm.$set(_vm.item, "description", $event.target.value)
-                        }
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-xs-12 form-group" }, [
-                    _c("label", { staticClass: "control-label" }, [
-                      _vm._v("تعداد ارائه خدمت")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.item.initial_number,
-                          expression: "item.initial_number"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.item.initial_number },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.item,
-                            "initial_number",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-xs-12 form-group" }, [
-                    _c("label", { staticClass: "control-label" }, [
-                      _vm._v("قیمت")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.item.price,
-                          expression: "item.price"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.item.price },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.item, "price", $event.target.value)
-                        }
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-xs-12 form-group" }, [
-                    _c("label", { staticClass: "control-label" }, [
-                      _vm._v("حداقل زمان")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.item.min_time,
-                          expression: "item.min_time"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.item.min_time },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.item, "min_time", $event.target.value)
-                        }
-                      }
-                    })
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
-                  _c("div", { staticClass: "col-xs-12 form-group" }, [
-                    _c("label", { staticClass: "control-label" }, [
-                      _vm._v("حداکثر زمان")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.item.max_time,
-                          expression: "item.max_time"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.item.max_time },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.item, "max_time", $event.target.value)
                         }
                       }
                     })
@@ -80540,8 +80037,8 @@ module.exports = function(module) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue_persian_datetime_picker__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! vue-persian-datetime-picker */ "./node_modules/vue-persian-datetime-picker/dist/vue-persian-datetime-picker.js");
-/* harmony import */ var vue_persian_datetime_picker__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(vue_persian_datetime_picker__WEBPACK_IMPORTED_MODULE_20__);
+/* harmony import */ var vue_persian_datetime_picker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-persian-datetime-picker */ "./node_modules/vue-persian-datetime-picker/dist/vue-persian-datetime-picker.js");
+/* harmony import */ var vue_persian_datetime_picker__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_persian_datetime_picker__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_companies_CompaniesIndex_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/companies/CompaniesIndex.vue */ "./resources/js/components/companies/CompaniesIndex.vue");
 /* harmony import */ var _components_companies_CompaniesCreate_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/companies/CompaniesCreate.vue */ "./resources/js/components/companies/CompaniesCreate.vue");
 /* harmony import */ var _components_companies_CompaniesEdit_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/companies/CompaniesEdit.vue */ "./resources/js/components/companies/CompaniesEdit.vue");
@@ -80725,14 +80222,14 @@ var router = new VueRouter({
   routes: routes,
   mode: 'hash'
 });
-Vue.use(vue_persian_datetime_picker__WEBPACK_IMPORTED_MODULE_20___default.a, {
-  name: 'custom-date-picker',
+Vue.use(vue_persian_datetime_picker__WEBPACK_IMPORTED_MODULE_0___default.a, {
+  name: 'custom-time-picker',
   props: {
     inputFormat: 'YYYY-MM-DD',
-    format: 'jYYYY-jMM-jDD ',
+    format: 'jYYYY-jMM-jDD',
     editable: false,
     inputClass: 'form-control my-custom-class-name',
-    placeholder: 'تاریخ را انتخاب کنید',
+    placeholder: 'تاریخ و زمان را انتخاب کنید',
     altFormat: 'YYYY-MM-DD HH:mm',
     color: '#00acc1',
     autoSubmit: true //...
