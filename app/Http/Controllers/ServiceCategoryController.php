@@ -29,7 +29,7 @@ class ServiceCategoryController extends BaseAPIController
         return [
             'parent_id'=>['nullable','exists:service_categories,id'],
             'title'=>['string','required'],
-            'image'=>['image'],
+//            'image'=>['image'],
             'description'=>[],
             'number'=>[],
             'star'=>[],
