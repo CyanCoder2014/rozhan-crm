@@ -31,6 +31,7 @@
         "persian-datepicker": "^1.2.0",
         "vee-validate": "^3.0.11",
         "vue-axios": "^2.1.5",
+        "vue-jalali-moment": "^1.0.0",
         "vue-persian-datetime-picker": "^2.1.2",
         "vue-router": "^3.1.3"
     }
