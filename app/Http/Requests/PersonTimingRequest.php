@@ -51,7 +51,6 @@ class PersonTimingRequest extends FormRequest
     public function all($keys= null)
     {
         $this->request->add($this->route()->parameters());
-        $this->request->add($this->route()->parameters());
         return parent::all($keys= null);
 
     }
