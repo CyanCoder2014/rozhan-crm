@@ -42,14 +42,16 @@ Route::middleware(['jwt.auth'])->post('/test', 'HomeController@test');
 
 
 
-Route::middleware(['jwt.auth'])->resource('companies', 'CompaniesController');
+Route::middleware(['jwt.auth'])->resource('companies', 'CompaniesController')->except('edit','create');
 
-Route::middleware(['jwt.auth'])->resource('contacts', 'ContactController');
+Route::middleware(['jwt.auth'])->resource('contacts', 'ContactController')->except('edit','create');
 
-Route::middleware(['jwt.auth'])->resource('serviceCategories', 'ServiceCategoryController');
-Route::middleware(['jwt.auth'])->resource('services', 'ServiceController');
-Route::middleware(['jwt.auth'])->resource('persons', 'PersonController');
-Route::middleware(['jwt.auth'])->resource('orders', 'OrderController');
+Route::middleware(['jwt.auth'])->resource('serviceCategories', 'ServiceCategoryController')->except('edit','create');
+Route::middleware(['jwt.auth'])->resource('services', 'ServiceController')->except('edit','create');
+Route::middleware(['jwt.auth'])->resource('persons', 'PersonController')->except('edit','create');
+Route::middleware(['jwt.auth'])->resource('orders', 'OrderController')->except('edit','create');
+Route::middleware(['jwt.auth'])->resource('person/{person_id}/timing', 'PersonTimingController')->except('edit','create');
+Route::middleware(['jwt.auth'])->resource('person/{person_id}/service', 'PersonTimingController')->except('edit','create');
 Route::middleware(['jwt.auth'])->post('addOrder', 'OrderController@addOrder');
 Route::middleware(['jwt.auth'])->post('editOrder', 'OrderController@editOrder');
 Route::middleware(['jwt.auth'])->post('payPayment', 'OrderController@payPayment');
