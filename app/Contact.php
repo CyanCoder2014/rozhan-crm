@@ -17,5 +17,9 @@ class Contact extends Model
     {
         return $this->mobile;
     }
+    public function routeNotificationForMail($notification)
+    {
+        return $this->email;
+    }
 
 }

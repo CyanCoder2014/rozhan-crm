@@ -8,22 +8,24 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class SMSNotification extends Notification
+class MessageNotification extends Notification
 {
     use Queueable;
     /**
      * @var string
      */
     protected $message;
+    protected $methods;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(string $message)
+    public function __construct(string $message,array $methods)
     {
         $this->message = $message;
+        $this->methods = $methods;
     }
 
     /**
@@ -34,7 +36,21 @@ class SMSNotification extends Notification
      */
     public function via($notifiable)
     {
-        return [SMSChannel::class];
+        $methods=[];
+        foreach ($this->methods as $value)
+            switch ($value){
+                case 'sms':
+                    $methods[]=SMSChannel::class;
+                    break;
+                case 'email':
+                    $methods[]='mail';
+                    break;
+                case 'db':
+                    $methods[]='database';
+                    break;
+            }
+
+        return $methods;
     }
 
     /**
@@ -46,9 +62,13 @@ class SMSNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->line($this->message)
+                    ->action('ورود به سیستم', url('/'))
+                    ->line('با تشکر از انتخاب ما');
+    }
+    public function toArray($notifiable)
+    {
+        return ['messaage' =>$this->message];
     }
 
     /**
