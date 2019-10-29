@@ -26,4 +26,14 @@ class OrderService extends Model
         'deleted_on',
 
     ];
+
+    public function order(){
+        return $this->belongsTo(Order::class);
+    }
+    public function service(){
+        return $this->belongsTo(Service::class);
+    }
+    public function person(){
+        return $this->belongsTo(Person::class);
+    }
 }

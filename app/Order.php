@@ -30,4 +30,8 @@ class Order extends Model
     public function is_editable(){
         return true;
     }
+
+    public function OrderServices(){
+        return $this->hasMany(OrderService::class);
+    }
 }

@@ -39,7 +39,9 @@ class OrderController extends Controller
 
     public function show($id)
     {
-        $data = $this->appRepository->getById($id, $this->model);
+        $data = Order::where('id',$id)
+            ->with(['OrderServices','OrderServices.person','OrderServices.service'])
+            ->first();
         return $this->response($data);
     }
 
