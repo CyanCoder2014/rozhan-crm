@@ -23,7 +23,6 @@ class SMSChannel
     {
         $message = $notification->toSms($notifiable);
         $receptor = $notifiable->routeNotificationForSms($notification);
-        $this->smsService->Send($receptor,$message);
         if ($this->smsService->Send($receptor,$message))
             return true;
 
