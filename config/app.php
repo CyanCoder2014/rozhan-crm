@@ -175,6 +175,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        \App\Services\SMSService\SmsServiceProvider::class
 //        EllipseSynergie\ApiResponse\Laravel\LumenServiceProvider::class,
 
     ],
