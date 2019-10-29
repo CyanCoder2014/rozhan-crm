@@ -40,6 +40,10 @@ class Service extends Model
         return $this->belongsTo('App\ServiceCategory', 'service_categories_id');
     }
 
+    public function persons(){
+        return $this->hasManyThrough(Person::class,PersonService::class,'person_id','id','id','service_id');
+    }
+
 
     public function priceCalculate(){
         if($this->price)
