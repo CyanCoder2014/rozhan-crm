@@ -50,6 +50,7 @@ class AppRepositoryImpl implements AppRepository
 
     public function add($parameters,  $model)
     {
+        $parameters['created_by'] = auth()->id();
         $data =  $model->create($parameters);
         return $data;
     }
@@ -60,6 +61,7 @@ class AppRepositoryImpl implements AppRepository
 
     public function edit($parameters, $id,  $model)
     {
+        $parameters['updated_by'] = auth()->id();
         $data =  $model->findOrFail($id);
         $data->update($parameters);
 

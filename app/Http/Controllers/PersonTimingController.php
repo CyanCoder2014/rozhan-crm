@@ -49,8 +49,8 @@ class PersonTimingController extends Controller
 
     public function store(PersonTimingRequest $request,$person_id)
     {
-        $array = $this->appRepository->add($request->casts(),$this->model);
-        return $this->response($array['data']??null,$array['message']??null);
+        $data = $this->appRepository->add($request->casts(),$this->model);
+        return $this->response($data);
     }
 
     public function destroy($person_id,$id)
