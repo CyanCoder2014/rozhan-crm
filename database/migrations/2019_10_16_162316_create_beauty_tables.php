@@ -40,7 +40,7 @@ class CreateBeautyTables extends Migration
             $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
-            $table->dateTime('deleted_on')->nullable();
+            $table->softDeletes();
         });
 
 
@@ -66,7 +66,7 @@ class CreateBeautyTables extends Migration
             $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
-            $table->dateTime('deleted_on')->nullable();
+            $table->softDeletes();
         });
 
 
@@ -85,7 +85,7 @@ class CreateBeautyTables extends Migration
             $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
-            $table->dateTime('deleted_on')->nullable();
+            $table->softDeletes();
         });
 
 
@@ -106,7 +106,7 @@ class CreateBeautyTables extends Migration
             $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
-            $table->dateTime('deleted_on')->nullable();
+            $table->softDeletes();
         });
 
 
@@ -126,7 +126,7 @@ class CreateBeautyTables extends Migration
             $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
-            $table->dateTime('deleted_on')->nullable();
+            $table->softDeletes();
         });
 
 
@@ -148,7 +148,7 @@ class CreateBeautyTables extends Migration
             $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
-            $table->dateTime('deleted_on')->nullable();
+            $table->softDeletes();
         });
 
 
@@ -171,7 +171,7 @@ class CreateBeautyTables extends Migration
             $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
-            $table->dateTime('deleted_on')->nullable();
+            $table->softDeletes();
         });
 
 
@@ -204,7 +204,7 @@ class CreateBeautyTables extends Migration
             $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
-            $table->dateTime('deleted_on')->nullable();
+            $table->softDeletes();
         });
 
 
@@ -228,7 +228,7 @@ class CreateBeautyTables extends Migration
             $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
-            $table->dateTime('deleted_on')->nullable();
+            $table->softDeletes();
         });
 
 
@@ -261,7 +261,7 @@ class CreateBeautyTables extends Migration
             $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
-            $table->dateTime('deleted_on')->nullable();
+            $table->softDeletes();
         });
 
 
@@ -285,7 +285,7 @@ class CreateBeautyTables extends Migration
             $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
-            $table->dateTime('deleted_on')->nullable();
+            $table->softDeletes();
         });
 
 
@@ -308,7 +308,7 @@ class CreateBeautyTables extends Migration
             $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
-            $table->dateTime('deleted_on')->nullable();
+            $table->softDeletes();
         });
 
 
@@ -330,7 +330,7 @@ class CreateBeautyTables extends Migration
             $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
-            $table->dateTime('deleted_on')->nullable();
+            $table->softDeletes();
         });
 
 
@@ -357,7 +357,7 @@ class CreateBeautyTables extends Migration
             $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
-            $table->dateTime('deleted_on')->nullable();
+            $table->softDeletes();
         });
 
 
@@ -378,7 +378,7 @@ class CreateBeautyTables extends Migration
             $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
-            $table->dateTime('deleted_on')->nullable();
+            $table->softDeletes();
         });
 
 
@@ -407,7 +407,7 @@ class CreateBeautyTables extends Migration
             $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
-            $table->dateTime('deleted_on')->nullable();
+            $table->softDeletes();
         });
 
 
@@ -435,7 +435,7 @@ class CreateBeautyTables extends Migration
             $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
-            $table->dateTime('deleted_on')->nullable();
+            $table->softDeletes();
         });
 
 
@@ -464,7 +464,7 @@ class CreateBeautyTables extends Migration
             $table->bigInteger('updated_by')->unsigned()->nullable();
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
-            $table->dateTime('deleted_on')->nullable();
+            $table->softDeletes();
         });
 
 
