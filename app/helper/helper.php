@@ -47,7 +47,7 @@ function to_jalali_date($date)
     $timestamp = strtotime($date);
     $date_array = jgetdate($timestamp, $none = "", $timezone = "Asia/Tehran", $tr_num = "fa");
 
-    $j_date = $date_array['mday'] . '/' . $date_array['month'] . '/' . $date_array['year'];
+    $j_date = $date_array['year'] . '/' . $date_array['mon'] . '/' . $date_array['mday'];
 
     return $j_date;
 
@@ -96,7 +96,7 @@ function to_jalali($date)
     $timestamp = strtotime($date);
     $date_array = jgetdate($timestamp, $none = "", $timezone = "Asia/Tehran", $tr_num = "fa");
 
-    $j_date = $date_array['mday'] . '/' . $date_array['month'] . '/' . $date_array['year'] . ' <i class="fa fa-clock-o"></i>  ' . $date_array['hours'] . ':' . $date_array['minutes'];
+    $j_date = $date_array['year'] . '/' . $date_array['mon'] . '/' . $date_array['mday'] . ' ' . $date_array['hours'] . ':' . $date_array['minutes'];
 
     return $j_date;
 
@@ -110,10 +110,6 @@ function to_jalali_datetime($date)
     //$date_array['weekday']
     $timestamp = strtotime($date);
     $date_array = jgetdate($timestamp, $none = "", $timezone = "Asia/Tehran", $tr_num = "fa");
-    if ($date_array['mon'] < 10)
-        $date_array['mon'] = '0'.$date_array['mon'];
-    if ($date_array['mday'] < 10)
-        $date_array['mday'] = '0'.$date_array['mday'];
     if ($date_array['minutes'] < 10)
         $date_array['minutes'] = '0'.$date_array['minutes'];
     $j_date = $date_array['year'] . '/' . $date_array['mon'] . '/' . $date_array['mday'] . "   " . $date_array['hours'] . ':' . $date_array['minutes']. ':' . $date_array['seconds'];
@@ -598,7 +594,7 @@ function jmktime($h = '', $m = '', $s = '', $jm = '', $jd = '', $jy = '', $none 
 function jgetdate($timestamp = '', $none = '', $timezone = 'Asia/Tehran', $tn = 'en')
 {
     $ts = ($timestamp === '') ? time() : tr_num($timestamp);
-    $jdate = explode('_', jdate('F_G_i_j_l_n_s_w_Y_z', $ts, '', $timezone, $tn));
+    $jdate = explode('_', jdate('F_G_i_d_l_m_s_w_Y_z', $ts, '', $timezone, $tn));
     return array(
         'seconds' => tr_num((int)tr_num($jdate[6]), $tn),
         'minutes' => tr_num((int)tr_num($jdate[2]), $tn),
