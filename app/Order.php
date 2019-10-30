@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     const created_status = 0;
+    const payed_status = 2;
 
     protected $fillable=[
         'user_id',
