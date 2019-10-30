@@ -67,4 +67,10 @@ class Person extends Model
         return true;
 
     }
+    public function dateTimeSchedule($date){
+        $available = $this->timing()->where('date', $date)->select(['start','end'])->get()->toArray();
+        $booked =   $this->OrderServices()->where('date', $date)->select(['start','end'])->get()->toArray();
+        return compact('available','booked');
+
+    }
 }

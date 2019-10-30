@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Requests\OrderRequest;
+use App\Http\Requests\PreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Order;
 use App\Repositories\Interfaces\AppRepository;
@@ -54,10 +55,20 @@ class OrderController extends Controller
     }
 
 
-    public function store(OrderRequest $request)
+    public function store(OrderRequest $request,$id)
     {
-        $array = $this->orderService->addOrder($request);
-        return $this->response($array['data']??null,$array['message']??null);
+        $array = $this->orderService->addOrder($request,$id);
+        return $this->response($array['data']??null,$array['message']??null,$array['status']??200);
+    }
+    public function preOrder(PreOrderRequest $request)
+    {
+        $array = $this->orderService->addOrderCache($request);
+        return $this->response($array['data']??null,$array['message']??null,$array['status']??200);
+    }
+    public function serviceSchedule($id)
+    {
+        $array = $this->orderService->getOrderCache($id);
+        return $this->response($array['data']??null,$array['message']??null,$array['status']??200);
     }
 
     public function destroy($id)
