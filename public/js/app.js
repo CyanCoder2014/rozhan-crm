@@ -4493,6 +4493,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 var auth = {
   headers: {
     Authorization: 'bearer ' + localStorage.getItem('token')
@@ -4501,6 +4507,8 @@ var auth = {
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      colors: ['#9e85d9'],
+      activeColorIndex: 0,
       items: [],
       persons: [],
       order: {
@@ -4540,12 +4548,6 @@ var auth = {
     });
   },
   methods: {
-    min: function min() {
-      var today = this.order.start_at; //   var m = today.getMinutes();
-      //   var s = today.getSeconds();
-      //   console.log( ":" + m + ":" + s)
-      //console.log(tody)
-    },
     addserice: function addserice(id, personId) {
       this.order.services.push({
         services_id: id,
@@ -9943,7 +9945,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    /* This css is for normalizing styles. You can skip this. */\n*,\n    *:before,\n    *:after {\n        box-sizing: border-box;\n        margin: 0;\n        padding: 0;\n}\n.new {\n        padding: 50px;\n}\n.form-group2 {\n        display: block;\n        margin-bottom: 15px;\n}\n.form-group2 input {\n        padding: 0;\n        height: initial;\n        width: initial;\n        margin-bottom: 0;\n        display: none;\n        cursor: pointer;\n}\n.form-group2 label {\n        position: relative;\n        cursor: pointer;\n}\n.form-group2 label:before {\n        content: '';\n        -webkit-appearance: none;\n        background-color: transparent;\n        border: 2px solid lightgray;\n        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);\n        padding: 10px;\n        display: inline-block;\n        position: relative;\n        vertical-align: middle;\n        cursor: pointer;\n        margin-right: 5px;\n}\n.form-group2 input:checked+label:after {\n         content: '';\n    display: block;\n    position: absolute;\n    top: 2px;\n    right: 13px;\n    width: 8px;\n    height: 14px;\n    border: solid #d54e21;\n    border-width: 0 4px 4px 0;\n    transform: rotate(45deg);\n}\n.form-group3 label:before {\n        content: '';\n        -webkit-appearance: none;\n        background-color: transparent;\n        border: 2px solid lightgray;\n        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);\n        padding: 10px;\n        display: inline-block;\n        position: relative;\n        vertical-align: middle;\n        cursor: pointer;\n        margin-right: 5px;\n}\n.form-group3 input:checked+label:after {\n         content: '';\n    display: block;\n    position: absolute;\n    top: 2px;\n    right: 13px;\n    width: 8px;\n    height: 14px;\n    border: solid #d54e21;\n    border-width: 0 4px 4px 0;\n    transform: rotate(45deg);\n}\n@-webkit-keyframes click-wave {\n0% {\n    height: 40px;\n    width: 40px;\n    opacity: 0.35;\n    position: relative;\n}\n100% {\n    height: 200px;\n    width: 200px;\n    margin-left: -80px;\n    margin-top: -80px;\n    opacity: 0;\n}\n}\n@keyframes click-wave {\n0% {\n    height: 40px;\n    width: 40px;\n    opacity: 0.35;\n    position: relative;\n}\n100% {\n    height: 200px;\n    width: 200px;\n    margin-left: -80px;\n    margin-top: -80px;\n    opacity: 0;\n}\n}\n.option-input {\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  -ms-appearance: none;\n  -o-appearance: none;\n  appearance: none;\n  position: relative;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  height: 20px;\n  width: 20px;\n  transition: all 0.15s ease-out 0s;\n  background: #cbd1d8;\n  border: none;\n  color: #fff;\n  cursor: pointer;\n  display: inline-block;\n  margin-right: 0.5rem;\n  outline: none;\n  position: relative;\n  z-index: 1000;\n      vertical-align: bottom;\n      margin: 0 !important;\n}\n.option-input:hover {\n  background: #9faab7;\n}\n.option-input:checked {\n  background: #40e0d0;\n}\n.option-input:checked::before {\n  height: 20px;\n  width: 20px;\n  position: absolute;\n  content: '\\2714';\n  display: inline-block;\n  /* font-size: 26.66667px; */\n  text-align: center;\n  /* line-height: 40px; */\n}\n.option-input:checked::after {\n  -webkit-animation: click-wave 0.65s;\n  animation: click-wave 0.65s;\n  background: #40e0d0;\n  content: '';\n  display: block;\n  position: relative;\n  z-index: 100;\n  outline: 0;\n}\ninput[type=file]:focus, input[type=checkbox]:focus, input[type=radio]:focus{\n    outline: 0 !important;\n}\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    /* This css is for normalizing styles. You can skip this. */\n*,\n    *:before,\n    *:after {\n        box-sizing: border-box;\n        margin: 0;\n        padding: 0;\n}\n.new {\n        padding: 50px;\n}\n.form-group2 {\n        display: block;\n        margin-bottom: 15px;\n}\n.form-group2 input {\n        padding: 0;\n        height: initial;\n        width: initial;\n        margin-bottom: 0;\n        display: none;\n        cursor: pointer;\n}\n.form-group2 label {\n        position: relative;\n        cursor: pointer;\n}\n.form-group2 label:before {\n        content: '';\n        -webkit-appearance: none;\n        background-color: transparent;\n        border: 2px solid lightgray;\n        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);\n        padding: 10px;\n        display: inline-block;\n        position: relative;\n        vertical-align: middle;\n        cursor: pointer;\n        margin-right: 5px;\n}\n.form-group2 input:checked+label:after {\n         content: '';\n    display: block;\n    position: absolute;\n    top: 2px;\n    right: 13px;\n    width: 8px;\n    height: 14px;\n    border: solid #d54e21;\n    border-width: 0 4px 4px 0;\n    transform: rotate(45deg);\n}\n.form-group3 label:before {\n        content: '';\n        -webkit-appearance: none;\n        background-color: transparent;\n        border: 2px solid lightgray;\n        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);\n        padding: 10px;\n        display: inline-block;\n        position: relative;\n        vertical-align: middle;\n        cursor: pointer;\n        margin-right: 5px;\n}\n.form-group3 input:checked+label:after {\n         content: '';\n    display: block;\n    position: absolute;\n    top: 2px;\n    right: 13px;\n    width: 8px;\n    height: 14px;\n    border: solid #d54e21;\n    border-width: 0 4px 4px 0;\n    transform: rotate(45deg);\n}\n@-webkit-keyframes click-wave {\n0% {\n    height: 40px;\n    width: 40px;\n    opacity: 0.35;\n    position: relative;\n}\n100% {\n    height: 200px;\n    width: 200px;\n    margin-left: -80px;\n    margin-top: -80px;\n    opacity: 0;\n}\n}\n@keyframes click-wave {\n0% {\n    height: 40px;\n    width: 40px;\n    opacity: 0.35;\n    position: relative;\n}\n100% {\n    height: 200px;\n    width: 200px;\n    margin-left: -80px;\n    margin-top: -80px;\n    opacity: 0;\n}\n}\n.option-input {\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  -ms-appearance: none;\n  -o-appearance: none;\n  appearance: none;\n  position: relative;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  height: 20px;\n  width: 20px;\n  transition: all 0.15s ease-out 0s;\n  background: #cbd1d8;\n  border: none;\n  color: #fff;\n  cursor: pointer;\n  display: inline-block;\n  margin-right: 0.5rem;\n  outline: none;\n  position: relative;\n  z-index: 1000;\n      vertical-align: bottom;\n      margin: 0 !important;\n}\n.option-input:hover {\n  background: #9faab7;\n}\n.option-input:checked {\n  background: #40e0d0;\n}\n.option-input:checked::before {\n  height: 20px;\n  width: 20px;\n  position: absolute;\n  content: '\\2714';\n  display: inline-block;\n  /* font-size: 26.66667px; */\n  text-align: center;\n  /* line-height: 40px; */\n}\n.option-input:checked::after {\n  -webkit-animation: click-wave 0.65s;\n  animation: click-wave 0.65s;\n  background: #40e0d0;\n  content: '';\n  display: block;\n  position: relative;\n  z-index: 100;\n  outline: 0;\n}\ninput[type=file]:focus, input[type=checkbox]:focus, input[type=radio]:focus{\n    outline: 0 !important;\n}\n", ""]);
 
 // exports
 
@@ -65970,7 +65972,11 @@ var render = function() {
                       {},
                       [
                         _c("custom-time-picker", {
-                          attrs: { timezone: true },
+                          attrs: {
+                            clearable: true,
+                            placeholder: "تاریخ را انتخاب کنید",
+                            color: _vm.colors[_vm.activeColorIndex]
+                          },
                           model: {
                             value: _vm.order.date,
                             callback: function($$v) {
@@ -65991,18 +65997,8 @@ var render = function() {
                       "div",
                       {},
                       [
-                        _c(
-                          "button",
-                          { attrs: { type: "button" }, on: { click: _vm.min } },
-                          [_vm._v("send")]
-                        ),
-                        _vm._v(" "),
                         _c("br"),
-                        _vm._v(
-                          "\n                                               " +
-                            _vm._s(_vm.order.start_at) +
-                            " \n                                    "
-                        ),
+                        _vm._v(" "),
                         _c("custom-time-picker", {
                           attrs: {
                             format: "HH:mm",
@@ -66010,7 +66006,8 @@ var render = function() {
                             type: "time",
                             jumpMinute: 15,
                             roundMinute: true,
-                            timezone: false
+                            timezone: false,
+                            color: _vm.colors[_vm.activeColorIndex]
                           },
                           model: {
                             value: _vm.order.start_at,
@@ -80542,23 +80539,16 @@ var router = new VueRouter({
   routes: routes,
   mode: 'hash'
 });
-Vue.use(__webpack_require__(/*! vue-jalali-moment */ "./node_modules/vue-jalali-moment/vue-moment.js"));
-Vue.use(vue_persian_datetime_picker__WEBPACK_IMPORTED_MODULE_0___default.a, {
-  name: 'custom-time-picker',
-  props: {
-    inputFormat: 'YYYY/MM/DD HH:mm',
-    format: 'jYYYY/jMM/jDD HH:mm',
-    editable: false,
-    inputClass: 'form-control my-custom-class-name',
-    placeholder: 'تاریخ را انتخاب کنید',
-    altFormat: 'YYYY-MM-DD HH:mm',
-    color: '#00acc1',
-    autoSubmit: true //...
-    //... And whatever you want to set as default
-    //...
+Vue.use(__webpack_require__(/*! vue-jalali-moment */ "./node_modules/vue-jalali-moment/vue-moment.js")); // Vue.use(VuePersianDatetimePicker, {
+//     name: 'custom-time-picker',
+//     props: {
+//         //...
+//         //... And whatever you want to set as default
+//         //...
+//     }
+// });
 
-  }
-}); // 4. Create and mount the root instance.
+Vue.component('custom-time-picker', vue_persian_datetime_picker__WEBPACK_IMPORTED_MODULE_0___default.a); // 4. Create and mount the root instance.
 // Make sure to inject the router with the router option to make the
 // whole app router-aware.
 
@@ -82384,8 +82374,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\wamp\new www\_gitlab\BeautyPlus\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\wamp\new www\_gitlab\BeautyPlus\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\xampp\htdocs\beatyplus\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\xampp\htdocs\beatyplus\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
