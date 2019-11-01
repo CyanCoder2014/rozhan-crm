@@ -28,10 +28,12 @@
         "@fortawesome/free-solid-svg-icons": "^5.11.2",
         "@fortawesome/vue-fontawesome": "^0.1.7",
         "bootstrap-datetimepicker-npm": "^4.17.37-npm",
+        "chart.js": "^2.9.1",
         "moment": "^2.24.0",
         "persian-datepicker": "^1.2.0",
         "vee-validate": "^3.0.11",
         "vue-axios": "^2.1.5",
+        "vue-chartjs": "^3.4.2",
         "vue-jalali-moment": "^1.0.0",
         "vue-persian-datetime-picker": "^2.1.2",
         "vue-router": "^3.1.3"
