@@ -19,6 +19,22 @@ class PersonController extends BaseAPIController
         $this->userController = $userController;
     }
 
+
+
+
+
+
+    public function index()
+    {
+//        $data = $this->appRepository->getAll($this->model);
+        $data = Person::with('OrderServices')->with('services')->get();
+
+        return $this->response($data);
+    }
+
+
+
+
     public function store()
     {
         $user =$this->userController->store()['data'];

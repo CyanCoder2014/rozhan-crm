@@ -123,7 +123,7 @@ class OrderSrvImpl
                     $person->selected = true;
             }
 
-        return ['message' =>'successful','data' =>compact('services','date')];
+        return ['message' =>'successful','data' =>compact('services','date','cacheData')];
 
 
 

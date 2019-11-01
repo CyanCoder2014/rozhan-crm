@@ -33,7 +33,9 @@ class OrderController extends Controller
 
     public function index()
     {
-        $data = $this->appRepository->getAll($this->model);
+//        $data = $this->appRepository->getAll($this->model);
+        $data = Order::with('OrderServices')->get();
+
         return $this->response($data);
     }
 
