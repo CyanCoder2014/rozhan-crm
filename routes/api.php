@@ -49,8 +49,15 @@ Route::middleware(['jwt.auth'])->resource('contacts', 'ContactController')->exce
 Route::middleware(['jwt.auth'])->resource('serviceCategories', 'ServiceCategoryController')->except('edit','create');
 Route::middleware(['jwt.auth'])->resource('services', 'ServiceController')->except('edit','create');
 Route::middleware(['jwt.auth'])->resource('persons', 'PersonController')->except('edit','create');
+
+
+
 Route::middleware(['jwt.auth'])->resource('orders', 'OrderController')->except('edit','create','store');
+
+
 Route::middleware(['jwt.auth'])->post('orders/add/step1', 'OrderController@preOrder');
+
+
 Route::middleware(['jwt.auth'])->get('orders/add/{id}', 'OrderController@serviceSchedule')->name('order.step2');
 Route::middleware(['jwt.auth'])->post('orders/add/{id}', 'OrderController@store')->name('order.store');
 Route::middleware(['jwt.auth'])->resource('person/{person_id}/timing', 'PersonTimingController')->except('edit','create');

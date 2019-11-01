@@ -86,7 +86,8 @@ class OrderSrvImpl
 
 
 
-        return ['message' =>'successful','data' =>route('order.step2',['id'=>$order_cache_id])];
+//        return ['message' =>'successful','data' =>route('order.step2',['id'=>$order_cache_id])];
+        return ['message' =>'successful','data' =>$order_cache_id];
 
 
 

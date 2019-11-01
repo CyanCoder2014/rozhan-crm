@@ -41,7 +41,7 @@ class Service extends Model
     }
 
     public function persons(){
-        return $this->hasManyThrough(Person::class,PersonService::class,'person_id','id','id','service_id');
+        return $this->hasManyThrough(Person::class,PersonService::class,'service_id','id','id','person_id');
     }
 
 
