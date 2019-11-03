@@ -18,4 +18,8 @@ class PersonService extends Model
         'updated_by',
         'deleted_on',
     ];
+
+    public function personTiming(){
+        return $this->hasMany(PersonTiming::class,'person_id','person_id');
+    }
 }

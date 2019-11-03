@@ -36,6 +36,9 @@ class OrderService extends Model
     public function person(){
         return $this->belongsTo(Person::class);
     }
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
     public function hasConflictWith(OrderService $service):bool{
         if ($this->date != $service->date)
             false;

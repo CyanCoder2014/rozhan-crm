@@ -32,6 +32,7 @@ class Order extends Model
         return true;
     }
 
+
     public function OrderServices(){
         return $this->hasMany(OrderService::class);
     }

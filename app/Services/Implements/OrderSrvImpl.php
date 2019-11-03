@@ -7,6 +7,7 @@ namespace App\Repositories;
 use App\Order;
 use App\OrderService;
 use App\Person;
+use App\PersonService;
 use App\Service;
 use App\User;
 use Carbon\Carbon;
@@ -50,14 +51,14 @@ class OrderSrvImpl
      *          ]
      */
 
-    public function addOrderCache(Request $request)
+    public function addOrderCache(Request $request,User $user)
     {
 
 
         $services =$request->services;
         $start = Carbon::createFromFormat('Y-m-d',to_georgian_date($request->date));
         $order = new Order([
-            'user_id' => auth()->id(),
+            'user_id' => $user->id,
             'title' => null,
             'description' => $request->description,
             'file' => null,
@@ -82,6 +83,19 @@ class OrderSrvImpl
             $order_cache_id = rand(1,100000);
 
         }
+        ///////////////////////////////// check if there is available service in this date ////////////////////
+        $availableServices = PersonService::whereIn('service_id',array_column($services,'service_id'))
+            ->whereHas('personTiming',function ($query) use($request){
+            $query->where('date', to_georgian_date($request->date));
+        })->get()->keyBy('service_id');
+        foreach ($services as $service) {
+            if (!array_key_exists($service['service_id'],$availableServices->all()))
+                return ['message' =>'service is not avaliable in this date','status'=>400];
+            if (isset($service['person_id']) && !in_array($service['person_id'],$availableServices->pluck('person_id')->all()))
+                return ['message' =>'person '.$service['person_id'].' has not avaliable in this date','status'=>400];
+        }
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
+
         Cache::put('preorder_id_'.$order_cache_id,compact('order','services'));
 
 

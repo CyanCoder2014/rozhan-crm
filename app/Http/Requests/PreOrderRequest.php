@@ -26,7 +26,7 @@ class PreOrderRequest extends FormRequest
         return [
             'services.*.service_id' => ['required','exists:services,id'],
             'services.*.person_id' => ['nullable','exists:persons,id'],
-            'date' => ['required',function ($attribute, $value, $fail) {
+            'date' => ['required', function ($attribute, $value, $fail) {
                 if (!validate_jalili($value)) {
                     $fail($attribute.' is not jalili time.');
                 }
