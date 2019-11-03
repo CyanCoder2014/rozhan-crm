@@ -64,7 +64,7 @@ class OrderController extends Controller
     }
     public function preOrder(PreOrderRequest $request)
     {
-        $array = $this->orderService->addOrderCache($request);
+        $array = $this->orderService->addOrderCache($request,auth()->user());
         return $this->response($array['data']??null,$array['message']??null,$array['status']??200);
     }
     public function serviceSchedule($id)
