@@ -70,3 +70,4 @@ Route::middleware(['jwt.auth'])->post('editOrder', 'OrderController@editOrder');
 Route::middleware(['jwt.auth'])->post('payPayment', 'OrderController@payPayment');
 Route::middleware(['jwt.auth'])->post('printPayment', 'OrderController@printPayment');
 Route::middleware(['jwt.auth'])->get('/report', 'ReportController@report1');
+Route::middleware(['jwt.auth'])->get('/UserReport', 'ReportController@UserReport');
