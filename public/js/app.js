@@ -2824,6 +2824,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 var auth = {
   headers: {
     Authorization: 'bearer ' + localStorage.getItem('token')
@@ -2836,8 +2839,8 @@ var auth = {
       items: [],
       load: false,
       time: {
-        start: '1398/01/01',
-        end: '1398/12/12'
+        start: '',
+        end: ''
       },
       colors: ['#00acc1'],
       activeColorIndex: 0,
@@ -2847,7 +2850,7 @@ var auth = {
         label: 'Data One',
         // backgroundColor: '#f87979',
         backgroundColor: ["#41B883", "#E46651", "#00D8FF"],
-        data: [1, 10, 5]
+        data: []
       }]
     };
   },
@@ -2856,28 +2859,41 @@ var auth = {
       return array.map(function (obj) {
         return obj[key];
       });
+    },
+    changeDate: function changeDate() {
+      var _this = this;
+
+      this.load = false;
+      axios.get("http://localhost:8000/api/report?".concat("date_from=" + this.time.start + "&" + "date_to=" + this.time.end), auth).then(function (response) {
+        _this.items = response.data;
+        _this.labelsline = _this.pluck(_this.items, "label");
+        _this.datasets[0].data = _this.pluck(_this.items, "value");
+        _this.load = true;
+      })["catch"](function (error) {
+        console.log(error);
+        _this.errored = true;
+      })["finally"](function () {
+        return _this.loading = false;
+      });
     }
   },
   mounted: function mounted() {
-    var _this = this;
+    var _this2 = this;
 
-    this.load = false;
-    axios.get("http://localhost:8000/api/report?".concat("date_from=" + this.time.start + "&" + "date_to=" + this.time.end), auth).then(function (response) {
-      _this.items = response.data; // console.log(this.items);
-      //  this.labelsline = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
-
-      _this.labelsline = _this.pluck(_this.items, "created_at"); //  console.log(this.labels)
-
-      _this.load = true;
-    })["catch"](function (error) {
-      console.log(error);
-      _this.errored = true;
-    })["finally"](function () {
-      return _this.loading = false;
-    });
-  },
-  beforeCreate: function beforeCreate() {//  this.labelsline = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
-    //  console.log(this.labelsline)
+    if (this.time.start && this.time.end) {
+      this.load = false;
+      axios.get("http://localhost:8000/api/report?".concat("date_from=" + this.time.start + "&" + "date_to=" + this.time.end), auth).then(function (response) {
+        _this2.items = response.data;
+        _this2.labelsline = _this2.pluck(_this2.items, "label");
+        _this2.datasets[0].data = _this2.pluck(_this2.items, "value");
+        _this2.load = true;
+      })["catch"](function (error) {
+        console.log(error);
+        _this2.errored = true;
+      })["finally"](function () {
+        return _this2.loading = false;
+      });
+    }
   }
 });
 
@@ -65788,9 +65804,17 @@ var render = function() {
     { staticClass: "p-25" },
     [
       _c("div", { staticClass: "row line-div" }, [
+        _c("div", { staticClass: "col-md-4 my-5" }, [
+          _c(
+            "button",
+            { staticClass: "btn btn-primary", on: { click: _vm.changeDate } },
+            [_vm._v("change")]
+          )
+        ]),
+        _vm._v(" "),
         _c(
           "div",
-          { staticClass: "col-md-6 my-5" },
+          { staticClass: "col-md-4 my-5" },
           [
             _c("custom-time-picker", {
               attrs: {
@@ -65812,7 +65836,7 @@ var render = function() {
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "col-md-6 my-5" },
+          { staticClass: "col-md-4 my-5" },
           [
             _c("custom-time-picker", {
               attrs: {
