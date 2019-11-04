@@ -16,6 +16,7 @@
 /public/prettify.min.css
 /public/robot.txt
 /public/web
+/public/js/app.js
 /storage/*.key
 /vendor
 /.idea
