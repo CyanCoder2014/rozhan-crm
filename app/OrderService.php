@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class OrderService extends Model
 {
     const created_status = 0;
+    const complete_status = 3;
+
 
     protected $fillable=[
         'order_id',
@@ -48,4 +50,5 @@ class OrderService extends Model
             return true;
         return false;
     }
+
 }

@@ -39,9 +39,34 @@ class PersonController extends BaseAPIController
         return $this->response($data);
     }
 
-
-
-
+    /**
+     *
+     * @bodyParam  name [] required
+     * @bodyParam  email  ['string','email','max:255','unique:users'] required
+     * @bodyParam  mobile  ['string','max:255','unique:users'] required
+     * @bodyParam  password  ['string','min:8'] required
+     * @bodyParam  image ['nullable','image']
+     * @bodyParam  family [] required
+     * @bodyParam  description []
+     * @bodyParam  min_time []
+     * @bodyParam  score []
+     * @bodyParam  star []
+     * @bodyParam  type []
+     * @bodyParam  state []
+     *
+     * @response 200 {
+     * "data": {
+     * "name": "",
+     * "family": "",
+     * "created_by": {id},
+     * "user_id": {id},
+     * "updated_at": {date},
+     * "created_at": {date},
+     * "id": {id}
+     * },
+     * "message": null
+     * }
+     */
     public function store()
     {
         request()->validate([
@@ -54,6 +79,31 @@ class PersonController extends BaseAPIController
         \request()->request->add(['created_by' => auth()->id(),'user_id' => $user->id]);
         return parent::store();
     }
+    /**
+     *
+     * @bodyParam  name [] required
+     * @bodyParam  image ['nullable','image']
+     * @bodyParam  family [] required
+     * @bodyParam  description []
+     * @bodyParam  min_time []
+     * @bodyParam  score []
+     * @bodyParam  star []
+     * @bodyParam  type []
+     * @bodyParam  state []
+     *
+     * @response 200 {
+     * "data": {
+     * "name": "",
+     * "family": "",
+     * "created_by": {id},
+     * "user_id": {id},
+     * "updated_at": {date},
+     * "created_at": {date},
+     * "id": {id}
+     * },
+     * "message": null
+     * }
+     */
     public function update($id)
     {
         \request()->request->add(['updated_by' => auth()->id()]);
@@ -63,7 +113,7 @@ class PersonController extends BaseAPIController
     {
         return [
             ////////// person validation //////////////
-            'image'=>['image'],
+            'image'=>['nullable','image'],
             'family'=>['required'],
             'description'=>[],
             'min_time'=>[],
