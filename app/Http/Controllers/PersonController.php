@@ -4,19 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Person;
 use App\Repositories\AppRepositoryImpl;
+use App\Repositories\UserRepository;
 
 
 class PersonController extends BaseAPIController
 {
     /**
-     * @var UserController
+     * @var UserRepository
      */
-    protected $userController;
-    public function __construct(AppRepositoryImpl $appRepository,UserController $userController)
+    protected $userRepository;
+
+    /**
+     * PersonController constructor.
+     * @param AppRepositoryImpl $appRepository
+     * @param UserRepository $userRepository
+     */
+    public function __construct(AppRepositoryImpl $appRepository,UserRepository $userRepository)
     {
         $this->appRepository = $appRepository;
         $this->model = new Person();
-        $this->userController = $userController;
+        $this->userRepository = $userRepository;
     }
 
 
@@ -37,7 +44,13 @@ class PersonController extends BaseAPIController
 
     public function store()
     {
-        $user =$this->userController->store()['data'];
+        request()->validate([
+            ////////// user validation ////////////////
+            'name'=>['required'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'mobile' => ['required', 'string', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8']]);
+        $user =$this->userRepository->add(\request());
         \request()->request->add(['created_by' => auth()->id(),'user_id' => $user->id]);
         return parent::store();
     }
@@ -49,7 +62,7 @@ class PersonController extends BaseAPIController
     protected function validationRules()
     {
         return [
-            'name'=>['required'],
+            ////////// person validation //////////////
             'image'=>['image'],
             'family'=>['required'],
             'description'=>[],

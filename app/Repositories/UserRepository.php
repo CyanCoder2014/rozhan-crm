@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 
 use App\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserRepository
 {
@@ -16,6 +17,15 @@ class UserRepository
     public function __construct(User $model)
     {
         $this->model = $model;
+    }
+
+    public function add($request){
+        return User::create([
+            'name'=> $request->name.' '.$request->family,
+            'email' => $request->email,
+            'mobile' => $request->mobile,
+            'password' => Hash::make($request->password),
+        ]);
     }
 
     public function existsWithEmail(string $email): bool
