@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateOrderRequest;
 use App\Order;
 use App\Repositories\Interfaces\AppRepository;
 use App\Repositories\OrderSrvImpl;
+use App\User;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -64,7 +65,7 @@ class OrderController extends Controller
     }
     public function preOrder(PreOrderRequest $request)
     {
-        $array = $this->orderService->addOrderCache($request,auth()->user());
+        $array = $this->orderService->addOrderCache($request,User::find($request->user_id));
         return $this->response($array['data']??null,$array['message']??null,$array['status']??200);
     }
     public function serviceSchedule($id)

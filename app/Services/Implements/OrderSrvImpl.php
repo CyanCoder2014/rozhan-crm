@@ -149,28 +149,13 @@ class OrderSrvImpl
     {
 
         $cacheData = Cache::pull('preorder_id_'.$id);
+        if(!isset($cacheData['order']))
+            return ['message' =>'order does not exist','status'=>400];
 
         return DB::transaction(function () use ($request,$cacheData){
             $services =$request->services;
             $start = Carbon::createFromFormat('Y-m-d',to_georgian_date($request->date));
-            $order = $cacheData['order']??new Order([
-                    'user_id' => auth()->id(),
-                    'title' => null,
-                    'description' => null,
-                    'file' => null,
-                    'general_price' => null,
-                    'general_discount' => null,
-                    'general_tax' => null,
-                    'final_price' => null,
-                    'general_date' => $start->format('Y-m-d'),
-                    'general_start' => null,
-                    'general_end' => null,
-                    'type' => null,
-                    'state' => Order::created_status,
-                    'created_by' => auth()->id(),
-                    'updated_by' => null,
-                    'deleted_at' => null,
-                ]);
+            $order = $cacheData['order'];
             $order->save();
 
 
