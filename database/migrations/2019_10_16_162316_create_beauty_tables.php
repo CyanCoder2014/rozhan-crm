@@ -180,7 +180,7 @@ class CreateBeautyTables extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('parent_id')->unsigned()->nullable();
             $table->foreign('parent_id')->references('id')->on('services')->onDelete('cascade');
-            $table->bigInteger('service_categories_id')->unsigned();
+            $table->bigInteger('service_categories_id')->unsigned()->nullable();
             $table->foreign('service_categories_id')->references('id')->on('service_categories')->onDelete('cascade');
             $table->string('title')->nullable();
             $table->string('image')->nullable();
