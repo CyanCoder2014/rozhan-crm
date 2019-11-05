@@ -74,3 +74,4 @@ Route::middleware(['jwt.auth'])->post('printPayment', 'OrderController@printPaym
 Route::middleware(['jwt.auth'])->get('/report', 'ReportController@report1');
 Route::middleware(['jwt.auth'])->get('/UserReport', 'ReportController@UserReport');
 Route::middleware(['jwt.auth'])->get('/workCalendar', 'workCalendarController@index');
+Route::middleware(['jwt.auth'])->resource('/OrderServiceFeedback', 'OrderServiceFeedbackController');

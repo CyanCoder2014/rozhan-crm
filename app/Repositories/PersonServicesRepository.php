@@ -31,7 +31,7 @@ class PersonServicesRepository
                 $model->created_by = auth()->id();
             }
             $model->fill($service);
-            $model->person_id = $parameters['person_id'];
+            $model->person_id = $person_id;
             $model->save();
             $output[] = $model;
         }

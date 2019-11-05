@@ -37,6 +37,9 @@ class Person extends Model
     public function Orders(){
         return $this->hasManyThrough(Order::class,OrderService::class,'person_id','id','id','order_id');
     }
+    public function serviceFeedback(){
+        return $this->hasManyThrough(OrderServiceFeedback::class,OrderService::class,'person_id','order_service_id','id','id');
+    }
     ///////////////////////////////////////////////////////
     public function hasService(Service $service):bool{
         if ($this->services()->where('service_id', $service->id)->count() > 0)
@@ -72,5 +75,10 @@ class Person extends Model
         $booked =   $this->OrderServices()->where('date', $date)->select(['start','end'])->get()->toArray();
         return compact('available','booked');
 
+    }
+
+    public function updateRate(){
+        $this->star = $this->serviceFeedback()->avg('rate');
+        return $this;
     }
 }

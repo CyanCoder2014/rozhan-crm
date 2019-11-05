@@ -8,6 +8,7 @@ class Order extends Model
 {
     const created_status = 0;
     const payed_status = 2;
+    const complete_status = 3;
 
     protected $fillable=[
         'user_id',
