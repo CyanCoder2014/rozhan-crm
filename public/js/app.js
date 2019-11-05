@@ -3735,6 +3735,105 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var auth = {
   headers: {
     Authorization: 'bearer ' + localStorage.getItem('token')
@@ -3743,7 +3842,17 @@ var auth = {
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      items: []
+      items: [],
+      item_message: '',
+      message: '',
+      order: {
+        message: '',
+        contact_ids: [],
+        sms: '1',
+        email: '0',
+        db: '1',
+        state: '1'
+      }
     };
   },
   mounted: function mounted() {
@@ -3759,6 +3868,14 @@ var auth = {
     });
   },
   methods: {
+    request: function request(id) {
+      this.$router.push({
+        path: '/request/' + id,
+        params: {
+          id: id
+        }
+      });
+    },
     deleteEntry: function deleteEntry(id, index) {
       if (confirm("از حذف آیتم مطمئن هستید؟")) {
         var app = this;
@@ -3768,6 +3885,55 @@ var auth = {
           alert("امکان حذف آیتم وجود ندارد");
         });
       }
+    },
+    sendMessage: function sendMessage(item) {
+      var _this2 = this;
+
+      //                    this.success() ;
+      this.order.message = this.item_message;
+      this.order.contact_ids = [item];
+      console.log(this.order);
+      var newItem = this.order;
+      axios.post('/api/contact/notify', newItem, auth).then(function (resp) {
+        this.success();
+        console.log(resp.data.data);
+      })["catch"](function (e) {
+        _this2.errors.push(e.response.data.messages);
+
+        console.log(e.response.data);
+
+        _this2.error();
+      });
+    },
+    sendGroupMessage: function sendGroupMessage() {
+      var _this3 = this;
+
+      this.order.message = this.item_message;
+      this.order.contact_ids = this.pluck(this.items, 'id');
+      console.log(this.order);
+      var newItem = this.order;
+      axios.post('/api/contact/notify', newItem, auth).then(function (resp) {
+        this.success();
+        console.log(resp.data.data);
+      })["catch"](function (e) {
+        _this3.errors.push(e.response.data.messages);
+
+        console.log(e.response.data);
+
+        _this3.error();
+      });
+      console.log(this.message);
+    },
+    success: function success() {
+      this.$snotify.success('پیام با موفقیت ارسال شد');
+    },
+    error: function error() {
+      this.$snotify.error('دسترسی ارسال پیام ممکن نیست');
+    },
+    pluck: function pluck(array, key) {
+      return array.map(function (obj) {
+        return obj[key];
+      });
     }
   }
 });
@@ -5671,6 +5837,12 @@ var auth = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -68922,6 +69094,19 @@ var render = function() {
                 attrs: { to: { name: "create-contact" } }
               },
               [_vm._v("افزودن مشتری")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-info ",
+                attrs: {
+                  type: "button",
+                  "data-toggle": "modal",
+                  "data-target": "#groupSend"
+                }
+              },
+              [_vm._v("ارسال پیام گروهی ")]
             )
           ],
           1
@@ -68944,21 +69129,25 @@ var render = function() {
                     "tbody",
                     _vm._l(_vm.items, function(item, index) {
                       return _c("tr", { attrs: { id: "items" } }, [
-                        _c(
-                          "td",
-                          { staticStyle: { "text-align": "center" } },
-                          [
-                            _c(
-                              "router-link",
-                              {
-                                staticClass: "btn btn-xs btn-success",
-                                attrs: { to: "/request" }
-                              },
-                              [_vm._v("ثبت درخواست")]
-                            )
-                          ],
-                          1
-                        ),
+                        _c("td", { staticStyle: { "text-align": "center" } }, [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "btn btn-xs btn-success",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.request(item.id)
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                            ثبت درخواست\n                        "
+                              )
+                            ]
+                          )
+                        ]),
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(item.first_name))]),
                         _vm._v(" "),
@@ -68968,9 +69157,22 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(item.email))]),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(item.tell))]),
-                        _vm._v(" "),
                         _vm._m(1, true),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-info  btn-xs",
+                              attrs: {
+                                type: "button",
+                                "data-toggle": "modal",
+                                "data-target": "#" + item.id
+                              }
+                            },
+                            [_vm._v("ارسال پیام  ")]
+                          )
+                        ]),
                         _vm._v(" "),
                         _c(
                           "td",
@@ -69022,8 +69224,122 @@ var render = function() {
             ])
           ])
         ])
-      ])
-    ]
+      ]),
+      _vm._v(" "),
+      _vm._l(_vm.items, function(item, index) {
+        return _c(
+          "div",
+          {
+            key: index,
+            staticClass: "modal fade",
+            attrs: { id: item.id, role: "dialog" }
+          },
+          [
+            _c("div", { staticClass: "modal-dialog" }, [
+              _c("div", { staticClass: "modal-content" }, [
+                _vm._m(2, true),
+                _vm._v(" "),
+                _c(
+                  "form",
+                  {
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        return _vm.sendMessage(item.id)
+                      }
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "modal-body" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.item_message,
+                              expression: "item_message"
+                            }
+                          ],
+                          staticClass: "form-control ",
+                          domProps: { value: _vm.item_message },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.item_message = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(3, true)
+                  ]
+                )
+              ])
+            ])
+          ]
+        )
+      }),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: { id: "groupSend", role: "dialog" }
+        },
+        [
+          _c("div", { staticClass: "modal-dialog" }, [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(4),
+              _vm._v(" "),
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.sendGroupMessage()
+                    }
+                  }
+                },
+                [
+                  _c("div", { staticClass: "modal-body" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("textarea", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.message,
+                            expression: "message"
+                          }
+                        ],
+                        staticClass: "form-control ",
+                        domProps: { value: _vm.message },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.message = $event.target.value
+                          }
+                        }
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(5)
+                ]
+              )
+            ])
+          ])
+        ]
+      )
+    ],
+    2
   )
 }
 var staticRenderFns = [
@@ -69033,7 +69349,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("گرفتن وقت")]),
+        _c("th", [_vm._v("رزور وقت")]),
         _vm._v(" "),
         _c("th", [_vm._v(" نام")]),
         _vm._v(" "),
@@ -69043,9 +69359,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("ایمیل ")]),
         _vm._v(" "),
-        _c("th", [_vm._v("تلفن ")]),
-        _vm._v(" "),
         _c("th", [_vm._v("وضعیت ")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("ارسال پیام ")]),
         _vm._v(" "),
         _c("th", { attrs: { width: "100" } }, [_vm._v(" ")])
       ])
@@ -69057,6 +69373,74 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("td", [
       _c("span", { staticClass: "badge badge-warning" }, [_vm._v("مشتری")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("×")]
+      ),
+      _vm._v(" "),
+      _c("h4", { staticClass: "modal-title" }, [_vm._v("ارسال پیام ")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-default",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("بستن")]
+      ),
+      _vm._v(" "),
+      _c("button", { staticClass: "btn btn-success" }, [_vm._v("ارسال پیام")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("×")]
+      ),
+      _vm._v(" "),
+      _c("h4", { staticClass: "modal-title" }, [_vm._v("ارسال پیام ")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-default",
+          attrs: { type: "button", "data-dismiss": "modal" }
+        },
+        [_vm._v("بستن")]
+      ),
+      _vm._v(" "),
+      _c("button", { staticClass: "btn btn-success" }, [_vm._v("ارسال پیام")])
     ])
   }
 ]
@@ -71471,7 +71855,7 @@ var staticRenderFns = [
             ]),
             _vm._v(" "),
             _c("li", [
-              _c("a", { attrs: { href: "#/persons" } }, [
+              _c("a", { attrs: { href: "#/managerPersons" } }, [
                 _c("i", { staticClass: "fa fa-book" }),
                 _vm._v(" "),
                 _c("span", [_vm._v("مدیریت پرسنل (آرایشگر)")])
@@ -71503,45 +71887,10 @@ var staticRenderFns = [
             ]),
             _vm._v(" "),
             _c("li", [
-              _c("a", { attrs: { href: "#/messages" } }, [
+              _c("a", { attrs: { href: "#/contacts" } }, [
                 _c("i", { staticClass: "fa fa-book" }),
                 _vm._v(" "),
                 _c("span", [_vm._v("  اتوماسیون پیامک ")])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: " treeview" }, [
-              _c("a", { attrs: { href: "#" } }, [
-                _c("i", { staticClass: "fa fa-dashboard" }),
-                _vm._v(" "),
-                _c("span", [_vm._v("باشگاه وفاداری مشتریان")]),
-                _vm._v(" "),
-                _c("span", { staticClass: "pull-left-container" }, [
-                  _c("i", { staticClass: "fa fa-angle-right pull-left" })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("ul", { staticClass: "treeview-menu" }, [
-                _c("li", { staticClass: "active" }, [
-                  _c("a", { attrs: { href: "index.html" } }, [
-                    _c("i", { staticClass: "fa fa-circle-o" }),
-                    _vm._v("  مشتریان برتر")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", { staticClass: "active" }, [
-                  _c("a", { attrs: { href: "index.html" } }, [
-                    _c("i", { staticClass: "fa fa-circle-o" }),
-                    _vm._v("   وفاداری مشتریان")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", { staticClass: "active" }, [
-                  _c("a", { attrs: { href: "index2.html" } }, [
-                    _c("i", { staticClass: "fa fa-circle-o" }),
-                    _vm._v("  هدایا و تخفیفات")
-                  ])
-                ])
               ])
             ]),
             _vm._v(" "),
@@ -71558,14 +71907,14 @@ var staticRenderFns = [
               _vm._v(" "),
               _c("ul", { staticClass: "treeview-menu" }, [
                 _c("li", { staticClass: "active" }, [
-                  _c("a", { attrs: { href: "index.html" } }, [
+                  _c("a", { attrs: { href: "/#" } }, [
                     _c("i", { staticClass: "fa fa-circle-o" }),
                     _vm._v("   مرکز هزینه")
                   ])
                 ]),
                 _vm._v(" "),
                 _c("li", { staticClass: "active" }, [
-                  _c("a", { attrs: { href: "index2.html" } }, [
+                  _c("a", { attrs: { href: "/#" } }, [
                     _c("i", { staticClass: "fa fa-circle-o" }),
                     _vm._v("  اعلان اقساط و چک")
                   ])
@@ -71586,21 +71935,14 @@ var staticRenderFns = [
               _vm._v(" "),
               _c("ul", { staticClass: "treeview-menu" }, [
                 _c("li", { staticClass: "active" }, [
-                  _c("a", { attrs: { href: "index.html" } }, [
+                  _c("a", { attrs: { href: "#/chart/pie" } }, [
                     _c("i", { staticClass: "fa fa-circle-o" }),
-                    _vm._v("    گزارش فروش")
+                    _vm._v("    گزارش مشتریان برتر")
                   ])
                 ]),
                 _vm._v(" "),
                 _c("li", { staticClass: "active" }, [
-                  _c("a", { attrs: { href: "index2.html" } }, [
-                    _c("i", { staticClass: "fa fa-circle-o" }),
-                    _vm._v("     گزارش مالی")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", { staticClass: "active" }, [
-                  _c("a", { attrs: { href: "index2.html" } }, [
+                  _c("a", { attrs: { href: "#/chart" } }, [
                     _c("i", { staticClass: "fa fa-circle-o" }),
                     _vm._v("     نمودار روند فروش")
                   ])
@@ -72436,7 +72778,7 @@ var render = function() {
                                 "data-target": "#" + item.id
                               }
                             },
-                            [_vm._v("Open Modal")]
+                            [_vm._v("خدمات آرایشگر ")]
                           )
                         ]),
                         _vm._v(" "),
@@ -91428,7 +91770,7 @@ var routes = [// {path: '/', component: CompaniesIndex, name: 'companies-index'}
     path: '/payment',
     component: _components_layout_payment_vue__WEBPACK_IMPORTED_MODULE_33__["default"]
   }, {
-    path: 'request',
+    path: 'request/:id',
     component: _components_order_request_vue__WEBPACK_IMPORTED_MODULE_27__["default"]
   }, {
     path: 'setPersons/:id',
@@ -94935,8 +95277,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\xampp\htdocs\beatyplus\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\xampp\htdocs\beatyplus\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\wamp\new www\_gitlab\BeautyPlus\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\wamp\new www\_gitlab\BeautyPlus\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
