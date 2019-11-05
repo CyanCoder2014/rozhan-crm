@@ -10,6 +10,16 @@ use Illuminate\Support\Facades\Notification;
 
 class ContactNotifyController extends Controller
 {
+    /**
+     * @param ContactNotifyRequest $request
+     *
+     * @bodyParam message string required
+     * @bodyParam contact_ids array required
+     * @bodyParam sms boolean
+     * @bodyParam email boolean
+     * @bodyParam db boolean
+     * @bodyParam state integer
+     */
     public function send(ContactNotifyRequest $request){
         $methods=[];
         if ($request->sms)
@@ -18,7 +28,10 @@ class ContactNotifyController extends Controller
             $methods[]='email';
         if ($request->db)
             $methods[]='db';
-        $contacts = Contact::whereIn('id',$request->contact_ids)->get();
+        if($request->state)
+            $contacts = Contact::whereIn('id',$request->contact_ids)->where('state',$request->state)->get();
+        else
+            $contacts = Contact::whereIn('id',$request->contact_ids)->get();
         Notification::send($contacts,new MessageNotification($request->message,$methods));
     }
 }
