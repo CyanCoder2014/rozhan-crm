@@ -30,6 +30,20 @@ class ContactController extends BaseAPIController
 
 
 
+    protected function validationRules()
+    {
+        return [
+
+            'name'=>['string','required'],
+            'family'=>['string','required'],
+            'mobile'=>['string','required'],
+            'email'=>['string','required'],
+//            'image'=>['image'],
+
+
+        ];
+    }
+
 
 
 
