@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6c9465c784c372e137e3fa16b47eb005",
+    "content-hash": "a113f6364568096e7c47621a85385980",
     "packages": [
         {
             "name": "anetwork/validation",
@@ -1506,16 +1506,16 @@
         },
         {
             "name": "nwidart/laravel-modules",
-            "version": "6.0.0",
+            "version": "6.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nWidart/laravel-modules.git",
-                "reference": "6545cafed22eb4b071b1821140b0ba2366a02940"
+                "reference": "a3ec61c39ccb49363bf440ce6c2a5308a95be9aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nWidart/laravel-modules/zipball/6545cafed22eb4b071b1821140b0ba2366a02940",
-                "reference": "6545cafed22eb4b071b1821140b0ba2366a02940",
+                "url": "https://api.github.com/repos/nWidart/laravel-modules/zipball/a3ec61c39ccb49363bf440ce6c2a5308a95be9aa",
+                "reference": "a3ec61c39ccb49363bf440ce6c2a5308a95be9aa",
                 "shasum": ""
             },
             "require": {
@@ -1573,7 +1573,7 @@
                 "nwidart",
                 "rad"
             ],
-            "time": "2019-09-19T08:32:47+00:00"
+            "time": "2019-11-01T10:42:10+00:00"
         },
         {
             "name": "opis/closure",
