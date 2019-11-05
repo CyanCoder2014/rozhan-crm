@@ -17,6 +17,6 @@ class PersonTiming extends Model
         'state',
         'created_by',
         'updated_by',
-        'deleted_on',
+        'deleted_at',
     ];
 }

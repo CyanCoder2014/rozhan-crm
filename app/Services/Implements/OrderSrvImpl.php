@@ -73,7 +73,7 @@ class OrderSrvImpl
             'state' => Order::created_status,
             'created_by' => auth()->id(),
             'updated_by' => null,
-            'deleted_on' => null,
+            'deleted_at' => null,
         ]);
         $order_cache_id = rand(1,100000);
         while (true){
@@ -169,7 +169,7 @@ class OrderSrvImpl
                     'state' => Order::created_status,
                     'created_by' => auth()->id(),
                     'updated_by' => null,
-                    'deleted_on' => null,
+                    'deleted_at' => null,
                 ]);
             $order->save();
 
@@ -289,7 +289,7 @@ class OrderSrvImpl
 //                'state' => Order::created_status,
 //                'created_by' => auth()->id(),
 //                'updated_by' => null,
-//                'deleted_on' => null,
+//                'deleted_at' => null,
 //            ]);
 //
 //
@@ -376,7 +376,7 @@ class OrderSrvImpl
             'state' => OrderService::created_status,
             'created_by' => auth()->id(),
             'updated_by' => null,
-            'deleted_on' => null,
+            'deleted_at' => null,
         ]);
         return $orderService;
 

@@ -16,7 +16,7 @@ class PersonService extends Model
         'state',
         'created_by',
         'updated_by',
-        'deleted_on',
+        'deleted_at',
     ];
 
     public function personTiming(){
