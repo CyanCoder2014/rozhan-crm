@@ -17,6 +17,7 @@
         "laravel/tinker": "^1.0",
         "morilog/jalali": "3.*",
         "nwidart/laravel-modules": "^6.1",
+        "parsidev/persian": "dev-master",
         "santigarcor/laratrust": "^5.2",
         "spatie/laravel-permission": "^3.0",
         "tymon/jwt-auth": "dev-develop",

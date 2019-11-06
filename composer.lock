@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a113f6364568096e7c47621a85385980",
+    "content-hash": "d152762b4170ea5ca578086975ea039c",
     "packages": [
         {
             "name": "anetwork/validation",
@@ -1680,6 +1680,52 @@
                 "random"
             ],
             "time": "2018-07-02T15:55:56+00:00"
+        },
+        {
+            "name": "parsidev/persian",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/parsidev/Persian.git",
+                "reference": "d6edd1cddcff58f9bf862c01d53d6b0a7594e030"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/parsidev/Persian/zipball/d6edd1cddcff58f9bf862c01d53d6b0a7594e030",
+                "reference": "d6edd1cddcff58f9bf862c01d53d6b0a7594e030",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.0.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Parsidev\\Persian\\PersianServiceProvider"
+                    ],
+                    "aliases": {
+                        "Persian": "Parsidev\\Persian\\Facades"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Parsidev\\Persian": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mohammad Reza",
+                    "email": "info@parsidev.ir"
+                }
+            ],
+            "description": "A simple library for Persian language localization",
+            "time": "2018-03-13T14:06:35+00:00"
         },
         {
             "name": "phpoption/phpoption",
@@ -6162,6 +6208,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "parsidev/persian": 20,
         "tymon/jwt-auth": 20
     },
     "prefer-stable": true,

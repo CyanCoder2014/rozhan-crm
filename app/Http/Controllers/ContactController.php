@@ -34,8 +34,8 @@ class ContactController extends BaseAPIController
     {
         return [
 
-            'name'=>['string','required'],
-            'family'=>['string','required'],
+            'first_name'=>['string','required'],
+            'last_name'=>['string','required'],
             'mobile'=>['string','required'],
             'email'=>['string','required'],
 //            'image'=>['image'],
