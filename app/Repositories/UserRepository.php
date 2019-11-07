@@ -34,6 +34,13 @@ class UserRepository
         }
 
 
+//        if(empty($request->email)){
+//            $email = $request->mobile;
+//        }else{
+//            $email = $request->email;
+//        }
+
+
 
         return User::create([
             'name'=>$name,
@@ -47,5 +54,11 @@ class UserRepository
     {
 //        return $this->model::where('email', $email)->exists();
         return $this->model->where('email', $email)->exists();
+    }
+
+    public function existsWithMobile(string $mobile): bool
+    {
+//        return $this->model::where('email', $email)->exists();
+        return $this->model->where('mobile', $mobile)->exists();
     }
 }

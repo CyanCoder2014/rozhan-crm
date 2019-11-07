@@ -48,11 +48,14 @@ class ContactController extends BaseAPIController
 
     public function store()
     {
+
+
         request()->validate([
             ////////// user validation ////////////////
-//            'name'=>['required'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'mobile' => ['required', 'string', 'max:255', 'unique:users'],
+            'first_name'=>['required'],
+            'last_name'=>['required'],
+//            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'mobile' => ['required', 'string', 'digits:11', 'unique:users'],
 //            'password' => ['required', 'string', 'min:8']
 ]);
         $user =$this->userRepository->add(\request());
@@ -71,7 +74,7 @@ class ContactController extends BaseAPIController
             'first_name'=>['string','required'],
             'last_name'=>['string','required'],
             'mobile'=>['string','required'],
-            'email'=>['string','required'],
+//            'email'=>['string','required'],
 //            'image'=>['image'],
 
 

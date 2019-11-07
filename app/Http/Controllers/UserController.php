@@ -17,8 +17,8 @@ class UserController extends BaseAPIController
     {
         return [
             'name'=>['required'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'mobile' => ['required', 'string', 'max:255', 'unique:users'],
+//            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'mobile' => ['required', 'string', 'min:10', 'max:11', 'unique:users'],
             'password' => ['required', 'string', 'min:8'],
         ];
     }
