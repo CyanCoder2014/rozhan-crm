@@ -42,6 +42,7 @@ class UserRepository
 
 
 
+
         return User::create([
             'name'=>$name,
             'email' => $request->email,

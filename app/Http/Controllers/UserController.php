@@ -13,6 +13,7 @@ class UserController extends BaseAPIController
         $this->appRepository = $appRepository;
         $this->model = new User();
     }
+
     protected function validationRules()
     {
         return [
