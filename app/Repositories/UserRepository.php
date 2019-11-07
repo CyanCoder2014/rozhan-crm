@@ -20,11 +20,26 @@ class UserRepository
     }
 
     public function add($request){
+
+        if(empty($request->password)){
+            $password = $request->mobile;
+        }else{
+            $password = $request->password;
+        }
+
+        if(empty($request->name) || empty($request->family)){
+            $name = $request->first_name.' '.$request->last_name;
+        }else{
+            $name = $request->name.' '.$request->family;
+        }
+
+
+
         return User::create([
-            'name'=> $request->name.' '.$request->family,
+            'name'=>$name,
             'email' => $request->email,
             'mobile' => $request->mobile,
-            'password' => Hash::make($request->password),
+            'password' => Hash::make($password),
         ]);
     }
 
