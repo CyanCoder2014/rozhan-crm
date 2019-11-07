@@ -22,4 +22,13 @@ class Contact extends Model
         return $this->email;
     }
 
+
+
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
+
+
 }

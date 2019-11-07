@@ -37,4 +37,8 @@ class Order extends Model
     public function OrderServices(){
         return $this->hasMany(OrderService::class);
     }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

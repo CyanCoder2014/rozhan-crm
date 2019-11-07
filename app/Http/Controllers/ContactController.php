@@ -35,6 +35,17 @@ class ContactController extends BaseAPIController
     }
 
 
+
+
+    public function show($id)
+    {
+        $data = Contact::where('id',$id)
+            ->with(['user.orders','user.orders.OrderServices','user.orders.OrderServices.person','user.orders.OrderServices.service','user'])
+            ->first();
+        return $this->response($data);
+    }
+
+
     public function store()
     {
         request()->validate([
