@@ -44,8 +44,11 @@ Route::middleware(['jwt.auth'])->post('/test', 'HomeController@test');
 
 
 
-Route::middleware(['jwt.auth'])->resource('companies', 'CompaniesController')->except('edit','create');
+Route::middleware(['jwt.auth'])->get('getCurrentUser', 'UserController@getCurrentUser');
+Route::middleware(['jwt.auth'])->get('headerInbox', 'ContactNotifyController@headerInbox');
 
+
+Route::middleware(['jwt.auth'])->resource('companies', 'CompaniesController')->except('edit','create');
 Route::middleware(['jwt.auth'])->resource('contacts', 'ContactController')->except('edit','create');
 
 Route::middleware(['jwt.auth'])->resource('serviceCategories', 'ServiceCategoryController')->except('edit','create');
@@ -55,23 +58,24 @@ Route::middleware(['jwt.auth'])->resource('persons', 'PersonController')->except
 
 
 Route::middleware(['jwt.auth'])->resource('orders', 'OrderController')->except('edit','create','store');
-
-
 Route::middleware(['jwt.auth'])->post('orders/add/step1', 'OrderController@preOrder');
-
-
 Route::middleware(['jwt.auth'])->get('orders/add/{id}', 'OrderController@serviceSchedule')->name('order.step2');
 Route::middleware(['jwt.auth'])->post('orders/add/{id}', 'OrderController@store')->name('order.store');
+
 Route::middleware(['jwt.auth'])->resource('person/{person_id}/timing', 'PersonTimingController')->except('edit','create');
 Route::middleware(['jwt.auth'])->resource('person/{person_id}/service', 'PersonTimingController')->except('edit','create');
 Route::middleware(['jwt.auth'])->get('person/{person_id}/services', 'PersonServicesController@index');
 Route::middleware(['jwt.auth'])->post('person/{person_id}/services', 'PersonServicesController@update');
+
 Route::middleware(['jwt.auth'])->post('contact/notify', 'ContactNotifyController@send');
+
 Route::middleware(['jwt.auth'])->post('addOrder', 'OrderController@addOrder');
 Route::middleware(['jwt.auth'])->post('editOrder', 'OrderController@editOrder');
 Route::middleware(['jwt.auth'])->post('payPayment', 'OrderController@payPayment');
 Route::middleware(['jwt.auth'])->post('printPayment', 'OrderController@printPayment');
+
 Route::middleware(['jwt.auth'])->get('/report', 'ReportController@report1');
 Route::middleware(['jwt.auth'])->get('/UserReport', 'ReportController@UserReport');
 Route::middleware(['jwt.auth'])->get('/workCalendar', 'workCalendarController@index');
+
 Route::middleware(['jwt.auth'])->resource('/OrderServiceFeedback', 'OrderServiceFeedbackController')->except('edit','create');

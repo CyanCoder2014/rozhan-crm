@@ -53,6 +53,9 @@ class User extends Authenticatable implements JWTSubject
     }
 
 
+    public function contact(){
+        return $this->hasMany(Contact::class);
+    }
 
     public function getJWTIdentifier()
     {
