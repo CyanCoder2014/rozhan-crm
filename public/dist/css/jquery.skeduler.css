@@ -88,7 +88,8 @@
 .skeduler-main-body > div > .skeduler-task-placeholder > div {
   position: absolute;
   overflow: hidden;
-  background-color: #576D7C;
+  /*background-color: #576D7C;*/
+  background-color: rgba(55,44,33,.65);
   padding: 10px;
   box-sizing: border-box;
   box-shadow: -5px -5px 5px rgba(0,0,0,.25);
@@ -104,8 +105,8 @@
 .skeduler-main-body > div > .skeduler-task-placeholder > div:hover {
   box-shadow: 0 .25em .5em rgba(0,0,0,.5);
   background-color: #3A9852;
-  min-height: 150px;
+  /*min-height: 150px;*/
   min-width: 200px;
-  opacity: 0.8;
+  opacity: 0.85;
   z-index: 9999;
 }
