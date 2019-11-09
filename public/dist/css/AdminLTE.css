@@ -1876,9 +1876,9 @@ a:focus {
   border-right: 2px solid #e6e7e8;
   color: #444;
 }
-.todo-list > li:last-of-type {
+/* .todo-list > li:last-of-type {
   margin-bottom: 0;
-}
+} */
 .todo-list > li > input[type='checkbox'] {
   margin: 0 10px 0 5px;
 }
