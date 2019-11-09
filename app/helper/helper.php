@@ -102,6 +102,22 @@ function to_jalali($date)
 
 }
 
+
+function to_jalali_no_time($date)
+{
+
+    //$asd = ljdate('a h:i  l, j / F / Y');
+    //$datetime = date('m-d-Y H:i:s', time());
+    //$date_array['weekday']
+    $timestamp = strtotime($date);
+    $date_array = jgetdate($timestamp, $none = "", $timezone = "Asia/Tehran", $tr_num = "fa");
+
+    $j_date = $date_array['year'] . '/' . $date_array['mon'] . '/' . $date_array['mday'];
+
+    return $j_date;
+
+}
+
 function to_jalali_datetime($date)
 {
 
@@ -1088,6 +1104,13 @@ function wweek($timestamp){
     return $dt;
 }
 
+
+function format_time($time)
+{
+        $time = explode(':', unpersian($time));
+        $time = $time[0].':'.$time[1];
+        return $time;
+}
 
 /* end date function */
 

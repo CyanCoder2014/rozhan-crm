@@ -28,6 +28,9 @@ class PersonTimingController extends Controller
     public function index($person_id)
     {
         $data = PersonTiming::where('person_id',$person_id)->get();
+
+        $data = $this->format_date($data);
+
         return $this->response($data);
     }
 
@@ -57,5 +60,17 @@ class PersonTimingController extends Controller
     {
         $data = $this->appRepository->delete( $id, $this->model);
         return '';
+    }
+
+
+
+    public function format_date($data)
+    {
+        foreach ($data as $item){
+            $item['date']= to_jalali_no_time($item['date']);
+            $item['start']= format_time($item['start']);
+            $item['end']= format_time($item['end']);
+        }
+        return $data;
     }
 }

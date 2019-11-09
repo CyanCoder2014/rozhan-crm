@@ -26,7 +26,7 @@ class PersonTimingRequest extends FormRequest
         return [
             'person_id' => ['exists:persons,id'] ,
             'id' => ['nullable','exists:person_timings,id'] ,
-            'title' => ['required'] ,
+//            'title' => ['required'] ,
             'description' => [] ,
             'date' => ['required',function ($attribute, $value, $fail) {
                 if (!validate_jalili($value)) {
