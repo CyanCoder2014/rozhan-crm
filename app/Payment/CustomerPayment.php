@@ -1,19 +1,16 @@
 <?php
 
-namespace Modules\PaymentModule\Entities;
+namespace App\Payment;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CompanyPayment extends Model
+class CustomerPayment extends Model
 {
-    protected $fillable=[
-        'id',
+    protected $fillable = [
         'number',
         'reason',
         'buyer',
-        'recipient',
-        'recipient_code',
-        'recipient_name',
+        'receive_state',
         'period',
         'pay_state',
         'register_date',
@@ -25,15 +22,14 @@ class CompanyPayment extends Model
         'bank_calculate',
         'cheque_number',
         'term',
-        'receiver_account',
+        'payment_account',
         'payed',
         'type',
+        'finance_state',
         'description',
         'state',
         'status',
         'created_by',
         'updated_by',
-        'created_at',
-        'updated_at',
     ];
 }

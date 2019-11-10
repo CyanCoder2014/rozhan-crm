@@ -79,4 +79,9 @@ Route::middleware(['jwt.auth'])->get('/report', 'ReportController@report1');
 Route::middleware(['jwt.auth'])->get('/UserReport', 'ReportController@UserReport');
 Route::middleware(['jwt.auth'])->get('/workCalendar', 'workCalendarController@index');
 
-Route::middleware(['jwt.auth'])->resource('/OrderServiceFeedback', 'OrderServiceFeedbackController')->except('edit','create');
+Route::namespace('Payment')->prefix('payment')->group(function () {
+    Route::middleware(['jwt.auth'])->resource('/CompanyPayment', 'CompanyPaymentController')->except('edit','create');
+    Route::middleware(['jwt.auth'])->resource('/CustomerPayment', 'CustomerPaymentController')->except('edit','create');
+    Route::middleware(['jwt.auth'])->resource('/BuyFactor', 'BuyFactorController')->except('edit','create');
+    Route::middleware(['jwt.auth'])->resource('/Account', 'AccountController')->except('edit','create');
+});
