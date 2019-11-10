@@ -51,6 +51,9 @@ Route::middleware(['jwt.auth'])->get('headerInbox', 'ContactNotifyController@hea
 Route::middleware(['jwt.auth'])->resource('companies', 'CompaniesController')->except('edit','create');
 Route::middleware(['jwt.auth'])->resource('contacts', 'ContactController')->except('edit','create');
 
+Route::middleware(['jwt.auth'])->resource('productCategories', 'ProductCategoryController')->except('edit','create');
+Route::middleware(['jwt.auth'])->resource('products', 'ProductController')->except('edit','create');
+
 Route::middleware(['jwt.auth'])->resource('serviceCategories', 'ServiceCategoryController')->except('edit','create');
 Route::middleware(['jwt.auth'])->resource('services', 'ServiceController')->except('edit','create');
 Route::middleware(['jwt.auth'])->resource('persons', 'PersonController')->except('edit','create');
@@ -76,6 +79,7 @@ Route::middleware(['jwt.auth'])->post('payPayment', 'OrderController@payPayment'
 Route::middleware(['jwt.auth'])->post('printPayment', 'OrderController@printPayment');
 
 Route::middleware(['jwt.auth'])->get('/report', 'ReportController@report1');
+Route::middleware(['jwt.auth'])->get('/baseReport', 'ReportController@baseReport');
 Route::middleware(['jwt.auth'])->get('/UserReport', 'ReportController@UserReport');
 Route::middleware(['jwt.auth'])->get('/workCalendar', 'workCalendarController@index');
 
