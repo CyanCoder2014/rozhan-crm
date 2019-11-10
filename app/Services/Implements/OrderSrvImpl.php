@@ -4,6 +4,8 @@ namespace App\Repositories;
 
 
 
+use App\Http\Requests\OrderRequest;
+use App\Http\Requests\PreOrderRequest;
 use App\Order;
 use App\OrderService;
 use App\Person;
@@ -51,7 +53,7 @@ class OrderSrvImpl
      *          ]
      */
 
-    public function addOrderCache(Request $request,User $user)
+    public function addOrderCache(PreOrderRequest $request,User $user)
     {
 
 
@@ -130,12 +132,20 @@ class OrderSrvImpl
         $person_selected = array_column($orderServices, 'person_id', 'service_id');
         $services = Service::with('persons')->whereIn('id',array_column($orderServices, 'service_id'))->get();
 
-        foreach ($services as $service)
+        foreach ($services as $service){
+            $availblePerson=[];
             foreach ($service->persons as $person){
                 $person->timeSchedule = $person->dateTimeSchedule($order->general_date);
+                foreach ($person->availableTime($order->general_date) as $availableTime){
+                    $person->availableTime = $availableTime;
+                    $availblePerson[]= clone $person;
+                }
                 if (isset($person_selected[$service->id])&& $person_selected[$service->id] == $person->id)
                     $person->selected = true;
             }
+            $service->availblePerson = $availblePerson;
+        }
+
 
         return ['message' =>'successful','data' =>compact('services','date','cacheData')];
 
@@ -145,10 +155,10 @@ class OrderSrvImpl
 
     }
 
-    public function addOrder(Request $request,$id)
+    public function addOrder(OrderRequest $request,$id)
     {
 
-        $cacheData = Cache::pull('preorder_id_'.$id);
+        $cacheData = Cache::get('preorder_id_'.$id);
         if(!isset($cacheData['order']))
             return ['message' =>'order does not exist','status'=>400];
 
@@ -187,7 +197,7 @@ class OrderSrvImpl
                     $serv['note']??null);
                 /********************** validate the service request **************************/
                 if (! $person->hasService($service)){
-                    return ['message' =>'perosn has not a service','status'=>400];
+                    return ['message' =>'person has not a service','status'=>400];
                 }
                 if(! $person->isAvailabe(
                     $start->format('Y-m-d'),
@@ -210,11 +220,11 @@ class OrderSrvImpl
             $order->general_end = $general_end->format('H:i:s');
             $order->final_price = $price;
             $order->save();
-            $order->OrderServices()->saveMany($newOrderServices);
+            $order->OrderServices = $order->OrderServices()->saveMany($newOrderServices);
 
             return ['message' =>'successful','data' =>$order];
         });
-
+        Cache::forget('preorder_id_'.$id);
 
 
         // show persons of services after select services
@@ -227,6 +237,71 @@ class OrderSrvImpl
 
 
 
+
+
+    }
+    public function addOrderQuick(PreOrderRequest $request, User $user)
+    {
+
+        return DB::transaction(function () use ($request,$user){
+            $services =$request->services;
+            $start = Carbon::createFromFormat('Y-m-d',to_georgian_date($request->date));
+            $order = new Order([
+                'user_id' => $user->id,
+                'title' => null,
+                'description' => $request->description,
+                'file' => null,
+                'general_price' => null,
+                'general_discount' => null,
+                'general_tax' => null,
+                'final_price' => null,
+                'general_date' => $start->format('Y-m-d'),
+                'general_start' => $request->start_at,
+                'general_end' => $request->end_at,
+                'type' => Order::quick_type,
+                'state' => Order::created_status,
+                'created_by' => auth()->id(),
+            ]);
+
+            $price = 0;
+
+            $newOrderServices=[];
+            foreach ($services as $serv){
+                $service = Service::findOrFail($serv['service_id']);
+                if (isset($serv['person_id']))
+                    $person = Person::findOrFail($serv['person_id']);
+                else
+                    $person = new Person();
+                $price += $service->priceCalculate();
+
+
+                /********************* make new Order Services***************************/
+
+                $orderService = new OrderService();
+                $orderService->fill([
+                    'service_id' => $service->id,
+                    'person_id'=> $person->id,
+                    'note' => $serv['note']??null,
+                    'number' => null,
+                    'price' => $service->price,
+                    'discount' => $service->default_discount,
+                    'tax' => $service->tax,
+                    'date' => $start->format('Y-m-d'),
+                    'state' => OrderService::created_status,
+                    'type' => OrderService::quick_type,
+                    'created_by' => auth()->id(),
+                ]);
+                /********************* add Order service if has no validation error *****************************/
+                $newOrderServices[] =$orderService;
+
+
+            }
+            $order->final_price = $price;
+            $order->save();
+            $order->OrderServices = $order->OrderServices()->saveMany($newOrderServices);
+
+            return ['message' =>'successful','data' =>$order];
+        });
 
 
     }

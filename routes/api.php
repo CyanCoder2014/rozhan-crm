@@ -59,6 +59,7 @@ Route::middleware(['jwt.auth'])->resource('persons', 'PersonController')->except
 
 Route::middleware(['jwt.auth'])->resource('orders', 'OrderController')->except('edit','create','store');
 Route::middleware(['jwt.auth'])->post('orders/add/step1', 'OrderController@preOrder');
+Route::middleware(['jwt.auth'])->post('orders/add/quick', 'OrderController@addOrderQuick');
 Route::middleware(['jwt.auth'])->get('orders/add/{id}', 'OrderController@serviceSchedule')->name('order.step2');
 Route::middleware(['jwt.auth'])->post('orders/add/{id}', 'OrderController@store')->name('order.store');
 

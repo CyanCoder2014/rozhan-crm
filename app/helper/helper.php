@@ -1,5 +1,29 @@
 <?php
 
+
+function strTimeToInt($time):int{
+    $split = explode(':',$time);
+    $int = 0;
+    if(isset($split[0]) && ctype_digit($split[0]))
+        $int += intval($split[0])*3600;
+    if(isset($split[1]) && ctype_digit($split[1]))
+        $int += intval($split[1])*60;
+    if(isset($split[2]) && ctype_digit($split[2]))
+        $int += intval($split[2]);
+    return $int;
+}
+function IntToTime(int $timeInt){
+    $out=[];
+    $out['hour'] = intval( $timeInt/3600);
+    $timeInt = $timeInt%3600;
+    $out['min'] = intval( $timeInt/60);
+    $timeInt = $timeInt%60;
+    $out['sec'] = intval($timeInt);
+    foreach ($out as $key => $item)
+        if($item < 10)
+            $out[$key] = '0'.$out[$key];
+    return $out['hour'].':'.$out['min'].':'.$out['sec'];
+}
 function validate_jalili($date): bool{
   return preg_match('^[1-4]\d{3}\/((0[1-6]\/((3[0-1])|([1-2][0-9])|(0[1-9])))|((1[0-2]|(0[7-9]))\/(30|([1-2][0-9])|(0[1-9]))))$^',unpersian($date));
 }

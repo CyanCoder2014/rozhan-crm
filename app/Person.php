@@ -71,9 +71,50 @@ class Person extends Model
 
     }
     public function dateTimeSchedule($date){
-        $available = $this->timing()->where('date', $date)->select(['start','end'])->get()->toArray();
-        $booked =   $this->OrderServices()->where('date', $date)->select(['start','end'])->get()->toArray();
+        $available = $this->timing()
+            ->whereNotNull('start')->whereNotNull('end')
+            ->where('date', $date)->select(['start','end'])->get()->toArray();
+        $booked =   $this->OrderServices()
+            ->whereNotNull('start')->whereNotNull('end')
+            ->where('date', $date)->select(['start','end'])->get()->toArray();
         return compact('available','booked');
+
+    }
+    public function availableTime($date){
+        $available = $this->timing()
+            ->whereNotNull('start')->whereNotNull('end')
+            ->where('date', $date)->select(['start','end'])->get();
+        if ($available->count() == 0)
+            return [];
+        $out=[];
+        $booked =   $this->OrderServices()
+            ->whereNotNull('start')->whereNotNull('end')
+            ->where('date', $date)->select(['start','end'])->get();
+        foreach ($available as $availbaletime){
+            $startInt = strTimeToInt($availbaletime->start);
+            $endInt = strTimeToInt($availbaletime->end);
+            foreach ($booked as $bookTime){
+                $startBookInt = strTimeToInt($bookTime->start);
+                $endBookInt = strTimeToInt($bookTime->end);
+                if ($startInt <= $startBookInt && $startBookInt < $endInt
+                && $startInt < $endBookInt && $endBookInt <= $endInt)
+                {
+                    if ($startInt < $startBookInt)
+                    $out[]= [
+                      'start' =>  IntToTime($startInt),
+                      'end' =>  IntToTime($startBookInt),
+                    ];
+                    $startInt = $endBookInt;
+                }
+            }
+            if ($startInt < $endInt)
+                $out[]= [
+                    'start' =>  IntToTime($startInt),
+                    'end' =>  IntToTime($endInt),
+                ];
+
+        }
+        return $out;
 
     }
 
@@ -81,4 +122,5 @@ class Person extends Model
         $this->star = $this->serviceFeedback()->avg('rate');
         return $this;
     }
+
 }

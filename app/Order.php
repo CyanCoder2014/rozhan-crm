@@ -10,6 +10,8 @@ class Order extends Model
     const payed_status = 2;
     const complete_status = 3;
 
+    const quick_type = 1;
+
     protected $fillable=[
         'user_id',
         'title',

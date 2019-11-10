@@ -23,7 +23,9 @@
 
 
 Route::get('/', 'HomeController@index')->name('index');
-
+//Route::get('testing',function (){
+//   return \App\Person::first()->availableTime('2019-11-24');
+//});
 //Route::get('/request', 'HomeController@request')->name('request');
 //Route::get('/payment', 'HomeController@payment')->name('payment');
 //
