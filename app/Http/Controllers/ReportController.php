@@ -71,7 +71,7 @@ class ReportController extends Controller
         }
 
         $query = OrderService::
-//        with(['service','person'])->
+        with(['service','person'])->
         select('order_services.service_id','orders.user_id','order_services.person_id',
             DB::raw('order_services.created_at'),'user_id',
             DB::raw('SUM(order_services.price) as total'),
