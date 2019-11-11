@@ -18,20 +18,10 @@ class ReportController extends Controller
      * report all income categories by date and user and service
      */
 
-    public function reportBase(RepotRequest $request){
+    public function baseReport(RepotRequest $request){
 
         $groupBy=[];
-        switch (request('filter')){
-            case 'service':
-                $groupBy[]='service_id';
-                break;
-            case 'user':
-                $groupBy[]='user_id';
-                break;
-            case 'person':
-                $groupBy[]='person_id';
-                break;
-        }
+
         switch (request('time')){
             case 'y':
                 $groupBy[]=DB::raw('YEAR(order_services.created_at)');
@@ -50,6 +40,19 @@ class ReportController extends Controller
                     $groupBy[]=DB::raw('order_services.created_at');
                 break;
         }
+
+        switch (request('filter')){
+            case 'service':
+                $groupBy[]='service_id';
+                break;
+            case 'user':
+                $groupBy[]='user_id';
+                break;
+            case 'person':
+                $groupBy[]='person_id';
+                break;
+        }
+
         switch (request('order')){
             case 'price':
                 $order='total';
@@ -68,6 +71,7 @@ class ReportController extends Controller
         }
 
         $query = OrderService::
+//        with(['service','person'])->
         select('order_services.service_id','orders.user_id','order_services.person_id',
             DB::raw('order_services.created_at'),'user_id',
             DB::raw('SUM(order_services.price) as total'),
