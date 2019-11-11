@@ -1,11 +1,11 @@
 <?php
 
-namespace Modules\PaymentModule\Http\Controllers;
+namespace App\Http\Controllers\Payment;
 
 use App\Http\Controllers\BaseAPIController;
 use App\Repositories\AppRepositoryImpl;
 use Illuminate\Http\Request;
-use Modules\PaymentModule\Entities\CompanyPayment;
+use App\Payment\CompanyPayment;
 
 class CompanyPaymentController extends BaseAPIController
 {
@@ -49,5 +49,6 @@ class CompanyPaymentController extends BaseAPIController
     protected function validationMessages(){
         return [];
     }
-    
+
+
 }

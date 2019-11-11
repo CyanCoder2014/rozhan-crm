@@ -51,6 +51,9 @@ Route::middleware(['jwt.auth'])->get('headerInbox', 'ContactNotifyController@hea
 Route::middleware(['jwt.auth'])->resource('companies', 'CompaniesController')->except('edit','create');
 Route::middleware(['jwt.auth'])->resource('contacts', 'ContactController')->except('edit','create');
 
+Route::middleware(['jwt.auth'])->resource('productCategories', 'ProductCategoryController')->except('edit','create');
+Route::middleware(['jwt.auth'])->resource('products', 'ProductController')->except('edit','create');
+
 Route::middleware(['jwt.auth'])->resource('serviceCategories', 'ServiceCategoryController')->except('edit','create');
 Route::middleware(['jwt.auth'])->resource('services', 'ServiceController')->except('edit','create');
 Route::middleware(['jwt.auth'])->resource('persons', 'PersonController')->except('edit','create');
@@ -59,6 +62,7 @@ Route::middleware(['jwt.auth'])->resource('persons', 'PersonController')->except
 
 Route::middleware(['jwt.auth'])->resource('orders', 'OrderController')->except('edit','create','store');
 Route::middleware(['jwt.auth'])->post('orders/add/step1', 'OrderController@preOrder');
+Route::middleware(['jwt.auth'])->post('orders/add/quick', 'OrderController@addOrderQuick');
 Route::middleware(['jwt.auth'])->get('orders/add/{id}', 'OrderController@serviceSchedule')->name('order.step2');
 Route::middleware(['jwt.auth'])->post('orders/add/{id}', 'OrderController@store')->name('order.store');
 
@@ -75,7 +79,13 @@ Route::middleware(['jwt.auth'])->post('payPayment', 'OrderController@payPayment'
 Route::middleware(['jwt.auth'])->post('printPayment', 'OrderController@printPayment');
 
 Route::middleware(['jwt.auth'])->get('/report', 'ReportController@report1');
+Route::middleware(['jwt.auth'])->get('/baseReport', 'ReportController@baseReport');
 Route::middleware(['jwt.auth'])->get('/UserReport', 'ReportController@UserReport');
 Route::middleware(['jwt.auth'])->get('/workCalendar', 'workCalendarController@index');
 
-Route::middleware(['jwt.auth'])->resource('/OrderServiceFeedback', 'OrderServiceFeedbackController')->except('edit','create');
+Route::namespace('Payment')->prefix('payment')->group(function () {
+    Route::middleware(['jwt.auth'])->resource('/CompanyPayment', 'CompanyPaymentController')->except('edit','create');
+    Route::middleware(['jwt.auth'])->resource('/CustomerPayment', 'CustomerPaymentController')->except('edit','create');
+    Route::middleware(['jwt.auth'])->resource('/BuyFactor', 'BuyFactorController')->except('edit','create');
+    Route::middleware(['jwt.auth'])->resource('/Account', 'AccountController')->except('edit','create');
+});

@@ -9,6 +9,7 @@ class OrderService extends Model
     const created_status = 0;
     const complete_status = 3;
 
+    const quick_type = 0;
 
     protected $fillable=[
         'order_id',
@@ -21,6 +22,7 @@ class OrderService extends Model
         'tax',
         'date',
         'start',
+        'type',
         'end',
         'state',
         'created_by',
