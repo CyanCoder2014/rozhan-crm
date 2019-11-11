@@ -1,0 +1,15 @@
+.calendar {
+    direction: rtl;
+}
+
+#flat_calendar_1, #flat_calendar_2{
+
+    margin: auto;
+}
+.example {
+    padding: 10px;
+}
+
+.display_area {
+    background-color: #FFFF88
+}

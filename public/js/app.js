@@ -2771,7 +2771,7 @@ var auth = {
       var _this = this;
 
       this.load = false;
-      axios.get("http://localhost:8000/api/report/?filter=".concat(this.filter, "&time=d&order=price&date_from=").concat(this.time.start, "&date_to=").concat(this.time.end, "&sort=asc"), auth).then(function (response) {
+      axios.get("/api/report/?filter=".concat(this.filter, "&time=d&order=price&date_from=").concat(this.time.start, "&date_to=").concat(this.time.end, "&sort=asc"), auth).then(function (response) {
         if (response.data.length > 0) {
           _this.items = response.data;
           console.log(_this.items);
@@ -2925,7 +2925,7 @@ var auth = {
       var _this = this;
 
       this.load = false;
-      axios.get("http://localhost:8000/api/report?".concat("date_from=" + this.time.start + "&" + "date_to=" + this.time.end), auth).then(function (response) {
+      axios.get("/api/report?".concat("date_from=" + this.time.start + "&" + "date_to=" + this.time.end), auth).then(function (response) {
         console.log(response.data.length);
 
         if (response.data.length > 0) {
@@ -3078,7 +3078,7 @@ var auth = {
       var _this = this;
 
       this.load = false;
-      axios.get("http://localhost:8000/api/report/?filter=".concat(this.filter, "&time=d&order=price&date_from=").concat(this.time.start, "&date_to=").concat(this.time.end, "&sort=asc"), auth).then(function (response) {
+      axios.get("/api/report/?filter=".concat(this.filter, "&time=d&order=price&date_from=").concat(this.time.start, "&date_to=").concat(this.time.end, "&sort=asc"), auth).then(function (response) {
         if (response.data.length > 0) {
           _this.items = response.data;
           console.log(_this.items);
@@ -4200,49 +4200,94 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-// import 'bootstrap/dist/css/bootstrap.css'
-// import 'bootstrap/dist/css/bootstrap.css'
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var auth = {
+  headers: {
+    Authorization: 'bearer ' + localStorage.getItem('token')
+  }
+};
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      date: '',
+      date: '1398/08/18',
       items: [{
-        age: 40,
-        first_name: 'حنانه',
-        last_name: 'Macdonald',
-        event: [{
+        name: '',
+        family: '',
+        image: '',
+        order_services: [{
           start: "0",
           end: "4",
-          header: "خدمات ناخن",
-          content: "خانم رضایی "
-        }, {
-          start: "6",
-          end: "7",
-          header: "خدمات مو",
-          content: "بهاره رهنما "
+          service_id: "",
+          note: "",
+          date: ""
         }]
-      }, {
-        age: 21,
-        first_name: 'سارا',
-        last_name: 'Shaw',
-        event: [{
-          start: "4",
-          end: "5",
-          header: "خدمات ناخن",
-          content: "خانم صدر"
-        }]
-      }, {
-        age: 89,
-        first_name: 'آناهیتا غفوری',
-        last_name: 'Wilson'
-      }, {
-        age: 38,
-        first_name: 'ستایش',
-        last_name: 'Carney'
-      }]
+      }],
+      date_from: '1398/08/18'
     };
   },
-  methods: {}
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get('/api/workCalendar/?' + 'date_from=' + this.date, auth).then(function (response) {
+      _this.items = response.data;
+      console.log(_this.items);
+    })["catch"](function (error) {
+      console.log(error);
+    }); //              .finally(() => this.loading = false);
+  },
+  methods: {
+    setData: function setData() {
+      var app = this;
+      axios.get('/api/workCalendar/?' + 'date_from=' + app.date, auth).then(function (response) {
+        app.items = response.data;
+        console.log(app.items);
+        app.$snotify.success('اطلاعات با موفقیت بروزرسانی شد');
+      })["catch"](function (error) {
+        console.log(error);
+        app.$snotify.warning('بروزرسانی اطلاعات ممکن نیست');
+        app.errored = true;
+      })["finally"](function () {
+        return app.loading = false;
+      });
+    },
+    convertTime: function convertTime(time) {
+      if (typeof time !== 'undefined') {
+        var res = time.split(":");
+        return res[0] + '.' + Math.round(res[1] / 60);
+      } else {
+        return 0;
+      }
+    },
+    convertTimeM: function convertTimeM(time) {
+      if (typeof time !== 'undefined') {
+        var res = time.split(":");
+        return res[0] - 6 + '.' + Math.round(res[1] / 60);
+      } else {
+        return 0;
+      }
+    },
+    formatTime: function formatTime(time) {
+      if (typeof time !== 'undefined') {
+        var res = time.split(":");
+        return res[0] + ':' + res[1];
+      } else {
+        return 0;
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -4258,6 +4303,91 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuedraggable */ "./node_modules/vuedraggable/dist/vuedraggable.common.js");
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuedraggable__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -4741,6 +4871,7 @@ var auth = {
   },
   data: function data() {
     return {
+      valueCAl2: '',
       enabled: true,
       list: [{
         name: "خدمات ناخن خانم علیزاده",
@@ -4812,11 +4943,14 @@ var auth = {
     this.changeDate3("service");
   },
   methods: {
+    updateChangeDate: function updateChangeDate(e) {
+      this.valueCAl2 = e;
+    },
     changeDate3: function changeDate3(filter) {
       var _this = this;
 
       this.load3 = false;
-      axios.get("http://localhost:8000/api/report/?filter=".concat(filter, "&time=d&order=price&date_from=").concat(this.time.start, "&date_to=").concat(this.time.end, "&sort=asc"), auth).then(function (response) {
+      axios.get("/api/report/?filter=".concat(filter, "&time=d&order=price&date_from=").concat(this.time.start, "&date_to=").concat(this.time.end, "&sort=asc"), auth).then(function (response) {
         if (response.data.length > 0) {
           // console.log(this.items)
           _this.itemspie = response.data;
@@ -5357,6 +5491,56 @@ var id = 1;
     }
   }
 });
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/layout/cal2.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/layout/cal2.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      cal2: "flat_calendar_2",
+      valueCal2: ''
+    };
+  },
+  mounted: function mounted() {
+    Calendar.setup({
+      flat: this.cal2,
+      // id of the input field
+      dateType: 'jalali',
+      flatCallback: this.dateChanged,
+      weekNumbers: false
+    });
+  },
+  methods: {
+    dateChanged: function dateChanged(calendar) {
+      //do some thing with the selected date
+      // alert(calendar.date.print('Date Changed: %Y/%m/%d', 'jalali'));
+      this.valueCal2 = calendar.date.print('%Y/%m/%d', 'jalali');
+      this.$emit('updateChangeDate', this.valueCal2); //  console.log(this.valueCal2)
+    }
+  }
+});
+
+function dateChanged(calendar) {
+  //do some thing with the selected date
+  // alert(calendar.date.print('Date Changed: %Y/%m/%d', 'jalali'));
+  alert(calendar.date);
+}
 
 /***/ }),
 
@@ -8052,6 +8236,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var auth = {
   headers: {
     Authorization: 'bearer ' + localStorage.getItem('token')
@@ -8081,7 +8282,7 @@ var auth = {
       errors: [],
       end_time: '',
       eee: '',
-      default_person: '1',
+      default_person: '',
       valObj: []
     };
   },
@@ -8103,9 +8304,15 @@ var auth = {
       _this.errored = true;
     })["finally"](function () {
       return _this.loading = false;
-    });
+    }); // this.momentjalaliVue()
   },
   methods: {
+    momentjalaliVue: function momentjalaliVue() {
+      var date = new Date(); //   var m = date.format('jYYYY/jM/jD') 
+      //    moment()
+      //    console.log(m)
+      //  return m
+    },
     setEndTime: function setEndTime() {
       this.end_time = this.order.start_at;
       console.log(this.end_time);
@@ -8172,6 +8379,8 @@ var auth = {
             app.$snotify.warning('در تاریخ انتخاب شده آرایشگر خالی وجود ندارد');
           } else if (e.response.data.message == 'The given data was invalid') {} else if (e.response.data.message == 'service is not avaliable in this date') {
             app.$snotify.warning('در تاریخ انتخاب شده آرایشگر خالی وجود ندارد');
+          } else if (e.response.data.message.includes('has not avaliable in this date')) {
+            app.$snotify.warning('در تاریخ انتخاب شده آرایشگر خالی وجود ندارد');
           } else {
             app.$snotify.warning(e.response.data.message);
           }
@@ -8211,6 +8420,7 @@ var auth = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -8753,7 +8963,8 @@ var auth = {
       showModal: 0,
       bookedStart: '',
       start_time: '',
-      end_time: ''
+      end_time: '',
+      showdiv: []
     };
   },
   mounted: function mounted() {
@@ -8778,6 +8989,37 @@ var auth = {
     });
   },
   methods: {
+    showAll: function showAll() {
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = this.showdiv[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          Element = _step.value;
+          document.getElementById("".concat(Element)).style.display = "block";
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+            _iterator["return"]();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+    },
+    trashTime: function trashTime(idPerson, idServeces) {
+      var showdiv = [];
+      var index = idPerson + "-" + idServeces;
+      this.showdiv.push(index);
+      document.getElementById("".concat(index)).style.display = "none";
+    },
     saveForm: function saveForm() {
       var app = this;
       var newItem = app.order;
@@ -8825,7 +9067,7 @@ var auth = {
     convertTime: function convertTime(time) {
       if (typeof time !== 'undefined') {
         var res = time.split(":");
-        return res[0] + '.' + res[1] / 60;
+        return res[0] + '.' + Math.round(res[1] / 60);
       } else {
         return 0;
       }
@@ -8833,7 +9075,7 @@ var auth = {
     convertTimeM: function convertTimeM(time) {
       if (typeof time !== 'undefined') {
         var res = time.split(":");
-        return res[0] - 6 + '.' + res[1] / 60;
+        return res[0] - 6 + '.' + Math.round(res[1] / 60);
       } else {
         return 0;
       }
@@ -15270,7 +15512,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n    /* This css is for normalizing styles. You can skip this. */\n*,\n    *:before,\n    *:after {\n        box-sizing: border-box;\n        margin: 0;\n        padding: 0;\n}\n.btn-pur{\n    background-color: #00acc1;\n    color: white;\n    outline: 0;\n}\n.btn-pur:hover,.btn-pur:focus{\n    background-color: #7853d1;\n    color: white\n}\n.new {\n        padding: 50px;\n}\n.form-group2 {\n        display: block;\n        margin-bottom: 15px;\n}\n.form-group2 input {\n        padding: 0;\n        height: initial;\n        width: initial;\n        margin-bottom: 0;\n        display: none;\n        cursor: pointer;\n}\n.form-group2 label {\n        position: relative;\n        cursor: pointer;\n}\n.form-group2 label:before {\n        content: '';\n        -webkit-appearance: none;\n        background-color: transparent;\n        border: 2px solid lightgray;\n        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);\n        padding: 10px;\n        display: inline-block;\n        position: relative;\n        vertical-align: middle;\n        cursor: pointer;\n        margin-right: 5px;\n}\n.form-group2 input:checked+label:after {\n        content: '';\n        display: block;\n        position: absolute;\n        top: 2px;\n        right: 13px;\n        width: 8px;\n        height: 14px;\n        border: solid #d54e21;\n        border-width: 0 4px 4px 0;\n        transform: rotate(45deg);\n}\n.form-group3 label:before {\n        content: '';\n        -webkit-appearance: none;\n        background-color: transparent;\n        border: 2px solid lightgray;\n        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);\n        padding: 10px;\n        display: inline-block;\n        position: relative;\n        vertical-align: middle;\n        cursor: pointer;\n        margin-right: 5px;\n}\n.form-group3 input:checked+label:after {\n        content: '';\n        display: block;\n        position: absolute;\n        top: 2px;\n        right: 13px;\n        width: 8px;\n        height: 14px;\n        border: solid #d54e21;\n        border-width: 0 4px 4px 0;\n        transform: rotate(45deg);\n}\n@-webkit-keyframes click-wave {\n0% {\n            height: 40px;\n            width: 40px;\n            opacity: 0.35;\n            position: relative;\n}\n100% {\n            height: 200px;\n            width: 200px;\n            margin-left: -80px;\n            margin-top: -80px;\n            opacity: 0;\n}\n}\n@keyframes click-wave {\n0% {\n            height: 40px;\n            width: 40px;\n            opacity: 0.35;\n            position: relative;\n}\n100% {\n            height: 200px;\n            width: 200px;\n            margin-left: -80px;\n            margin-top: -80px;\n            opacity: 0;\n}\n}\n.option-input {\n        -webkit-appearance: none;\n        -moz-appearance: none;\n        -ms-appearance: none;\n        -o-appearance: none;\n        appearance: none;\n        position: relative;\n        top: 0;\n        right: 0;\n        bottom: 0;\n        left: 0;\n        height: 20px;\n        width: 20px;\n        transition: all 0.15s ease-out 0s;\n        background: #cbd1d8;\n        border: none;\n        color: #fff;\n        cursor: pointer;\n        display: inline-block;\n        margin-right: 0.5rem;\n        outline: none;\n        position: relative;\n        z-index: 0;\n        vertical-align: bottom;\n        margin: 0 !important;\n}\n.option-input:hover {\n        background: #9faab7;\n}\n.option-input:checked {\n        background: #40e0d0;\n}\n.option-input:checked::before {\n        height: 20px;\n        width: 20px;\n        position: absolute;\n        content: '\\2714';\n        display: inline-block;\n        /* font-size: 26.66667px; */\n        text-align: center;\n        /* line-height: 40px; */\n}\n\n    /*.option-input:checked::after {*/\n        /*-webkit-animation: click-wave 0.65s;*/\n        /*-moz-animation: click-wave 0.65s;*/\n        /*animation: click-wave 0.65s;*/\n        /*background: #40e0d0;*/\n        /*content: '';*/\n        /*display: block;*/\n        /*position: relative;*/\n        /*z-index: 100;*/\n        /*outline: 0;*/\n    /*}*/\ninput[type=file]:focus,\n    input[type=checkbox]:focus,\n    input[type=radio]:focus {\n        outline: 0 !important;\n}\n.flat-red{\n        z-index: 0;\n}\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* This css is for normalizing styles. You can skip this. */\n*,\n*:before,\n*:after {\n    box-sizing: border-box;\n    margin: 0;\n    padding: 0;\n}\n.btn-pur {\n    background-color: #00acc1;\n    color: white;\n    outline: 0;\n}\n.btn-pur:hover,\n.btn-pur:focus {\n    background-color: #7853d1;\n    color: white\n}\n.new {\n    padding: 50px;\n}\n.form-group2 {\n    display: block;\n    margin-bottom: 15px;\n}\n.form-group2 input {\n    padding: 0;\n    height: initial;\n    width: initial;\n    margin-bottom: 0;\n    display: none;\n    cursor: pointer;\n}\n.form-group2 label {\n    position: relative;\n    cursor: pointer;\n}\n.form-group2 label:before {\n    content: '';\n    -webkit-appearance: none;\n    background-color: transparent;\n    border: 2px solid lightgray;\n    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);\n    padding: 10px;\n    display: inline-block;\n    position: relative;\n    vertical-align: middle;\n    cursor: pointer;\n    margin-right: 5px;\n}\n.form-group2 input:checked+label:after {\n    content: '';\n    display: block;\n    position: absolute;\n    top: 2px;\n    right: 13px;\n    width: 8px;\n    height: 14px;\n    border: solid #d54e21;\n    border-width: 0 4px 4px 0;\n    transform: rotate(45deg);\n}\n.form-group3 label:before {\n    content: '';\n    -webkit-appearance: none;\n    background-color: transparent;\n    border: 2px solid lightgray;\n    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);\n    padding: 10px;\n    display: inline-block;\n    position: relative;\n    vertical-align: middle;\n    cursor: pointer;\n    margin-right: 5px;\n}\n.form-group3 input:checked+label:after {\n    content: '';\n    display: block;\n    position: absolute;\n    top: 2px;\n    right: 13px;\n    width: 8px;\n    height: 14px;\n    border: solid #d54e21;\n    border-width: 0 4px 4px 0;\n    transform: rotate(45deg);\n}\n@-webkit-keyframes click-wave {\n0% {\n        height: 40px;\n        width: 40px;\n        opacity: 0.35;\n        position: relative;\n}\n100% {\n        height: 200px;\n        width: 200px;\n        margin-left: -80px;\n        margin-top: -80px;\n        opacity: 0;\n}\n}\n@keyframes click-wave {\n0% {\n        height: 40px;\n        width: 40px;\n        opacity: 0.35;\n        position: relative;\n}\n100% {\n        height: 200px;\n        width: 200px;\n        margin-left: -80px;\n        margin-top: -80px;\n        opacity: 0;\n}\n}\n.option-input {\n    -webkit-appearance: none;\n    -moz-appearance: none;\n    -ms-appearance: none;\n    -o-appearance: none;\n    appearance: none;\n    position: relative;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    height: 20px;\n    width: 20px;\n    transition: all 0.15s ease-out 0s;\n    background: #cbd1d8;\n    border: none;\n    color: #fff;\n    cursor: pointer;\n    display: inline-block;\n    margin-right: 0.5rem;\n    outline: none;\n    position: relative;\n    z-index: 0;\n    vertical-align: bottom;\n    margin: 0 !important;\n}\n.option-input:hover {\n    background: #9faab7;\n}\n.option-input:checked {\n    background: #40e0d0;\n}\n.option-input:checked::before {\n    height: 20px;\n    width: 20px;\n    position: absolute;\n    content: '\\2714';\n    display: inline-block;\n    /* font-size: 26.66667px; */\n    text-align: center;\n    /* line-height: 40px; */\n}\n\n/*.option-input:checked::after {*/\n/*-webkit-animation: click-wave 0.65s;*/\n/*-moz-animation: click-wave 0.65s;*/\n/*animation: click-wave 0.65s;*/\n/*background: #40e0d0;*/\n/*content: '';*/\n/*display: block;*/\n/*position: relative;*/\n/*z-index: 100;*/\n/*outline: 0;*/\n/*}*/\ninput[type=file]:focus,\ninput[type=checkbox]:focus,\ninput[type=radio]:focus {\n    outline: 0 !important;\n}\n.flat-red {\n    z-index: 0;\n}\n\n", ""]);
 
 // exports
 
@@ -15289,7 +15531,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.inline-block {\n  width: 200px;\n  display: inline-block;\n}\n.in-shadow {\n  box-shadow: inset 5px 0 10px rgba(0,0,0,0.7);\n}\n.horizontal-scroll-wrapper{\n  /*position:absolute;*/\n  /*display:block;*/\n  /*top:0;*/\n  /*left:0;*/\n  /*width:80px;*/\n  /*max-height:500px;*/\n  /*margin:0;*/\n  /*background:#abc;*/\n  /*overflow-y:auto;*/\n  /*!*overflow-x:hidden;*!*/\n  /*transform:rotate(-90deg) translateY(-80px);*/\n  /*transform-origin:right top;*/\n}\n.horizontal-scroll-wrapper > div{\n  /*display:block;*/\n  /*padding:5px;*/\n  /*background:#cab;*/\n  /*transform:rotate(90deg);*/\n  /*transform-origin: right top;*/\n}\n\n\n", ""]);
+exports.push([module.i, "\n.inline-block {\n    width: 200px;\n    display: inline-block;\n}\n.in-shadow {\n    box-shadow: inset 5px 0 10px rgba(0, 0, 0, 0.7);\n}\n.horizontal-scroll-wrapper {\n    /*position:absolute;*/\n    /*display:block;*/\n    /*top:0;*/\n    /*left:0;*/\n    /*width:80px;*/\n    /*max-height:500px;*/\n    /*margin:0;*/\n    /*background:#abc;*/\n    /*overflow-y:auto;*/\n    /*!*overflow-x:hidden;*!*/\n    /*transform:rotate(-90deg) translateY(-80px);*/\n    /*transform-origin:right top;*/\n}\n.horizontal-scroll-wrapper>div {\n    /*display:block;*/\n    /*padding:5px;*/\n    /*background:#cab;*/\n    /*transform:rotate(90deg);*/\n    /*transform-origin: right top;*/\n}\n\n", ""]);
 
 // exports
 
@@ -75795,208 +76037,214 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "content-wrapper" },
-    [
-      _c("custom-time-picker", {
-        model: {
-          value: _vm.date,
-          callback: function($$v) {
-            _vm.date = $$v
+  return _c("div", { staticClass: "content-wrapper" }, [
+    _c("br"),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "container" },
+      [
+        _c("label", [_vm._v("انتخاب تاریخ")]),
+        _vm._v(" "),
+        _c("custom-time-picker", {
+          on: {
+            change: function($event) {
+              return _vm.setData(_vm.date)
+            }
           },
-          expression: "date"
-        }
-      }),
-      _vm._v(" "),
-      _vm.date
-        ? _c(
-            "div",
-            {
-              staticClass: "skeduler-container",
-              attrs: { id: "skeduler-container" }
+          model: {
+            value: _vm.date,
+            callback: function($$v) {
+              _vm.date = $$v
             },
-            [
-              _c(
-                "div",
-                { staticClass: "skeduler-headers" },
-                _vm._l(_vm.items, function(person, index) {
-                  return _c("div", { key: index }, [
-                    _c("div", { staticClass: "media" }, [
-                      _vm._m(0, true),
+            expression: "date"
+          }
+        })
+      ],
+      1
+    ),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
+    _vm.date
+      ? _c(
+          "div",
+          {
+            staticClass: "skeduler-container",
+            attrs: { id: "skeduler-container" }
+          },
+          [
+            _c(
+              "div",
+              { staticClass: "skeduler-headers" },
+              _vm._l(_vm.items, function(person, index) {
+                return _c("div", { key: index }, [
+                  _c("div", { staticClass: "media" }, [
+                    _vm._m(0, true),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "media-body" }, [
+                      _c("h4", { staticClass: "media-heading" }, [
+                        _vm._v(_vm._s(person.name))
+                      ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "media-body" }, [
-                        _c("h4", { staticClass: "media-heading" }, [
-                          _vm._v(_vm._s(person.age))
-                        ]),
-                        _vm._v(" "),
-                        _c("p", [_vm._v(_vm._s(person.first_name))])
-                      ])
+                      _c("p", [_vm._v(_vm._s(person.family))])
                     ])
                   ])
-                }),
-                0
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "skeduler-main" },
-                [
-                  _vm._m(1),
-                  _vm._v(" "),
-                  _vm._l(_vm.items, function(person, index) {
-                    return _c(
-                      "div",
-                      { key: index, staticClass: "skeduler-main-body" },
-                      [
-                        _c(
-                          "div",
-                          [
-                            _vm._l(person.event, function(event, index) {
-                              return _c(
-                                "div",
-                                {
-                                  key: index,
-                                  staticClass: "skeduler-task-placeholder"
-                                },
-                                [
-                                  _c(
-                                    "div",
-                                    {
-                                      style:
-                                        "top:" +
-                                        event.start * 62 +
-                                        "px;height:" +
-                                        (event.end - event.start) * 60 +
-                                        "px; width: 186px; left: 4px",
-                                      attrs: {
-                                        title: event.start + "-" + event.end
-                                      }
-                                    },
-                                    [
-                                      _c("div", [
-                                        _vm._v(" " + _vm._s(event.header))
-                                      ]),
-                                      _vm._v(" "),
-                                      _c("div", [
-                                        _vm._v(" " + _vm._s(event.content))
-                                      ])
-                                    ]
-                                  )
-                                ]
-                              )
-                            }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" }),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "skeduler-cell" })
-                          ],
-                          2
-                        )
-                      ]
-                    )
-                  })
-                ],
-                2
-              )
-            ]
-          )
-        : _vm._e()
-    ],
-    1
-  )
+                ])
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "skeduler-main" },
+              [
+                _vm._m(1),
+                _vm._v(" "),
+                _vm._l(_vm.items, function(person, index) {
+                  return _c(
+                    "div",
+                    { key: index, staticClass: "skeduler-main-body" },
+                    [
+                      _c(
+                        "div",
+                        [
+                          _vm._l(person.order_services, function(
+                            order_services,
+                            index
+                          ) {
+                            return _c(
+                              "div",
+                              {
+                                key: index,
+                                staticClass: "skeduler-task-placeholder"
+                              },
+                              [
+                                _c(
+                                  "div",
+                                  {
+                                    style:
+                                      "top:" +
+                                      _vm.convertTimeM(order_services.start) *
+                                        62 +
+                                      "px;height:" +
+                                      (_vm.convertTimeM(order_services.end) -
+                                        _vm.convertTimeM(
+                                          order_services.start
+                                        )) *
+                                        60 +
+                                      "px; width: 186px; left: 4px",
+                                    attrs: {
+                                      title:
+                                        _vm.formatTime(order_services.start) +
+                                        "-" +
+                                        _vm.formatTime(order_services.end)
+                                    }
+                                  },
+                                  [
+                                    _c("div", [
+                                      _vm._v(
+                                        " " +
+                                          _vm._s(order_services.service.title)
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("div", [
+                                      _vm._v(
+                                        " " +
+                                          _vm._s(order_services.service.price)
+                                      )
+                                    ])
+                                  ]
+                                )
+                              ]
+                            )
+                          }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "skeduler-cell" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "skeduler-cell" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "skeduler-cell" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "skeduler-cell" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "skeduler-cell" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "skeduler-cell" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "skeduler-cell" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "skeduler-cell" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "skeduler-cell" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "skeduler-cell" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "skeduler-cell" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "skeduler-cell" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "skeduler-cell" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "skeduler-cell" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "skeduler-cell" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "skeduler-cell" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "skeduler-cell" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "skeduler-cell" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "skeduler-cell" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "skeduler-cell" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "skeduler-cell" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "skeduler-cell" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "skeduler-cell" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "skeduler-cell" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "skeduler-cell" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "skeduler-cell" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "skeduler-cell" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "skeduler-cell" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "skeduler-cell" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "skeduler-cell" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "skeduler-cell" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "skeduler-cell" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "skeduler-cell" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "skeduler-cell" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "skeduler-cell" }),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "skeduler-cell" })
+                        ],
+                        2
+                      )
+                    ]
+                  )
+                })
+              ],
+              2
+            )
+          ]
+        )
+      : _vm._e()
+  ])
 }
 var staticRenderFns = [
   function() {
@@ -76019,29 +76267,29 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "skeduler-main-timeline" }, [
-      _c("div", [_vm._v("00:00")]),
+      _c("div", { staticStyle: { display: "none" } }, [_vm._v("00:00")]),
       _vm._v(" "),
-      _c("div"),
+      _c("div", { staticStyle: { display: "none" } }),
       _vm._v(" "),
-      _c("div", [_vm._v("01:00")]),
+      _c("div", { staticStyle: { display: "none" } }, [_vm._v("01:00")]),
       _vm._v(" "),
-      _c("div"),
+      _c("div", { staticStyle: { display: "none" } }),
       _vm._v(" "),
-      _c("div", [_vm._v("02:00")]),
+      _c("div", { staticStyle: { display: "none" } }, [_vm._v("02:00")]),
       _vm._v(" "),
-      _c("div"),
+      _c("div", { staticStyle: { display: "none" } }),
       _vm._v(" "),
-      _c("div", [_vm._v("03:00")]),
+      _c("div", { staticStyle: { display: "none" } }, [_vm._v("03:00")]),
       _vm._v(" "),
-      _c("div"),
+      _c("div", { staticStyle: { display: "none" } }),
       _vm._v(" "),
-      _c("div", [_vm._v("04:00")]),
+      _c("div", { staticStyle: { display: "none" } }, [_vm._v("04:00")]),
       _vm._v(" "),
-      _c("div"),
+      _c("div", { staticStyle: { display: "none" } }),
       _vm._v(" "),
-      _c("div", [_vm._v("05:00")]),
+      _c("div", { staticStyle: { display: "none" } }, [_vm._v("05:00")]),
       _vm._v(" "),
-      _c("div"),
+      _c("div", { staticStyle: { display: "none" } }),
       _vm._v(" "),
       _c("div", [_vm._v("06:00")]),
       _vm._v(" "),
@@ -76149,7 +76397,7 @@ var render = function() {
       _vm._v(" "),
       _c("section", { staticClass: "content" }, [
         _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-6" }, [
+          _c("div", { staticClass: "col-md-8" }, [
             _c(
               "div",
               { staticClass: "box box-primary" },
@@ -76159,7 +76407,7 @@ var render = function() {
                 _c(
                   "draggable",
                   {
-                    staticClass: "box-body",
+                    staticClass: "box-body box-handel",
                     attrs: {
                       list: _vm.list,
                       disabled: !_vm.enabled,
@@ -76244,7 +76492,9 @@ var render = function() {
                       _c("i", { staticClass: "fa fa-plus" }),
                       _vm._v("\n                            جدید")
                     ]
-                  )
+                  ),
+                  _vm._v(" "),
+                  _vm._m(2)
                 ])
               ],
               1
@@ -76256,7 +76506,7 @@ var render = function() {
               [
                 _c("div", { staticClass: "modal-dialog" }, [
                   _c("div", { staticClass: "modal-content" }, [
-                    _vm._m(2),
+                    _vm._m(3),
                     _vm._v(" "),
                     _c("div", { staticClass: "modal-body" }, [
                       _c("div", { staticStyle: { margin: "5px" } }, [
@@ -76349,65 +76599,140 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _vm._m(3)
+          _c("div", { staticClass: "col-md-4" }, [
+            _c("div", { staticClass: "box" }, [
+              _vm._m(4),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "box-body" },
+                [
+                  _c("cal2", {
+                    on: { updateChangeDate: _vm.updateChangeDate }
+                  }),
+                  _vm._v(
+                    "\n                        " +
+                      _vm._s(_vm.valueCAl2) +
+                      "\n                        "
+                  )
+                ],
+                1
+              )
+            ])
+          ])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
-          _vm._m(4),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "col-xs-12 col-md-4" },
-            [
-              _vm.load3
-                ? _c("pie-chart", {
-                    attrs: {
-                      datasetsPie: _vm.datasetsPie,
-                      labelsPropsPie: _vm.labelsPropsPie
-                    }
-                  })
-                : _vm._e()
-            ],
-            1
-          ),
-          _vm._v(" "),
           _vm._m(5),
           _vm._v(" "),
-          _vm._m(6)
+          _c("div", { staticClass: "col-md-4" }, [
+            _c("div", { staticClass: "box box-default" }, [
+              _vm._m(6),
+              _vm._v(" "),
+              _c("div", { staticClass: "box-body" }, [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-8" }, [
+                    _c(
+                      "div",
+                      { staticClass: "chart-responsive" },
+                      [
+                        _vm.load3
+                          ? _c("pie-chart", {
+                              attrs: {
+                                datasetsPie: _vm.datasetsPie,
+                                labelsPropsPie: _vm.labelsPropsPie
+                              }
+                            })
+                          : _vm._e()
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "col-md-4" },
+                    _vm._l(_vm.labelsPropsPie.slice(0, 5), function(pie) {
+                      return _c(
+                        "ul",
+                        {
+                          key: pie.value,
+                          staticClass: "chart-legend clearfix"
+                        },
+                        [
+                          _c("li", [
+                            _c("i", { staticClass: "fa fa-circle-o text-red" }),
+                            _vm._v(" " + _vm._s(pie))
+                          ])
+                        ]
+                      )
+                    }),
+                    0
+                  )
+                ])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _vm._m(7)
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
-          _c(
-            "div",
-            { staticClass: "col-xs-12 col-md-6" },
-            [
-              _vm.load1
-                ? _c("bar-chart", {
-                    attrs: {
-                      datasetsBar: _vm.datasetsBar,
-                      labelsBar: _vm.labels
-                    }
-                  })
-                : _vm._e()
-            ],
-            1
-          ),
+          _c("div", { staticClass: "col-xs-12 col-md-6" }, [
+            _c("div", { staticClass: "box box-default" }, [
+              _vm._m(8),
+              _vm._v(" "),
+              _c("div", { staticClass: "box-body" }, [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-12" }, [
+                    _c(
+                      "div",
+                      { staticClass: "chart-responsive" },
+                      [
+                        _vm.load2
+                          ? _c("line-chart", {
+                              attrs: {
+                                labelsProps: _vm.labelsline,
+                                datasetsLine: _vm.datasetsLine
+                              }
+                            })
+                          : _vm._e()
+                      ],
+                      1
+                    )
+                  ])
+                ])
+              ])
+            ])
+          ]),
           _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "col-xs-12 col-md-6" },
-            [
-              _vm.load2
-                ? _c("line-chart", {
-                    attrs: {
-                      labelsProps: _vm.labelsline,
-                      datasetsLine: _vm.datasetsLine
-                    }
-                  })
-                : _vm._e()
-            ],
-            1
-          )
+          _c("div", { staticClass: "col-xs-12 col-md-6" }, [
+            _c("div", { staticClass: "box box-default" }, [
+              _vm._m(9),
+              _vm._v(" "),
+              _c("div", { staticClass: "box-body" }, [
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-12" }, [
+                    _c(
+                      "div",
+                      { staticClass: "chart-responsive" },
+                      [
+                        _vm.load1
+                          ? _c("bar-chart", {
+                              attrs: {
+                                datasetsBar: _vm.datasetsBar,
+                                labelsBar: _vm.labels
+                              }
+                            })
+                          : _vm._e()
+                      ],
+                      1
+                    )
+                  ])
+                ])
+              ])
+            ])
+          ])
         ])
       ])
     ]
@@ -76443,10 +76768,21 @@ var staticRenderFns = [
     return _c("div", { staticClass: "box-header" }, [
       _c("i", { staticClass: "ion ion-clipboard" }),
       _vm._v(" "),
-      _c("h3", { staticClass: "box-title" }, [_vm._v(" پیگیری ها")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "box-tools pull-left" }, [
-        _c("ul", { staticClass: "pagination pagination-sm inline" }, [
+      _c("h3", { staticClass: "box-title" }, [_vm._v(" پیگیری ها")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "box-tools pull-right" }, [
+      _c(
+        "ul",
+        {
+          staticClass: "pagination pagination-sm inline dirltr",
+          staticStyle: { margin: "0!important" }
+        },
+        [
           _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("«")])]),
           _vm._v(" "),
           _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("1")])]),
@@ -76456,8 +76792,8 @@ var staticRenderFns = [
           _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("3")])]),
           _vm._v(" "),
           _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("»")])])
-        ])
-      ])
+        ]
+      )
     ])
   },
   function() {
@@ -76481,194 +76817,50 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-6" }, [
-      _c("div", { staticClass: "box" }, [
-        _c("div", { staticClass: "box-header with-border" }, [
-          _c("h3", { staticClass: "box-title" }, [_vm._v("گزارش ماهانه")]),
+    return _c("div", { staticClass: "box-header with-border" }, [
+      _c("h3", { staticClass: "box-title" }, [_vm._v("گزارش ماهانه")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "box-tools pull-right" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-box-tool",
+            attrs: { type: "button", "data-widget": "collapse" }
+          },
+          [_c("i", { staticClass: "fa fa-minus" })]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "btn-group" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-box-tool dropdown-toggle",
+              attrs: { type: "button", "data-toggle": "dropdown" }
+            },
+            [_c("i", { staticClass: "fa fa-wrench" })]
+          ),
           _vm._v(" "),
-          _c("div", { staticClass: "box-tools pull-right" }, [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-box-tool",
-                attrs: { type: "button", "data-widget": "collapse" }
-              },
-              [_c("i", { staticClass: "fa fa-minus" })]
-            ),
+          _c("ul", { staticClass: "dropdown-menu", attrs: { role: "menu" } }, [
+            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("منوی ۱")])]),
             _vm._v(" "),
-            _c("div", { staticClass: "btn-group" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-box-tool dropdown-toggle",
-                  attrs: { type: "button", "data-toggle": "dropdown" }
-                },
-                [_c("i", { staticClass: "fa fa-wrench" })]
-              ),
-              _vm._v(" "),
-              _c(
-                "ul",
-                { staticClass: "dropdown-menu", attrs: { role: "menu" } },
-                [
-                  _c("li", [
-                    _c("a", { attrs: { href: "#" } }, [_vm._v("منوی ۱")])
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c("a", { attrs: { href: "#" } }, [_vm._v("منوی ۲")])
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c("a", { attrs: { href: "#" } }, [_vm._v("منو ۳")])
-                  ]),
-                  _vm._v(" "),
-                  _c("li", { staticClass: "divider" }),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c("a", { attrs: { href: "#" } }, [_vm._v("لینک")])
-                  ])
-                ]
-              )
-            ]),
+            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("منوی ۲")])]),
             _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-box-tool",
-                attrs: { type: "button", "data-widget": "remove" }
-              },
-              [_c("i", { staticClass: "fa fa-times" })]
-            )
+            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("منو ۳")])]),
+            _vm._v(" "),
+            _c("li", { staticClass: "divider" }),
+            _vm._v(" "),
+            _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("لینک")])])
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "box-body" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "box-footer" }, [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-sm-4 col-xs-6" }, [
-              _c("div", { staticClass: "description-block border-right" }, [
-                _c(
-                  "span",
-                  { staticClass: "description-percentage text-yellow" },
-                  [_c("i", { staticClass: "fa fa-caret-left" }), _vm._v(" 0%")]
-                ),
-                _vm._v(" "),
-                _c("h5", { staticClass: "description-header" }, [
-                  _vm._v("10,390.90 تومان")
-                ]),
-                _vm._v(" "),
-                _c("span", { staticClass: "description-text" }, [
-                  _vm._v("فروش کل")
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-4 col-xs-6" }, [
-              _c("div", { staticClass: "description-block border-right" }, [
-                _c(
-                  "span",
-                  { staticClass: "description-percentage text-green" },
-                  [
-                    _c("i", { staticClass: "fa fa-caret-up" }),
-                    _vm._v("\n                                        20%")
-                  ]
-                ),
-                _vm._v(" "),
-                _c("h5", { staticClass: "description-header" }, [
-                  _vm._v("24,813.53 تومان")
-                ]),
-                _vm._v(" "),
-                _c("span", { staticClass: "description-text" }, [
-                  _vm._v("سود کل")
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-sm-4 col-xs-6" }, [
-              _c("div", { staticClass: "description-block" }, [
-                _c("span", { staticClass: "description-percentage text-red" }, [
-                  _c("i", { staticClass: "fa fa-caret-down" }),
-                  _vm._v("\n                                        1%")
-                ]),
-                _vm._v(" "),
-                _c("h5", { staticClass: "description-header" }, [
-                  _vm._v("1200")
-                ]),
-                _vm._v(" "),
-                _c("span", { staticClass: "description-text" }, [
-                  _vm._v("مشتریان جدید")
-                ])
-              ])
-            ])
-          ])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-3" }, [
-      _c("div", { staticClass: "box" }, [
-        _c("div", { staticClass: "box-header" }, [
-          _c("h3", { staticClass: "box-title" }, [_vm._v("انتخاب خدمات ")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "box-body" }, [
-          _c("p", [_vm._v(" برای ثبت سفارش مستقیم خدمات خود انتخاب کنید")]),
-          _vm._v(" "),
-          _c("a", { staticClass: "btn btn-app" }, [
-            _c("span", { staticClass: "badge bg-red" }, [_vm._v("531")]),
-            _vm._v(" "),
-            _c("i", { staticClass: "fa fa-edit" }),
-            _vm._v(" خدمات مو\n                        ")
-          ]),
-          _vm._v(" "),
-          _c("a", { staticClass: "btn btn-app" }, [
-            _c("i", { staticClass: "fa fa-edit" }),
-            _vm._v(" خدمات ناخن\n                        ")
-          ]),
-          _vm._v(" "),
-          _c("a", { staticClass: "btn btn-app" }, [
-            _c("span", { staticClass: "badge bg-red" }, [_vm._v("531")]),
-            _vm._v(" "),
-            _c("i", { staticClass: "fa fa-edit" }),
-            _vm._v(" خدمات ابرو\n                        ")
-          ]),
-          _vm._v(" "),
-          _c("a", { staticClass: "btn btn-app" }, [
-            _c("i", { staticClass: "fa fa-edit" }),
-            _vm._v(" خدمات صورت\n                        ")
-          ]),
-          _vm._v(" "),
-          _c("a", { staticClass: "btn btn-app" }, [
-            _c("i", { staticClass: "fa fa-edit" }),
-            _vm._v(" فول بادی\n                        ")
-          ]),
-          _vm._v(" "),
-          _c("a", { staticClass: "btn btn-app" }, [
-            _c("span", { staticClass: "badge bg-yellow" }, [_vm._v("3")]),
-            _vm._v(" "),
-            _c("i", { staticClass: "fa fa-edit" }),
-            _vm._v(" ماساژ\n                        ")
-          ]),
-          _vm._v(" "),
-          _c("a", { staticClass: "btn btn-app" }, [
-            _c("span", { staticClass: "badge bg-green" }, [_vm._v("300")]),
-            _vm._v(" "),
-            _c("i", { staticClass: "fa fa-edit" }),
-            _vm._v(" خدمات عروس\n                        ")
-          ]),
-          _vm._v(" "),
-          _c("a", { staticClass: "btn btn-app" }, [
-            _c("span", { staticClass: "badge bg-purple" }, [_vm._v("891")]),
-            _vm._v(" "),
-            _c("i", { staticClass: "fa fa-edit" }),
-            _vm._v(" گریم\n                        ")
-          ])
-        ])
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-box-tool",
+            attrs: { type: "button", "data-widget": "remove" }
+          },
+          [_c("i", { staticClass: "fa fa-times" })]
+        )
       ])
     ])
   },
@@ -76702,141 +76894,147 @@ var staticRenderFns = [
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "box-body" }, [
-          _c("ul", { staticClass: "products-list product-list-in-box" }, [
-            _c("li", { staticClass: "item" }, [
-              _c("div", { staticClass: "product-img" }, [
-                _c("img", {
-                  attrs: { src: "dist/img/7.jpg", alt: "Product Image" }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "product-info" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "product-title",
-                    attrs: { href: "javascript:void(0)" }
-                  },
-                  [
+        _c(
+          "div",
+          { staticClass: "box-body", staticStyle: { height: "379px" } },
+          [
+            _c("ul", { staticClass: "products-list product-list-in-box" }, [
+              _c("li", { staticClass: "item" }, [
+                _c("div", { staticClass: "product-img" }, [
+                  _c("img", {
+                    attrs: { src: "dist/img/7.jpg", alt: "Product Image" }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "product-info" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "product-title",
+                      attrs: { href: "javascript:void(0)" }
+                    },
+                    [
+                      _vm._v(
+                        " خدمات مو\n                                        "
+                      ),
+                      _c(
+                        "span",
+                        { staticClass: "label label-warning pull-left" },
+                        [_vm._v(" 18,000 تومان ")]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "product-description" }, [
                     _vm._v(
-                      " خدمات مو\n                                        "
-                    ),
-                    _c(
-                      "span",
-                      { staticClass: "label label-warning pull-left" },
-                      [_vm._v(" 18,000 تومان ")]
+                      "\n                                        هایلایت\n                                    "
                     )
-                  ]
-                ),
-                _vm._v(" "),
-                _c("span", { staticClass: "product-description" }, [
-                  _vm._v(
-                    "\n                                        هایلایت\n                                    "
-                  )
+                  ])
                 ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "item" }, [
-              _c("div", { staticClass: "product-img" }, [
-                _c("img", {
-                  attrs: { src: "dist/img/2.jpg", alt: "Product Image" }
-                })
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "product-info" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "product-title",
-                    attrs: { href: "javascript:void(0)" }
-                  },
-                  [
+              _c("li", { staticClass: "item" }, [
+                _c("div", { staticClass: "product-img" }, [
+                  _c("img", {
+                    attrs: { src: "dist/img/2.jpg", alt: "Product Image" }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "product-info" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "product-title",
+                      attrs: { href: "javascript:void(0)" }
+                    },
+                    [
+                      _vm._v(
+                        "خدمات صورت\n                                        "
+                      ),
+                      _c(
+                        "span",
+                        { staticClass: "label label-info pull-left" },
+                        [_vm._v(" 13,000 تومان")]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "product-description" }, [
                     _vm._v(
-                      "خدمات صورت\n                                        "
-                    ),
-                    _c("span", { staticClass: "label label-info pull-left" }, [
-                      _vm._v(" 13,000 تومان")
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c("span", { staticClass: "product-description" }, [
-                  _vm._v(
-                    "\n                                        سرویس زیبا\n                                    "
-                  )
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "item" }, [
-              _c("div", { staticClass: "product-img" }, [
-                _c("img", {
-                  attrs: { src: "dist/img/1.jpg", alt: "Product Image" }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "product-info" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "product-title",
-                    attrs: { href: "javascript:void(0)" }
-                  },
-                  [
-                    _vm._v(" خدمات ناخن "),
-                    _c(
-                      "span",
-                      { staticClass: "label label-danger pull-left" },
-                      [_vm._v(" 22,000 تومان")]
+                      "\n                                        سرویس زیبا\n                                    "
                     )
-                  ]
-                ),
-                _vm._v(" "),
-                _c("span", { staticClass: "product-description" }, [
-                  _vm._v(
-                    "\n                                        سرویس ناخن کاری\n                                    "
-                  )
+                  ])
                 ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", { staticClass: "item" }, [
-              _c("div", { staticClass: "product-img" }, [
-                _c("img", {
-                  attrs: { src: "dist/img/1.jpg", alt: "Product Image" }
-                })
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "product-info" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "product-title",
-                    attrs: { href: "javascript:void(0)" }
-                  },
-                  [
+              _c("li", { staticClass: "item" }, [
+                _c("div", { staticClass: "product-img" }, [
+                  _c("img", {
+                    attrs: { src: "dist/img/1.jpg", alt: "Product Image" }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "product-info" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "product-title",
+                      attrs: { href: "javascript:void(0)" }
+                    },
+                    [
+                      _vm._v(" خدمات ناخن "),
+                      _c(
+                        "span",
+                        { staticClass: "label label-danger pull-left" },
+                        [_vm._v(" 22,000 تومان")]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "product-description" }, [
                     _vm._v(
-                      "رنگ ابرو\n                                        "
-                    ),
-                    _c(
-                      "span",
-                      { staticClass: "label label-success pull-left" },
-                      [_vm._v(" 18,000 تومان")]
+                      "\n                                        سرویس ناخن کاری\n                                    "
                     )
-                  ]
-                ),
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("li", { staticClass: "item" }, [
+                _c("div", { staticClass: "product-img" }, [
+                  _c("img", {
+                    attrs: { src: "dist/img/1.jpg", alt: "Product Image" }
+                  })
+                ]),
                 _vm._v(" "),
-                _c("span", { staticClass: "product-description" }, [
-                  _vm._v(
-                    "\n                                        تتو\n                                    "
-                  )
+                _c("div", { staticClass: "product-info" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "product-title",
+                      attrs: { href: "javascript:void(0)" }
+                    },
+                    [
+                      _vm._v(
+                        "رنگ ابرو\n                                        "
+                      ),
+                      _c(
+                        "span",
+                        { staticClass: "label label-success pull-left" },
+                        [_vm._v(" 18,000 تومان")]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "product-description" }, [
+                    _vm._v(
+                      "\n                                        تتو\n                                    "
+                    )
+                  ])
                 ])
               ])
             ])
-          ])
-        ]),
+          ]
+        ),
         _vm._v(" "),
         _c("div", { staticClass: "box-footer text-center" }, [
           _c(
@@ -76852,109 +77050,181 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-5" }, [
-      _c("div", { staticClass: "box box-default" }, [
-        _c("div", { staticClass: "box-header with-border" }, [
-          _c("h3", { staticClass: "box-title" }, [_vm._v("درآمد خدمات سالن")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "box-tools pull-right" }, [
+    return _c("div", { staticClass: "box-header with-border" }, [
+      _c("h3", { staticClass: "box-title" }, [_vm._v("درآمد خدمات سالن")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "box-tools pull-right" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-box-tool",
+            attrs: { type: "button", "data-widget": "collapse" }
+          },
+          [_c("i", { staticClass: "fa fa-minus" })]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-box-tool",
+            attrs: { type: "button", "data-widget": "remove" }
+          },
+          [_c("i", { staticClass: "fa fa-times" })]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-4" }, [
+      _c("div", { staticClass: "box" }, [
+        _c("div", { staticClass: "box-header" }, [
+          _c("h3", { staticClass: "box-title" }, [_vm._v("انتخاب خدمات ")])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "box-body", staticStyle: { height: "421px" } },
+          [
+            _c("p", [_vm._v(" برای ثبت سفارش مستقیم خدمات خود انتخاب کنید")]),
+            _vm._v(" "),
+            _c("a", { staticClass: "btn btn-app", attrs: { href: "/" } }, [
+              _c("i", { staticClass: "fa fa-dashboard" }),
+              _vm._v(" "),
+              _c("span", [_vm._v(" داشبورد")])
+            ]),
+            _vm._v(" "),
+            _c("a", { staticClass: "btn btn-app", attrs: { href: "/chart" } }, [
+              _c("i", { staticClass: "fa fa-circle-o" }),
+              _vm._v(
+                " نمودار روند\n                            فروش\n                        "
+              )
+            ]),
+            _vm._v(" "),
             _c(
-              "button",
-              {
-                staticClass: "btn btn-box-tool",
-                attrs: { type: "button", "data-widget": "collapse" }
-              },
-              [_c("i", { staticClass: "fa fa-minus" })]
+              "a",
+              { staticClass: "btn btn-app", attrs: { href: "/chart/pie" } },
+              [
+                _c("i", { staticClass: "fa fa-circle-o" }),
+                _vm._v(
+                  " گزارش\n                            مشتریان برتر\n                        "
+                )
+              ]
             ),
             _vm._v(" "),
             _c(
-              "button",
+              "a",
               {
-                staticClass: "btn btn-box-tool",
-                attrs: { type: "button", "data-widget": "remove" }
+                staticClass: "btn btn-app",
+                attrs: { href: "/managerPersons" }
               },
-              [_c("i", { staticClass: "fa fa-times" })]
+              [
+                _c("i", { staticClass: "fa  fa-users" }),
+                _vm._v(" "),
+                _c("span", [
+                  _vm._v(
+                    "مدیریت پرسنل\n                                (آرایشگر)"
+                  )
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "btn btn-app",
+                attrs: { href: "/serviceCategories" }
+              },
+              [
+                _c("i", { staticClass: "fa  fa-folder-open" }),
+                _vm._v(" "),
+                _c("span", [
+                  _vm._v("مدیریت دسته\n                                بندی")
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "btn btn-app", attrs: { href: "/services" } },
+              [
+                _c("i", { staticClass: "fa fa-book" }),
+                _vm._v(" "),
+                _c("span", [_vm._v("مدیریت خدمات")])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              { staticClass: "btn btn-app", attrs: { href: "/contacts" } },
+              [
+                _c("i", { staticClass: "fa fa-address-card " }),
+                _vm._v(" "),
+                _c("span", [
+                  _vm._v("مدیریت\n                                مشتریان")
+                ])
+              ]
             )
-          ])
-        ]),
+          ]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "box-header with-border" }, [
+      _c("h3", { staticClass: "box-title" }, [_vm._v("روند درآمدی")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "box-tools pull-right" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-box-tool",
+            attrs: { type: "button", "data-widget": "collapse" }
+          },
+          [_c("i", { staticClass: "fa fa-minus" })]
+        ),
         _vm._v(" "),
-        _c("div", { staticClass: "box-body" }, [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-8" }, [
-              _c("div", { staticClass: "chart-responsive" }, [
-                _c("canvas", { attrs: { id: "pieChart", height: "150" } })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-4" }, [
-              _c("ul", { staticClass: "chart-legend clearfix" }, [
-                _c("li", [
-                  _c("i", { staticClass: "fa fa-circle-o text-red" }),
-                  _vm._v(" خدمات مو")
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("i", { staticClass: "fa fa-circle-o text-green" }),
-                  _vm._v(" خدمات ناخن")
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("i", { staticClass: "fa fa-circle-o text-yellow" }),
-                  _vm._v(" خدمات ابرو")
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("i", { staticClass: "fa fa-circle-o text-aqua" }),
-                  _vm._v(" خدمات صورت")
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("i", { staticClass: "fa fa-circle-o text-light-blue" }),
-                  _vm._v(" ماساژ")
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("i", { staticClass: "fa fa-circle-o text-gray" }),
-                  _vm._v(" خدمات عروس")
-                ])
-              ])
-            ])
-          ])
-        ]),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-box-tool",
+            attrs: { type: "button", "data-widget": "remove" }
+          },
+          [_c("i", { staticClass: "fa fa-times" })]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "box-header with-border" }, [
+      _c("h3", { staticClass: "box-title" }, [_vm._v("مشتریان برتر")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "box-tools pull-right" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-box-tool",
+            attrs: { type: "button", "data-widget": "collapse" }
+          },
+          [_c("i", { staticClass: "fa fa-minus" })]
+        ),
         _vm._v(" "),
-        _c("div", { staticClass: "box-footer no-padding" }, [
-          _c("ul", { staticClass: "nav nav-pills nav-stacked" }, [
-            _c("li", [
-              _c("a", { attrs: { href: "#" } }, [
-                _vm._v("خدمات مو\n                                    "),
-                _c("span", { staticClass: "pull-right text-red" }, [
-                  _c("i", { staticClass: "fa fa-angle-down" }),
-                  _vm._v("\n                                        12%")
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "#" } }, [
-                _vm._v("خدمات ناخن "),
-                _c("span", { staticClass: "pull-right text-green" }, [
-                  _c("i", { staticClass: "fa fa-angle-up" }),
-                  _vm._v(" 4%")
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "#" } }, [
-                _vm._v("خدمات صورت\n                                    "),
-                _c("span", { staticClass: "pull-right text-yellow" }, [
-                  _c("i", { staticClass: "fa fa-angle-left" }),
-                  _vm._v("\n                                        0%")
-                ])
-              ])
-            ])
-          ])
-        ])
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-box-tool",
+            attrs: { type: "button", "data-widget": "remove" }
+          },
+          [_c("i", { staticClass: "fa fa-times" })]
+        )
       ])
     ])
   }
@@ -77551,6 +77821,32 @@ var staticRenderFns = [
     ])
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/layout/cal2.vue?vue&type=template&id=c30d3f24&":
+/*!**************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/layout/cal2.vue?vue&type=template&id=c30d3f24& ***!
+  \**************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "example" }, [
+    _c("div", { attrs: { id: _vm.cal2 } })
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -79945,7 +80241,11 @@ var render = function() {
             _c("i", { staticClass: "fa fa-globe" }),
             _vm._v(" آرایشگاه نمونه\n                    "),
             _c("small", { staticClass: "pull-left" }, [
-              _vm._v(_vm._s(_vm.order.created_at) + "  ")
+              _vm._v(
+                _vm._s(
+                  _vm._f("moment")(_vm.order.created_at, "dddd, jMMMM Do jYYYY")
+                ) + "  "
+              )
             ])
           ])
         ])
@@ -79987,7 +80287,12 @@ var render = function() {
           _c("br"),
           _vm._v(" "),
           _c("b", [_vm._v("تاریخ حضور: ")]),
-          _vm._v("   " + _vm._s(_vm.order.general_date)),
+          _vm._v(
+            "   " +
+              _vm._s(
+                _vm._f("moment")(_vm.order.general_date, "dddd, jMMMM  jYYYY")
+              )
+          ),
           _c("br"),
           _vm._v(" "),
           _c("b", [_vm._v("زمان حضور:")]),
@@ -80058,7 +80363,15 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "col-xs-6" }, [
           _c("p", { staticClass: "lead" }, [
-            _vm._v(" تاریخ:   " + _vm._s(_vm.order.description))
+            _vm._v(
+              " تاریخ:   " +
+                _vm._s(
+                  _vm._f("moment")(
+                    _vm.order.description,
+                    "dddd, jMMMM Do jYYYY"
+                  )
+                )
+            )
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "table-responsive" }, [
@@ -80225,7 +80538,9 @@ var render = function() {
                             type: "time",
                             jumpMinute: 15,
                             roundMinute: true,
-                            timezone: false
+                            timezone: false,
+                            min: "1396/08/08",
+                            max: "1396/09/09"
                           },
                           on: { change: _vm.setEndTime },
                           model: {
@@ -80348,7 +80663,7 @@ var render = function() {
                                                       item.service_category
                                                         .title
                                                     ) +
-                                                      "\n                                                        "
+                                                      "\n                                                            "
                                                   )
                                                 ]
                                               )
@@ -80604,9 +80919,9 @@ var render = function() {
                                                     _vm._v(" "),
                                                     _c("td", [
                                                       _vm._v(
-                                                        "\n                                        " +
+                                                        "\n                                                                            " +
                                                           _vm._s(person.name) +
-                                                          "\n\n                                    "
+                                                          "\n\n                                                                        "
                                                       )
                                                     ]),
                                                     _vm._v(" "),
@@ -81364,9 +81679,9 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "box-body" }, [
                 _vm._v(
-                  "\r\n\r\n\r\n\r\n\r\n\r\n            تاریخ:\r\n            " +
+                  "\n\n\n\n\n\n                        تاریخ:\n                        " +
                     _vm._s(_vm.order.date) +
-                    "\r\n            "
+                    "\n                        "
                 ),
                 _c("br"),
                 _vm._v(" "),
@@ -81378,23 +81693,23 @@ var render = function() {
                   _vm._l(_vm.order.services, function(service) {
                     return _c("li", { staticClass: "text-danger" }, [
                       _vm._v(
-                        "\r\n\r\n                " +
+                        "\n\n                                " +
                           _vm._s(service.serviceObject.title) +
-                          "\r\n                "
+                          "\n                                "
                       ),
                       _c("br"),
                       _vm._v(
-                        "\r\n                آرایشگر:\r\n                " +
+                        "\n                                آرایشگر:\n                                " +
                           _vm._s(service.personObject.name) +
-                          "\r\n                "
+                          "\n                                "
                       ),
                       _c("br"),
                       _vm._v(
-                        "\r\n                از ساعت:\r\n                " +
+                        "\n                                از ساعت:\n                                " +
                           _vm._s(service.start_at) +
-                          "\r\n                -\r\n                تا:\r\n                " +
+                          "\n                                -\n                                تا:\n                                " +
                           _vm._s(service.end_at) +
-                          "\r\n\r\n\r\n\r\n                "
+                          "\n\n\n\n                                "
                       ),
                       _c("hr")
                     ])
@@ -81417,6 +81732,19 @@ var render = function() {
                     }
                   },
                   [_vm._v("تایید نهایی")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-block btn-danger btn-lg",
+                    on: {
+                      click: function($event) {
+                        return _vm.showAll()
+                      }
+                    }
+                  },
+                  [_vm._v(" نمایش همه")]
                 ),
                 _vm._v(" "),
                 _vm.order.services.length > 0
@@ -81528,7 +81856,8 @@ var render = function() {
                                               _vm.convertTime(
                                                 person.timeSchedule.available[0]
                                                   .end
-                                              )
+                                              ),
+                                            id: person.id + "-" + service.id
                                           },
                                           on: {
                                             click: function($event) {
@@ -81540,6 +81869,24 @@ var render = function() {
                                           }
                                         },
                                         [
+                                          _c(
+                                            "div",
+                                            { staticClass: "trashTime" },
+                                            [
+                                              _c("i", {
+                                                staticClass: "fa fa-trash-o",
+                                                on: {
+                                                  click: function($event) {
+                                                    return _vm.trashTime(
+                                                      person.id,
+                                                      service.id
+                                                    )
+                                                  }
+                                                }
+                                              })
+                                            ]
+                                          ),
+                                          _vm._v(" "),
                                           _c("div", [
                                             _vm._v(" " + _vm._s(person.name))
                                           ]),
@@ -81729,7 +82076,7 @@ var render = function() {
                                                                     },
                                                                     [
                                                                       _vm._v(
-                                                                        "  انتخاب ساعت " +
+                                                                        " انتخاب ساعت " +
                                                                           _vm._s(
                                                                             person.name
                                                                           )
@@ -81739,7 +82086,7 @@ var render = function() {
                                                                   _vm._v(" "),
                                                                   _c("br"),
                                                                   _vm._v(
-                                                                    "\r\n                              از\r\n                              " +
+                                                                    "\n                                                                از\n                                                                " +
                                                                       _vm._s(
                                                                         _vm.formatTime(
                                                                           person
@@ -81748,7 +82095,7 @@ var render = function() {
                                                                             .start
                                                                         )
                                                                       ) +
-                                                                      "\r\n                              تا\r\n                              " +
+                                                                      "\n                                                                تا\n                                                                " +
                                                                       _vm._s(
                                                                         _vm.formatTime(
                                                                           person
@@ -81757,7 +82104,7 @@ var render = function() {
                                                                             .end
                                                                         )
                                                                       ) +
-                                                                      "\r\n                            "
+                                                                      "\n                                                            "
                                                                   )
                                                                 ]
                                                               ),
@@ -81866,14 +82213,14 @@ var render = function() {
                                                                         },
                                                                         [
                                                                           _vm._v(
-                                                                            "\r\n\r\n                                  " +
+                                                                            "\n\n                                                                        " +
                                                                               _vm._s(
                                                                                 _vm.calculateEnd(
                                                                                   _vm.bookedStart,
                                                                                   service.max_time
                                                                                 )
                                                                               ) +
-                                                                              "\r\n\r\n\r\n\r\n                                "
+                                                                              "\n\n\n\n                                                                    "
                                                                           )
                                                                         ]
                                                                       )
@@ -82050,7 +82397,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "box-header" }, [
       _c("i", { staticClass: "ion ion-clipboard" }),
       _vm._v(" "),
-      _c("h3", { staticClass: "box-title" }, [_vm._v("  برنامه جهت رزور ")])
+      _c("h3", { staticClass: "box-title" }, [_vm._v(" برنامه جهت رزور ")])
     ])
   },
   function() {
@@ -100737,6 +101084,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_chart_line_vue__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./components/chart/line.vue */ "./resources/js/components/chart/line.vue");
 /* harmony import */ var _components_chart_pie_vue__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./components/chart/pie.vue */ "./resources/js/components/chart/pie.vue");
 /* harmony import */ var _components_chart_bar_vue__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./components/chart/bar.vue */ "./resources/js/components/chart/bar.vue");
+/* harmony import */ var moment_jalaali__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! moment-jalaali */ "./node_modules/moment-jalaali/index.js");
+/* harmony import */ var moment_jalaali__WEBPACK_IMPORTED_MODULE_38___default = /*#__PURE__*/__webpack_require__.n(moment_jalaali__WEBPACK_IMPORTED_MODULE_38__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -100781,7 +101130,8 @@ Vue.component('headerLayout', __webpack_require__(/*! ./components/layout/header
 Vue.component('side', __webpack_require__(/*! ./components/layout/side.vue */ "./resources/js/components/layout/side.vue")["default"]);
 Vue.component('request', __webpack_require__(/*! ./components/order/request.vue */ "./resources/js/components/order/request.vue")["default"]);
 Vue.component('Scheduler', __webpack_require__(/*! ./components/dashboard/Scheduler.vue */ "./resources/js/components/dashboard/Scheduler.vue")["default"]);
-Vue.component('home', __webpack_require__(/*! ./components/Home.vue */ "./resources/js/components/Home.vue")["default"]); // 0. If using a module system (e.g. via vue-cli), import Vue and VueRouter
+Vue.component('home', __webpack_require__(/*! ./components/Home.vue */ "./resources/js/components/Home.vue")["default"]);
+Vue.component('cal2', __webpack_require__(/*! ./components/layout/cal2.vue */ "./resources/js/components/layout/cal2.vue")["default"]); // 0. If using a module system (e.g. via vue-cli), import Vue and VueRouter
 // and then call `Vue.use(VueRouter)`.
 
 Vue.use(VueRouter);
@@ -101021,7 +101371,14 @@ var router = new VueRouter({
   routes: routes,
   mode: 'history'
 });
-Vue.use(__webpack_require__(/*! vue-jalali-moment */ "./node_modules/vue-jalali-moment/vue-moment.js")); // Vue.use(VuePersianDatetimePicker, {
+Vue.use(__webpack_require__(/*! vue-jalali-moment */ "./node_modules/vue-jalali-moment/vue-moment.js"));
+ // import fa from "moment/src/locale/fa";
+
+moment_jalaali__WEBPACK_IMPORTED_MODULE_38___default.a.locale("fa");
+moment_jalaali__WEBPACK_IMPORTED_MODULE_38___default.a.loadPersian(); // import VueMoment from ''
+// Vue.use(VueMoment, {
+// })
+// Vue.use(VuePersianDatetimePicker, {
 //     name: 'custom-time-picker',
 //     props: {
 //         //...
@@ -102831,6 +103188,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_test_vue_vue_type_template_id_62a477b8_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_test_vue_vue_type_template_id_62a477b8_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/layout/cal2.vue":
+/*!*************************************************!*\
+  !*** ./resources/js/components/layout/cal2.vue ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _cal2_vue_vue_type_template_id_c30d3f24___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./cal2.vue?vue&type=template&id=c30d3f24& */ "./resources/js/components/layout/cal2.vue?vue&type=template&id=c30d3f24&");
+/* harmony import */ var _cal2_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./cal2.vue?vue&type=script&lang=js& */ "./resources/js/components/layout/cal2.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _cal2_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _cal2_vue_vue_type_template_id_c30d3f24___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _cal2_vue_vue_type_template_id_c30d3f24___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/layout/cal2.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/layout/cal2.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/layout/cal2.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_cal2_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./cal2.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/layout/cal2.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_cal2_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/layout/cal2.vue?vue&type=template&id=c30d3f24&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/layout/cal2.vue?vue&type=template&id=c30d3f24& ***!
+  \********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_cal2_vue_vue_type_template_id_c30d3f24___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./cal2.vue?vue&type=template&id=c30d3f24& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/layout/cal2.vue?vue&type=template&id=c30d3f24&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_cal2_vue_vue_type_template_id_c30d3f24___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_cal2_vue_vue_type_template_id_c30d3f24___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

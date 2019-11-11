@@ -2296,15 +2296,33 @@ a:focus {
 .btn-app {
   border-radius: 3px;
   position: relative;
+  width: 120px;
   padding: 15px 5px;
-  margin: 0 0 10px 10px;
-  min-width: 80px;
+  margin: 8px 0 10px 10px;
+  min-width: 65px;
   height: 60px;
   text-align: center;
   color: #666;
   border: 1px solid #ddd;
   background-color: #f4f4f4;
-  font-size: 12px;
+  font-size: 11px !important;
+}
+.box-handel{
+  overflow: auto;
+  height: 394px;
+}
+.trashTime{
+  float: left;
+  cursor: pointer;
+}
+.chart-responsive{
+  overflow: auto;
+}
+#line-chart,#bar-chart,#pie-chart{
+  margin: auto;
+}
+.dirltr{
+ direction: ltr !important;
 }
 .btn-app > .fa,
 .btn-app > .glyphicon,
