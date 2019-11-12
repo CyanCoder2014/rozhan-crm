@@ -24,6 +24,8 @@ class PreOrderRequest extends FormRequest
     public function rules()
     {
         return [
+            'products.*.product_id' => ['exists:products,id'],
+            'products.*.amount' => ['integer'],
             'services' => ['required','array','min:1'],
             'services.*.service_id' => ['required','exists:services,id'],
             'services.*.person_id' => ['nullable','exists:persons,id'],

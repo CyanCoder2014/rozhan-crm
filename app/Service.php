@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Service extends Model
@@ -49,5 +50,21 @@ class Service extends Model
         if($this->price)
             return $this->price+($this->price*$this->tax/100);
         return 0;
+    }
+
+    public function highestScoreAvailablePerson(Carbon $dateTime){
+        foreach ($this->persons->sortByDesc('score') as $person){
+            $availabeTimes = $person->availableTimeService($dateTime->format('Y-m-d'),$this);
+            foreach ($availabeTimes as $availabeTime)
+            {
+                $timeArray = explode(':',$availabeTime['start']);
+                $availableDateTime = $dateTime->clone()->setTime($timeArray[0]??0,$timeArray[1]??0);
+                if ($dateTime->lessThanOrEqualTo($availableDateTime)){
+                    $person->availableTime = $availabeTime;
+                    return $person;
+                }
+            }
+        }
+        return null;
     }
 }

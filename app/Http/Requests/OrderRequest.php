@@ -24,6 +24,8 @@ class OrderRequest extends BaseFormRequest
     public function rules()
     {
         return [
+            'products.*.product_id' => ['exists:products,id'],
+            'products.*.amount' => ['integer'],
             'services.*.service_id' => ['required','exists:services,id'],
             'services.*.person_id' => ['required','exists:persons,id'],
             'services.*.start_at' => ['required','date_format:H:i'],

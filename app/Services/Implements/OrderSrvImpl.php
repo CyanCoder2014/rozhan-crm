@@ -7,9 +7,11 @@ namespace App\Repositories;
 use App\Http\Requests\OrderRequest;
 use App\Http\Requests\PreOrderRequest;
 use App\Order;
+use App\OrderProduct;
 use App\OrderService;
 use App\Person;
 use App\PersonService;
+use App\Product;
 use App\Service;
 use App\User;
 use Carbon\Carbon;
@@ -58,6 +60,12 @@ class OrderSrvImpl
 
 
         $services =$request->services;
+        $product_ids = array_column($request->products??[], 'product_id');
+        $productModels =Product::whereIn('id',$product_ids)->get()->keyBy('id')->all();
+        foreach ($request->products??[] as $product)
+            if ($productModels[$product['product_id']]['remaining_number']??0 < $product['amount'])
+                return ['message' =>'product has not available amount','status'=>400];
+        $products =$request->products??[];
         $start = Carbon::createFromFormat('Y-m-d',to_georgian_date($request->date));
         $order = new Order([
             'user_id' => $user->id,
@@ -98,7 +106,7 @@ class OrderSrvImpl
         }
         //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        Cache::put('preorder_id_'.$order_cache_id,compact('order','services'));
+        Cache::put('preorder_id_'.$order_cache_id,compact('order','services','products'));
 
 
 
@@ -127,27 +135,46 @@ class OrderSrvImpl
             return ['message' =>'not found','data' => null,'status' => 404];
         $cacheData = Cache::get('preorder_id_'.$id);
         $orderServices = $cacheData['services']??[];
+        $products = $cacheData['products']??[];
         $order = $cacheData['order']??new Order();
         $date = to_jalali_date($order->general_date);
+        $dateTime = Carbon::createFromFormat('Y-m-d',$order->general_date)->setTime(0,0,1);
+
         $person_selected = array_column($orderServices, 'person_id', 'service_id');
         $services = Service::with('persons')->whereIn('id',array_column($orderServices, 'service_id'))->get();
 
+        $sugestion=[
+            'date' =>$order->general_date,
+            'services' => []
+        ];
         foreach ($services as $service){
             $availblePerson=[];
-            foreach ($service->persons as $person){
+            foreach ($service->persons as $key => $person){
                 $person->timeSchedule = $person->dateTimeSchedule($order->general_date);
-                foreach ($person->availableTime($order->general_date) as $availableTime){
+                foreach ($person->availableTimeService($order->general_date,$service) as $availableTime){
                     $person->availableTime = $availableTime;
                     $availblePerson[]= clone $person;
                 }
                 if (isset($person_selected[$service->id])&& $person_selected[$service->id] == $person->id)
                     $person->selected = true;
             }
+            $sugestPerson = $service->highestScoreAvailablePerson($dateTime);
+            if($sugestPerson)
+            {
+                $time = explode(':',$sugestPerson->availableTime['end']);
+                $dateTime->setTime($time[0],$time[1]);
+                $sugestion['services'][] = [
+                    'person_id' => $sugestPerson->id,
+                    'service_id' => $service->id,
+                    'start_at' => $sugestPerson->availableTime['start'],
+                ];
+
+            }
             $service->availblePerson = $availblePerson;
         }
 
 
-        return ['message' =>'successful','data' =>compact('services','date','cacheData')];
+        return ['message' =>'successful','data' =>compact('services','date','cacheData','sugestion','products')];
 
 
 
@@ -168,11 +195,10 @@ class OrderSrvImpl
             $order = $cacheData['order'];
             $order->save();
 
-
-
             $price = 0;
             $general_start = $start->clone()->setTime(23,59);
             $general_end = $start->clone()->setTime(0,0);
+            /*************************** add order Services **********/
             $newOrderServices=[];
             foreach ($services as $serv){
                 $service = Service::findOrFail($serv['service_id']);
@@ -188,13 +214,23 @@ class OrderSrvImpl
                 if ($general_end->lt($end))
                     $general_end = $end->clone();
                 /********************* make new Order Services***************************/
-                $newOrderService = $this->BookService(
-                    $service,
-                    $person,
-                    $start->format('Y-m-d'),
-                    $start->format('H:i'),
-                    $end->format('H:i'),
-                    $serv['note']??null);
+                $newOrderService = new OrderService();
+                $newOrderService->fill([
+                    'service_id' => $service->id,
+                    'person_id'=> $person->id,
+                    'note' => $serv['note']??null,
+                    'number' => null,
+                    'price' => $serv['price']??$service->price,
+                    'discount' => $service->default_discount,
+                    'tax' => $service->tax,
+                    'date' => $start->format('Y-m-d'),
+                    'start' => $start->format('H:i') ,
+                    'end' => $end->format('H:i') ,
+                    'state' => OrderService::created_status,
+                    'created_by' => auth()->id(),
+                    'updated_by' => null,
+                    'deleted_at' => null,
+                ]);
                 /********************** validate the service request **************************/
                 if (! $person->hasService($service)){
                     return ['message' =>'person has not a service','status'=>400];
@@ -216,11 +252,37 @@ class OrderSrvImpl
 
 
             }
+            /************************* add order products *****************/
+            $newOrderProducts=[];
+            $product_ids = array_column($request->products??[], 'product_id');
+            $products =Product::whereIn('id',$product_ids)->get()->keyBy('id')->all();
+            foreach ($request->products??[] as $product){
+                if (!isset($products[$product['product_id']]['remaining_number']) or
+                    $products[$product['product_id']]['remaining_number'] < (int)$product['amount'])
+                    return ['message' =>'product has not available amount','status'=>400];
+                $newOrderProducts[] = new OrderProduct([
+                    'product_id' => $product['product_id'],
+                    'note' => $product['note']?? null,
+                    'unit' => $product['unit']?? null,
+                    'amount' => $product['amount']?? null,
+                    'discount' => $products[$product['product_id']]['default_discount']??0,
+                    'tax' => $products[$product['product_id']]['tax']??0 ,
+                    'date' => $order->general_date,
+                    'start' => null,
+                    'end' => null,
+                    'type' => null,
+                    'state' => null,
+                    'created_by' => auth()->id(),
+                    'updated_by' => null,
+                ]);
+            }
+            /*******************************************************/
             $order->general_start = $general_start->format('H:i:s');
             $order->general_end = $general_end->format('H:i:s');
             $order->final_price = $price;
             $order->save();
             $order->OrderServices = $order->OrderServices()->saveMany($newOrderServices);
+            $order->OrderProducts = $order->OrderProducts()->saveMany($newOrderProducts);
 
             return ['message' =>'successful','data' =>$order];
         });
@@ -296,15 +358,42 @@ class OrderSrvImpl
 
 
             }
+            /************************* add order products *****************/
+            $newOrderProducts=[];
+            $product_ids = array_column($request->products??[], 'product_id');
+            $products =Product::whereIn('id',$product_ids)->get()->keyBy('id')->all();
+            foreach ($request->products??[] as $product){
+                if (!isset($products[$product['product_id']]['remaining_number']) or
+                    $products[$product['product_id']]['remaining_number'] < (int)$product['amount'])
+                    return ['message' =>'product has not available amount','status'=>400];
+                $newOrderProducts[] = new OrderProduct([
+                    'product_id' => $product['product_id'],
+                    'note' => $product['note']?? null,
+                    'unit' => $product['unit']?? null,
+                    'amount' => $product['amount']?? null,
+                    'discount' => $products[$product['product_id']]['default_discount']??0,
+                    'tax' => $products[$product['product_id']]['tax']??0 ,
+                    'date' => $order->general_date,
+                    'start' => null,
+                    'end' => null,
+                    'type' => null,
+                    'state' => null,
+                    'created_by' => auth()->id(),
+                    'updated_by' => null,
+                ]);
+            }
+            /*******************************************************/
             $order->final_price = $price;
             $order->save();
             $order->OrderServices = $order->OrderServices()->saveMany($newOrderServices);
+            $order->OrderProducts = $order->OrderProducts()->saveMany($newOrderProducts);
 
             return ['message' =>'successful','data' =>$order];
         });
 
 
     }
+
 
     /**
      * @input $request
@@ -443,5 +532,12 @@ class OrderSrvImpl
         return true;
     }
 
+    private function addProductToOrder(Order $order,$products){
+        foreach ($products as $product)
+        {
+
+        }
+
+    }
 
 }

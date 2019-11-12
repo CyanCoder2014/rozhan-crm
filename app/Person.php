@@ -118,6 +118,23 @@ class Person extends Model
 
     }
 
+    /**
+     * get availabe times that can do the service
+     * @param $date
+     * @param Service $service
+     * @return array
+     *
+     */
+    public function availableTimeService($date,Service $service)
+    {
+        $AvailableTimes = $this->availableTime($date);
+        foreach ($AvailableTimes as $key => $time)
+            if (((strTimeToInt($time['end']) - strTimeToInt($time['start']))/60) < $service->max_time) // can do the service in this available time
+                unset($AvailableTimes[$key]);
+        return $AvailableTimes;
+
+    }
+
     public function updateRate(){
         $this->star = $this->serviceFeedback()->avg('rate');
         return $this;
