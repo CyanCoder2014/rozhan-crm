@@ -21,7 +21,17 @@ class ReportController extends Controller
     public function baseReport(RepotRequest $request){
 
         $groupBy=[];
-
+        switch (request('filter')){
+            case 'service':
+                $groupBy[]='service_id';
+                break;
+            case 'user':
+                $groupBy[]='user_id';
+                break;
+            case 'person':
+                $groupBy[]='person_id';
+                break;
+        }
         switch (request('time')){
             case 'y':
                 $groupBy[]=DB::raw('YEAR(order_services.created_at)');
@@ -41,17 +51,7 @@ class ReportController extends Controller
                 break;
         }
 
-        switch (request('filter')){
-            case 'service':
-                $groupBy[]='service_id';
-                break;
-            case 'user':
-                $groupBy[]='user_id';
-                break;
-            case 'person':
-                $groupBy[]='person_id';
-                break;
-        }
+
 
         switch (request('order')){
             case 'price':
