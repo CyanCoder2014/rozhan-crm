@@ -20,7 +20,6 @@
         "nwidart/laravel-modules": "^6.1",
         "parsidev/persian": "dev-master",
         "santigarcor/laratrust": "^5.2",
-        "spatie/laravel-permission": "^3.0",
         "tymon/jwt-auth": "dev-develop",
         "unisharp/laravel-ckeditor": "^4.7",
         "waavi/sanitizer": "~1.0"

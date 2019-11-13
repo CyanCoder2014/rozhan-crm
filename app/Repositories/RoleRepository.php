@@ -20,7 +20,11 @@ class RoleRepository
 
     public function getUserRole(): Role
     {
-//        return $this->model::where('name', 'user')->first();
-        return $this->model->where('name', 'user')->first();
+        return $this->model::where('name', 'user')->first();
+    }
+
+    public function find(int $id): ?Role
+    {
+        return $this->model::find($id);
     }
 }

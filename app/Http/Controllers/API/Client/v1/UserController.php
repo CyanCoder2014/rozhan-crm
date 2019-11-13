@@ -8,6 +8,8 @@ use App\Http\Requests\Client\User\RegisterRequest;
 use App\Http\Requests\Client\User\ResetPassword;
 use App\Repositories\RoleRepository;
 use App\Repositories\UserRepository;
+use App\Services\CreateUser\CreateUser;
+use App\Services\CreateUser\ValueObjects\CreateUserValueObject;
 use App\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Auth\Events\Registered;
@@ -28,16 +30,22 @@ class UserController extends Controller
         UserRepository $userRepository,
         RoleRepository $roleRepository
     )
-
-
     {
         $this->roleRepository = $roleRepository;
         $this->userRepository = $userRepository;
     }
 
-    public function register(RegisterRequest $request)
+    public function register(RegisterRequest $request, CreateUser $createUser)
     {
-        event(new Registered($user = $this->create($request->all())));
+        $data = $request->all();
+
+        $valueObject = new CreateUserValueObject();
+        $valueObject->setName($data['name'])
+            ->setEmail($data['email'])
+            ->setPassword($data['password']);
+
+        $user = $createUser->create($valueObject);
+        event(new Registered($user));
 
         $credentials = $request->all(['email', 'password']);
 
@@ -68,26 +76,5 @@ class UserController extends Controller
         return response()->json([
             'message' => 'User password is changed'
         ]);
-    }
-
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array $data
-     * @return \App\User
-     */
-    protected function create(array $data)
-    {
-        $user = User::create([
-            'name'     => $data['name'],
-            'email'    => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
-
-        $defaultRole = $this->roleRepository->getUserRole();
-
-        $user->attachRole($defaultRole);
-
-        return $user;
     }
 }
