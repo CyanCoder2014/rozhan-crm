@@ -9,7 +9,7 @@
 .skeduler-headers {
   border-left: 1px solid #b0cee9;
   display: flex;
-  padding-right: 60px;
+  padding-right: 62.9px;
   position: relative;
 }
 
@@ -101,12 +101,11 @@
   min-height: 0;
   transition: all .4s;
 }
-
+/* 
 .skeduler-main-body > div > .skeduler-task-placeholder > div:hover {
   box-shadow: 0 .25em .5em rgba(0,0,0,.5);
   background-color: #3A9852;
-  /*min-height: 150px;*/
   min-width: 200px;
-  opacity: 0.85;
-  z-index: 9999;
-}
+
+ 
+} */

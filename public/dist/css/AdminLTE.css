@@ -2312,8 +2312,11 @@ a:focus {
   height: 394px;
 }
 .trashTime{
+  color: white;
   float: left;
   cursor: pointer;
+  width: 100%;
+  text-align: right;
 }
 .chart-responsive{
   overflow: auto;
