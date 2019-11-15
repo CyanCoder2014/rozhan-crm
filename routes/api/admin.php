@@ -3,7 +3,8 @@
 Route::namespace('v1')->prefix('v1')->group(function () {
     Route::post('login', 'AuthController@login');
 
-    Route::prefix('role')->middleware(['jwt.auth', 'role:superadministrator'])->group(function () {
+//    Route::prefix('role')->middleware(['jwt.auth', 'role:superadministrator'])->group(function () {
+    Route::prefix('role')->group(function () {
         Route::post('/add', 'RoleController@add');
 
         Route::post('/attach-permissions', 'RoleController@attachPermissions');
@@ -13,7 +14,8 @@ Route::namespace('v1')->prefix('v1')->group(function () {
         Route::post('/detach-user-role', 'RoleController@detachUserRoles');
     });
 
-    Route::prefix('permission')->middleware(['jwt.auth', 'role:superadministrator'])->group(function () {
+//    Route::prefix('permission')->middleware(['jwt.auth', 'role:superadministrator'])->group(function () {
+    Route::prefix('permission')->group(function () {
         Route::get('list', 'PermissionController@list');
     });
 
