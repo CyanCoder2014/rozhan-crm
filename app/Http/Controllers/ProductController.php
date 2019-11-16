@@ -39,7 +39,7 @@ class ProductController extends BaseAPIController
     {
         return [
 //            'parent_id'=>['nullable','exists:products,id'],
-            'product_categories_id'=>['required','exists:product_categories,id'],
+            'product_category_id'=>['required','exists:product_category,id'],
             'title'=>['string','required'],
 //            'image'=>['image'],
 //            'type'=>[],
