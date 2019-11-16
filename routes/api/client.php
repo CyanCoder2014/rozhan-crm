@@ -16,6 +16,7 @@ Route::namespace('v1')->prefix('v1')->group(function () {
         Route::get('orders/cancel/{id}', 'OrderController@cancel');
     });
 
+
     Route::prefix('user')->group(function () {
         Route::post('/register', 'UserController@register');
 
