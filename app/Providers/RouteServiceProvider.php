@@ -19,7 +19,6 @@ class RouteServiceProvider extends ServiceProvider
     /**
      * Define your route model bindings, pattern filters, etc.
      *
-     *
      * @return void
      */
     public function boot()
@@ -36,11 +35,12 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map()
     {
+
+        $this->mapAdminApiRoutes();
         $this->mapApiRoutes();
-
         $this->mapWebRoutes();
+        $this->mapClientApiRoutes();
 
-        //
     }
 
     /**
@@ -70,5 +70,27 @@ class RouteServiceProvider extends ServiceProvider
              ->middleware('api')
              ->namespace($this->namespace)
              ->group(base_path('routes/api.php'));
+
+
+        Route::prefix('client-api')
+            ->middleware('api')
+            ->namespace($this->namespace . '\API\Client')
+            ->group(base_path('routes/api/client.php'));
+
+
+        Route::prefix('admin-api')
+            ->middleware('api')
+            ->namespace($this->namespace . '\API\Admin')
+            ->group(base_path('routes/api/admin.php'));
+    }
+
+    protected function mapClientApiRoutes()
+    {
+
+    }
+
+    protected function mapAdminApiRoutes()
+    {
+
     }
 }

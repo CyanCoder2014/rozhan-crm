@@ -1,6 +1,20 @@
 <?php
 
 
+
+
+function convert_time($time)
+{
+
+        $date = explode(':', $time);
+        return $date[0].':'.$date[1];
+
+
+}
+
+
+
+
 function strTimeToInt($time):int{
     $split = explode(':',$time);
     $int = 0;

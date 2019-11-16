@@ -55,7 +55,7 @@ class OrderSrvImpl
      *          ]
      */
 
-    public function addOrderCache(PreOrderRequest $request,User $user)
+    public function addOrderCache($request,User $user)
     {
 
 
@@ -116,15 +116,6 @@ class OrderSrvImpl
 
 
 
-        // show persons of services after select services
-
-        // create order
-        // check timing of selected persons    // خطا نمونه:  خانم محمودی در بازه انخابی حاضر نیستند
-        // add services to order
-        // add persons to order
-        // add timing
-
-
 
 
 
@@ -164,9 +155,12 @@ class OrderSrvImpl
                 $time = explode(':',$sugestPerson->availableTime['end']);
                 $dateTime->setTime($time[0],$time[1]);
                 $sugestion['services'][] = [
+                    'serviceObject' => $service,
+                    'personObject' => $sugestPerson,
                     'person_id' => $sugestPerson->id,
                     'service_id' => $service->id,
-                    'start_at' => $sugestPerson->availableTime['start'],
+                    'start_at' => convert_time($sugestPerson->availableTime['start']),
+//                    'end_at' => $sugestPerson->availableTime['end'],
                 ];
 
             }
@@ -182,7 +176,7 @@ class OrderSrvImpl
 
     }
 
-    public function addOrder(OrderRequest $request,$id)
+    public function addOrder($request,$id)
     {
 
         $cacheData = Cache::get('preorder_id_'.$id);
@@ -302,7 +296,7 @@ class OrderSrvImpl
 
 
     }
-    public function addOrderQuick(PreOrderRequest $request, User $user)
+    public function addOrderQuick($request, User $user)
     {
 
         return DB::transaction(function () use ($request,$user){
@@ -415,7 +409,7 @@ class OrderSrvImpl
      *              data
      *          ]
      */
-    public function editOrder(Request $request ,Order $order)
+    public function editOrder( $request ,Order $order)
     {
 //        return DB::transaction(function () use ($request,$order){
 //            $services =$request->services;
@@ -508,7 +502,7 @@ class OrderSrvImpl
 
 
     private function BookService(Service $service,Person $person,$date,$start_time,$end_time,$note,OrderService $orderService= null) {
-        
+
         if (!$orderService)
             $orderService = new OrderService();
         $orderService->fill([
@@ -538,6 +532,17 @@ class OrderSrvImpl
 
         }
 
+    }
+
+
+    public function is_OwnerOfCacheCache($cacheId,$user_id):bool {
+        if (!Cache::has('preorder_id_'.$cacheId))
+            return false;
+        $cacheData = Cache::get('preorder_id_'.$cacheId);
+        $order = $cacheData['order']??new Order();
+        if ($order->user_id != $user_id)
+            return false;
+        return true;
     }
 
 }

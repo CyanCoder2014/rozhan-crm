@@ -19,6 +19,8 @@ class UserRepository
         $this->model = $model;
     }
 
+
+
     public function add($request){
 
         if(empty($request->password)){
@@ -42,7 +44,6 @@ class UserRepository
 
 
 
-
         return User::create([
             'name'=>$name,
             'email' => $request->email,
@@ -51,15 +52,15 @@ class UserRepository
         ]);
     }
 
-    public function existsWithEmail(string $email): bool
+
+
+public function existsWithEmail(string $email): bool
     {
-//        return $this->model::where('email', $email)->exists();
-        return $this->model->where('email', $email)->exists();
+        return $this->model::where('email', $email)->exists();
     }
 
-    public function existsWithMobile(string $mobile): bool
+    public function find(int $id): ?User
     {
-//        return $this->model::where('email', $email)->exists();
-        return $this->model->where('mobile', $mobile)->exists();
+        return $this->model::find($id);
     }
 }

@@ -10,6 +10,8 @@ class Order extends Model
     const payed_status = 2;
     const complete_status = 3;
 
+    const cancel_state = 0;
+
     const quick_type = 1;
 
     protected $fillable=[
@@ -45,5 +47,12 @@ class Order extends Model
 
     public function user(){
         return $this->belongsTo(User::class);
+    }
+
+    public function CanClientEdit(): bool {
+        return true;
+    }
+    public function CanClientCancel(): bool {
+        return true;
     }
 }
