@@ -15,7 +15,6 @@ class Product extends Model
         'initial_number',
         'remaining_number',
         'blocked_number',
-        'reserved',
         'price',
         'predicted_price',
         'default_discount',
