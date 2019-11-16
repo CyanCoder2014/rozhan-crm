@@ -5,7 +5,8 @@ use Illuminate\Http\Request;
 Route::namespace('v1')->prefix('v1')->group(function () {
     Route::post('login', 'AuthController@login');
 
-    Route::prefix('client')->middleware(['jwt.auth'])->group(function (){
+//    Route::prefix('client')->middleware(['jwt.auth'])->group(function (){
+    Route::prefix('client')->group(function (){
 //        Route::resource('orders', 'OrderController')->except('edit','create','store','destroy');
         Route::get('orders/', 'OrderController@index');
         Route::get('orders/{id}', 'OrderController@show');
