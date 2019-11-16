@@ -63,4 +63,13 @@ public function existsWithEmail(string $email): bool
     {
         return $this->model::find($id);
     }
+
+
+
+    public function list()
+    {
+        return $this->model::select('id', 'name', 'email', 'mobile')->get();
+    }
+
+
 }

@@ -27,4 +27,9 @@ class RoleRepository
     {
         return $this->model::find($id);
     }
+
+    public function list()
+    {
+        return $this->model::select('id', 'name', 'display_name', 'description')->get();
+    }
 }
