@@ -20,7 +20,8 @@ Route::namespace('v1')->prefix('v1')->group(function () {
     Route::prefix('user')->group(function () {
         Route::post('/register', 'UserController@register');
 
-        Route::middleware(['jwt.auth', 'permission:read-profile'])->get('/profile', function (Request $request) {
+//        Route::middleware(['jwt.auth', 'permission:read-profile'])->get('/profile', function (Request $request) {
+        Route::get('/profile', function (Request $request) {
             return $request->user();
         });
         Route::middleware(['jwt.auth'])->post('/reset-password', 'UserController@resetPassword');
