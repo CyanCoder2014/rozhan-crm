@@ -19,7 +19,8 @@ class CreateRemindersTable extends Migration
             $table->foreign('parent_id')->references('id')->on('reminders')->onDelete('cascade');
             $table->string('title');
             $table->text('description');
-            $table->morphs('reference');
+            $table->morphs('sender');
+            $table->morphs('receiver');
             $table->unsignedTinyInteger('state');
             $table->unsignedTinyInteger('status');
             $table->timestamp('reminder_at');

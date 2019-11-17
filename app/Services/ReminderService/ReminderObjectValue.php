@@ -26,11 +26,19 @@ class ReminderObjectValue
     /**
      * @var integer
      */
-    protected $model_id;
+    protected $receiver_id;
     /**
      * @var string
      */
-    protected $model_name;
+    protected $receiver_name;
+    /**
+     * @var integer
+     */
+    protected $sender_id;
+    /**
+     * @var string
+     */
+    protected $sender_name;
     /**
      * @var integer
      */
@@ -127,17 +135,17 @@ class ReminderObjectValue
     /**
      * @return int
      */
-    public function getModelId(): int
+    public function getReceiverId(): int
     {
-        return $this->model_id;
+        return $this->receiver_id;
     }
 
     /**
-     * @param int $model_id
+     * @param int $receiver_id
      */
-    public function setModelId(int $model_id): self
+    public function setReceiverId(int $receiver_id): self
     {
-        $this->model_id = $model_id;
+        $this->receiver_id = $receiver_id;
         return $this;
 
     }
@@ -145,17 +153,17 @@ class ReminderObjectValue
     /**
      * @return string
      */
-    public function getModelName(): string
+    public function getReceiverName(): string
     {
-        return $this->model_name;
+        return $this->receiver_name;
     }
 
     /**
-     * @param string $model_name
+     * @param string $receiver_name
      */
-    public function setModelName(string $model_name): self 
+    public function setReceiverName(string $receiver_name): self
     {
-        $this->model_name = $model_name;
+        $this->receiver_name = $receiver_name;
         return $this;
 
     }
@@ -304,6 +312,38 @@ class ReminderObjectValue
         if ($this->isSms())
             $notify_type += 4;
         return $notify_type;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSenderId(): int
+    {
+        return $this->sender_id;
+    }
+
+    /**
+     * @param int $sender_id
+     */
+    public function setSenderId(int $sender_id): void
+    {
+        $this->sender_id = $sender_id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSenderName(): string
+    {
+        return $this->sender_name;
+    }
+
+    /**
+     * @param string $sender_name
+     */
+    public function setSenderName(string $sender_name): void
+    {
+        $this->sender_name = $sender_name;
     }
 
 
