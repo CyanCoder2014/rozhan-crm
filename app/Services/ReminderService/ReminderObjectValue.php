@@ -67,9 +67,10 @@ class ReminderObjectValue
     /**
      * @param string $title
      */
-    public function setTitle(string $title): void
+    public function setTitle(string $title): self 
     {
         $this->title = $title;
+        return $this;
     }
 
     /**
@@ -83,9 +84,10 @@ class ReminderObjectValue
     /**
      * @param string $desctiprion
      */
-    public function setDesctiprion(string $desctiprion): void
+    public function setDesctiprion(string $desctiprion): self
     {
         $this->desctiprion = $desctiprion;
+        return $this;
     }
 
     /**
@@ -99,9 +101,10 @@ class ReminderObjectValue
     /**
      * @param \DateTime $reminderAt
      */
-    public function setReminderAt(\DateTime $reminderAt): void
+    public function setReminderAt(\DateTime $reminderAt): self
     {
         $this->reminderAt = $reminderAt;
+        return $this;
     }
 
     /**
@@ -115,9 +118,10 @@ class ReminderObjectValue
     /**
      * @param \DateTime $executeAt
      */
-    public function setExecuteAt(\DateTime $executeAt): void
+    public function setExecuteAt(\DateTime $executeAt): self 
     {
         $this->executeAt = $executeAt;
+        return $this;
     }
 
     /**
@@ -131,9 +135,11 @@ class ReminderObjectValue
     /**
      * @param int $model_id
      */
-    public function setModelId(int $model_id): void
+    public function setModelId(int $model_id): self
     {
         $this->model_id = $model_id;
+        return $this;
+
     }
 
     /**
@@ -147,9 +153,11 @@ class ReminderObjectValue
     /**
      * @param string $model_name
      */
-    public function setModelName(string $model_name): void
+    public function setModelName(string $model_name): self 
     {
         $this->model_name = $model_name;
+        return $this;
+
     }
 
     /**
@@ -163,9 +171,11 @@ class ReminderObjectValue
     /**
      * @param int $parent_id
      */
-    public function setParentId(int $parent_id): void
+    public function setParentId(int $parent_id): self
     {
         $this->parent_id = $parent_id;
+        return $this;
+
     }
 
     /**
@@ -179,9 +189,11 @@ class ReminderObjectValue
     /**
      * @param bool $db
      */
-    public function setDb(bool $db): void
+    public function setDb(bool $db): self 
     {
         $this->db = $db;
+        return $this;
+
     }
 
     /**
@@ -195,9 +207,11 @@ class ReminderObjectValue
     /**
      * @param bool $email
      */
-    public function setEmail(bool $email): void
+    public function setEmail(bool $email): self
     {
         $this->email = $email;
+        return $this;
+
     }
 
     /**
@@ -211,9 +225,11 @@ class ReminderObjectValue
     /**
      * @param bool $sms
      */
-    public function setSms(bool $sms): void
+    public function setSms(bool $sms): self
     {
         $this->sms = $sms;
+        return $this;
+
     }
 
     /**
@@ -227,9 +243,10 @@ class ReminderObjectValue
     /**
      * @param mixed $id
      */
-    public function setId($id): void
+    public function setId($id): self
     {
         $this->id = $id;
+        return $this;
     }
 
     /**
@@ -243,9 +260,10 @@ class ReminderObjectValue
     /**
      * @param int $state
      */
-    public function setState(int $state): void
+    public function setState(int $state): self
     {
         $this->state = $state;
+        return $this;
     }
 
     /**
@@ -259,9 +277,10 @@ class ReminderObjectValue
     /**
      * @param int $status
      */
-    public function setStatus(int $status): void
+    public function setStatus(int $status): self
     {
         $this->status = $status;
+        return $this;
     }
 
     /**
