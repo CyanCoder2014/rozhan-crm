@@ -35,7 +35,7 @@ class OrderController extends Controller
     public function index()
     {
 //        $data = $this->appRepository->getAll($this->model);
-        $data = Order::with(['OrderServices','OrderServices.person','OrderServices.service','user'])->get();
+        $data = Order::with(['OrderServices','OrderServices.person','OrderServices.service','OrderProducts','OrderProducts.product','user'])->get();
 
         return $this->response($data);
     }

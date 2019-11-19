@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 */
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+    return $request->user()->allPermissions();
 });
 
 
@@ -103,15 +103,15 @@ Route::middleware(['jwt.auth'])->resource('persons', 'PersonController')->except
 
 
 Route::middleware(['jwt.auth'])->resource('orders', 'OrderController')->except('edit','create','store')->middleware([
-    'index' => 'orders.index',
-    'update' => 'orders.edit',
-    'show' => 'orders.show',
-    'destroy' => 'orders.destroy',
+    'index' => 'permission:orders.index',
+    'update' => 'permission:orders.edit',
+    'show' => 'permission:orders.show',
+    'destroy' => 'permission:orders.destroy',
 ]);
-Route::middleware(['jwt.auth'])->post('orders/add/step1', 'OrderController@preOrder')->middleware('orders.store');
-Route::middleware(['jwt.auth'])->post('orders/add/quick', 'OrderController@addOrderQuick')->middleware('orders.quickstore');
-Route::middleware(['jwt.auth'])->get('orders/add/{id}', 'OrderController@serviceSchedule')->name('order.step2')->middleware('orders.store');
-Route::middleware(['jwt.auth'])->post('orders/add/{id}', 'OrderController@store')->name('order.store')->middleware('orders.store');
+Route::middleware(['jwt.auth'])->post('orders/add/step1', 'OrderController@preOrder')->middleware('permission:orders.store');
+Route::middleware(['jwt.auth'])->post('orders/add/quick', 'OrderController@addOrderQuick')->middleware('permission:orders.quickstore');
+Route::middleware(['jwt.auth'])->get('orders/add/{id}', 'OrderController@serviceSchedule')->name('order.step2')->middleware('permission:orders.store');
+Route::middleware(['jwt.auth'])->post('orders/add/{id}', 'OrderController@store')->name('order.store')->middleware('permission:orders.store');
 
 Route::middleware(['jwt.auth'])->resource('person/{person_id}/timing', 'PersonTimingController')->except('edit','create')->middleware([
     'index' => 'permission:persons.timing.index',

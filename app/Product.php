@@ -39,5 +39,10 @@ class Product extends Model
         return $this->belongsTo('App\ProductCategory', 'product_categories_id');
     }
 
+    public function priceCalculate()
+    {
+        return $this->price;
+    }
+
 
 }

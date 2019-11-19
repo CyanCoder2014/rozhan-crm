@@ -13,6 +13,7 @@ class OrderProduct extends Model
         'note',
         'unit',
         'amount',
+        'price',
         'discount',
         'tax',
         'date',
@@ -23,4 +24,8 @@ class OrderProduct extends Model
         'created_by',
         'updated_by',
     ];
+
+    public function product(){
+        return $this->belongsTo(Product::class);
+    }
 }

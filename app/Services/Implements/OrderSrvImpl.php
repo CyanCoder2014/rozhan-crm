@@ -197,7 +197,7 @@ class OrderSrvImpl
                 $start_time = explode(':',$serv['start_at']);
                 $start->setTime($start_time[0],$start_time[1]);
                 $end = $start->clone()->addMinutes($service->max_time);
-                $price += $service->priceCalculate();
+                $price += $serv['price']??$service->priceCalculate();
 
                 /********************* set start and end of  the order ***************************/
                 if ($general_start->gt($start))
@@ -251,11 +251,13 @@ class OrderSrvImpl
                 if (!isset($products[$product['product_id']]['remaining_number']) or
                     $products[$product['product_id']]['remaining_number'] < (int)$product['amount'])
                     return ['message' =>'product has not available amount','status'=>400];
+                $price += $product['price']??$products[$product['product_id']]->priceCalculate();
                 $newOrderProducts[] = new OrderProduct([
                     'product_id' => $product['product_id'],
                     'note' => $product['note']?? null,
                     'unit' => $product['unit']?? null,
                     'amount' => $product['amount']?? null,
+                    'price' => $product['price']??$products[$product['product_id']]['price']??0,
                     'discount' => $products[$product['product_id']]['default_discount']??0,
                     'tax' => $products[$product['product_id']]['tax']??0 ,
                     'date' => $order->general_date,
@@ -357,11 +359,13 @@ class OrderSrvImpl
                 if (!isset($products[$product['product_id']]['remaining_number']) or
                     $products[$product['product_id']]['remaining_number'] < (int)$product['amount'])
                     return ['message' =>'product has not available amount','status'=>400];
+                $price += $product['price']??$products[$product['product_id']]->priceCalculate();
                 $newOrderProducts[] = new OrderProduct([
                     'product_id' => $product['product_id'],
                     'note' => $product['note']?? null,
                     'unit' => $product['unit']?? null,
                     'amount' => $product['amount']?? null,
+                    'price' => $product['price']??$products[$product['product_id']]['price']??0,
                     'discount' => $products[$product['product_id']]['default_discount']??0,
                     'tax' => $products[$product['product_id']]['tax']??0 ,
                     'date' => $order->general_date,
