@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\Role\AddRequest;
 use App\Http\Requests\Admin\Role\AttachPermissionsRequest;
 use App\Http\Requests\Admin\Role\ChangeUserRoleRequest;
 use App\Http\Requests\Admin\Role\DetachUserRoleRequest;
+use App\Repositories\RoleRepository;
 use App\Role;
 use App\Services\AddRole\AddRole;
 use App\Services\AddRole\ValueObjects\AddRoleValueObject;
@@ -22,6 +23,16 @@ use App\Services\DetachUserRoles\Exceptions\UserNotFoundException;
 
 class RoleController extends Controller
 {
+    /**
+     * @var RoleRepository
+     */
+    protected $roleRepository;
+
+    public function __construct(RoleRepository $roleRepository)
+    {
+        $this->roleRepository = $roleRepository;
+    }
+
     public function add(AddRequest $request, AddRole $addRole)
     {
         $valueObject = new AddRoleValueObject();
@@ -97,6 +108,16 @@ class RoleController extends Controller
         return response()->json([
             'status'  => true,
             'message' => 'User role is detached successfully!'
+        ]);
+    }
+
+    public function list()
+    {
+        $roles = $this->roleRepository->list();
+
+        return response()->json([
+            'status' => true,
+            'data'   => $roles
         ]);
     }
 }
