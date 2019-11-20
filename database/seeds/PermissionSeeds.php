@@ -378,6 +378,36 @@ class PermissionSeeds extends Seeder
                 'description' =>'',
             ],
             [
+                'name' =>'discount.index',
+                'display_name' =>'لیست تخفیف ها',
+                'description' =>'',
+            ],
+            [
+                'name' =>'discount.store',
+                'display_name' =>'ذخیره تخفیف',
+                'description' =>'',
+            ],
+            [
+                'name' =>'discount.edit',
+                'display_name' =>'ویرایش تخفیف',
+                'description' =>'',
+            ],
+            [
+                'name' =>'discount.destroy',
+                'display_name' =>'حذف تخفیف',
+                'description' =>'',
+            ],
+            [
+                'name' =>'discount.show',
+                'display_name' =>'نمایش تخفیف',
+                'description' =>'',
+            ],
+            [
+                'name' =>'discount.notify',
+                'display_name' =>'اعلان تخفیف به مخاطبین',
+                'description' =>'',
+            ],
+            [
                 'name' =>'report',
                 'display_name' =>'مجموعه گزارشات 1',
                 'description' =>'',
