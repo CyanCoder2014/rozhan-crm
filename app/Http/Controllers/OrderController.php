@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 
+use App\Http\Requests\Order\CustomerPaymentRequest;
 use App\Http\Requests\OrderRequest;
 use App\Http\Requests\PreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Order;
 use App\Repositories\Interfaces\AppRepository;
 use App\Repositories\OrderSrvImpl;
+use App\Repositories\Payment\CustomerPaymentRepository;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -18,13 +21,15 @@ class OrderController extends Controller
     protected $appRepository;
     protected $model;
     protected $orderService;
+    protected $customerPaymentRepository;
 
 
-    public function __construct(AppRepository $appRepository , OrderSrvImpl $orderService)
+    public function __construct(AppRepository $appRepository , OrderSrvImpl $orderService,CustomerPaymentRepository $customerPaymentRepository)
     {
         $this->appRepository = $appRepository;
         $this->model = new Order();
         $this->orderService = $orderService;
+        $this->customerPaymentRepository =$customerPaymentRepository;
 
     }
 
@@ -74,6 +79,20 @@ class OrderController extends Controller
         return $this->response($array['data']??null,$array['message']??null,$array['status']??200);
     }
 
+    public function paymentCompleted(CustomerPaymentRequest $request)
+    {
+        $order= Order::findOrFail($request->order_id);
+        $data = $request->all();
+        $data['number'] = 'order-'.$order->user_id.$order->id;
+        $data['user_id'] = $order->user_id;
+        $data['buyer'] = $order->user->name;
+        $data['amount'] = $order->final_price;
+        $data['register_date'] = Carbon::now()->format('Y-m-d H:i:s');
+        $data['due_date'] = Carbon::now()->format('Y-m-d H:i:s');
+        $array = $this->customerPaymentRepository->add($data);
+        $this->orderService->completeOrder($order);
+        return $this->response($array['data']??null,$array['message']??null,$array['status']??200);
+    }
     public function addOrderQuick(PreOrderRequest $request)
     {
         $array = $this->orderService->addOrderQuick($request,User::find($request->user_id));

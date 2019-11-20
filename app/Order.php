@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    const created_status = 0;
-    const payed_status = 2;
-    const complete_status = 3;
+    const created_state = 0;
+    const payed_state = 2;
+    const complete_state = 3;
 
     const cancel_state = 0;
 
