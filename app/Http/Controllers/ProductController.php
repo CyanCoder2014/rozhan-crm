@@ -16,8 +16,9 @@ class ProductController extends BaseAPIController
 
     public function index()
     {
-        $data = Product::with('productCategory')->get();
-        return $this->response($data);
+        $data = Product::with('productCategory')->paginate();
+        return $data;
+//        return $this->response($data);
     }
 
 

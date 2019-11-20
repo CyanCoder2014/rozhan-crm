@@ -14,6 +14,10 @@ class ProductCategoryController extends BaseAPIController
         $this->model = new ProductCategory();
     }
 
+    public function index()
+    {
+        return $this->model::paginate();
+    }
     public function store()
     {
         \request()->request->add(['created_by' => auth()->id()]);

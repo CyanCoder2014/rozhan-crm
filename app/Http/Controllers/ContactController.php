@@ -35,6 +35,10 @@ class ContactController extends BaseAPIController
     }
 
 
+    public function index()
+    {
+        return $this->model::paginate();
+    }
 
 
     public function show($id)

@@ -16,7 +16,8 @@ class ServiceController extends BaseAPIController
 
     public function index()
     {
-        $data = Service::with('serviceCategory')->with('persons')->get();
+        $data = Service::with('serviceCategory')->with('persons')->paginate();
+        return $data;
         return $this->response($data);
     }
 
