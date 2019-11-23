@@ -1,11 +1,13 @@
 <?php
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 Route::namespace('v1')->prefix('v1')->group(function () {
     Route::post('login', 'AuthController@login');
 
-    Route::prefix('client')->middleware(['jwt.auth'])->group(function (){
+//    Route::prefix('client')->middleware(['jwt.auth'])->group(function (){
+    Route::prefix('client')->group(function (){
 //        Route::resource('orders', 'OrderController')->except('edit','create','store','destroy');
         Route::get('orders/', 'OrderController@index');
         Route::get('orders/{id}', 'OrderController@show');
@@ -13,13 +15,18 @@ Route::namespace('v1')->prefix('v1')->group(function () {
         Route::post('orders/add/step1', 'OrderController@preOrder');
         Route::post('orders/add/{id}', 'OrderController@store');
         Route::get('orders/cancel/{id}', 'OrderController@cancel');
+
+
+        Route::get('contact', 'UserController@authUser');
     });
+
 
     Route::prefix('user')->group(function () {
         Route::post('/register', 'UserController@register');
 
-        Route::middleware(['jwt.auth', 'permission:read-profile'])->get('/profile', function (Request $request) {
-            return $request->user();
+//        Route::middleware(['jwt.auth', 'permission:read-profile'])->get('/profile', function (Request $request) {
+        Route::get('/profile', function () {
+            return Auth::user();
         });
         Route::middleware(['jwt.auth'])->post('/reset-password', 'UserController@resetPassword');
     });

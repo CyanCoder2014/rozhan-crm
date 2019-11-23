@@ -4,14 +4,21 @@ Route::namespace('v1')->prefix('v1')->group(function () {
     Route::post('login', 'AuthController@login');
 
     Route::prefix('role')
+<<<<<<< HEAD
         ->middleware(['jwt.auth', 'role:superadministrator'])
         ->group(function () {
             Route::post('/add', 'RoleController@add');
+=======
+//        ->middleware(['jwt.auth', 'role:superadministrator'])
+        ->group(function () {
+        Route::post('/add', 'RoleController@add');
+>>>>>>> 25af7d94f60761932c88fb2dabb77ea6fc73ffe5
 
             Route::post('/attach-permissions', 'RoleController@attachPermissions');
 
             Route::post('/change-user-role', 'RoleController@changeUserRole');
 
+<<<<<<< HEAD
             Route::post('/detach-user-role', 'RoleController@detachUserRoles');
 
             Route::get('/list', 'RoleController@list');
@@ -23,6 +30,19 @@ Route::namespace('v1')->prefix('v1')->group(function () {
         ->group(function () {
             Route::get('list', 'PermissionController@list');
         });
+=======
+        Route::post('/detach-user-role', 'RoleController@detachUserRoles');
+
+        Route::get('/list', 'RoleController@list');
+
+    });
+
+    Route::prefix('permission')
+//        ->middleware(['jwt.auth', 'role:superadministrator'])
+        ->group(function () {
+        Route::get('list', 'PermissionController@list');
+    });
+>>>>>>> 25af7d94f60761932c88fb2dabb77ea6fc73ffe5
 
     Route::prefix('user')->middleware(['jwt.auth'])->group(function () {
         Route::
@@ -32,6 +52,7 @@ Route::namespace('v1')->prefix('v1')->group(function () {
 
         Route::get('list', 'UserController@list');
 
+<<<<<<< HEAD
     });
 
 
@@ -48,6 +69,24 @@ Route::namespace('v1')->prefix('v1')->group(function () {
         });
 
 
+=======
+    });
+
+
+    Route::prefix('user-role')
+//        ->middleware(['jwt.auth', 'role:superadministrator'])
+        ->group(function () {
+        Route::get('/list', 'UserRoleController@list');
+    });
+
+    Route::prefix('user-permission')
+//        ->middleware(['jwt.auth', 'role:superadministrator'])
+        ->group(function () {
+        Route::get('/list', 'UserPermissionController@list');
+    });
+
+
+>>>>>>> 25af7d94f60761932c88fb2dabb77ea6fc73ffe5
 
     Route::middleware(['jwt.auth'])->get('/logout', 'AuthController@logout');
 });

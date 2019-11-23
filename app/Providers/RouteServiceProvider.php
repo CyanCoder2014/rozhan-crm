@@ -70,21 +70,27 @@ class RouteServiceProvider extends ServiceProvider
              ->middleware('api')
              ->namespace($this->namespace)
              ->group(base_path('routes/api.php'));
-    }
 
-    protected function mapClientApiRoutes()
-    {
+
         Route::prefix('client-api')
             ->middleware('api')
             ->namespace($this->namespace . '\API\Client')
             ->group(base_path('routes/api/client.php'));
-    }
 
-    protected function mapAdminApiRoutes()
-    {
+
         Route::prefix('admin-api')
             ->middleware('api')
             ->namespace($this->namespace . '\API\Admin')
             ->group(base_path('routes/api/admin.php'));
+    }
+
+    protected function mapClientApiRoutes()
+    {
+
+    }
+
+    protected function mapAdminApiRoutes()
+    {
+
     }
 }

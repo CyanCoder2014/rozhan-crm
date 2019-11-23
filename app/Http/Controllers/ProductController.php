@@ -36,11 +36,12 @@ class ProductController extends BaseAPIController
     }
 
 
+
     protected function validationRules()
     {
         return [
 //            'parent_id'=>['nullable','exists:products,id'],
-            'product_categories_id'=>['required','exists:product_categories,id'],
+            'product_category_id'=>['required'],
             'title'=>['string','required'],
 //            'image'=>['image'],
 //            'type'=>[],
