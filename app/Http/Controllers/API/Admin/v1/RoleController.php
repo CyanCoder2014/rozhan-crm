@@ -75,7 +75,7 @@ class RoleController extends Controller
     )
     {
         try {
-            $changeUserRole->change($request->get('userId'), $request->get('userId'));
+            $changeUserRole->change($request->get('userId'), $request->get('roleId'));
         } catch (ChangeUserRoleException $e) {
             return response()->json([
                 'status'  => false,
