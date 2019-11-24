@@ -70,4 +70,34 @@ class ReminderService
         return $this->repository->destroy( $reminder->getId());
     }
 
+    public function paginate($perPage=15)
+    {
+        return $this->repository->paginate($perPage);
+    }
+
+    public function all()
+    {
+        return $this->repository->all();
+    }
+
+    public function UsersReminder(array $user_ids,$date_from,$date_to)
+    {
+        return $this->repository->UsersReminder($user_ids,$date_from,$date_to);
+
+    }
+    public function clientsReminder($date_from,$date_to)
+    {
+        return $this->repository->clientsReminder($date_from,$date_to);
+
+    }
+    public function personnelsReminder($date_from,$date_to)
+    {
+        return $this->repository->personnelsReminder($date_from,$date_to);
+
+    }
+    public function UserReminder( $user_id,$date_from,$date_to)
+    {
+        return $this->repository->UserReminder($user_id,$date_from,$date_to);
+
+    }
 }

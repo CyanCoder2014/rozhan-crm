@@ -48,14 +48,7 @@ class User extends Authenticatable implements JWTSubject
      */
 
 
-    public function orders(){
-        return $this->hasMany(Order::class);
-    }
 
-
-    public function contact(){
-        return $this->hasMany(Contact::class);
-    }
 
     public function getJWTIdentifier()
     {
@@ -79,4 +72,20 @@ class User extends Authenticatable implements JWTSubject
             'permissions' => $permissions,
         ];
     }
+
+    /****************** relations **************/
+    public function orders(){
+        return $this->hasMany(Order::class);
+    }
+    public function contact(){
+        return $this->hasOne(Contact::class);
+    }
+    public function person(){
+        return $this->hasOne(Person::class);
+    }
+    public function reminders()
+    {
+        return $this->morphMany(Reminder::class,'receiver');
+    }
+    /*******************************************/
 }

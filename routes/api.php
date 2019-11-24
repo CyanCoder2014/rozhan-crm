@@ -183,5 +183,14 @@ Route::middleware(['jwt.auth'])->group(function () {
         'destroy' => 'permission:discount.destroy',
     ]);
     Route::post('discount/{discount}/notify','DiscountController@notify')->middleware('permission:discount.notify');
+
+    Route::middleware(['jwt.auth'])->group(function (){
+
+        Route::namespace('Reminder')->prefix('reminder')->group(function () {
+            Route::get('clients','ReminderController@client');
+            Route::get('personnels','ReminderController@personnels');
+            Route::get('user','ReminderController@user');
+        });
+    });
 });
 

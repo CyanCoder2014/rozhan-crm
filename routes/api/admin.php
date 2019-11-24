@@ -50,4 +50,6 @@ Route::namespace('v1')->prefix('v1')->group(function () {
 
 
     Route::middleware(['jwt.auth'])->get('/logout', 'AuthController@logout');
+
+
 });
