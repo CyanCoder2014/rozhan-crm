@@ -17,8 +17,8 @@ class ChangeUserRoleRequest extends BaseFormRequest
     public function rules()
     {
         return [
-            'id'     => 'required',
-            'userId' => 'required'
+            'userId' => 'required',
+            'roleId' => 'required'
         ];
     }
 

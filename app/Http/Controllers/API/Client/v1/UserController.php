@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\Client\v1;
 
 
+use App\Contact;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Client\User\RegisterRequest;
 use App\Http\Requests\Client\User\ResetPassword;
@@ -34,6 +35,20 @@ class UserController extends Controller
         $this->roleRepository = $roleRepository;
         $this->userRepository = $userRepository;
     }
+
+
+
+
+
+    public function authUser()
+    {
+        $data = Contact::where('user_id',auth()->id())
+            ->with(['user.orders','user.orders.OrderServices','user.orders.OrderServices.person','user.orders.OrderServices.service','user'])
+            ->first();
+        return $this->response($data);
+    }
+
+
 
     public function register(RegisterRequest $request, CreateUser $createUser)
     {

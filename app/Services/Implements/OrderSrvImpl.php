@@ -156,9 +156,12 @@ class OrderSrvImpl
                 $time = explode(':',$sugestPerson->availableTime['end']);
                 $dateTime->setTime($time[0],$time[1]);
                 $sugestion['services'][] = [
+                    'serviceObject' => $service,
+                    'personObject' => $sugestPerson,
                     'person_id' => $sugestPerson->id,
                     'service_id' => $service->id,
-                    'start_at' => $sugestPerson->availableTime['start'],
+                    'start_at' => convert_time($sugestPerson->availableTime['start']),
+//                    'end_at' => $sugestPerson->availableTime['end'],
                 ];
 
             }
