@@ -29,8 +29,8 @@ class DiscountRequest extends FormRequest
             'amount'=>['required','integer'],
             'amount_type'=>['required','integer'],
             'code'=>['required','string','max:10'],
-            'contacts.*' =>['exists:contacts,id'],
-            'services.*' =>['exists:services,id'],
+            'contacts.*' =>['exists:services,id'],
+            'services.*' =>['exists:contacts,id'],
             'products.*' =>['exists:products,id'],
             'start_at'=> ['required',function ($attribute, $value, $fail) {
                 if (!validate_jalili($value)) {
