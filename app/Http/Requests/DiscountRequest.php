@@ -24,6 +24,7 @@ class DiscountRequest extends FormRequest
     public function rules()
     {
         return [
+            'title'=>['required','string'],
             'quantity'=>['required','integer'],
             'type'=>['required','integer'],
             'amount'=>['required','integer'],

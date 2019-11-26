@@ -58,6 +58,7 @@ class DiscountController extends Controller
         $discount->products;
         $discount->services;
         $discount->contacts;
+        $discount->castDate();
         return $this->response($discount);
     }
 

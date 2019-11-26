@@ -72,7 +72,11 @@ class User extends Authenticatable implements JWTSubject
             'permissions' => $permissions,
         ];
     }
-
+    public function isAdmin(){
+        if ($this->roles()->count() > 0)
+            return true;
+        return false;
+    }
     /****************** relations **************/
     public function orders(){
         return $this->hasMany(Order::class);
