@@ -31,5 +31,6 @@ class CustomerPayment extends Model
         'status',
         'created_by',
         'updated_by',
+        'user_id',
     ];
 }

@@ -113,6 +113,7 @@ Route::middleware(['jwt.auth'])->group(function () {
     Route::post('orders/add/quick', 'OrderController@addOrderQuick')->middleware('permission:orders.quickstore');
     Route::get('orders/add/{id}', 'OrderController@serviceSchedule')->name('order.step2')->middleware('permission:orders.store');
     Route::post('orders/add/{id}', 'OrderController@store')->name('order.store')->middleware('permission:orders.store');
+    Route::post('orders/payed', 'OrderController@paymentCompleted')->name('order.paymentCompleted')->middleware('permission:orders.payed');
 
     Route::resource('person/{person_id}/timing', 'PersonTimingController')->except('edit','create')->middleware([
         'index' => 'permission:persons.timing.index',
@@ -182,5 +183,14 @@ Route::middleware(['jwt.auth'])->group(function () {
         'destroy' => 'permission:discount.destroy',
     ]);
     Route::post('discount/{discount}/notify','DiscountController@notify')->middleware('permission:discount.notify');
+
+    Route::middleware(['jwt.auth'])->group(function (){
+
+        Route::namespace('Reminder')->prefix('reminder')->group(function () {
+            Route::get('clients','ReminderController@client');
+            Route::get('personnels','ReminderController@personnels');
+            Route::get('user','ReminderController@user');
+        });
+    });
 });
 

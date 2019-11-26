@@ -5,9 +5,14 @@ namespace App\Services\ReminderService\ReminderRepository;
 
 
 use App\Reminder;
+use App\User;
+use Illuminate\Database\Eloquent\Model;
 
 class ReminderRepository
 {
+    public function paginate($perPage=15){
+        return Reminder::paginate($perPage);
+    }
     public function add($data){
         return Reminder::create([
             'parent_id'=>$data['parent_id']??null,
@@ -50,6 +55,54 @@ class ReminderRepository
     }
     public function destroy($id){
         $raw = Reminder::destroy([$id]);
+    }
+
+    public function UsersReminder(array $user_ids,$date_from=null,$date_to=null)
+    {
+        $reminder = Reminder::where('receiver_type',User::class)->whereIn('receiver_id',$user_ids);
+        if ($date_from)
+            $reminder->where('reminder_at','>=',$date_from.' 00:00:00');
+        if ($date_to)
+            $reminder->where('reminder_at','<=',$date_to.' 23:59:59');
+        return $reminder->get()->groupBy('receiver_id');
+
+    }
+    public function clientsReminder($date_from=null,$date_to=null)
+    {
+        $reminder = User::with('reminders')->whereHas('contact')
+            ->whereHas('reminders',function ($query) use($date_from,$date_to){
+            if ($date_from)
+                $query->where('reminder_at','>=',$date_from.' 00:00:00');
+            if ($date_to)
+                $query->where('reminder_at','<=',$date_to.' 23:59:59');
+        });
+        return $reminder->get();
+
+    }
+    public function personnelsReminder($date_from=null,$date_to=null)
+    {
+        $reminder = User::with('reminders')->whereHas('person')
+            ->whereHas('reminders',function ($query) use($date_from,$date_to){
+            if ($date_from)
+                $query->where('reminder_at','>=',$date_from.' 00:00:00');
+            if ($date_to)
+                $query->where('reminder_at','<=',$date_to.' 23:59:59');
+        });
+        return $reminder->get();
+
+    }
+    public function UserReminder($user_id,$date_from=null,$date_to=null)
+    {
+
+        $reminder = Reminder::where('receiver_type',User::class)->where('receiver_id',$user_id);
+        if ($date_from)
+            $reminder->where('reminder_at','>=',$date_from.' 00:00:00');
+        if ($date_to)
+            $reminder->where('reminder_at','<=',$date_to.' 23:59:59');
+//        dd($reminder->toSql(),$date_from.' 00:00:00',$date_to.' 23:59:59');
+
+        return $reminder->get();
+
     }
 
 }

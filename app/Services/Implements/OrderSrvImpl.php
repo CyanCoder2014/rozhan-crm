@@ -9,6 +9,7 @@ use App\Http\Requests\PreOrderRequest;
 use App\Order;
 use App\OrderProduct;
 use App\OrderService;
+use App\Payment\CustomerPayment;
 use App\Person;
 use App\PersonService;
 use App\Product;
@@ -473,6 +474,13 @@ class OrderSrvImpl
 
     }
 
+    public function completeOrder(Order $order)
+    {
+        $order->state = Order::payed_state;
+        $order->save();
+        return $order;
+
+    }
 
     public function changeOrderState()
     {

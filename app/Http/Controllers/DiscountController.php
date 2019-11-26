@@ -55,6 +55,10 @@ class DiscountController extends Controller
      */
     public function show(Discount $discount)
     {
+        $discount->products;
+        $discount->services;
+        $discount->contacts;
+        return $this->response($discount);
     }
 
     /**
