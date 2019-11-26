@@ -192,5 +192,15 @@ Route::middleware(['jwt.auth'])->group(function () {
             Route::get('user','ReminderController@user');
         });
     });
+    //SpecialDateController
+    Route::resource('specialDates', 'SpecialDateController')->except('edit','create')
+//        ->middleware([
+//        'index' => 'permission:specialdate.index',
+//        'store' => 'permission:specialdate.store',
+//        'update' => 'permission:specialdate.edit',
+//        'show' => 'permission:specialdate.show',
+//        'destroy' => 'permission:specialdate.destroy',
+//    ])
+    ;
 });
 
