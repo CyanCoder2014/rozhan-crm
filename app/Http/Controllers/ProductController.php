@@ -21,6 +21,10 @@ class ProductController extends BaseAPIController
 //        return $this->response($data);
     }
 
+    public function show($id)
+    {
+        return  Product::with('productCategory')->findOrFail($id);
+    }
 
     public function store()
     {

@@ -35,7 +35,7 @@ class Product extends Model
 
 
     public function productCategory(){
-        return $this->belongsTo('App\ProductCategory', 'product_categories_id');
+        return $this->belongsTo('App\ProductCategory', 'product_category_id');
     }
 
     public function priceCalculate()
