@@ -78,7 +78,7 @@ class ReportController extends Controller
             DB::raw('WEEK(order_services.created_at) as week'))
             ->where('orders.created_at','>=',to_georgian_date(\request('date_from')))
             ->where('orders.created_at','<',to_georgian_date(\request('date_to')))
-            ->where('orders.state',Order::created_status)
+            ->where('orders.state',Order::created_state)
             ->join('orders','orders.id','order_services.order_id')
             ->groupBy($groupBy)
             ->orderBy($order,$order_sort);
@@ -148,7 +148,7 @@ class ReportController extends Controller
             DB::raw('WEEK(order_services.created_at) as week'))
             ->where('orders.created_at','>=',to_georgian_date(\request('date_from')))
             ->where('orders.created_at','<',to_georgian_date(\request('date_to')))
-            ->where('orders.state',Order::created_status)
+            ->where('orders.state',Order::created_state)
             ->join('orders','orders.id','order_services.order_id')
             ->groupBy($groupBy)
             ->orderBy($order,$order_sort);
@@ -267,7 +267,7 @@ class ReportController extends Controller
             DB::raw('WEEK(order_services.created_at) as week'))
             ->where('orders.created_at','>=',to_georgian_date(\request('date_from')))
             ->where('orders.created_at','<',to_georgian_date(\request('date_to')))
-            ->where('orders.state',Order::created_status)
+            ->where('orders.state',Order::created_state)
             ->join('orders','orders.id','order_services.order_id')
             ->where('order_services.person_id',\request('person_id'))
             ->orderBy($order,$order_sort);
