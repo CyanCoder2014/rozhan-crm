@@ -11,11 +11,12 @@ class Discount extends Model
     const general_type= 0;
     const contacts_only_type = 1;
 
-    const percent_amount_type = 1;
-    const score_amount_type = 2;
-    const money_amount_type = 3;
+    const percent_amount_type = 0;
+    const score_amount_type = 1;
+    const money_amount_type = 2;
 
     protected $fillable=[
+        'title',
         'quantity',
         'type',
         'amount',

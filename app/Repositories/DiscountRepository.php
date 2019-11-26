@@ -18,6 +18,7 @@ class DiscountRepository
     public function add($data)
     {
         $newDiscount = new Discount([
+           'title'=>$data['title'],
            'quantity'=>$data['quantity'],
            'type'=>$data['type'],
            'amount'=>$data['amount'],
@@ -59,6 +60,7 @@ class DiscountRepository
     public function edit($data,Discount $discount)
     {
         $discount->fill([
+            'title'=>$data['title'],
             'quantity'=>$data['quantity'],
             'type'=>$data['type'],
             'amount'=>$data['amount'],
