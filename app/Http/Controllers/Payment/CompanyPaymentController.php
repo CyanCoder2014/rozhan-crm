@@ -14,6 +14,10 @@ class CompanyPaymentController extends BaseAPIController
         $this->appRepository = $appRepository;
         $this->model = new CompanyPayment();
     }
+    public function index()
+    {
+        return $this->model::paginate();
+    }
 
     protected function validationRules(){
         return [

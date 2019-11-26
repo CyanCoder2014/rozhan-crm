@@ -15,6 +15,10 @@ class BuyFactorController extends BaseAPIController
         $this->appRepository = $appRepository;
         $this->model = new BuyFactor();
     }
+    public function index()
+    {
+        return $this->model::paginate();
+    }
 
     protected function validationRules(){
         return [

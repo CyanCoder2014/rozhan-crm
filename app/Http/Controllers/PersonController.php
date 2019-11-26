@@ -34,7 +34,7 @@ class PersonController extends BaseAPIController
     public function index()
     {
 //        $data = $this->appRepository->getAll($this->model);
-        $data = Person::with('OrderServices')->with('services')->get();
+        $data = Person::with('OrderServices')->with('services')->paginate();
 
         return $this->response($data);
     }
