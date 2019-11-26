@@ -39,6 +39,7 @@ class AuthController extends Controller
             'token'   => $token,
             'type'    => 'bearer',
             'expires' => auth('api')->factory()->getTTL() * 60 * 300, // time to expiration
+            'isAdmin' => (auth('api')->user()->isAdmin()??false )? true:false
         ]);
     }
 
