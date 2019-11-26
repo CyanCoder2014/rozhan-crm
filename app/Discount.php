@@ -48,4 +48,10 @@ class Discount extends Model
 
     /**************************************************/
 
+
+    public function castDate(){
+        $this->start_at = to_jalali($this->start_at);
+        $this->expired_at = to_jalali($this->expired_at);
+    }
+
 }

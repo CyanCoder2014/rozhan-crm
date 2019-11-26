@@ -66,8 +66,8 @@ class DiscountRepository
             'amount'=>$data['amount'],
             'amount_type'=>$data['amount_type'],
             'code'=>$data['code'],
-            'start_at'=>$data['start_at'],
-            'expired_at'=>$data['expired_at'],
+            'start_at'=>to_georgian_date($data['start_at']),
+            'expired_at'=>to_georgian_date($data['expired_at']).' 23:59:59',
         ]);
         $oldDiscountReferences = $discount->discountReferences;
         $newDiscountReferences =[];
