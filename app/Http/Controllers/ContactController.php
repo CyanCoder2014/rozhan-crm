@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 
 use App\Contact;
+use App\ContactTag;
+use App\CTag;
 use App\Person;
 use App\Repositories\Interfaces\AppRepository;
 use App\Repositories\RoleRepository;
@@ -48,7 +50,7 @@ class ContactController extends BaseAPIController
     public function show($id)
     {
         $data = Contact::where('id',$id)
-            ->with(['user.orders','user.orders.OrderServices','user.orders.OrderServices.person','user.orders.OrderServices.service','user'])
+            ->with(['user.orders','user.orders.OrderServices','user.orders.OrderServices.person','user.orders.OrderServices.service','user','group','tags'])
             ->first();
         return $this->response($data);
     }
@@ -68,11 +70,20 @@ class ContactController extends BaseAPIController
 ]);
         $user =$this->userRepository->add(\request());
         \request()->request->add(['created_by' => auth()->id(),'user_id' => $user->id]);
-        return parent::store();
+        \request()->validate($this->validationRules(),$this->validationMessages(),$this->validationAttributes());
+        $data = $this->appRepository->add(\request()->all() , $this->model);
+        $this->assignTags($data,\request()->tags);
+        return $this->response($data);
     }
 
-
-
+    public function update($id)
+    {
+        \request()->validate($this->validationRules(),$this->validationMessages(),$this->validationAttributes());
+        $data = $this->appRepository->edit(\request()->all() , $id, $this->model);
+        $this->DeleteTags($id);
+        $this->assignTags($data,\request()->tags);
+        return $this->response($data);
+    }
 
 
     protected function validationRules()
@@ -82,6 +93,7 @@ class ContactController extends BaseAPIController
             'first_name'=>['string','required'],
             'last_name'=>['string','required'],
             'mobile'=>['string','required'],
+            'group_id'=>['nullable','exists:contact_groups,id'],
 //            'email'=>['string','required'],
 //            'image'=>['image'],
 
@@ -91,6 +103,23 @@ class ContactController extends BaseAPIController
     }
 
 
+    public  function assignTags($contact,$tags)
+    {
+        $contactTags=[];
+        foreach ($tags??[] as $tag){
+            $tag_id = CTag::FindOrCreate($tag);
+            $contactTags[]=[
+               'tag_id' => $tag_id,
+               'contact_id' => $contact->id,
+            ];
+        }
+        return ContactTag::insert($contactTags);
+    }
+    public  function DeleteTags($contact_id)
+    {
+
+        return ContactTag::where('contact_id',$contact_id)->delete();
+    }
 
 
 }

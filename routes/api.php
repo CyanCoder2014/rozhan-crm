@@ -205,5 +205,8 @@ Route::middleware(['jwt.auth'])->group(function () {
 //        'destroy' => 'permission:specialdate.destroy',
 //    ])
     ;
+
+    Route::resource('contact/groups', 'ContactGroupController')->except('edit','create');
+    Route::resource('contact/tags', 'CTagController')->except('edit','create');
 });
 
