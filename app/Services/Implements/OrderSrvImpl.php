@@ -81,7 +81,7 @@ class OrderSrvImpl
             'general_start' => $request->start_at,
             'general_end' => $request->end_at,
             'type' => null,
-            'state' => Order::created_status,
+            'state' => Order::created_state,
             'created_by' => auth()->id(),
             'updated_by' => null,
             'deleted_at' => null,
@@ -318,7 +318,7 @@ class OrderSrvImpl
                 'general_start' => $request->start_at,
                 'general_end' => $request->end_at,
                 'type' => Order::quick_type,
-                'state' => Order::created_status,
+                'state' => Order::created_state,
                 'created_by' => auth()->id(),
             ]);
 
@@ -434,7 +434,7 @@ class OrderSrvImpl
 //                'general_start' => $request->start_at,
 //                'general_end' => $request->end_at,
 //                'type' => null,
-//                'state' => Order::created_status,
+//                'state' => Order::created_state,
 //                'created_by' => auth()->id(),
 //                'updated_by' => null,
 //                'deleted_at' => null,
