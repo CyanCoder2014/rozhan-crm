@@ -18,7 +18,7 @@ class RoleRepository
         $this->model = $model;
     }
 
-    public function getUserRole(): Role
+    public function getUserRole(): ?Role
     {
         return $this->model::where('name', 'user')->first();
     }
