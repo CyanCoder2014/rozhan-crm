@@ -26,7 +26,7 @@ class ReminderController extends Controller
             $date_from= to_georgian_date($request->date_from);
         if (validate_jalili($request->date_to))
             $date_to= to_georgian_date($request->date_to);
-        return $this->response($this->service->clientsReminder($date_from,$date_to),'success');
+        return $this->service->clientsReminder($date_from,$date_to);
 
     }
     public function personnels(Request $request)
@@ -37,7 +37,7 @@ class ReminderController extends Controller
             $date_from= to_georgian_date($request->date_from);
         if (validate_jalili($request->date_to))
             $date_to= to_georgian_date($request->date_to);
-        return $this->response($this->service->personnelsReminder($date_from,$date_to),'success');
+        return $this->service->personnelsReminder($date_from,$date_to);
 
     }
     public function user(Request $request)
@@ -50,7 +50,7 @@ class ReminderController extends Controller
         if (validate_jalili($request->date_to))
             $date_to= to_georgian_date($request->date_to);
 
-        return $this->response($this->service->UserReminder($request->user_id,$date_from,$date_to),'success');
+        return $this->service->UserReminder($request->user_id,$date_from,$date_to);
 
     }
 }
