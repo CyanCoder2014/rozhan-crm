@@ -13,9 +13,9 @@ class SpecialDateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($contact_id)
     {
-        return SpecialDate::with('contact','discount')->paginate();
+        return SpecialDate::with('discount')->where('contact_id',$contact_id)->paginate();
     }
 
     /**
@@ -34,11 +34,12 @@ class SpecialDateController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SpecialDateRequest $request)
+    public function store(SpecialDateRequest $request,$contact_id)
     {
         $new = new SpecialDate();
         $new->fill($request->casts());
         $new->created_by = auth()->id();
+        $new->contact_id = $contact_id;
         $new->save();
         return $this->response($new);
     }
@@ -49,9 +50,8 @@ class SpecialDateController extends Controller
      * @param  \App\SpecialDate  $specialDate
      * @return \Illuminate\Http\Response
      */
-    public function show(SpecialDate $specialDate)
+    public function show($contact_id,SpecialDate $specialDate)
     {
-        $specialDate->contact;
         $specialDate->discount;
         $specialDate->special_date = to_jalali_date($specialDate->special_date);
         return $this->response($specialDate);
@@ -63,7 +63,7 @@ class SpecialDateController extends Controller
      * @param  \App\SpecialDate  $specialDate
      * @return \Illuminate\Http\Response
      */
-    public function edit(SpecialDate $specialDate)
+    public function edit($contact_id,SpecialDate $specialDate)
     {
         //
     }
@@ -75,8 +75,10 @@ class SpecialDateController extends Controller
      * @param  \App\SpecialDate  $specialDate
      * @return \Illuminate\Http\Response
      */
-    public function update(SpecialDateRequest $request, SpecialDate $specialDate)
+    public function update(SpecialDateRequest $request,$contact_id, SpecialDate $specialDate)
     {
+        if ($specialDate->contact_id != $contact_id)
+            abort(404);
         $specialDate->fill($request->casts());
         $specialDate->updated_by = auth()->id();
         $specialDate->save();
@@ -90,9 +92,12 @@ class SpecialDateController extends Controller
      * @param  \App\SpecialDate  $specialDate
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SpecialDate $specialDate)
+    public function destroy($contact_id,SpecialDate $specialDate)
     {
+        if ($specialDate->contact_id != $contact_id)
+            abort(404);
         $specialDate->delete();
+        return $this->response($specialDate);
 
     }
 }

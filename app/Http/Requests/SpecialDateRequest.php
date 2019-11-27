@@ -44,4 +44,11 @@ class SpecialDateRequest extends FormRequest
         $all['special_date'] = to_georgian_date($all['special_date']);
         return $all;
     }
+
+    public function all($keys = null)
+    {
+        $data = parent::all($keys);
+        $data['contact_id'] = $this->route('contact_id');
+        return $data;
+    }
 }

@@ -196,7 +196,7 @@ Route::middleware(['jwt.auth'])->group(function () {
         });
     });
     //SpecialDateController
-    Route::resource('specialDates', 'SpecialDateController')->except('edit','create')
+    Route::resource('contact/{contact_id}/specialDates', 'SpecialDateController')->except('edit','create')
 //        ->middleware([
 //        'index' => 'permission:specialdate.index',
 //        'store' => 'permission:specialdate.store',
