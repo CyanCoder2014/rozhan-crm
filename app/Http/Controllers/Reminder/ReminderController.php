@@ -42,9 +42,7 @@ class ReminderController extends Controller
     }
     public function user(Request $request)
     {
-        $this->validate($request,[
-            'user_id' => ['required','exists:users,id']
-        ]);
+
         $date_from=null;
         $date_to=null;
         if (validate_jalili($request->date_from))
