@@ -53,6 +53,7 @@ class SpecialDateController extends Controller
     {
         $specialDate->contact;
         $specialDate->discount;
+        $specialDate->special_date = to_jalali_date($specialDate->special_date);
         return $this->response($specialDate);
     }
 
