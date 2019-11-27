@@ -63,6 +63,7 @@ Route::middleware(['jwt.auth'])->group(function () {
         'show' => 'permission:contacts.show',
         'destroy' => 'permission:contacts.destroy',
     ]);
+    Route::get('contacts/list','ContactController@list');
 
     Route::resource('productCategories', 'ProductCategoryController')->except('edit','create')->middleware([
         'index' => 'permission:product.categories.index',
@@ -182,6 +183,8 @@ Route::middleware(['jwt.auth'])->group(function () {
         'show' => 'permission:discount.show',
         'destroy' => 'permission:discount.destroy',
     ]);
+    Route::get('discount/list','DiscountController@list');
+
     Route::post('discount/{discount}/notify','DiscountController@notify')->middleware('permission:discount.notify');
 
     Route::middleware(['jwt.auth'])->group(function (){

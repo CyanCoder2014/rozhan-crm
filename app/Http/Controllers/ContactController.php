@@ -34,6 +34,10 @@ class ContactController extends BaseAPIController
         $this->userRepository = $userRepository;
     }
 
+    public function list()
+    {
+        return $this->model::select('id','first_name', 'last_name')->get();
+    }
 
     public function index()
     {

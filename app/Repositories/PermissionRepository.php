@@ -23,7 +23,7 @@ class PermissionRepository
     {
         return $this->model::select('id', 'name', 'display_name', 'description')
             ->where('display_name', 'LIKE', "%$query%")
-            ->paginate(self::PAGINATION_LIMIT);
+            ->get();
     }
 
     public function findIds(array $permissions)

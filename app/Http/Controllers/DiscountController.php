@@ -14,6 +14,10 @@ class DiscountController extends Controller
     {
         $this->repository =$repository;
     }
+    public function list()
+    {
+        return Discount::select('id','title')->get();
+    }
 
     /**
      * Display a listing of the resource.
