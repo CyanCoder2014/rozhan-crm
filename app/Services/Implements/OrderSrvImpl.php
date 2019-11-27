@@ -100,13 +100,21 @@ class OrderSrvImpl
             $query->where('date', to_georgian_date($request->date));
         })->get()->keyBy('service_id');
         foreach ($services as $service) {
-
+            $serviceObject = Service::with('persons')->findOrFail($service['service_id']);
             if (!array_key_exists($service['service_id'],$availableServices->all())){
-                $serviceObject = Service::findOrFail($service['service_id']);
+
                 return ['message' =>'سرویس '.$serviceObject->title.' در این تاریخ وجود ندارد','status'=>400];
             }
+            /************** check is a available person per service *************/
+            $persons_available_flag =false;
+            foreach ($serviceObject->persons as $key => $person)
+                if (count($person->availableTimeService($order->general_date,$serviceObject)) > 0 )
+                    $persons_available_flag =true;
+            if (! $persons_available_flag)
+                return ['message' =>'ظرفیت خالی برای سرویس '.$serviceObject->title.' در این تاریخ وجود ندارد','status'=>400];
+            /****************************************************************/
             if (isset($service['person_id']) && !in_array($service['person_id'],$availableServices->pluck('person_id')->all()))
-                return ['message' =>'person '.$service['person_id'].' has not avaliable in this date','status'=>400];
+                return ['message' =>'فرد '.$service['person_id'].' در این تاریخ در دسترس نیست','status'=>400];
         }
         //////////////////////////////////////////////////////////////////////////////////////////////////////
 
