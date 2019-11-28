@@ -38,7 +38,6 @@ class PersonServicesController extends Controller
 //        return $this->response($data);
 //    }
 
-
     public function update(PersonServiceRequest $request,$person_id)
     {
 
@@ -47,10 +46,10 @@ class PersonServicesController extends Controller
     }
 
 
-//    public function store(PersonServiceRequest $request,$person_id)
-//    {
-//        $data = $this->appRepository->add($request->all(),$this->model);
-//        return $this->response($data);
-//    }
+    public function store(PersonServiceRequest $request,$person_id)
+    {
+        $data = $this->appRepository->edit($request->all(),$person_id);
+        return $this->response($data);
+    }
 
 }
