@@ -177,7 +177,7 @@ class ReportController extends Controller
 
                 foreach ($query as $row)
                     $output[]=[
-                        'label' => $row->person->name,
+                        'label' => $row->person->name.' '.$row->person->family,
                         'value' => $row->total
                     ];
                 return $output;

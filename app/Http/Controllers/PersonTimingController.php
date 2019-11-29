@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PersonTimingRequest;
 use App\PersonTiming;
 use App\Repositories\AppRepositoryImpl;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PersonTimingController extends Controller
@@ -27,11 +28,12 @@ class PersonTimingController extends Controller
 
     public function index($person_id)
     {
-        $data = PersonTiming::where('person_id',$person_id)->get();
+        $data = PersonTiming::where('person_id',$person_id)->orderBy('date', 'desc')->paginate();
 
         $data = $this->format_date($data);
 
-        return $this->response($data);
+        return $data;
+//        return $this->response($data);
     }
 
 
@@ -52,7 +54,19 @@ class PersonTimingController extends Controller
 
     public function store(PersonTimingRequest $request,$person_id)
     {
-        $data = $this->appRepository->add($request->casts(),$this->model);
+
+        if($request->description == true){
+
+            for ($i = 0; $i <= 30; $i++){
+
+                if (date('w', strtotime($request->castsforDays($i)['date']))  != '5' )
+                $data = $this->appRepository->add($request->castsforDays($i),$this->model);
+            }
+
+        }else{
+            $data = $this->appRepository->add($request->casts(),$this->model);
+
+        }
         return $this->response($data);
     }
 
@@ -61,6 +75,10 @@ class PersonTimingController extends Controller
         $data = $this->appRepository->delete( $id, $this->model);
         return '';
     }
+
+
+
+
 
 
 

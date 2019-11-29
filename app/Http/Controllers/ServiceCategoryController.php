@@ -15,7 +15,7 @@ class ServiceCategoryController extends BaseAPIController
     }
     public function index()
     {
-        return $this->model::paginate();
+        return $this->model->paginate();
     }
 
     public function store()

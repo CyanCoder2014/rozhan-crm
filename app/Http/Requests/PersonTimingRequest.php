@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PersonTimingRequest extends FormRequest
@@ -58,6 +59,13 @@ class PersonTimingRequest extends FormRequest
     public function casts(){
         $data = $this->all();
         $data['date']= to_georgian_date($data['date']);
+        return $data;
+    }
+
+
+    public function castsforDays($i){
+        $data = $this->all();
+        $data['date']= (new Carbon(to_georgian_date($data['date'])))->addDays($i)  ;
         return $data;
     }
 
