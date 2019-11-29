@@ -89,7 +89,7 @@
   position: absolute;
   overflow: hidden;
   /*background-color: #576D7C;*/
-  background-color: rgba(55,44,33,.65);
+  background-color: rgba(22,22,130,.6);
   padding: 10px;
   box-sizing: border-box;
   box-shadow: -5px -5px 5px rgba(0,0,0,.25);
@@ -98,8 +98,9 @@
   color: #FFFFFF;
   word-wrap: break-word;
   min-width: 0;
-  min-height: 0;
+  min-height: 50px;
   transition: all .4s;
+  border-radius: 3px;
 }
 /* 
 .skeduler-main-body > div > .skeduler-task-placeholder > div:hover {

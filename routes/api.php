@@ -111,7 +111,7 @@ Route::middleware(['jwt.auth'])->group(function () {
         'destroy' => 'permission:orders.destroy',
     ]);
     Route::post('orders/add/step1', 'OrderController@preOrder')->middleware('permission:orders.store');
-    Route::post('orders/add/quick', 'OrderController@addOrderQuick')->middleware('permission:orders.quickstore');
+    Route::post('factor/step/quick', 'OrderController@addOrderQuick')->middleware('permission:orders.quickstore');
     Route::get('orders/add/{id}', 'OrderController@serviceSchedule')->name('order.step2')->middleware('permission:orders.store');
     Route::post('orders/add/{id}', 'OrderController@store')->name('order.store')->middleware('permission:orders.store');
     Route::post('orders/payed', 'OrderController@paymentCompleted')->name('order.paymentCompleted')->middleware('permission:orders.payed');
