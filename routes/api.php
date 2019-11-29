@@ -110,6 +110,9 @@ Route::middleware(['jwt.auth'])->group(function () {
         'show' => 'permission:orders.show',
         'destroy' => 'permission:orders.destroy',
     ]);
+
+    Route::get('order/getAvailableServices', 'OrderController@getAvailableServices');
+
     Route::post('orders/add/step1', 'OrderController@preOrder')->middleware('permission:orders.store');
     Route::post('factor/step/quick', 'OrderController@addOrderQuick')->middleware('permission:orders.quickstore');
     Route::get('orders/add/{id}', 'OrderController@serviceSchedule')->name('order.step2')->middleware('permission:orders.store');

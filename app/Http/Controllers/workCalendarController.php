@@ -10,6 +10,8 @@ class workCalendarController extends Controller
 {
     public function index(workCalendarRequest $request){
 
+
+
         $query =  Person::with(['OrderServices.service']);
         if (is_array($request->person_ids))
             $query->whereIn('id',$request->person_ids);

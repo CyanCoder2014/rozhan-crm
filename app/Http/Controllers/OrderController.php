@@ -11,6 +11,7 @@ use App\Order;
 use App\Repositories\Interfaces\AppRepository;
 use App\Repositories\OrderSrvImpl;
 use App\Repositories\Payment\CustomerPaymentRepository;
+use App\Service;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -107,6 +108,30 @@ class OrderController extends Controller
 
 
 
+
+    public function getAvailableServices(Request $request)
+    {
+
+        $data = Service::
+            with(['serviceCategory','persons'])
+            ->get();
+
+
+        foreach ($data as $key => $service){
+
+            $persons_available_flag =false;
+            foreach ($service->persons as $person){
+                if (count($person->availableTimeService(to_georgian_date($request->date),$service)) > 0 )
+                    $persons_available_flag =true;
+            }
+
+            if (!$persons_available_flag)
+                unset($data[$key]);
+
+        }
+
+        return $this->response($data);
+    }
 
 
 
