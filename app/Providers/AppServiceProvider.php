@@ -5,13 +5,13 @@ namespace App\Providers;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\OrderController;
 use App\Repositories\AppRepositoryImpl;
-use App\Repositories\ContactRepositoryImpl;
 use App\Repositories\Interfaces\AppRepository;
-use App\Repositories\Interfaces\ContactRepository;
 use App\Repositories\OrderSrv;
 use App\Repositories\OrderSrvImpl;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+
+use Illuminate\Support\Facades\Request;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -47,6 +47,12 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        Schema::defaultStringLength(191); //NEW: Increase StringLength
+        Schema::defaultStringLength(191);
+
+        if (Request::getHost() != 'localhost')
+        {
+            \URL::forceRootUrl(\Config::get('app.url'));
+            \URL::forceScheme('https');
+        }
     }
 }
