@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateContatctTagsTable extends Migration
+class CreateContactTagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -28,6 +28,6 @@ class CreateContatctTagsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contatct_tags');
+        Schema::dropIfExists('contact_tags');
     }
 }
