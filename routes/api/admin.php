@@ -7,6 +7,7 @@ Route::namespace('v1')->prefix('v1')->group(function () {
         ->middleware(['jwt.auth', 'role:superadministrator'])
         ->group(function () {
             Route::post('/add', 'RoleController@add');
+            Route::get('{id}/permissions', 'RoleController@rolePermissions');
 
             Route::post('/attach-permissions', 'RoleController@attachPermissions');
 

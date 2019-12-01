@@ -32,4 +32,9 @@ class RoleRepository
     {
         return $this->model::select('id', 'name', 'display_name', 'description')->get();
     }
+
+    public function rolePermissions(int $id)
+    {
+        return $this->model::findOrFail($id)->permissions;
+    }
 }
