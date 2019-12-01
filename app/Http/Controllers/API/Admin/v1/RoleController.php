@@ -120,4 +120,13 @@ class RoleController extends Controller
             'data'   => $roles
         ]);
     }
+    public function rolePermissions($id)
+    {
+        $rolePermissions = $this->roleRepository->rolePermissions($id);
+
+        return response()->json([
+            'status' => true,
+            'data'   => $rolePermissions
+        ]);
+    }
 }

@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Morilog\Jalali\CalendarUtils;
 
 class Discount extends Model
 {
@@ -50,8 +51,8 @@ class Discount extends Model
 
 
     public function castDate(){
-        $this->start_at = to_jalali($this->start_at);
-        $this->expired_at = to_jalali($this->expired_at);
+        $this->start_at = CalendarUtils::strftime('Y\m\d',strtotime($this->start_at));
+        $this->expired_at = CalendarUtils::strftime('Y\m\d',strtotime($this->expired_at));
     }
 
 }
