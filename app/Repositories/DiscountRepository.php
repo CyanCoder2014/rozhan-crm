@@ -6,10 +6,14 @@ namespace App\Repositories;
 
 use App\Discount;
 use App\DiscountContact;
+use App\DiscountOrder;
 use App\DiscountReference;
 use App\Notifications\DiscountNotification;
+use App\Order;
 use App\Product;
 use App\Service;
+use App\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Notification;
 
 class DiscountRepository
@@ -127,6 +131,73 @@ class DiscountRepository
     public function notify(Discount $discount)
     {
         Notification::send($discount->contacts,new DiscountNotification($discount));
+
+    }
+
+
+    public function Apply(Discount $discount,Order $order)
+    {
+        switch ($discount->amount_type){
+            case Discount::percent_amount_type:
+                $this->ApplyPercentType($discount,$order);
+                break;
+            case Discount::money_amount_type:
+                $this->ApplyMoneyType($discount,$order);
+                break;
+            case Discount::score_amount_type:
+                $this->ApplyScoreType($discount,$order);
+                break;
+        }
+        $response['data']=DiscountOrder::create([
+            'discount_id' => $discount->id,
+            'order_id' =>$order->id
+        ]);
+        return $response;
+
+
+
+    }
+
+    protected function ApplyPercentType(Discount $discount,Order $order)
+    {
+        $discountAmount = 0;
+        $Dproducts = $discount->products;
+        $Dservices = $discount->services;
+        if ($Dproducts->count()> 0)
+            $OrderProducts =$order->OrderProducts()->whereIn('product_id',$Dproducts->pluck('id'))->get();
+        else
+            $OrderProducts =$order->OrderProducts;
+        foreach ($OrderProducts as $OrderProduct)
+        {
+            $OrderProduct->discount = $discount->amount*$OrderProduct->price/100;
+            $discountAmount+= $OrderProduct->discount;
+            $OrderProduct->save();
+        }
+        if ($Dservices->count()> 0)
+            $OrderServices =$order->OrderServices()->whereIn('service_id',$Dservices->pluck('id'))->get();
+        else
+            $OrderServices =$order->OrderServices;
+        foreach ($OrderServices as $OrderService)
+        {
+            $OrderService->discount = $discount->amount*$OrderService->price/100;
+            $discountAmount+= $OrderService->discount;
+            $OrderService->save();
+        }
+        if (ctype_digit($order->general_discount))
+            $order->general_discount+=$discountAmount;
+        else
+             $order->general_discount=$discountAmount;
+        $order->final_price-=$order->general_discount;
+        $order->save();
+
+    }
+
+    protected function ApplyMoneyType(Discount $discount,Order $order)
+    {
+
+    }
+    protected function ApplyScoreType(Discount $discount,Order $order)
+    {
 
     }
 }

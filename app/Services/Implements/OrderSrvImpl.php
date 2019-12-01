@@ -485,7 +485,7 @@ class OrderSrvImpl
 
     }
 
-    public function completeOrder(Order $order)
+    public function payedOrder(Order $order)
     {
         $order->state = Order::payed_state;
         $order->save();
@@ -567,5 +567,6 @@ class OrderSrvImpl
             return false;
         return true;
     }
+
 
 }

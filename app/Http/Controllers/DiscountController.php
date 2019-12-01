@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Discount;
 use App\Http\Requests\DiscountRequest;
+use App\Http\Requests\OrderDiscountRequest;
+use App\Order;
 use App\Repositories\DiscountRepository;
 use Illuminate\Http\Request;
 
@@ -100,6 +102,25 @@ class DiscountController extends Controller
     public function destroy(Discount $discount)
     {
         $this->repository->delete($discount);
+
+    }
+
+
+
+    public function ApplyDiscountToOrder(OrderDiscountRequest $request)
+    {
+        $discount= Discount::where('code',$request->code)->first();
+        $order = Order::find($request->order_id);
+        $statAndmessage = $discount->CanUse($order->user);
+        if ($statAndmessage['status'] != 200)
+            return ['message' => $statAndmessage['message'], 'status' => 400];
+        if ($order->discount()->count() > 0)
+            return ['message' => 'تخفیف برای این سفارش ثبت شده', 'status' => 400];
+
+        $rep= $this->repository->Apply($discount,$order);
+        return $this->response($rep['data']??null,$rep['message']??null,$rep['status']??200);
+
+
 
     }
 }

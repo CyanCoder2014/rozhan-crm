@@ -29,7 +29,7 @@ class DiscountRequest extends FormRequest
             'type'=>['required','integer'],
             'amount'=>['required','integer'],
             'amount_type'=>['required','integer'],
-            'code'=>['required','string','max:10'],
+            'code'=>['required','string','max:10','unique:discounts,code'],
             'contacts.*' =>['exists:contacts,id'],
             'services.*' =>['exists:services,id'],
             'products.*' =>['exists:products,id'],

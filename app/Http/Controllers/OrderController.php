@@ -91,7 +91,7 @@ class OrderController extends Controller
         $data['register_date'] = Carbon::now()->format('Y-m-d H:i:s');
         $data['due_date'] = Carbon::now()->format('Y-m-d H:i:s');
         $array = $this->customerPaymentRepository->add($data);
-        $this->orderService->completeOrder($order);
+        $this->orderService->payedOrder($order);
         return $this->response($array['data']??null,$array['message']??null,$array['status']??200);
     }
     public function addOrderQuick(PreOrderRequest $request)

@@ -118,6 +118,7 @@ Route::middleware(['jwt.auth'])->group(function () {
     Route::get('orders/add/{id}', 'OrderController@serviceSchedule')->name('order.step2')->middleware('permission:orders.store');
     Route::post('orders/add/{id}', 'OrderController@store')->name('order.store')->middleware('permission:orders.store');
     Route::post('orders/payed', 'OrderController@paymentCompleted')->name('order.paymentCompleted')->middleware('permission:orders.payed');
+    Route::post('orders/discount', 'DiscountController@ApplyDiscountToOrder')->name('order.discount');
 
     Route::resource('person/{person_id}/timing', 'PersonTimingController')->except('edit','create')->middleware([
         'index' => 'permission:persons.timing.index',

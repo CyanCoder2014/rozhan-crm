@@ -36,7 +36,7 @@ class AddRoleValueObject
      */
     public function setName(string $name): AddRoleValueObject
     {
-        $this->name = Str::camel($name);
+        $this->name = $name;
         return $this;
     }
 

@@ -37,7 +37,7 @@ class Order extends Model
         return true;
     }
 
-
+    /******************* Relations ***********************/
     public function OrderServices(){
         return $this->hasMany(OrderService::class);
     }
@@ -49,6 +49,10 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function discount(){
+        return $this->hasManyThrough(Discount::class,DiscountOrder::class,'order_id','id','id','discount_id');
+    }
+    /*****************************************************/
     public function CanClientEdit(): bool {
         return true;
     }
