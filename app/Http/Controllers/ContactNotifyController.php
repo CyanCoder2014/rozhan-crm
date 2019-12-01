@@ -30,10 +30,14 @@ class ContactNotifyController extends Controller
             $methods[]='email';
         if ($request->db)
             $methods[]='db';
-        if($request->state)
-            $contacts = Contact::whereIn('id',$request->contact_ids)->where('state',$request->state)->get();
+        if (is_array($request->contact_ids) && count($request->contact_ids) > 0)
+            $contacts = Contact::whereIn('id',$request->contact_ids);
         else
-            $contacts = Contact::whereIn('id',$request->contact_ids)->get();
+            $contacts = Contact::whereNotNull('id');
+        if($request->state)
+            $contacts->where('state',$request->state);
+
+        $contacts = $contacts->get();
         Notification::send($contacts,new MessageNotification($request->message,$methods));
     }
 
