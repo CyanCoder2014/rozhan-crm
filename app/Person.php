@@ -89,7 +89,7 @@ class Person extends Model
         $out=[];
         $booked =   $this->OrderServices()
             ->whereNotNull('start')->whereNotNull('end')
-            ->where('date', $date)->select(['start','end'])->get();
+            ->where('date', $date)->select(['start','end'])->orderBy('start')->get();
         foreach ($available as $availbaletime){
             $startInt = strTimeToInt($availbaletime->start);
             $endInt = strTimeToInt($availbaletime->end);
