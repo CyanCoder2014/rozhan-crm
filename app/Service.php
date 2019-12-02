@@ -29,7 +29,8 @@ class Service extends Model
         'state',
         'created_by',
         'updated_by',
-        'deleted_at'
+        'deleted_at',
+        'score',
     ];
 
     public function parent(){
