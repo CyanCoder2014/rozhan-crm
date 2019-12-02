@@ -6,7 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class OrderProduct extends Model
 {
-
+    const created_state = 0;
+    const payed_state = 2;
+    const complete_state = 3;
+    const cancel_state = 1;
     protected $fillable = [
         'order_id',
         'product_id',

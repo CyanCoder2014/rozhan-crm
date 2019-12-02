@@ -181,8 +181,9 @@ return [
         App\Providers\RouteServiceProvider::class,
         \App\Services\SMSService\SmsServiceProvider::class,
         \App\Services\ReminderService\ReminderServiceProvider::class,
-        \App\Services\UserScoreService\UserScoreServiceProvider::class
-//        EllipseSynergie\ApiResponse\Laravel\LumenServiceProvider::class,
+        \App\Services\UserScoreService\UserScoreServiceProvider::class,
+        \App\Providers\OrderSrvImplServiceProvider::class
+        //        EllipseSynergie\ApiResponse\Laravel\LumenServiceProvider::class,
 
     ],
 

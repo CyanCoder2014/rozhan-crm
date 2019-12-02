@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class OrderService extends Model
 {
-    const created_status = 0;
-    const complete_status = 3;
+    const created_state = 0;
+    const payed_state = 2;
+    const complete_state = 3;
+    const cancel_state = 1;
 
     const quick_type = 0;
 

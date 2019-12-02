@@ -16,6 +16,7 @@ use App\Person;
 use App\PersonService;
 use App\Product;
 use App\Service;
+use App\Services\UserScoreService\UserScoreService;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -25,6 +26,11 @@ use Illuminate\Support\Facades\DB;
 
 class OrderSrvImpl
 {
+    protected $scoreService;
+    public function __construct(UserScoreService $scoreService)
+    {
+        $this->scoreService = $scoreService;
+    }
 
     public function getOrders()
     {
@@ -489,9 +495,40 @@ class OrderSrvImpl
 
     public function payedOrder(Order $order)
     {
+
+        if (!Order::canChangeState($order->state,Order::payed_state))
+            return ['message' =>'نمی توان سفارش را پرداخت کرد','status'=>400];
         $order->state = Order::payed_state;
         $order->save();
-        return $order;
+        return ['message' =>'successful','data' =>$order];
+
+    }
+    public function CompleteOrder(Order $order)
+    {
+        if (!Order::canChangeState($order->state, Order::complete_state))
+            return ['message' => 'نمی توان سفارش را کامل کرد', 'status' => 400];
+        $order->state = Order::complete_state;
+        foreach ($order->OrderServices as $OrderServices)
+        {
+            $OrderServices->state = OrderService::complete_state;
+            if (is_int($OrderServices->service->score))
+            {
+                $this->scoreService->addScore($OrderServices->service->score,$OrderServices->service,$order->user,'بابت خرید سرویس');
+            }
+            $OrderServices->save();
+        }
+
+        foreach ($order->OrderProducts as $OrderProducts)
+        {
+            $OrderProducts->state = OrderProduct::complete_state;
+            if (is_int($OrderProducts->product->score))
+            {
+                $this->scoreService->addScore($OrderProducts->product->score,$OrderProducts->product,$order->user,'بابت خرید محصول');
+            }
+            $OrderProducts->save();
+        }
+        $order->save();
+        return ['message' =>'successful','data' =>$order];
 
     }
 

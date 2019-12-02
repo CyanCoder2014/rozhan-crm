@@ -10,6 +10,7 @@ use App\Person;
 use App\Repositories\Interfaces\AppRepository;
 use App\Repositories\RoleRepository;
 use App\Repositories\UserRepository;
+use App\Services\UserScoreService\UserScoreService;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -22,18 +23,20 @@ class ContactController extends BaseAPIController
     protected $contact;
 
     protected $userRepository;
+    protected $scoreService;
 
     /**
      * @var UserRepository
      */
 
-    public function __construct(AppRepository $appRepository,UserRepository $userRepository)
+    public function __construct(AppRepository $appRepository,UserRepository $userRepository,UserScoreService $scoreService)
     {
         $this->appRepository = $appRepository;
         $this->model = new Contact();
 
         $this->person = new Person();
         $this->userRepository = $userRepository;
+        $this->scoreService =$scoreService;
     }
 
     public function list()
@@ -52,6 +55,7 @@ class ContactController extends BaseAPIController
         $data = Contact::where('id',$id)
             ->with(['user.orders','user.orders.OrderServices','user.orders.OrderServices.person','user.orders.OrderServices.service','user','group','tags'])
             ->first();
+        $data->score = $this->scoreService->getScore($data->user);
         return $this->response($data);
     }
 

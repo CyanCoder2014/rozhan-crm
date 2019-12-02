@@ -22,4 +22,10 @@ class UserScoreService
 
     }
 
+    public function getScore(User $user)
+    {
+        return $this->repository->getUserScore($user->id);
+
+    }
+
 }

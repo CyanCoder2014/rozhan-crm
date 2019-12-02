@@ -9,8 +9,19 @@ class Order extends Model
     const created_state = 0;
     const payed_state = 2;
     const complete_state = 3;
+    const cancel_state = 1;
 
-    const cancel_state = 0;
+    const state_diagram=[
+      self::created_state =>[
+          self::payed_state =>true,
+          self::cancel_state =>true
+      ] ,
+      self::payed_state =>[
+          self::cancel_state =>true,
+          self::complete_state =>true
+      ]
+    ];
+
 
     const quick_type = 1;
 
@@ -44,6 +55,12 @@ class Order extends Model
     public function OrderProducts(){
         return $this->hasMany(OrderProduct::class);
     }
+    public function services(){
+        return $this->hasManyThrough(Service::class,OrderService::class,'order_id','id','id','service_id');
+    }
+    public function products(){
+        return $this->hasManyThrough(Product::class,OrderProduct::class,'order_id','id','id','product_id');
+    }
 
     public function user(){
         return $this->belongsTo(User::class);
@@ -59,4 +76,12 @@ class Order extends Model
     public function CanClientCancel(): bool {
         return true;
     }
+
+    public static function canChangeState($from,$to)
+    {
+        if (isset(static::state_diagram[$from][$to]) and static::state_diagram[$from][$to])
+            return true;
+        return false;
+    }
+
 }

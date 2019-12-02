@@ -19,5 +19,9 @@ class UserScoreRepository
            'created_by' => $created_by_id,
         ]);//->toArray();
     }
+    public function getUserScore($user_id)
+    {
+        return UserScore::where('user_id',$user_id)->sum('score');//->toArray();
+    }
 
 }
