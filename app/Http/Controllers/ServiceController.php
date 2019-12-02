@@ -24,6 +24,8 @@ class ServiceController extends BaseAPIController
 
     public function store()
     {
+        // if(\request()->hasFile('image'))
+        //  dd(true);
         \request()->request->add(['created_by' => auth()->id()]);
         return parent::store();
     }

@@ -1,20 +1,23 @@
 
 .skeduler-container {
+
+  overflow-x: scroll;
 }
+
 
 .skeduler-container * {
     box-sizing: content-box;
 }
 
 .skeduler-headers {
-  border-left: 1px solid #b0cee9;
+  /* border-left: 1px solid #b0cee9; */
   display: flex;
   padding-right: 62.9px;
   position: relative;
 }
 
 .skeduler-headers:before {
-  border-top: 1px solid #b0cee9;
+  /* border-top: 1px solid #b0cee9; */
   content: "";
   width: 60px;
   position: absolute;
