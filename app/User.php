@@ -91,5 +91,10 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->morphMany(Reminder::class,'receiver');
     }
+
+    public function specialDates()
+    {
+        return $this->hasManyThrough(SpecialDate::class,Contact::class,'user_id','contact_id','id','id');
+    }
     /*******************************************/
 }
