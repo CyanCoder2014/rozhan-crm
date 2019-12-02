@@ -7,7 +7,7 @@ Route::namespace('v1')->prefix('v1')->group(function () {
     Route::post('login', 'AuthController@login');
 
 //    Route::prefix('client')->middleware(['jwt.auth'])->group(function (){
-    Route::prefix('client')->group(function (){
+    Route::middleware(['jwt.auth'])->group(function (){
 //        Route::resource('orders', 'OrderController')->except('edit','create','store','destroy');
         Route::get('orders/', 'ClientOrderController@index');
         Route::get('orders/{id}', 'ClientOrderController@show');
@@ -18,6 +18,9 @@ Route::namespace('v1')->prefix('v1')->group(function () {
         Route::get('orders/cancel/{id}', 'ClientOrderController@cancel');
         Route::post('orders/discount', 'ClientDiscountController@ApplyDiscountToOrder');
         Route::get('order/getAvailableServices', 'ClientDiscountController@getAvailableServices');
+
+        Route::get('profile', 'ClientUserProfileController@index');
+        Route::post('profile', 'ClientUserProfileController@update');
 
 
 
