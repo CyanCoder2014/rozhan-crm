@@ -197,6 +197,9 @@ Route::middleware(['jwt.auth'])->group(function () {
             Route::get('clients','ReminderController@client');
             Route::get('personnels','ReminderController@personnels');
             Route::get('user','ReminderController@user');
+            Route::get('setRemember','ReminderController@user');
+            Route::post('setRemember','ReminderController@setRemember');
+            Route::post('sendRemember','ReminderController@sendRemember');
         });
     });
     //SpecialDateController

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Reminder;
 
+use App\Services\ReminderService\ReminderObjectValue;
 use App\Services\ReminderService\ReminderService;
 use App\User;
 use Illuminate\Http\Request;
@@ -53,4 +54,53 @@ class ReminderController extends Controller
         return $this->service->UserReminder($request->user_id,$date_from,$date_to);
 
     }
+
+
+
+    public function setRemember(Request $request)
+    {
+        $reminder = new ReminderObjectValue();
+
+        $reminder->setTitle($request->title);
+        $reminder->setDesctiprion($request->description);
+        $reminder->setReminderAt(to_georgian_date($request->reminderAt));//
+        $reminder->setExecuteAt(to_georgian_date($request->executeAt));
+        $reminder->setReceiverId(auth()->id);
+        $reminder->setReceiverName('App\User');
+        $reminder->setDb(1);
+        $reminder->setEmail(0);
+        $reminder->setSms(0);
+        $reminder->setSenderId(auth()->id);
+        $reminder->setSenderName('App\User');
+
+
+        $data = $this->service->Send($reminder);
+        return $this->response($data);
+
+
+    }
+
+
+    public function sendRemember(Request $request)
+    {
+        $reminder = new ReminderObjectValue();
+
+        $reminder->setTitle($request->title);
+        $reminder->setDesctiprion($request->description);
+        $reminder->setReminderAt(to_georgian_date($request->reminderAt));//
+        $reminder->setExecuteAt(to_georgian_date($request->executeAt));
+        $reminder->setReceiverId($request->receiverId);
+        $reminder->setReceiverName('App\User');
+        $reminder->setDb(1);
+        $reminder->setEmail(0);
+        $reminder->setSms(0);
+        $reminder->setSenderId(auth()->id);
+        $reminder->setSenderName('App\User');
+
+        $data = $this->service->Send($reminder);
+        return $this->response($data);
+
+    }
+
+
 }

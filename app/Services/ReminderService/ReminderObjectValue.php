@@ -171,7 +171,7 @@ class ReminderObjectValue
     /**
      * @return int
      */
-    public function getParentId(): int
+    public function getParentId(): ?int
     {
         return $this->parent_id;
     }
