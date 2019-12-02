@@ -4,6 +4,8 @@ namespace App\Repositories;
 
 
 
+use App\Discount;
+use App\Http\Requests\OrderDiscountRequest;
 use App\Http\Requests\OrderRequest;
 use App\Http\Requests\PreOrderRequest;
 use App\Order;

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class OrderServiceFeedback extends Model
 {
+    const created_state = 0;
+    const accepted_state = 1;
     protected $fillable=[
         'user_id',
         'order_service_id',

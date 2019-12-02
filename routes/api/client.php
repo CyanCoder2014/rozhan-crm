@@ -19,6 +19,8 @@ Route::namespace('v1')->prefix('v1')->group(function () {
         Route::post('orders/discount', 'ClientDiscountController@ApplyDiscountToOrder');
         Route::get('order/getAvailableServices', 'ClientDiscountController@getAvailableServices');
 
+        Route::post('order/feedback','ClientOrderServiceFeedbackController@store');
+
         Route::get('profile', 'ClientUserProfileController@index');
         Route::post('profile', 'ClientUserProfileController@update');
 
