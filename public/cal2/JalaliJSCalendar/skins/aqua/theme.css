@@ -32,7 +32,7 @@ div.calendar {
     text-align: center; /* They are the navigation buttons */
     font-weight: bold;
     width: 50px;
-    height: 50px;
+    height: 0px;
     color: white;
 }
 
@@ -95,7 +95,7 @@ div.calendar {
 .calendar tbody .day { /* Cells <TD> containing month days dates */
     font-family: verdana, tahoma, sans-serif;
     width: 50px;
-    height: 50px;
+    height: 40px;
     color: #fff;
     text-align: center;
 }
