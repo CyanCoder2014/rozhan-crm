@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 
+use App\Contact;
 use App\Http\Requests\Order\CustomerPaymentRequest;
 use App\Http\Requests\OrderRequest;
 use App\Http\Requests\PreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use App\Notifications\MessageNotification;
 use App\Order;
 use App\Repositories\Interfaces\AppRepository;
 use App\Repositories\OrderSrvImpl;
@@ -15,6 +17,7 @@ use App\Service;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class OrderController extends Controller
 {
@@ -67,6 +70,15 @@ class OrderController extends Controller
     public function store(OrderRequest $request,$id)
     {
         $array = $this->orderService->addOrder($request,$id);
+
+        ///// temp code
+        $contacts = Contact::whereNotNull('id');
+        $contacts->where('user_id',$array['data']->user_id);
+        $contacts = $contacts->get();
+        Notification::send($contacts,new MessageNotification('درخواست شما با موفقیت در سالن زیبایی ثبت شد',['sms']));
+
+
+
         return $this->response($array['data']??null,$array['message']??null,$array['status']??200);
     }
     public function preOrder(PreOrderRequest $request)
