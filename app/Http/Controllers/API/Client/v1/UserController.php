@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\Client\v1;
 
 use App\Contact;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Client\ContactUpdateRequest;
 use App\Http\Requests\Client\User\RegisterRequest;
 use App\Http\Requests\Client\User\ResetPassword;
 use App\Repositories\RoleRepository;
@@ -12,6 +13,7 @@ use App\Repositories\UserRepository;
 use App\Services\CreateUser\CreateUser;
 use App\Services\CreateUser\ValueObjects\CreateUserValueObject;
 use App\User;
+use http\Env\Request;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
@@ -45,6 +47,22 @@ class UserController extends Controller
         $data = Contact::where('user_id',auth()->id())
             ->with(['user.orders','user.orders.OrderServices','user.orders.OrderServices.person','user.orders.OrderServices.service','user'])
             ->first();
+        return $this->response($data);
+    }
+
+    public function updateContact(ContactUpdateRequest $request)
+    {
+        $data = Contact::where('user_id',auth()->id())
+            ->with(['user.orders','user.orders.OrderServices','user.orders.OrderServices.person','user.orders.OrderServices.service','user'])
+            ->first();
+        if (!$data)
+        {
+            $data = new Contact();
+            $data->user_id = auth()->id();
+
+        }
+        $data->fill($request->all());
+        $data->save();
         return $this->response($data);
     }
 
