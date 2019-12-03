@@ -34,6 +34,9 @@ class Person extends Model
     public function OrderServices(){
         return $this->hasMany(OrderService::class);
     }
+    public function TrueOrderServices(){
+        return $this->OrderServices()->where('state','!=',OrderService::cancel_state);
+    }
     public function Orders(){
         return $this->hasManyThrough(Order::class,OrderService::class,'person_id','id','id','order_id');
     }
@@ -54,7 +57,7 @@ class Person extends Model
                 ->where('end','>=', $end_at)
                 ->count() == 0)
             return false;
-        if ($this->OrderServices()->where('date', $date)
+        if ($this->TrueOrderServices()->where('date', $date)
                 ->where(function ($query) use ($start_at,$end_at){
                     return $query->where(function ($query) use ($start_at){
                         return $query->where('start','<=', $start_at)
@@ -74,7 +77,7 @@ class Person extends Model
         $available = $this->timing()
             ->whereNotNull('start')->whereNotNull('end')
             ->where('date', $date)->select(['start','end'])->get()->toArray();
-        $booked =   $this->OrderServices()
+        $booked =   $this->TrueOrderServices()
             ->whereNotNull('start')->whereNotNull('end')
             ->where('date', $date)->select(['start','end'])->get()->toArray();
         return compact('available','booked');
@@ -87,7 +90,7 @@ class Person extends Model
         if ($available->count() == 0)
             return [];
         $out=[];
-        $booked =   $this->OrderServices()
+        $booked =   $this->TrueOrderServices()
             ->whereNotNull('start')->whereNotNull('end')
             ->where('date', $date)->select(['start','end'])->orderBy('start')->get();
         foreach ($available as $availbaletime){

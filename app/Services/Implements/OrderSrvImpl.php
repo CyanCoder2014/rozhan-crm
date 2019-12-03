@@ -366,7 +366,7 @@ class OrderSrvImpl
                     'discount' => $service->default_discount,
                     'tax' => $service->tax,
                     'date' => $start->format('Y-m-d'),
-                    'state' => OrderService::created_status,
+                    'state' => OrderService::created_state,
                     'type' => OrderService::quick_type,
                     'created_by' => auth()->id(),
                 ]);
@@ -500,6 +500,38 @@ class OrderSrvImpl
         if (!Order::canChangeState($order->state,Order::payed_state))
             return ['message' =>'نمی توان سفارش را پرداخت کرد','status'=>400];
         $order->state = Order::payed_state;
+        foreach ($order->OrderServices as $OrderServices)
+        {
+            $OrderServices->state = OrderService::payed_state;
+            $OrderServices->save();
+        }
+
+        foreach ($order->OrderProducts as $OrderProducts)
+        {
+            $OrderProducts->state = OrderProduct::payed_state;
+            $OrderProducts->save();
+        }
+        $order->save();
+        return ['message' =>'successful','data' =>$order];
+
+    }
+    public function CancelOrder(Order $order)
+    {
+
+        if (!Order::canChangeState($order->state,Order::cancel_state))
+            return ['message' =>'نمی توان سفارش کنسل کرد','status'=>400];
+        $order->state = Order::cancel_state;
+        foreach ($order->OrderServices as $OrderServices)
+        {
+            $OrderServices->state = OrderService::cancel_state;
+            $OrderServices->save();
+        }
+
+        foreach ($order->OrderProducts as $OrderProducts)
+        {
+            $OrderProducts->state = OrderProduct::cancel_state;
+            $OrderProducts->save();
+        }
         $order->save();
         return ['message' =>'successful','data' =>$order];
 
@@ -579,7 +611,7 @@ class OrderSrvImpl
             'date' => $date,
             'start' => $start_time ,
             'end' => $end_time ,
-            'state' => OrderService::created_status,
+            'state' => OrderService::created_state,
             'created_by' => auth()->id(),
             'updated_by' => null,
             'deleted_at' => null,

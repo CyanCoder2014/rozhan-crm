@@ -113,6 +113,12 @@ class OrderController extends Controller
         $array = $this->orderService->CompleteOrder($order);
         return $this->response($array['data']??null,$array['message']??null,$array['status']??200);
     }
+    public function cancelOrder(Request $request)
+    {
+        $order= Order::findOrFail($request->order_id);
+        $array = $this->orderService->CancelOrder($order);
+        return $this->response($array['data']??null,$array['message']??null,$array['status']??200);
+    }
     public function addOrderQuick(PreOrderRequest $request)
     {
         $array = $this->orderService->addOrderQuick($request,User::find($request->user_id));
