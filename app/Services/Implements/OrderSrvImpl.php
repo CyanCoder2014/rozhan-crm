@@ -105,8 +105,8 @@ class OrderSrvImpl
         ///////////////////////////////// check if there is available service in this date ////////////////////
         $availableServices = PersonService::whereIn('service_id',array_column($services,'service_id'))
             ->whereHas('personTiming',function ($query) use($request){
-            $query->where('date', to_georgian_date($request->date));
-        })->get()->keyBy('service_id');
+                $query->where('date', to_georgian_date($request->date));
+            })->get()->keyBy('service_id');
         foreach ($services as $service) {
             $serviceObject = Service::with('persons')->findOrFail($service['service_id']);
             if (!array_key_exists($service['service_id'],$availableServices->all())){
@@ -470,7 +470,7 @@ class OrderSrvImpl
 //
 //                if (! $person->hasService($service))
 //                    return ['message' =>'perosn has not a service'];
-//                
+//
 //                if (!$this->BookService($service,$person,
 //                    $start->format('Y-m-d'),$start->format('H:i'),$start->addMinutes($service->max_time)->format('H:i:s')
 //                    ,$serv['note']??null,
@@ -610,3 +610,4 @@ class OrderSrvImpl
 
 
 }
+
