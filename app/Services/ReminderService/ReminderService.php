@@ -34,7 +34,7 @@ class ReminderService
             'execute_at'=>$reminder->getExecuteAt()->format('Y-m-d H:i:s'),
             'reminder_at'=>$reminder->getReminderAt()->format('Y-m-d H:i:s'),
             'notify_type'=>$reminder->getNotifyTypeCode(),
-            'created_by'=>auth()->id,
+            'created_by'=>auth()->id(),
         ]);
     }
 
@@ -55,7 +55,7 @@ class ReminderService
             'execute_at'=>$reminder->getExecuteAt()->format('Y-m-d H:i:s'),
             'reminder_at'=>$reminder->getReminderAt()->format('Y-m-d H:i:s'),
             'notify_type'=>$reminder->getNotifyTypeCode(),
-            'created_by'=>auth()->id,
+            'created_by'=>auth()->id(),
         ]);
     }
     public function show(ReminderObjectValue $reminder)

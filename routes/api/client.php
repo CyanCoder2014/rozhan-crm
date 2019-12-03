@@ -17,7 +17,7 @@ Route::namespace('v1')->prefix('v1')->group(function () {
         Route::post('orders/add/{id}', 'ClientOrderController@store');
         Route::get('orders/cancel/{id}', 'ClientOrderController@cancel');
         Route::post('orders/discount', 'ClientDiscountController@ApplyDiscountToOrder');
-        Route::get('order/getAvailableServices', 'ClientDiscountController@getAvailableServices');
+        Route::get('order/getAvailableServices', 'ClientOrderController@getAvailableServices');
 
         Route::post('order/feedback','ClientOrderServiceFeedbackController@store');
 
@@ -33,6 +33,7 @@ Route::namespace('v1')->prefix('v1')->group(function () {
 
 
         Route::get('contact', 'UserController@authUser');
+        Route::post('contact', 'UserController@updateContact');
     });
 
 
