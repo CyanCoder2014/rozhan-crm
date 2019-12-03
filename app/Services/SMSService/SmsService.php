@@ -30,6 +30,11 @@ class SmsService
     {
         $this->logerService->log($this->logData);
     }
+    public function TemplateSend($receptor, $template, $token, $token2, $token3, $token10=null, $token20=null):bool
+    {
+        $this->logerService->log($this->logData);
+        return true;
+    }
 
     /**
      * @return int

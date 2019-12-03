@@ -97,4 +97,13 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasManyThrough(SpecialDate::class,Contact::class,'user_id','contact_id','id','id');
     }
     /*******************************************/
+
+    public function routeNotificationForSms($notification)
+    {
+        return $this->mobile;
+    }
+    public function routeNotificationForMail($notification)
+    {
+        return $this->email;
+    }
 }
