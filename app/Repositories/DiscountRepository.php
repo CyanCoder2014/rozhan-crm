@@ -4,11 +4,12 @@
 namespace App\Repositories;
 
 
+use App\Contact;
 use App\Discount;
 use App\DiscountContact;
 use App\DiscountOrder;
 use App\DiscountReference;
-use App\Notifications\DiscountNotification;
+use App\Notifications\TemplateNotification;
 use App\Order;
 use App\Product;
 use App\Service;
@@ -130,7 +131,23 @@ class DiscountRepository
     }
     public function notify(Discount $discount)
     {
-        Notification::send($discount->contacts,new DiscountNotification($discount));
+        if ($discount->type = Discount::contacts_only_type)
+            $contacts = $discount->contacts;
+        else
+            $contacts = Contact::all();
+        switch ($discount->amount_type)
+        {
+            case Discount::percent_amount_type:
+                Notification::send($contacts,new TemplateNotification('Discount',['sms','db'],$discount->amount,$discount->code,to_jalali_date($discount->expired_at)));
+                break;
+            case Discount::score_amount_type:
+                Notification::send($contacts,new TemplateNotification('Discount',['sms','db'],$discount->amount,$discount->code,to_jalali_date($discount->expired_at)));
+                break;
+            case Discount::money_amount_type:
+                Notification::send($contacts,new TemplateNotification('Credit',['sms','db'],$discount->amount,to_jalali_date($discount->expired_at),$discount->code));
+                break;
+        }
+
 
     }
 

@@ -104,6 +104,11 @@ class DiscountController extends Controller
         $this->repository->delete($discount);
 
     }
+    public function notify(Discount $discount,Request $request)
+    {
+        $this->repository->notify($discount);
+
+    }
 
 
 

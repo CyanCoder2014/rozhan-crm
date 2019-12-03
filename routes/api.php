@@ -216,6 +216,7 @@ Route::middleware(['jwt.auth'])->group(function () {
 
     Route::post('orders/discount', 'DiscountController@ApplyDiscountToOrder')->name('order.discount');
     Route::post('orders/completed', 'OrderController@doneOrder')->name('order.Completed');
+    Route::get('discounts/{discount}/notify', 'DiscountController@notify')->name('discount.notify');
 
     Route::resource('contact/groups', 'ContactGroupController')->except('edit','create');
     Route::resource('contact/tags', 'CTagController')->except('edit','create');
