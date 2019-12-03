@@ -47,8 +47,8 @@ class PersonTimingController extends Controller
     public function update(PersonTimingRequest $request,$person_id, $id)
     {
 
-        $data = $this->appRepository->edit($request->casts() , $id, $this->model);
-        return $this->response($data);
+        $data = $this->edit($request->casts() , $id);
+        return $this->response($data,$data['message']??null,$data['status']??200);
     }
 
 
@@ -60,11 +60,11 @@ class PersonTimingController extends Controller
             for ($i = 0; $i <= 30; $i++){
 
                 if (date('w', strtotime($request->castsforDays($i)['date']))  != '5' )
-                $data = $this->appRepository->add($request->castsforDays($i),$this->model);
+                    $this->add($request->castsforDays($i));
             }
 
         }else{
-            $data = $this->appRepository->add($request->casts(),$this->model);
+            $data = $this->add($request->casts());
 
         }
         return $this->response($data);
@@ -77,7 +77,39 @@ class PersonTimingController extends Controller
     }
 
 
+    public function add($parametes)
+    {
+        $priviouses= $this->model::where('date',$parametes['date'])->get();
+        foreach ($priviouses as $privious)
+        {
+            if ((strTimeToInt($privious->start)<= strTimeToInt($parametes['start']) && strTimeToInt($privious->end)> strTimeToInt($parametes['start'])) ||
+                (strTimeToInt($privious->start)< strTimeToInt($parametes['end']) && strTimeToInt($privious->end) >= strTimeToInt($parametes['end']))
+                )
+            {
+                $privious->fill($parametes);
+                $privious->save();
+                return $privious;
+            }
+        }
+        return $this->appRepository->add($parametes,$this->model);
 
+    }
+    public function edit($parametes,$id)
+    {
+        $priviouses= $this->model::where('id','!=',$id)->where('date',$parametes['date'])->get();
+        foreach ($priviouses as $privious)
+        {
+            if ((strTimeToInt($privious->start)<= strTimeToInt($parametes['start']) && strTimeToInt($privious->end)> strTimeToInt($parametes['start'])) ||
+                (strTimeToInt($privious->start)< strTimeToInt($parametes['end']) && strTimeToInt($privious->end) >= strTimeToInt($parametes['end']))
+                )
+            {
+
+                return array('data'=>null,'message'=>'با رکورد دیگری تداخل دارد','status'=>400);
+            }
+        }
+        return $this->appRepository->edit($parametes,$id,$this->model);
+
+    }
 
 
 
