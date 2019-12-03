@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Notifications\MessageNotification;
+use App\Notifications\TemplateNotification;
 use App\Reminder;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
@@ -43,7 +44,7 @@ class ReminderCommand extends Command
         $reminders = Reminder::where('execute_at','<=',Carbon::now())->where('status',Reminder::created_status)->get();
         foreach ($reminders as $reminder)
         {
-            $reminder->receiver->notify(new MessageNotification($reminder->title,$reminder->getNotifyType()));
+            $reminder->receiver->notify(new TemplateNotification('Reminder',$reminder->getNotifyType(),'','','',$reminder->title,$reminder->description));
             $reminder->status =Reminder::executed_status;
             $reminder->save();
 
