@@ -66,13 +66,13 @@ class OrderSrvImpl
 
     public function addOrderCache($request,User $user)
     {
-
-
         $services =$request->services;
         $product_ids = array_column($request->products??[], 'product_id');
         $productModels =Product::whereIn('id',$product_ids)->get()->keyBy('id')->all();
+
         foreach ($request->products??[] as $product)
-            if ($productModels[$product['product_id']]['remaining_number']??0 < $product['amount'])
+            if (!isset($productModels[$product['product_id']]->remaining_number) or
+                $productModels[$product['product_id']]->remaining_number < $product['amount'])
                 return ['message' =>'product has not available amount','status'=>400];
         $products =$request->products??[];
         $start = Carbon::createFromFormat('Y-m-d',to_georgian_date($request->date));
@@ -105,8 +105,8 @@ class OrderSrvImpl
         ///////////////////////////////// check if there is available service in this date ////////////////////
         $availableServices = PersonService::whereIn('service_id',array_column($services,'service_id'))
             ->whereHas('personTiming',function ($query) use($request){
-            $query->where('date', to_georgian_date($request->date));
-        })->get()->keyBy('service_id');
+                $query->where('date', to_georgian_date($request->date));
+            })->get()->keyBy('service_id');
         foreach ($services as $service) {
             $serviceObject = Service::with('persons')->findOrFail($service['service_id']);
             if (!array_key_exists($service['service_id'],$availableServices->all())){
@@ -272,8 +272,8 @@ class OrderSrvImpl
             $product_ids = array_column($request->products??[], 'product_id');
             $products =Product::whereIn('id',$product_ids)->get()->keyBy('id')->all();
             foreach ($request->products??[] as $product){
-                if (!isset($products[$product['product_id']]['remaining_number']) or
-                    $products[$product['product_id']]['remaining_number'] < (int)$product['amount'])
+                if (!isset($products[$product['product_id']]->remaining_number) or
+                    $products[$product['product_id']]->remaining_number < (int)$product['amount'])
                     return ['message' =>'product has not available amount','status'=>400];
                 $price += $product['price']??$products[$product['product_id']]->priceCalculate();
                 $newOrderProducts[] = new OrderProduct([
@@ -380,8 +380,8 @@ class OrderSrvImpl
             $product_ids = array_column($request->products??[], 'product_id');
             $products =Product::whereIn('id',$product_ids)->get()->keyBy('id')->all();
             foreach ($request->products??[] as $product){
-                if (!isset($products[$product['product_id']]['remaining_number']) or
-                    $products[$product['product_id']]['remaining_number'] < (int)$product['amount'])
+                if (!isset($products[$product['product_id']]->remaining_number) or
+                    $products[$product['product_id']]->remaining_number < (int)$product['amount'])
                     return ['message' =>'product has not available amount','status'=>400];
                 $price += $product['price']??$products[$product['product_id']]->priceCalculate();
                 $newOrderProducts[] = new OrderProduct([
@@ -470,7 +470,7 @@ class OrderSrvImpl
 //
 //                if (! $person->hasService($service))
 //                    return ['message' =>'perosn has not a service'];
-//                
+//
 //                if (!$this->BookService($service,$person,
 //                    $start->format('Y-m-d'),$start->format('H:i'),$start->addMinutes($service->max_time)->format('H:i:s')
 //                    ,$serv['note']??null,
@@ -610,3 +610,4 @@ class OrderSrvImpl
 
 
 }
+
