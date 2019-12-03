@@ -66,7 +66,6 @@ class OrderSrvImpl
 
     public function addOrderCache($request,User $user)
     {
-
         $services =$request->services;
         $product_ids = array_column($request->products??[], 'product_id');
         $productModels =Product::whereIn('id',$product_ids)->get()->keyBy('id')->all();
