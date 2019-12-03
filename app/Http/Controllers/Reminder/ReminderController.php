@@ -63,14 +63,14 @@ class ReminderController extends Controller
 
         $reminder->setTitle($request->title);
         $reminder->setDesctiprion($request->description);
-        $reminder->setReminderAt(to_georgian_date($request->reminderAt));//
-        $reminder->setExecuteAt(to_georgian_date($request->executeAt));
-        $reminder->setReceiverId(auth()->id);
+        $reminder->setReminderAt(\DateTime::createFromFormat('Y-m-d H:i:s',to_georgian($request->reminderAt)));//
+        $reminder->setExecuteAt(\DateTime::createFromFormat('Y-m-d H:i:s',to_georgian($request->executeAt)));
+        $reminder->setReceiverId(auth()->id());
         $reminder->setReceiverName('App\User');
         $reminder->setDb(1);
         $reminder->setEmail(0);
         $reminder->setSms(0);
-        $reminder->setSenderId(auth()->id);
+        $reminder->setSenderId(auth()->id());
         $reminder->setSenderName('App\User');
 
 
