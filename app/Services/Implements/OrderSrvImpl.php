@@ -161,36 +161,38 @@ class OrderSrvImpl
         foreach ($services as $service){
             $availblePerson=[];
             foreach ($service->persons as $key => $person){
-                $person->timeSchedule = $person->dateTimeSchedule($order->general_date);
+//                $person->timeSchedule = $person->dateTimeSchedule($order->general_date);
+
                 $person->availableTime = $person->availableTimeService($order->general_date,$service);
                 if (count($person->availableTime) == 0)
                 {
                     unset($service->persons[$key]);
                     continue;
                 }
-                foreach ($person->availableTime as $availableTime){
-                    $person->availableTime = $availableTime;
-                    $availblePerson[]= clone $person;
-                }
+//                dd($person->availableTimeService($order->general_date,$service));
+//                foreach ($person->availableTime as $availableTime){
+//                    $person->availableTime = $availableTime;
+//                    $availblePerson[]= clone $person;
+//                }
                 if (isset($person_selected[$service->id])&& $person_selected[$service->id] == $person->id)
                     $person->selected = true;
             }
-            $sugestPerson = $service->highestScoreAvailablePerson($dateTime);
-            if($sugestPerson)
-            {
-                $time = explode(':',$sugestPerson->availableTime['end']);
-                $dateTime->setTime($time[0],$time[1]);
-                $sugestion['services'][] = [
-                    'serviceObject' => $service,
-                    'personObject' => $sugestPerson,
-                    'person_id' => $sugestPerson->id,
-                    'service_id' => $service->id,
-                    'start_at' => convert_time($sugestPerson->availableTime['start']),
-//                    'end_at' => $sugestPerson->availableTime['end'],
-                ];
-
-            }
-            $service->availblePerson = $availblePerson;
+//            $sugestPerson = $service->highestScoreAvailablePerson($dateTime);
+//            if($sugestPerson)
+//            {
+//                $time = explode(':',$sugestPerson->availableTime['end']);
+//                $dateTime->setTime($time[0],$time[1]);
+//                $sugestion['services'][] = [
+//                    'serviceObject' => $service,
+//                    'personObject' => $sugestPerson,
+//                    'person_id' => $sugestPerson->id,
+//                    'service_id' => $service->id,
+//                    'start_at' => convert_time($sugestPerson->availableTime['start']),
+////                    'end_at' => $sugestPerson->availableTime['end'],
+//                ];
+//
+//            }
+//            $service->availblePerson = $availblePerson;
         }
 
 
