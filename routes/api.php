@@ -148,6 +148,7 @@ Route::middleware(['jwt.auth'])->group(function () {
     Route::get('/report', 'ReportController@report1')->middleware('permission:report');
     Route::get('/baseReport', 'ReportController@baseReport')->middleware('permission:baseReport');
     Route::get('/UserReport', 'ReportController@UserReport')->middleware('permission:UserReport');
+    Route::get('/productReport', 'ReportController@productReport');
     Route::get('/workCalendar', 'workCalendarController@index')->middleware('permission:workCalendar');
 
     Route::namespace('Payment')->prefix('payment')->group(function () {
@@ -224,5 +225,8 @@ Route::middleware(['jwt.auth'])->group(function () {
     Route::resource('vacations', 'VacationDateController')->except('edit','create');
     Route::resource('scoregifts', 'ScoreGiftsController')->except('edit','create');
     Route::resource('usergift', 'UserGiftController')->except('edit','create','update');
+    Route::get('/productReport', 'ReportController@productReport');
+    Route::get('/incomeReport', 'ReportController@incomeReport');
+
 });
 
