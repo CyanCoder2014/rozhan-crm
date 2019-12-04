@@ -162,7 +162,13 @@ class OrderSrvImpl
             $availblePerson=[];
             foreach ($service->persons as $key => $person){
                 $person->timeSchedule = $person->dateTimeSchedule($order->general_date);
-                foreach ($person->availableTimeService($order->general_date,$service) as $availableTime){
+                $person->availableTime = $person->availableTimeService($order->general_date,$service);
+                if (count($person->availableTime) == 0)
+                {
+                    unset($service->persons[$key]);
+                    continue;
+                }
+                foreach ($person->availableTime as $availableTime){
                     $person->availableTime = $availableTime;
                     $availblePerson[]= clone $person;
                 }

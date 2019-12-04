@@ -45,6 +45,11 @@ class Service extends Model
     public function persons(){
         return $this->hasManyThrough(Person::class,PersonService::class,'service_id','id','id','person_id');
     }
+    public function availablePersons($date){
+        return $this->persons()->whereHas('timing',function ($query) use($date){
+            $query->where('date',$date);
+        });
+    }
 
 
     public function priceCalculate(){
