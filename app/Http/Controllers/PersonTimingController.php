@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PersonTimingRequest;
 use App\PersonTiming;
 use App\Repositories\AppRepositoryImpl;
+use App\VacationDate;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -59,7 +60,7 @@ class PersonTimingController extends Controller
 
             for ($i = 0; $i <= 30; $i++){
 
-                if (date('w', strtotime($request->castsforDays($i)['date']))  != '5' )
+                if (date('w', strtotime($request->castsforDays($i)['date']))  != '5' && !VacationDate::where('date',$request->castsforDays($i)['date'])->first() )
                     $this->add($request->castsforDays($i));
             }
 
