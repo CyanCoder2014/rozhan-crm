@@ -223,5 +223,6 @@ Route::middleware(['jwt.auth'])->group(function () {
     Route::resource('contact/tags', 'CTagController')->except('edit','create');
     Route::resource('vacations', 'VacationDateController')->except('edit','create');
     Route::resource('scoregifts', 'ScoreGiftsController')->except('edit','create');
+    Route::resource('usergift', 'UserGiftController')->except('edit','create','update');
 });
 
