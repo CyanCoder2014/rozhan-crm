@@ -44,7 +44,7 @@ class ReminderCommand extends Command
         $reminders = Reminder::where('execute_at','<=',Carbon::now())->where('status',Reminder::created_status)->get();
         foreach ($reminders as $reminder)
         {
-            $reminder->receiver->notify(new TemplateNotification('Reminder',$reminder->getNotifyType(),'','','',$reminder->title,$reminder->description));
+            $reminder->receiver->notify(new TemplateNotification('Reminder',$reminder->getNotifyType(),"#".$reminder->id,'','',$reminder->title,$reminder->description));
             $reminder->status =Reminder::executed_status;
             $reminder->save();
 

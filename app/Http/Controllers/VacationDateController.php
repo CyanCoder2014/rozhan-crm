@@ -15,10 +15,12 @@ class VacationDateController  extends BaseAPIController
     }
     public function index()
     {
-        return $this->model::paginate()->getCollection()->transform(function ($value) {
+        $data = $this->model::paginate();
+        $data->getCollection()->transform(function ($value) {
             $value->date = to_jalali_date($value->date);
             return $value;
         });
+        return $data;
     }
     public function show($id)
     {
