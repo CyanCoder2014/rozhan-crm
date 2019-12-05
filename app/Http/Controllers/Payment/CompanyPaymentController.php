@@ -16,7 +16,7 @@ class CompanyPaymentController extends BaseAPIController
     }
     public function index()
     {
-        return $this->model::paginate();
+        return $this->model->paginate();
     }
 
     protected function validationRules(){
