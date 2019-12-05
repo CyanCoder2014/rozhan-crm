@@ -26,10 +26,10 @@ class CustomerPaymentRequest extends FormRequest
         return [
             'order_id' =>['required','exists:orders,id'],
             'pay_state' =>['required'],
-            'account' =>['required','exists:accounts,id'],
-            'bank' =>['required'],
-            'description' =>[],
-            'state' =>['required'],
+//            'account' =>['required','exists:accounts,id'],
+//            'bank' =>['required'],
+//            'description' =>[],
+//            'state' =>['required'],
         ];
     }
 }

@@ -9,6 +9,7 @@ use App\Http\Requests\OrderRequest;
 use App\Http\Requests\PreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Notifications\MessageNotification;
+use App\Notifications\TemplateNotification;
 use App\Order;
 use App\Repositories\Interfaces\AppRepository;
 use App\Repositories\OrderSrvImpl;
@@ -72,10 +73,13 @@ class OrderController extends Controller
         $array = $this->orderService->addOrder($request,$id);
 
         ///// temp code
+
         $contacts = Contact::whereNotNull('id');
         $contacts->where('user_id',$array['data']->user_id);
         $contacts = $contacts->get();
-        Notification::send($contacts,new MessageNotification('درخواست شما با موفقیت در سالن زیبایی ثبت شد',['sms']));
+
+        Notification::send($contacts,new TemplateNotification('Reserve',['sms','db'],'#120'.$array['data']->id,null,null, 'همکاران با شما درتماس خواهند بود', null));
+//        Notification::send($contacts,new MessageNotification('درخواست شما با موفقیت در سالن زیبایی ثبت شد',['sms']));
 
 
 
