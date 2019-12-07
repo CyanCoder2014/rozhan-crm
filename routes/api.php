@@ -228,5 +228,9 @@ Route::middleware(['jwt.auth'])->group(function () {
     Route::get('/productReport', 'ReportController@productReport');
     Route::get('/incomeReport', 'ReportController@incomeReport');
 
+
+    Route::get('/notifications','UserController@getCurrentUserUnreadedNotification');
+    Route::post('/notifications','UserController@readNotification');
+
 });
 

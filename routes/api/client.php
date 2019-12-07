@@ -35,6 +35,8 @@ Route::namespace('v1')->prefix('v1')->group(function () {
 
 
 
+        Route::get('/notifications','UserController@getCurrentUserUnreadedNotification');
+        Route::post('/notifications','UserController@readNotification');
 
         Route::get('contact', 'UserController@authUser');
         Route::post('contact', 'UserController@updateContact');
