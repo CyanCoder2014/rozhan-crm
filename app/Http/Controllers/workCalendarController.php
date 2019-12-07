@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\workCalendarRequest;
+use App\OrderService;
 use App\Person;
 use Illuminate\Http\Request;
 
@@ -19,14 +20,16 @@ class workCalendarController extends Controller
             return $query->with(['timing'=>function ($query) use($request){
                 $query->whereBetween('date', [to_georgian_date($request->date_from),to_georgian_date($request->date_to)]);}
             ,'OrderServices'=>function ($query) use($request){
-                $query->whereBetween('date', [to_georgian_date($request->date_from),to_georgian_date($request->date_to)]);
+                $query->where('state','!=',OrderService::cancel_state)
+                    ->whereBetween('date', [to_georgian_date($request->date_from),to_georgian_date($request->date_to)]);
             }])->get();
         }
         else
             return $query->with(['timing'=>function ($query) use($request){
                 $query->where('date', to_georgian_date($request->date_from));
             },'OrderServices'=>function ($query) use($request){
-                $query->where('date', to_georgian_date($request->date_from));
+                $query->where('state','!=',OrderService::cancel_state)
+                    ->where('date', to_georgian_date($request->date_from));
             }])->get();
 
     }
