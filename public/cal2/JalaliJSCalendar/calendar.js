@@ -1,6 +1,6 @@
 /* JalaliJSCalendar v1.4
  * Copyright (c) 2008 Ali Farhadi (http://farhadi.ir/)
- * 
+ *
  * Released under the terms of the GNU General Public License.
  * See the GPL for details (http://www.gnu.org/licenses/gpl.html).
  *
@@ -68,13 +68,13 @@ Calendar = function (firstDayOfWeek, dateStr, onSelected, onClose) {
 			Calendar._SMN_len = 3;
 		if (typeof Calendar._JSMN_len == "undefined")
 			Calendar._JSMN_len = 3;
-			
+
 		ar = new Array();
 		for (var i = 12; i > 0;) {
 			ar[--i] = Calendar._MN[i].substr(0, Calendar._SMN_len);
 		}
 		Calendar._SMN = ar;
-		
+
 		ar = new Array();
 		for (var i = 12; i > 0;) {
 			ar[--i] = Calendar._JMN[i].substr(0, Calendar._JSMN_len);
@@ -725,8 +725,8 @@ Calendar.cellClick = function(el, ev) {
 		    case 0:
 			// TODAY will bring us here
 			if ((typeof cal.getDateStatus == "function") &&
-			    cal.getDateStatus(date, date.getLocalFullYear(true, cal.dateType), 
-			    	date.getLocalMonth(true, cal.dateType), 
+			    cal.getDateStatus(date, date.getLocalFullYear(true, cal.dateType),
+			    	date.getLocalMonth(true, cal.dateType),
 			    	date.getLocalDate(true, cal.dateType))) {
 				return false;
 			}
@@ -1007,7 +1007,7 @@ Calendar.prototype.create = function (_par) {
 };
 
 Calendar.prototype.recreate = function() {
-	if (this.element) { 
+	if (this.element) {
 		var parent = this.element.parentNode;
 		parent.removeChild(this.element);
 		if (parent == document.body) this.create();
@@ -1018,7 +1018,7 @@ Calendar.prototype.recreate = function() {
 	} else this.create();
 }
 
-/** 
+/**
  *  Toggles selection of one column which is specified in weekday (pass 0 for Sunday, 1 for Monday, etc.).
  *  This method works only in multiple mode
  */
@@ -1041,7 +1041,7 @@ Calendar.prototype.toggleColumn = function(weekday) {
 	}
 }
 
-/** 
+/**
  *  Toggles selection of one row which is specified in row (starts from 1).
  *  This method works only in multiple mode
  */
@@ -1229,8 +1229,8 @@ Calendar.prototype._init = function (firstDayOfWeek, date) {
 	var year = date.getLocalFullYear(true, this.dateType);
 	if (year < this.minYear) {
 		year = this.minYear;
-		date._calSetLocalFullYear(this.dateType, year); 
-		
+		date._calSetLocalFullYear(this.dateType, year);
+
 	} else if (year > this.maxYear) {
 		year = this.maxYear;
 		date._calSetLocalFullYear(this.dateType, year);
@@ -1386,7 +1386,7 @@ Calendar.prototype.setDate = function (date) {
 Calendar.prototype.refresh = function () {
 	if (this.element) {
 		this._init(this.firstDayOfWeek, this.date);
-	} else this.create(); 
+	} else this.create();
 };
 
 /** Modifies the "firstDayOfWeek" parameter (pass 0 for Sunday, 1 for Monday, etc.). */
@@ -1537,8 +1537,8 @@ Calendar.prototype.showAtElement = function (el, opts) {
 		var br = Calendar.getAbsolutePos(cp);
 		document.body.removeChild(cp);
 		if (Calendar.is_ie) {
-			br.y += typeof window.pageYOffset != 'undefined' ? window.pageYOffset : 
-				document.documentElement && document.documentElement.scrollTop ? document.documentElement.scrollTop : 
+			br.y += typeof window.pageYOffset != 'undefined' ? window.pageYOffset :
+				document.documentElement && document.documentElement.scrollTop ? document.documentElement.scrollTop :
 				document.body.scrollTop ? document.body.scrollTop : 0;
 			br.x += document.body.scrollLeft;
 		} else {
@@ -1743,25 +1743,25 @@ Date.parseDate = function(str, format, dateType) {
 	var min = 0;
 	var sec = 0;
 	var msec = 0;
-	
+
 	var a = format.match(/%.|[^%]+/g);
 	for (var i = 0; i < a.length; i++) {
 		if (a[i].charAt(0) == '%') {
 			switch (a[i]) {
 				case '%%':
-				
+
 				case '%t':
 				case '%n':
-				
+
 				case '%u':
 				case '%w':
 					str = str.substr(1);
 					break;
-					
-				
+
+
 					str = str.substr(1);
 					break;
-					
+
 				case '%U':
 				case '%W':
 				case '%V':
@@ -1770,25 +1770,25 @@ Date.parseDate = function(str, format, dateType) {
 			    		str = str.substr(wn[0].length);
 			    	}
 					break;
-				
+
 				case '%C':
 					var century;
 					if (century = str.match(/^\d{1,2}/)) {
 						str = str.substr(century[0].length);
 					}
 					break;
-					
+
 				case '%A':
 				case '%a':
 			    	var weekdayNames = (a[i] == '%a') ? Calendar._SDN : Calendar._DN;
 					for (j = 0; j < 7; ++j) {
 						if (str.substr(0, weekdayNames[j].length).toLowerCase() == weekdayNames[j].toLowerCase()) {
 							str = str.substr(weekdayNames[j].length);
-							break; 
+							break;
 						}
 					}
 					break;
-					
+
 				case "%d":
 				case "%e":
 			    	if (d = str.match(/^[0-3]?\d/)) {
@@ -1796,14 +1796,14 @@ Date.parseDate = function(str, format, dateType) {
 			    		d = parseInt(d[0], 10);
 			    	}
 					break;
-	
+
 			    case "%m":
 		    		if (m = str.match(/^[01]?\d/)) {
 			    		str = str.substr(m[0].length);
 			    		m = parseInt(m[0], 10) - 1;
 			    	}
 					break;
-		
+
 			    case "%Y":
 			    case "%y":
 			    	if (y = str.match(/^\d{2,4}/)) {
@@ -1815,7 +1815,7 @@ Date.parseDate = function(str, format, dateType) {
 						}
 			    	}
 				break;
-	
+
 			    case "%b":
 			    case "%B":
 			    	if (dateType == 'jalali') {
@@ -1827,11 +1827,11 @@ Date.parseDate = function(str, format, dateType) {
 						if (str.substr(0, monthNames[j].length).toLowerCase() == monthNames[j].toLowerCase()) {
 							str = str.substr(monthNames[j].length);
 							m = j;
-							break; 
+							break;
 						}
 					}
 					break;
-	
+
 			    case "%H":
 			    case "%I":
 			    case "%k":
@@ -1841,51 +1841,51 @@ Date.parseDate = function(str, format, dateType) {
 			    		hr = parseInt(hr[0], 10);
 			    	}
 				break;
-	
+
 			    case "%P":
 			    case "%p":
 			    	if (str.substr(0, Calendar._TT["LPM"].length) == Calendar._TT["LPM"]) {
 						str = str.substr(Calendar._TT["LPM"].length);
 						if (hr < 12) hr += 12;
 			    	}
-			    	
+
 			    	if (str.substr(0, Calendar._TT["PM"].length) == Calendar._TT["PM"]) {
 			    		str = str.substr(Calendar._TT["PM"].length);
 						if (hr < 12) hr += 12;
 			    	}
-			    	
+
 			    	if (str.substr(0, Calendar._TT["LAM"].length) == Calendar._TT["LAM"]) {
 			    		str = str.substr(Calendar._TT["LAM"].length);
 						if (hr >= 12) hr -= 12;
 			    	}
-			    	
+
 			    	if (str.substr(0, Calendar._TT["AM"].length) == Calendar._TT["AM"]) {
 			    		str = str.substr(Calendar._TT["AM"].length);
 						if (hr >= 12) hr -= 12;
 			    	}
 					break;
-	
+
 			    case "%M":
 			    	if (min = str.match(/^[0-5]?\d/)) {
 			    		str = str.substr(min[0].length);
 			    		min = parseInt(min[0], 10);
 			    	}
 					break;
-					
+
 				case "%S":
 			    	if (sec = str.match(/^[0-5]?\d/)) {
 			    		str = str.substr(sec[0].length);
 			    		sec = parseInt(sec[0], 10);
 			    	}
 					break;
-					
+
 				case "%s":
 					var time;
 					if (time = str.match(/^-?\d+/)) {
 						return new Date(parseInt(time[0], 10) * 1000);
 					}
 					break;
-				
+
 				default :
 					str = str.substr(2);
 					break;
@@ -1894,18 +1894,18 @@ Date.parseDate = function(str, format, dateType) {
 			str = str.substr(a[i].length);
 		}
 	}
-	
-	if (y == null || isNaN(y)) y = today.getLocalFullYear(false, dateType); 
+
+	if (y == null || isNaN(y)) y = today.getLocalFullYear(false, dateType);
 	if (m == null || isNaN(m)) m = today.getLocalMonth(false, dateType);
 	if (d == null || isNaN(d)) d = today.getLocalDate(false, dateType);
 	if (hr == null || isNaN(hr)) hr = today.getHours();
 	if (min == null || isNaN(min)) min = today.getMinutes();
 	if (sec == null || isNaN(sec)) sec = today.getSeconds();
-	
+
 	result.setLocalFullYear(true, dateType, y, m, d);
-	
+
 	result.setUTCHours(hr, min, sec, msec);
-	
+
 	return result;
 }
 
@@ -1981,22 +1981,22 @@ Date.prototype.getUTCWeekNumber = function() {
 
 /**
  * Returns the number of the week in jalali year.
- * 
+ *
  * Note that the result of this function may be incorrect.
  * I couldn't find the official defination of week number in Jalali calendar.
- * I have implemented this function with the assumption that "the week that contains 
+ * I have implemented this function with the assumption that "the week that contains
  * the first Saturday of the year is the first week of that year."
  * if you know any official defination, please let me know.
  */
 Date.prototype.getJalaliUTCWeekNumber = function() {
 	var j = JalaliDate.jalaliToGregorian(this.getJalaliUTCFullYear(), 1, 1);
-	
+
 	//First Saturday of the year
 	var d = new Date(Date.UTC(j[0], j[1]-1, j[2], 0, 0, 0));
-	
+
 	//Number of days after the first Saturday of the year
 	var days = this.getJalaliUTCDayOfYear() - ((7 - d.getJalaliUTCDay()) % 7) - 1;
-	
+
 	if (days < 0) return new Date(this - this.getJalaliUTCDay()*Date.DAY).getJalaliUTCWeekNumber();
 	return Math.floor(days / 7) + 1;
 };
@@ -2036,7 +2036,7 @@ Date.prototype.print = function (str, dateType, useLangNumbers) {
 	var d = this.getLocalDate(true, dateType);
 	var y = this.getLocalFullYear(true, dateType);
 	var wn = this.getLocalWeekNumber(true, dateType);
-	
+
 	var w = this.getUTCDay();
 	var s = {};
 	var hr = this.getUTCHours();
@@ -2067,7 +2067,7 @@ Date.prototype.print = function (str, dateType, useLangNumbers) {
 	s["%n"] = "\n";		// a newline character
 	s["%p"] = pm ? Calendar._TT["PM"] : Calendar._TT["AM"];
 	s["%P"] = pm ? Calendar._TT["LPM"] : Calendar._TT["LAM"];
-	
+
 	// FIXME: %r : the time in am/pm notation %I:%M:%S %p
 	// FIXME: %R : the time in 24-hour notation %H:%M
 	s["%s"] = Math.floor(this.getTime() / 1000);
@@ -2096,7 +2096,7 @@ Date.prototype.print = function (str, dateType, useLangNumbers) {
 			}
 		}
 	}
-	
+
 	if (useLangNumbers) str = str.convertNumbers();
 
 	return str;

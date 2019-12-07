@@ -27,8 +27,12 @@ Route::namespace('v1')->prefix('v1')->group(function () {
         Route::get('reminders', 'ClientReminderController@index');
         Route::get('reminders/get', 'ClientReminderController@get');
 
+        Route::get('mygifts', 'ClientGiftController@index');
+        Route::post('setgift', 'ClientGiftController@store');
+
         Route::get('specialDates', 'ClientSpecialDateController@index');
         Route::resource('favorite','ClientFavoriteController')->except(['create','edit']);
+
 
 
 

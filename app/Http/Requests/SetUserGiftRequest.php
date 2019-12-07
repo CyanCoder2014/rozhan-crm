@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Order;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CustomerPaymentRequest extends FormRequest
+class SetUserGiftRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,12 +24,9 @@ class CustomerPaymentRequest extends FormRequest
     public function rules()
     {
         return [
-            'order_id' =>['required','exists:orders,id'],
-            'pay_state' =>['required'],
-//            'account' =>['required','exists:accounts,id'],
-//            'bank' =>['required'],
-//            'description' =>[],
-//            'state' =>['required'],
+            'gift_id' => ['required','exists:score_gifts,id'],
+            'user_id' => ['required','exists:users,id']
+
         ];
     }
 }
