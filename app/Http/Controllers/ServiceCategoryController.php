@@ -13,6 +13,11 @@ class ServiceCategoryController extends BaseAPIController
         $this->appRepository = $appRepository;
         $this->model = new ServiceCategory();
     }
+
+    public function list()
+    {
+        return $this->model::select('id','title')->get();
+    }
     public function index()
     {
         return $this->model->paginate();

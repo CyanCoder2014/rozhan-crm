@@ -18,6 +18,10 @@ class ContactGroupController extends BaseAPIController
         return $this->model::paginate();
     }
 
+    public function list()
+    {
+        return $this->model::select('id','title')->get();
+    }
     protected function validationRules(){
         return [
             'title'=>['required','string'],

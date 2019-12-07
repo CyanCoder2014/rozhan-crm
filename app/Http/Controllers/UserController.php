@@ -18,6 +18,10 @@ class UserController extends BaseAPIController
     }
 
 
+    public function list()
+    {
+        return $this->model::select('id','name')->get();
+    }
 
     public function getCurrentUser(){
 
