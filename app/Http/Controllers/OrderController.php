@@ -74,13 +74,17 @@ class OrderController extends Controller
 
         ///// temp code
 
-        $contacts = Contact::whereNotNull('id');
-        $contacts->where('user_id',$array['data']->user_id);
-        $contacts = $contacts->get();
+        if (isset($array['data']))
+        {
+            $contacts = Contact::whereNotNull('id');
+            $contacts->where('user_id',$array['data']->user_id);
+            $contacts = $contacts->get();
 
-        Notification::send($contacts,new TemplateNotification('Reserve',['sms','db'],'#120'.$array['data']->id,null,null, 'همکاران با شما درتماس خواهند بود', null));
+            Notification::send($contacts,new TemplateNotification('Reserve',['sms','db'],'#120'.$array['data']->id,null,null, 'همکاران با شما درتماس خواهند بود', null));
 //        Notification::send($contacts,new MessageNotification('درخواست شما با موفقیت در سالن زیبایی ثبت شد',['sms']));
 
+
+        }
 
 
         return $this->response($array['data']??null,$array['message']??null,$array['status']??200);
