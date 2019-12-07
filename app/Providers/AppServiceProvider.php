@@ -49,10 +49,10 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
 
-//        if (Request::getHost() != 'localhost')
-//        {
-//            \URL::forceRootUrl(\Config::get('app.url'));
-//            \URL::forceScheme('https');
-//        }
+        if (Request::getHost() != 'localhost')
+        {
+            \URL::forceRootUrl(\Config::get('app.url'));
+            \URL::forceScheme('https');
+        }
     }
 }
