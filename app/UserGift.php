@@ -16,7 +16,10 @@ class UserGift extends Model
         'created_by',
         'updated_by',
     ];
-
+    public function scopeNotUsed($query)
+    {
+        return $query->whereNull('used_order_id');
+    }
     public static function NotUsed()
     {
         return static::whereNull('used_order_id');
