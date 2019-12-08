@@ -23,6 +23,9 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
 }
+.modal-content{
+  margin-top: 75px;
+}
 /* Layout */
 .wrapper {
   height: 100%;
