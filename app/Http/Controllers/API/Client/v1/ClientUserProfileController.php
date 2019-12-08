@@ -3,12 +3,18 @@
 namespace App\Http\Controllers\API\Client\v1;
 
 use App\Http\Requests\Client\ClientProfileRequset;
+use App\Services\UploadFileService\UploadImageService;
 use App\UserProfile;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class ClientUserProfileController extends Controller
 {
+    protected $imageService;
+    public function __construct(UploadImageService $imageService)
+    {
+        $this->imageService =$imageService;
+    }
     public function index()
     {
         if (isset(auth()->user()->contact->id))
@@ -29,6 +35,9 @@ class ClientUserProfileController extends Controller
             $userProfile = new UserProfile();
             $userProfile->contact_id = auth()->user()->contact->id;
         }
+        $parameters = \request()->all();
+        if(\request()->hasFile('image'))
+            $parameters['image'] = $this->imageService->upload('image')->resize(100,100)->getFileAddress();
         $userProfile->fill($requset->all());
         $userProfile->save();
         return $this->response($userProfile);

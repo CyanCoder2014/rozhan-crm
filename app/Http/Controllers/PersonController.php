@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Person;
 use App\Repositories\AppRepositoryImpl;
 use App\Repositories\UserRepository;
+use App\Services\UploadFileService\UploadImageService;
 
 
 class PersonController extends BaseAPIController
@@ -13,20 +14,28 @@ class PersonController extends BaseAPIController
      * @var UserRepository
      */
     protected $userRepository;
+    protected  $imageService;
 
     /**
      * PersonController constructor.
      * @param AppRepositoryImpl $appRepository
      * @param UserRepository $userRepository
      */
-    public function __construct(AppRepositoryImpl $appRepository,UserRepository $userRepository)
+
+    public function __construct(AppRepositoryImpl $appRepository,UserRepository $userRepository,UploadImageService $imageService)
     {
         $this->appRepository = $appRepository;
         $this->model = new Person();
         $this->userRepository = $userRepository;
+        $this->imageService = $imageService;
+
     }
 
 
+//    public function index()
+//    {
+//        return parent::dataTables(['name', 'family', 'score'],null,['OrderServices','services']);
+//    }
 
 
 
@@ -75,10 +84,20 @@ class PersonController extends BaseAPIController
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'mobile' => ['required', 'string', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8']]);
+        \request()->validate($this->validationRules(),$this->validationMessages(),$this->validationAttributes());
         $user =$this->userRepository->add(\request());
         \request()->request->add(['created_by' => auth()->id(),'user_id' => $user->id]);
-        return parent::store();
+
+        $parameters = \request()->all();
+        if(\request()->hasFile('image'))
+            $parameters['image'] = $this->imageService->upload('image')->resize(100,100)->getFileAddress();
+
+        $data = $this->appRepository->add( $parameters,$this->model);
+        return $this->response($data);
     }
+
+
+
     /**
      *
      * @bodyParam  name [] required
@@ -104,11 +123,23 @@ class PersonController extends BaseAPIController
      * "message": null
      * }
      */
+
     public function update($id)
     {
+        \request()->validate($this->validationRules(),$this->validationMessages(),$this->validationAttributes());
+
+        $parameters = \request()->all();
+        if(\request()->hasFile('image'))
+            $parameters['image'] = $this->imageService->upload('image')->resize(100,100)->getFileAddress();
+
+
         \request()->request->add(['updated_by' => auth()->id()]);
-        return parent::update($id);
+
+        $data = $this->appRepository->edit( $parameters, $id,$this->model);
+        return $this->response($data);
     }
+
+
     protected function validationRules()
     {
         return [

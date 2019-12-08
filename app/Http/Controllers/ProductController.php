@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use App\Repositories\AppRepositoryImpl;
+use App\Services\UploadFileService\UploadImageService;
 
 class ProductController extends BaseAPIController
 {
-    public function __construct(AppRepositoryImpl $appRepository)
+    protected  $imageService;
+    public function __construct(AppRepositoryImpl $appRepository,UploadImageService $imageService)
     {
         $this->appRepository = $appRepository;
         $this->model = new Product();
+        $this->imageService = $imageService;
     }
 
 
@@ -32,16 +35,34 @@ class ProductController extends BaseAPIController
 
     public function store()
     {
+        \request()->validate($this->validationRules(),$this->validationMessages(),$this->validationAttributes());
+
         \request()->request->add(['created_by' => auth()->id()]);
-        return parent::store();
+        $parameters = \request()->all();
+        if(\request()->hasFile('image'))
+            $parameters['image'] = $this->imageService->upload('image')->resize(100,100)->getFileAddress();
+
+
+
+        $data = $this->appRepository->add( $parameters,$this->model);
+        return $this->response($data);
     }
+
 
 
     public function update($id)
     {
+        \request()->validate($this->validationRules(),$this->validationMessages(),$this->validationAttributes());
+
         \request()->request->add(['updated_by' => auth()->id()]);
-        return parent::update($id);
+        $parameters = \request()->all();
+        if(\request()->hasFile('image'))
+            $parameters['image'] = $this->imageService->upload('image')->resize(100,100)->getFileAddress();
+
+        $data = $this->appRepository->edit( $parameters, $id,$this->model);
+        return $this->response($data);
     }
+
 
 
 
