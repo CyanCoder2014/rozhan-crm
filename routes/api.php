@@ -236,6 +236,7 @@ Route::middleware(['jwt.auth'])->group(function () {
     Route::get('serviceCategorieslist', 'ServiceCategoryController@list');
     Route::get('serviceslist', 'ServiceController@list');
     Route::get('userslist', 'UserController@list');
+    Route::get('scoregiftslist', 'ScoreGiftsController@list');
     Route::get('contact/tagslist', 'CTagController@list');
     Route::get('contact/groupslist', 'ContactGroupController@list');
     Route::get('productCategorieslist', 'ProductCategoryController@list');
