@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ScoreGifts extends Model
 {
     protected $fillable=[
+        'title',
         'score',
         'reference_type',
         'reference_id',

@@ -68,6 +68,7 @@ class ScoreGiftsController  extends BaseAPIController
     }
     protected function validationRules(){
         return [
+            'title'=>['required','string'],
             'score'=>['required','integer'],
             'product_id'=>['required_without:service_id', 'exists:products,id'],
             'service_id'=>['required_without:product_id', 'exists:services,id'],
