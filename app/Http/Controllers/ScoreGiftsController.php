@@ -52,9 +52,17 @@ class ScoreGiftsController  extends BaseAPIController
     {
         $data = $this->model::findOrFail($id);
         if($data->reference_type == Service::class)
-            $data->service = $data->reference()->first();
+        {
+//            $data->service = $data->reference()->first();
+            $data->service_id = $data->reference_id;
+
+        }
         if($data->reference_type == Product::class)
-            $data->product = $data->reference()->first();
+        {
+//            $data->product = $data->reference()->first();
+            $data->product_id = $data->reference_id;
+
+        }
         return $this->response($data);
 
     }
