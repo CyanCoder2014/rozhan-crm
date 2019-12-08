@@ -13,6 +13,7 @@
         "doctrine/dbal": "^2.10",
         "ellipsesynergie/api-response": "^0.16.0",
         "fideloper/proxy": "^4.0",
+        "intervention/image": "^2.5",
         "kavenegar/laravel": "^1.1",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
