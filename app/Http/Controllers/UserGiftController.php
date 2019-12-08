@@ -18,6 +18,11 @@ class UserGiftController extends Controller
     {
         return UserGift::with(['user','scoreGift','order'])->paginate();
     }
+
+    public function show($id)
+    {
+        return UserGift::with(['user','scoreGift','order'])->findOrFail($id);
+    }
     public function __construct(UserGiftService $service)
     {
         $this->service = $service;
