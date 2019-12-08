@@ -242,6 +242,7 @@ Route::middleware(['jwt.auth'])->group(function () {
     Route::get('products/list', 'ProductController@list');
     Route::post('contact/notifyByTag', 'ContactNotifyController@sendByTag')->middleware('permission:contacts.notify');
     Route::post('contact/notifyByGroup', 'ContactNotifyController@sendByGroup')->middleware('permission:contacts.notify');
+    Route::get('contact/{number}/info', 'ContactController@FindByNumber');
 
 });
 

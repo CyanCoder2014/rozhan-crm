@@ -125,5 +125,14 @@ class ContactController extends BaseAPIController
         return ContactTag::where('contact_id',$contact_id)->delete();
     }
 
+    public function FindByNumber($number)
+    {
+        $contact =Contact::where('mobile',"LIKE",'%'.$number.'%')->first();
+        if (!$contact)
+            $contact =Contact::where('tell',"LIKE",'%'.$number.'%')->first();
+
+        return $this->response($contact);
+
+    }
 
 }
