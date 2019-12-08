@@ -233,13 +233,13 @@ Route::middleware(['jwt.auth'])->group(function () {
     Route::post('/notifications','UserController@readNotification');
 
 
-    Route::get('serviceCategories/list', 'ServiceCategoryController@list');
-    Route::get('services/list', 'ServiceController@list');
-    Route::get('users/list', 'UserController@list');
-    Route::get('contact/tags/list', 'CTagController@list');
-    Route::get('contact/groups/list', 'ContactGroupController@list');
-    Route::get('productCategories/list', 'ProductCategoryController@list');
-    Route::get('products/list', 'ProductController@list');
+    Route::get('serviceCategorieslist', 'ServiceCategoryController@list');
+    Route::get('serviceslist', 'ServiceController@list');
+    Route::get('userslist', 'UserController@list');
+    Route::get('contact/tagslist', 'CTagController@list');
+    Route::get('contact/groupslist', 'ContactGroupController@list');
+    Route::get('productCategorieslist', 'ProductCategoryController@list');
+    Route::get('productslist', 'ProductController@list');
     Route::post('contact/notifyByTag', 'ContactNotifyController@sendByTag')->middleware('permission:contacts.notify');
     Route::post('contact/notifyByGroup', 'ContactNotifyController@sendByGroup')->middleware('permission:contacts.notify');
     Route::get('contact/{number}/info', 'ContactController@FindByNumber');
