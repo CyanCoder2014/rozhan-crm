@@ -17,6 +17,13 @@ class CTagController extends BaseAPIController
     {
         return $this->model::paginate();
     }
+    public function list(Request $request)
+    {
+        $q = $request->q;
+        if (isset($q))
+            return $this->model::select('id','title') ->where('title', 'LIKE', "%$q%")->get();
+        return $this->model::select('id','title')->get();
+    }
 
     protected function validationRules(){
         return [

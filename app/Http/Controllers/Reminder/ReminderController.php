@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Reminder;
 
+use App\Contact;
 use App\Services\ReminderService\ReminderObjectValue;
 use App\Services\ReminderService\ReminderService;
-use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -41,7 +41,7 @@ class ReminderController extends Controller
         return $this->service->personnelsReminder($date_from,$date_to);
 
     }
-    public function user(Request $request)
+    public function contact(Request $request)
     {
 
         $date_from=null;
@@ -51,7 +51,7 @@ class ReminderController extends Controller
         if (validate_jalili($request->date_to))
             $date_to= to_georgian_date($request->date_to);
 
-        return $this->service->UserReminder($request->user_id,$date_from,$date_to);
+        return $this->service->ContactReminder($request->contact_id,$date_from,$date_to);
 
     }
 
@@ -65,8 +65,8 @@ class ReminderController extends Controller
         $reminder->setDesctiprion($request->description);
         $reminder->setReminderAt(\DateTime::createFromFormat('Y-m-d H:i:s',to_georgian($request->reminderAt)));//
         $reminder->setExecuteAt(\DateTime::createFromFormat('Y-m-d H:i:s',to_georgian($request->executeAt)));
-        $reminder->setReceiverId(auth()->id());
-        $reminder->setReceiverName('App\User');
+        $reminder->setReceiverId(auth()->contact->id);
+        $reminder->setReceiverName(Contact::class);
         $reminder->setDb(1);
         $reminder->setEmail(0);
         $reminder->setSms(0);
@@ -89,8 +89,8 @@ class ReminderController extends Controller
         $reminder->setDesctiprion($request->description);
         $reminder->setReminderAt(to_georgian_date($request->reminderAt));//
         $reminder->setExecuteAt(to_georgian_date($request->executeAt));
-        $reminder->setReceiverId($request->receiverId);
-        $reminder->setReceiverName('App\User');
+        $reminder->setReceiverId($request->contactId);
+        $reminder->setReceiverName(Contact::class);
         $reminder->setDb(1);
         $reminder->setEmail(0);
         $reminder->setSms(0);

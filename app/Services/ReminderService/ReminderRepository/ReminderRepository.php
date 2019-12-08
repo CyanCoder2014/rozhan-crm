@@ -4,6 +4,7 @@
 namespace App\Services\ReminderService\ReminderRepository;
 
 
+use App\Contact;
 use App\Reminder;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
@@ -91,12 +92,12 @@ class ReminderRepository
         return $reminder->paginate();
 
     }
-    public function UserReminder($user_id= null,$date_from=null,$date_to=null)
+    public function ContactReminder($contact_id= null,$date_from=null,$date_to=null)
     {
 
-        $reminder = Reminder::where('receiver_type',User::class);
-        if ($user_id)
-            $reminder->where('receiver_id',$user_id);
+        $reminder = Reminder::where('receiver_type',Contact::class);
+        if ($contact_id)
+            $reminder->where('receiver_id',$contact_id);
         if ($date_from)
             $reminder->where('reminder_at','>=',$date_from.' 00:00:00');
         if ($date_to)

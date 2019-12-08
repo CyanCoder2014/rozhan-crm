@@ -95,9 +95,9 @@ class ReminderService
         return $this->repository->personnelsReminder($date_from,$date_to);
 
     }
-    public function UserReminder( $user_id,$date_from,$date_to)
+    public function ContactReminder( $contact_id,$date_from,$date_to)
     {
-        return $this->repository->UserReminder($user_id,$date_from,$date_to);
+        return $this->repository->ContactReminder($contact_id,$date_from,$date_to);
 
     }
 }

@@ -16,6 +16,7 @@ use App\Person;
 use App\PersonService;
 use App\Product;
 use App\Service;
+use App\Services\UserGiftService\UserGiftService;
 use App\Services\UserScoreService\UserScoreService;
 use App\User;
 use Carbon\Carbon;
@@ -27,9 +28,11 @@ use Illuminate\Support\Facades\DB;
 class OrderSrvImpl
 {
     protected $scoreService;
-    public function __construct(UserScoreService $scoreService)
+    protected $giftService;
+    public function __construct(UserScoreService $scoreService,UserGiftService $giftService)
     {
         $this->scoreService = $scoreService;
+        $this->giftService = $giftService;
     }
 
     public function getOrders()
@@ -306,9 +309,11 @@ class OrderSrvImpl
             $order->general_end = $general_end->format('H:i:s');
             $order->final_price = $price;
             $order->save();
-            $order->OrderServices = $order->OrderServices()->saveMany($newOrderServices);
-            $order->OrderProducts = $order->OrderProducts()->saveMany($newOrderProducts);
-
+            $OrderServices = $order->OrderServices()->saveMany($newOrderServices);
+            $OrderProducts = $order->OrderProducts()->saveMany($newOrderProducts);
+            $this->giftService->useGift($order);
+            $order->OrderServices = $OrderServices;
+            $order->OrderProducts = $OrderProducts;
             return ['message' =>'successful','data' =>$order];
         });
         Cache::forget('preorder_id_'.$id);
@@ -412,8 +417,11 @@ class OrderSrvImpl
             /*******************************************************/
             $order->final_price = $price;
             $order->save();
-            $order->OrderServices = $order->OrderServices()->saveMany($newOrderServices);
-            $order->OrderProducts = $order->OrderProducts()->saveMany($newOrderProducts);
+            $order->OrderServices()->saveMany($newOrderServices);
+            $order->OrderProducts()->saveMany($newOrderProducts);
+            $this->giftService->useGift($order);
+            $order->OrderServices;
+            $order->OrderProducts;
 
             return ['message' =>'successful','data' =>$order];
         });

@@ -13,9 +13,10 @@ use App\Repositories\UserRepository;
 use App\Services\CreateUser\CreateUser;
 use App\Services\CreateUser\ValueObjects\CreateUserValueObject;
 use App\User;
-use http\Env\Request;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -109,5 +110,44 @@ class UserController extends Controller
         return response()->json([
             'message' => 'User password is changed'
         ]);
+    }
+
+
+    public function getCurrentUserUnreadedNotification(Request $request){
+
+        $contact = Contact::where('user_id', Auth::id())->first();
+        if ($contact)
+        {
+            if (!$request->date_from && !$request->date_to)
+                return $contact->unreadNotifications()->paginate();
+            $notifications = $contact->notifications();
+            if (validate_jalili($request->date_from))
+                $notifications->whereDate('created_at','>=',to_georgian_date($request->date_from));
+            if (validate_jalili($request->date_to))
+                $notifications->whereDate('created_at','<=',to_georgian_date($request->date_to));
+
+            return $notifications->paginate();
+
+
+        }
+
+        return $this->response([],'کاربر اطلاعات تماس ندارد',400);
+
+    }
+    public function readNotification(Request $request){
+
+        $contact = Contact::where('user_id', Auth::id())->first();
+        if ($contact)
+        {
+            if (is_array($request->id))
+                $contact->unreadNotifications()->whereIn('id',$request->id)->update(['read_at' => now()]);
+            else
+                $contact->unreadNotifications()->where('id',$request->id)->update(['read_at' => now()]);
+
+            return $this->response([],'success',200);
+        }
+
+        return $this->response([],'کاربر اطلاعات تماس ندارد',400);
+
     }
 }

@@ -86,7 +86,7 @@ class TemplateNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'messaage' =>$this->getMessage()
+            'message' =>$this->getMessage()
         ];
     }
 

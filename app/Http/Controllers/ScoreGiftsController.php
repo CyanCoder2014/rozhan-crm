@@ -15,6 +15,10 @@ class ScoreGiftsController  extends BaseAPIController
         $this->appRepository = $appRepository;
         $this->model = new ScoreGifts();
     }
+    public function list()
+    {
+        return $this->model::select('id','title')->get();
+    }
     public function index()
     {
         $data = $this->model::paginate();

@@ -115,6 +115,8 @@ class DiscountController extends Controller
     public function ApplyDiscountToOrder(OrderDiscountRequest $request)
     {
         $discount= Discount::where('code',$request->code)->first();
+        if (!$discount)
+            return ['message' => 'کد تخفیف وجود ندارد', 'status' => 400];
         $order = Order::find($request->order_id);
         $statAndmessage = $discount->CanUse($order->user);
         if ($statAndmessage['status'] != 200)

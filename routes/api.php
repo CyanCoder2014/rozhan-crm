@@ -198,8 +198,8 @@ Route::middleware(['jwt.auth'])->group(function () {
         Route::namespace('Reminder')->prefix('reminder')->group(function () {
             Route::get('clients','ReminderController@client');
             Route::get('personnels','ReminderController@personnels');
-            Route::get('user','ReminderController@user');
-            Route::get('setRemember','ReminderController@user');
+            Route::get('contact','ReminderController@contact');
+            Route::get('setRemember','ReminderController@contact');
             Route::post('setRemember','ReminderController@setRemember');
             Route::post('sendRemember','ReminderController@sendRemember');
         });
@@ -227,6 +227,21 @@ Route::middleware(['jwt.auth'])->group(function () {
     Route::resource('usergift', 'UserGiftController')->except('edit','create','update');
     Route::get('/productReport', 'ReportController@productReport');
     Route::get('/incomeReport', 'ReportController@incomeReport');
+
+
+    Route::get('/notifications','UserController@getCurrentUserUnreadedNotification');
+    Route::post('/notifications','UserController@readNotification');
+
+
+    Route::get('serviceCategories/list', 'ServiceCategoryController@list');
+    Route::get('services/list', 'ServiceController@list');
+    Route::get('users/list', 'UserController@list');
+    Route::get('contact/tags/list', 'CTagController@list');
+    Route::get('contact/groups/list', 'ContactGroupController@list');
+    Route::get('productCategories/list', 'ProductCategoryController@list');
+    Route::get('products/list', 'ProductController@list');
+    Route::post('contact/notifyByTag', 'ContactNotifyController@sendByTag')->middleware('permission:contacts.notify');
+    Route::post('contact/notifyByGroup', 'ContactNotifyController@sendByGroup')->middleware('permission:contacts.notify');
 
 });
 
