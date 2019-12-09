@@ -24,7 +24,7 @@ class ContactUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'personal_code'=>['required'],
+            'personal_code'=>[],
             'image',
             'first_name',
             'last_name',
