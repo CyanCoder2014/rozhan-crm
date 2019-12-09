@@ -51,6 +51,35 @@ class UserRepository
             'password' => Hash::make($password),
         ]);
     }
+    public function update($request,$id){
+
+        if(empty($request->password)){
+            $password = $request->mobile;
+        }else{
+            $password = $request->password;
+        }
+
+        if(empty($request->name) || empty($request->family)){
+            $name = $request->first_name.' '.$request->last_name;
+        }else{
+            $name = $request->name.' '.$request->family;
+        }
+
+
+//        if(empty($request->email)){
+//            $email = $request->mobile;
+//        }else{
+//            $email = $request->email;
+//        }
+
+
+
+        return User::where('id',$id)->update([
+            'name'=>$name,
+            'email' => $request->email,
+            'mobile' => $request->mobile,
+        ]);
+    }
 
 
 

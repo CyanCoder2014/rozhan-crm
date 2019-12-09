@@ -28,6 +28,9 @@ class Person extends Model
     public function services(){
         return $this->hasMany(PersonService::class);
     }
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
     public function timing(){
         return $this->hasMany(PersonTiming::class);
     }
