@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\API\Admin\v1;
 
 
+use App\Contact;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\User\CreateRequest;
+use App\Repositories\AppRepositoryImpl;
 use App\Repositories\RoleRepository;
 use App\Repositories\UserRepository;
 use App\Services\CreateUser\CreateUser;
@@ -13,11 +15,13 @@ use App\Services\CreateUser\ValueObjects\CreateUserValueObject;
 class UserController extends Controller
 {
     protected $userRepository;
+    protected $appRepository;
 
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepository $userRepository,AppRepositoryImpl $appRepository)
     {
         $this->userRepository = $userRepository;
+        $this->appRepository = $appRepository;
     }
 
 
@@ -36,6 +40,7 @@ class UserController extends Controller
 
     public function create(CreateRequest $request, CreateUser $createUser)
     {
+        \request()->request->add(['first_name' => request('name')]);
         $data = $request->all();
 
         $valueObject = new CreateUserValueObject();
@@ -44,6 +49,8 @@ class UserController extends Controller
             ->setPassword($data['password']);
 
         $user = $createUser->create($valueObject);
+        $data['user_id'] = $user->id;
+        $this->appRepository->add($data , new Contact());
 
         return response()->json([
             'status'  => true,
