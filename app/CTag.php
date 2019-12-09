@@ -10,7 +10,7 @@ class CTag extends Model
 
     public static function isExist($value){
         $tag= null;
-        if(ctype_digit($value))
+        if(ctype_digit($value) || is_int($value))
             $tag = CTag::find($value);
         if ($tag)
             return $tag->id;
