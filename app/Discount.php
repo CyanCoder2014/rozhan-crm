@@ -12,6 +12,7 @@ class Discount extends Model
     use SoftDeletes;
     const general_type= 0;
     const contacts_only_type = 1;
+    const special_date_type = 2;
 
     const percent_amount_type = 0;
     const score_amount_type = 1;
@@ -58,8 +59,8 @@ class Discount extends Model
 
 
     public function castDate(){
-        $this->start_at = CalendarUtils::strftime('Y\m\d',strtotime($this->start_at));
-        $this->expired_at = CalendarUtils::strftime('Y\m\d',strtotime($this->expired_at));
+        $this->start_at = CalendarUtils::strftime('Y/m/d',strtotime($this->start_at));
+        $this->expired_at = CalendarUtils::strftime('Y/m/d',strtotime($this->expired_at));
     }
     public function CanUse(User $user)
     {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Discount;
 use App\Http\Requests\DiscountRequest;
+use App\Http\Requests\DiscountUpdateRequest;
 use App\Http\Requests\OrderDiscountRequest;
 use App\Order;
 use App\Repositories\DiscountRepository;
@@ -86,7 +87,7 @@ class DiscountController extends Controller
      * @param  \App\Discount  $discount
      * @return \Illuminate\Http\Response
      */
-    public function update(DiscountRequest $request, Discount $discount)
+    public function update(DiscountUpdateRequest $request, Discount $discount)
     {
         $rep = $this->repository->edit($request->all(),$discount);
         return $this->response($rep['data']??null,$rep['message']??null,$rep['status']??200);
