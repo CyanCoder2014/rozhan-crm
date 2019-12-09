@@ -40,6 +40,7 @@ Route::namespace('v1')->prefix('v1')->group(function () {
 
         Route::get('contact', 'UserController@authUser');
         Route::post('contact', 'UserController@updateContact');
+        Route::get('/workCalendar', 'UserWorkCalendarController@index');
     });
 
 
