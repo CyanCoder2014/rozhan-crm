@@ -27,11 +27,11 @@ class ContactNotifyController extends Controller
      */
     public function send(ContactNotifyRequest $request){
         $methods=[];
-        if ($request->sms == 1)
+        if ($request->sms )
             $methods[]='sms';
-        if ($request->email == 1)
+        if ($request->email )
             $methods[]='email';
-        if ($request->db == 1)
+        if ($request->db )
             $methods[]='db';
 
         $tag_ids = $request->tag_ids;
