@@ -28,7 +28,7 @@ class DiscountController extends Controller
      */
     public function index()
     {
-        return Discount::with('products','services','contacts')->paginate();
+        return Discount::with('products','services','contacts')->orderBy('id', 'desc')->paginate();
     }
 
     /**

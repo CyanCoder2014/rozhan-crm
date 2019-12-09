@@ -23,7 +23,7 @@ class ServiceController extends BaseAPIController
     }
     public function index()
     {
-        $data = Service::with('serviceCategory')->with('persons')->paginate();
+        $data = Service::with('serviceCategory')->with('persons')->orderBy('id', 'desc')->orderBy('service_categories_id', 'desc')->paginate();
         return $data;
         return $this->response($data);
     }

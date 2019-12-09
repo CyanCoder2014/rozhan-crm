@@ -45,7 +45,7 @@ class OrderController extends Controller
     public function index()
     {
 //        $data = $this->appRepository->getAll($this->model);
-        return Order::with(['OrderServices','OrderServices.person','OrderServices.service','OrderProducts','OrderProducts.product','user'])->paginate();
+        return Order::with(['OrderServices','OrderServices.person','OrderServices.service','OrderProducts','OrderProducts.product','user'])->orderBy('id', 'desc')->paginate();
 
 //        return $this->response($data);
     }
