@@ -12,7 +12,7 @@ class Product extends Model
         'title',
         'image',
         'description',
-        'initial_number',
+        'initial_amount',
         'remaining_number',
         'blocked_number',
         'price',

@@ -17,6 +17,43 @@ class BuyFactorController extends BaseAPIController
     }
     public function index()
     {
+        return parent::dataTables([
+            'product_code',
+            'product_name',
+            'product_description',
+            'numbers',
+            'unit',
+            'unit_price',
+            'discount',
+            'final_price',
+            'factor_date',
+            'tax',
+            'price_plus_tax',
+            'account_id',
+            'buy_type',
+            'description',
+            'full_name',
+            'national_code',
+            'register_number',
+            'address',
+            'post_code',
+            'tell_number',
+            'economic_code',
+        ],[
+            'product_code',
+            'product_name',
+            'product_description',
+            'unit',
+            'buy_type',
+            'description',
+            'full_name',
+            'national_code',
+            'register_number',
+            'address',
+            'post_code',
+            'tell_number',
+            'economic_code',
+        ]);
         return $this->model::paginate();
     }
 

@@ -15,6 +15,9 @@ class CTagController extends BaseAPIController
     }
     public function index()
     {
+        return parent::dataTables(
+            ['title']
+        );
         return $this->model->orderBy('id', 'desc')->paginate();
     }
     public function list(Request $request)

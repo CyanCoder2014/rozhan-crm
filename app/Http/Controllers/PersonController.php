@@ -43,6 +43,11 @@ class PersonController extends BaseAPIController
 
     public function index()
     {
+        return parent::dataTables(
+            ['user_id', 'name', 'image', 'family', 'description', 'min_time', 'score', 'star', 'type', 'state'],
+            ['name',  'family', 'description', 'min_time'],
+            ['OrderServices','services']
+        );
 //        $data = $this->appRepository->getAll($this->model);
         $data = Person::with('OrderServices')->with('services')->orderBy('id', 'desc')->paginate();
 

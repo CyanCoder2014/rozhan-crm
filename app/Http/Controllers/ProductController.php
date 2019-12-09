@@ -19,6 +19,11 @@ class ProductController extends BaseAPIController
 
     public function index()
     {
+        return parent::dataTables(
+            ['product_id', 'product_category_id', 'title', 'image', 'description', 'initial_amount', 'remaining_number', 'blocked_number', 'price', 'predicted_price', 'default_discount', 'tax', 'min_time', 'max_time', 'type', 'star', 'state',],
+            ['title', 'description',],
+            ['productCategory']
+        );
         $data = Product::with('productCategory')->paginate();
         return $data;
 //        return $this->response($data);

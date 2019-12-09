@@ -23,6 +23,11 @@ class ServiceController extends BaseAPIController
     }
     public function index()
     {
+        return parent::dataTables(
+            ['parent_id', 'service_categories_id', 'title', 'image', 'description', 'initial_number', 'remaining_number', 'blocked_number', 'reserved', 'price', 'predicted_price', 'default_discount', 'tax', 'min_time', 'max_time', 'type', 'star', 'state',],
+            ['title', 'description'],
+            ['persons','serviceCategory']
+        );
         $data = Service::with('serviceCategory')->with('persons')->orderBy('id', 'desc')->orderBy('service_categories_id', 'desc')->paginate();
         return $data;
         return $this->response($data);

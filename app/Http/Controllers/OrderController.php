@@ -45,6 +45,38 @@ class OrderController extends Controller
     public function index()
     {
 //        $data = $this->appRepository->getAll($this->model);
+
+        $columns =    ['title', 'description', 'file','general_price', 'general_discount', 'general_tax', 'final_price', 'general_date', 'general_start', 'general_end',];
+        $search_column =   ['title', 'description', 'general_start', 'general_end'];
+        $with =['OrderServices','OrderServices.person','OrderServices.service','OrderProducts','OrderProducts.product','user'];
+        if ( \request()->input('showdata') ) {
+            return $this->model::orderBy('created_at', 'desc')->get();
+        }
+        $length = \request()->input('length',15);
+        $column = \request()->input('column');
+        $order = \request()->input('order','desc');
+        $search_input = \request()->input('search');
+        $query = $this->model::select(array_merge($columns,['id','created_at']))
+            ->orderBy($columns[$column]??'id',$order);
+        if ($with)
+            $query->with($with);
+        if ($search_input) {
+            $query->where(function($query) use ($search_input,$search_column) {
+
+                foreach ($search_column as $key => $column)
+                    if ($key == array_key_first($search_column))
+                        $query->where($column, 'like', '%' . $search_input . '%');
+                    else
+                        $query->orWhere($column, 'like', '%' . $search_input . '%');
+//                    ->orWhere('mobile', 'like', '%' . $search_input . '%')
+//                    ->orWhere('email', 'like', '%' . $search_input . '%')
+//                    ->orWhere('tell', 'like', '%' . $search_input . '%');
+//                    ->orWhere('created_at', 'like', '%' . $search_input . '%');
+            });
+        }
+        $data = $query->paginate($length);
+        return $data;
+
         return Order::with(['OrderServices','OrderServices.person','OrderServices.service','OrderProducts','OrderProducts.product','user'])->orderBy('id', 'desc')->paginate();
 
 //        return $this->response($data);

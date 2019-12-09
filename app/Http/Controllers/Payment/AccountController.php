@@ -15,6 +15,24 @@ class AccountController extends BaseAPIController
     }
     public function index()
     {
+        return parent::dataTables([
+            'title',
+            'name',
+            'number',
+            'details',
+            'debt',
+            'credit',
+            'collecting_balance',
+            'balance',
+            'bank',
+            'sheba',
+        ],[
+
+            'title',
+            'name',
+            'details',
+            'sheba',
+        ]);
         return $this->model->paginate();
     }
 
