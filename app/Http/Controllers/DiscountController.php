@@ -116,13 +116,13 @@ class DiscountController extends Controller
     {
         $discount= Discount::where('code',$request->code)->first();
         if (!$discount)
-            return ['message' => 'کد تخفیف وجود ندارد', 'status' => 400];
+            return  $this->response( null,'کد تخفیف وجود ندارد',  400);
         $order = Order::find($request->order_id);
         $statAndmessage = $discount->CanUse($order->user);
         if ($statAndmessage['status'] != 200)
-            return ['message' => $statAndmessage['message'], 'status' => 400];
+            return  $this->response( null, $statAndmessage['message'], 400);
         if ($order->discount()->count() > 0)
-            return ['message' => 'تخفیف برای این سفارش ثبت شده', 'status' => 400];
+            return $this->response( null,'تخفیف برای این سفارش ثبت شده',  400);
 
         $rep= $this->repository->Apply($discount,$order);
         return $this->response($rep['data']??null,$rep['message']??null,$rep['status']??200);
