@@ -18,6 +18,12 @@ class Discount extends Model
     const score_amount_type = 1;
     const money_amount_type = 2;
 
+
+    const created_status = 0;
+    const notified_status = 1;
+    const reminded_status = 2;
+    const reminder_set_status = 2;
+
     protected $fillable=[
         'title',
         'quantity',
