@@ -31,10 +31,10 @@ class SpecialDateRequest extends FormRequest
                     $fail($attribute.' is not jalili time.');
                 }
             }],
-            'percent'=>[],
+            'percent'=>['required','integer'],
             'type'=>['required','integer'],
             'state'=>[],
-            'discount_id'=>['required','exists:discounts,id']
+//            'discount_id'=>['required','exists:discounts,id']
         ];
     }
 
