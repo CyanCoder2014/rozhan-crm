@@ -43,7 +43,10 @@ class OrderService extends Model
         return $this->belongsTo(Person::class);
     }
     public function user(){
-        return $this->belongsTo(User::class);
+        return $this->hasOneThrough(User::class,Order::class,'id','user_id','order_id','id');
+    }
+    public function contact(){
+        return $this->hasOneThrough(Contact::class,Order::class,'id','user_id','order_id','user_id');
     }
     public function hasConflictWith(OrderService $service):bool{
         if ($this->date != $service->date)

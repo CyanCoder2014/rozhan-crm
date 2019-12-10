@@ -22,7 +22,7 @@ class workCalendarController extends Controller
             ,'OrderServices'=>function ($query) use($request){
                 $query->where('state','!=',OrderService::cancel_state)
                     ->whereBetween('date', [to_georgian_date($request->date_from),to_georgian_date($request->date_to)]);
-            }])->get();
+            },'OrderServices.contact'])->get();
         }
         else
             return $query->with(['timing'=>function ($query) use($request){
@@ -30,7 +30,7 @@ class workCalendarController extends Controller
             },'OrderServices'=>function ($query) use($request){
                 $query->where('state','!=',OrderService::cancel_state)
                     ->where('date', to_georgian_date($request->date_from));
-            }])->get();
+            },'OrderServices.contact'])->get();
 
     }
 }
