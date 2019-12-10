@@ -13,12 +13,20 @@ use App\Notifications\TemplateNotification;
 use App\Order;
 use App\Product;
 use App\Service;
+use App\Services\ReminderService\ReminderObjectValue;
+use App\Services\ReminderService\ReminderService;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Notification;
+use Morilog\Jalali\CalendarUtils;
 
 class DiscountRepository
 {
+    protected $reminderService;
+    public function __construct(ReminderService $reminderService)
+    {
+        $this->reminderService = $reminderService;
+    }
 
     public function add($data)
     {
@@ -29,6 +37,7 @@ class DiscountRepository
            'amount'=>$data['amount'],
            'amount_type'=>$data['amount_type'],
            'code'=>$data['code'],
+           'status'=>Discount::created_status,
            'start_at'=>to_georgian_date($data['start_at']),
            'expired_at'=>to_georgian_date($data['expired_at']).' 23:59:59',
         ]);
@@ -131,7 +140,7 @@ class DiscountRepository
     }
     public function notify(Discount $discount)
     {
-        if ($discount->type = Discount::contacts_only_type)
+        if ($discount->contacts->count() > 0)
             $contacts = $discount->contacts;
         else
             $contacts = Contact::all();
@@ -147,7 +156,50 @@ class DiscountRepository
                 Notification::send($contacts,new TemplateNotification('Credit',['sms','db'],$discount->amount,to_jalali_date($discount->expired_at),$discount->code));
                 break;
         }
+        $discount->status = Discount::notified_status;
+        $discount->save();
 
+    }
+    public function remind(Discount $discount)
+    {
+        if ($discount->contacts->count() > 0)
+            $contacts = $discount->contacts;
+        else
+            $contacts = Contact::all();
+
+        $reminder = new ReminderObjectValue();
+        $title= 'تخفیف با کد '.$discount->code;
+        $amount ='';
+        switch ($discount->amount_type){
+            case Discount::percent_amount_type:
+                $amount = 'درصد تخفیف: '.$discount->amount;
+                break;
+            case Discount::money_amount_type:
+                $amount = 'مقدار اعتبار کسب تخفیف: '.$discount->amount;
+                break;
+            case Discount::score_amount_type:
+                $amount = 'امتیاز تخفیف: '.$discount->amount;
+                break;
+        }
+        $description= 'تاریخ اعتبار: '.CalendarUtils::strftime('Y/m/d',strtotime($discount->expired_at)).' '.$amount;
+        $reminder->setTitle($title);
+        $reminder->setDesctiprion($description);
+        $reminder->setReminderAt(\DateTime::createFromFormat('Y-m-d H:i:s',$discount->start_at));//
+        $reminder->setExecuteAt(\DateTime::createFromFormat('Y-m-d H:i:s',$discount->start_at));
+        $reminder->setDb(true);
+        $reminder->setEmail(false);
+        $reminder->setSms(true);
+        $reminder->setReceiverName(Contact::class);
+        $reminder->setSenderId($discount->id);
+        $reminder->setSenderName($discount->getMorphClass());
+
+        foreach ($contacts as $contact)
+        {
+            $reminder->setReceiverId($contact->id);
+            $this->reminderService->Send($reminder);
+        }
+        $discount->status = Discount::reminded_status;
+        $discount->save();
 
     }
 

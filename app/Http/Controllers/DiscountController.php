@@ -141,6 +141,11 @@ class DiscountController extends Controller
         $this->repository->notify($discount);
 
     }
+    public function remind(Discount $discount,Request $request)
+    {
+        $this->repository->remind($discount);
+
+    }
 
 
 
