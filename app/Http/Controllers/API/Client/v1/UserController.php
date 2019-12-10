@@ -12,6 +12,7 @@ use App\Repositories\RoleRepository;
 use App\Repositories\UserRepository;
 use App\Services\CreateUser\CreateUser;
 use App\Services\CreateUser\ValueObjects\CreateUserValueObject;
+use App\Services\UploadFileService\UploadImageService;
 use App\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Auth\Events\Registered;
@@ -30,17 +31,19 @@ class UserController extends Controller
      */
     protected $userRepository;
 
+    protected $imageService;
+
     public function __construct(
         UserRepository $userRepository,
-        RoleRepository $roleRepository
+        RoleRepository $roleRepository,
+        UploadImageService $imageService
     )
     {
         $this->roleRepository = $roleRepository;
         $this->userRepository = $userRepository;
+        $this->imageService =$imageService;
+
     }
-
-
-
 
 
     public function authUser()
@@ -62,7 +65,10 @@ class UserController extends Controller
             $data->user_id = auth()->id();
 
         }
-        $data->fill($request->all());
+        $parameters = $request->all();
+        if(\request()->hasFile('image'))
+            $parameters['image'] = $this->imageService->upload('image')->resize(100,100)->getFileAddress();
+        $data->fill($parameters);
         $data->save();
         return $this->response($data);
     }
