@@ -17,6 +17,8 @@ class OrderServiceFeedbackRepostory
             return $this->error('پیدا نشد',404);
         if ($orderService->order->state != Order::complete_state)
             return $this->error('سفارش شما به پایان نرسیده',400);
+        if ($orderService->feedback)
+            return $this->error('شما قبل از این برای این سرویس نظر ثبت کرده اید',400);
         return $this->successful(OrderServiceFeedback::create([
             'user_id' => $user->id,
             'order_service_id' => $orderService->id,

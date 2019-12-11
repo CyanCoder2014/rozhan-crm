@@ -22,6 +22,7 @@ class ClientOrderServiceFeedbackController extends Controller
     public function store(ClientOrderServiceFeedbackRequset $requset)
     {
         $orderService = OrderService::with('order')->find($requset->order_service_id);
+
         $response =$this->repostory->add($orderService,auth()->user(),$requset->rate,$requset->comment);
         return $this->response($response['data']??null,$response['message']??null,$response['status']??null);
     }

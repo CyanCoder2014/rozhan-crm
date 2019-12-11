@@ -39,7 +39,7 @@ class ClientOrderController extends Controller
     {
         $data = $this->model::where('user_id',auth()->id())
             ->where('id',$id)
-            ->with(['OrderServices','OrderServices.person','OrderServices.service','user'])
+            ->with(['OrderServices','OrderServices.person','OrderServices.service','OrderServices.feedback','user'])
             ->first();
         return $this->response($data);
     }

@@ -42,6 +42,9 @@ class OrderService extends Model
     public function person(){
         return $this->belongsTo(Person::class);
     }
+    public function feedback(){
+        return $this->hasOne(OrderServiceFeedback::class);
+    }
     public function user(){
         return $this->hasOneThrough(User::class,Order::class,'id','user_id','order_id','id');
     }
