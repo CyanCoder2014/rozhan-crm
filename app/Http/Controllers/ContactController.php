@@ -63,7 +63,7 @@ class ContactController extends BaseAPIController
     public function show($id)
     {
         $data = Contact::where('id',$id)
-            ->with(['user.orders','user.orders.OrderServices','user.orders.OrderServices.person','user.orders.OrderServices.service','user','group','tags'])
+            ->with(['user.orders','user.orders.OrderServices','user.orders.OrderServices.person','user.orders.OrderServices.service','user','group','tags','reviews'])
             ->first();
         $data->score = $this->scoreService->getScore($data->user);
         return $this->response($data);
