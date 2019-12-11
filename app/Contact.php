@@ -39,6 +39,10 @@ class Contact extends Model
     {
         return $this->belongsTo(ContactGroup::class);
     }
+    public function reviews()
+    {
+        return $this->hasMany(ContactReview::class);
+    }
 
 
 

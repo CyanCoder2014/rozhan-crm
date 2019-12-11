@@ -54,6 +54,14 @@ class Person extends Model
 
     }
 
+    public function CustomerContactIds()
+    {
+        return $this->Orders()->select('orders.user_id','contacts.id')
+                ->where('orders.state','!=',Order::cancel_state)
+                ->groupBy('user_id')
+                ->join('contacts','contacts.user_id','=','orders.user_id')
+                ->get()->pluck('id')->toArray();
+    }
     public function isAvailabe($date ,$start_at,$end_at){
         if ($this->timing()->where('date', $date)
                 ->where('start','<=', $start_at)

@@ -245,6 +245,10 @@ Route::middleware(['jwt.auth'])->group(function () {
     Route::post('discount/{discount}/remind','DiscountController@remind');
 
     Route::resource('contact/{contact}/reviews', 'ContactReviewController');
+    Route::resource('customer/{contact}/reviews', 'PersonContactReviewController');
+    Route::get('mycostomer/list', 'PersonContactReviewController@PersonCustomers');
+
+
 
 
 
