@@ -27,6 +27,7 @@ Route::namespace('v1')->prefix('v1')->group(function () {
         Route::get('reminders', 'ClientReminderController@index');
         Route::get('reminders/get', 'ClientReminderController@get');
 
+        Route::get('giftlist', 'ClientGiftController@scoreGiftsList');
         Route::get('mygifts', 'ClientGiftController@index');
         Route::post('setgift', 'ClientGiftController@store');
 

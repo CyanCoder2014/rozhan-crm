@@ -21,6 +21,11 @@ class ClientGiftController extends Controller
         return UserGift::where('user_id',auth()->id())->paginate();
     }
 
+    public function scoreGiftsList()
+    {
+        return ScoreGifts::paginate();
+    }
+
     public function store(ClientGetGiftRequest $requset)
     {
         $this->service->UserGetGift(ScoreGifts::findOrFail($requset->gift_id),auth()->user());
