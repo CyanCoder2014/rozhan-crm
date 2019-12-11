@@ -65,6 +65,9 @@ class Order extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+    public function contact(){
+        return $this->hasOne(contact::class,'user_id','user_id');
+    }
 
     public function discount(){
         return $this->hasManyThrough(Discount::class,DiscountOrder::class,'order_id','id','id','discount_id');

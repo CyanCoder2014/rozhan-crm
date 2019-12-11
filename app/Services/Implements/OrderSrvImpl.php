@@ -16,6 +16,7 @@ use App\Person;
 use App\PersonService;
 use App\Product;
 use App\Service;
+use App\Services\DiscountService\DiscountService;
 use App\Services\UserGiftService\UserGiftService;
 use App\Services\UserScoreService\UserScoreService;
 use App\User;
@@ -24,15 +25,18 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class OrderSrvImpl
 {
     protected $scoreService;
     protected $giftService;
-    public function __construct(UserScoreService $scoreService,UserGiftService $giftService)
+    protected $discountService;
+    public function __construct(UserScoreService $scoreService,UserGiftService $giftService,DiscountService $discountService)
     {
         $this->scoreService = $scoreService;
         $this->giftService = $giftService;
+        $this->discountService = $discountService;
     }
 
     public function getOrders()
@@ -514,7 +518,7 @@ class OrderSrvImpl
     {
 
         if (!Order::canChangeState($order->state,Order::payed_state))
-            return ['message' =>'نمی توان سفارش را پرداخت کرد','status'=>400];
+            ValidationException::withMessages( ['message' =>'نمی توان سفارش را پرداخت کرد']);
         $order->state = Order::payed_state;
         foreach ($order->OrderServices as $OrderServices)
         {
@@ -576,6 +580,9 @@ class OrderSrvImpl
             }
             $OrderProducts->save();
         }
+        $this->discountService->serviceDiscountService($order);
+        $this->discountService->productDiscountService($order);
+
         $order->save();
         return ['message' =>'successful','data' =>$order];
 
