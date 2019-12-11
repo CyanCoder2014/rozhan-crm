@@ -30,17 +30,18 @@ class ClientOrderServiceFeedbackController extends Controller
     }
     public function OrderStore(ClientOrderFeedbackRequset $requset)
     {
-        $order = Order::with('OrderService')->find($requset->order_id);
+        $order = Order::with('OrderServices')->find($requset->order_id);
+        $response=[];
         $response['data'] = [];
-        foreach ($order->OrderService as $orderService)
+        foreach ($order->OrderServices as $orderService)
         {
             $res =$this->repostory->add($orderService,auth()->user(),$requset->rate,$requset->comment);
-            if (isset($res['status']) && $res['status'] != 200)
-                return $this->response($res['data']??null,$res['message']??null,$res['status']??null);
+//            if (isset($res['status']) && $res['status'] != 200)
+//                return $this->response($res['data']??null,$res['message']??null,$res['status']??null);
             $response['data'][] = $res;
 
 
         }
-        return $this->response($response['data']??null,$response['message']??null,$response['status']??null);
+        return $this->response($response['data']??null,$response['message']??null,$response['status']??200);
     }
 }
