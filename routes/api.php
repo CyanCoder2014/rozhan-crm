@@ -248,6 +248,10 @@ Route::middleware(['jwt.auth'])->group(function () {
     Route::resource('customer/{contact}/reviews', 'PersonContactReviewController');
     Route::get('mycostomer/list', 'PersonContactReviewController@PersonCustomers');
 
+    Route::resource('productDiscount', 'ProductDiscountController')->except('edit','create');
+    Route::resource('serviceDiscount', 'ServiceDiscountController')->except('edit','create');
+
+
 
 
 
