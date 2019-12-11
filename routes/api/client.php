@@ -19,7 +19,7 @@ Route::namespace('v1')->prefix('v1')->group(function () {
         Route::post('orders/discount', 'ClientDiscountController@ApplyDiscountToOrder');
         Route::get('order/getAvailableServices', 'ClientOrderController@getAvailableServices');
 
-        Route::post('order/feedback','ClientOrderServiceFeedbackController@OderStore');
+        Route::post('order/feedback','ClientOrderServiceFeedbackController@OrderStore');
         Route::post('order/service/feedback','ClientOrderServiceFeedbackController@store');
 
         Route::get('profile', 'ClientUserProfileController@index');
