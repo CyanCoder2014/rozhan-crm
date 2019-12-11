@@ -117,7 +117,6 @@ Route::middleware(['jwt.auth'])->group(function () {
     Route::post('factor/step/quick', 'OrderController@addOrderQuick')->middleware('permission:orders.quickstore');
     Route::get('orders/add/{id}', 'OrderController@serviceSchedule')->name('order.step2')->middleware('permission:orders.store');
     Route::post('orders/add/{id}', 'OrderController@store')->name('order.store')->middleware('permission:orders.store');
-    Route::post('orders/payed', 'OrderController@paymentCompleted')->name('order.paymentCompleted')->middleware('permission:orders.payed');
 
 
 
@@ -232,7 +231,7 @@ Route::middleware(['jwt.auth'])->group(function () {
     Route::get('/notifications','UserController@getCurrentUserUnreadedNotification');
     Route::post('/notifications','UserController@readNotification');
 
-
+    Route::post('orders/payed', 'OrderController@paymentCompleted')->name('order.paymentCompleted');//->middleware('permission:orders.payed');
     Route::get('serviceCategorieslist', 'ServiceCategoryController@list');
     Route::get('serviceslist', 'ServiceController@list');
     Route::get('userslist', 'UserController@list');
