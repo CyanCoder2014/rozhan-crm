@@ -41,6 +41,11 @@ class ClientOrderController extends Controller
             ->where('id',$id)
             ->with(['OrderServices','OrderServices.person','OrderServices.service','OrderServices.feedback','user'])
             ->first();
+        $feedback= true;
+        foreach ($data->OrderServices as $orderService)
+            if (!$orderService->feedback)
+                $feedback = false;
+        $data->isFeedbacked = $feedback;
         return $this->response($data);
     }
 
