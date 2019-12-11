@@ -244,6 +244,9 @@ Route::middleware(['jwt.auth'])->group(function () {
     Route::get('contact/{number}/info', 'ContactController@FindByNumber');
     Route::post('discount/{discount}/remind','DiscountController@remind');
 
+    Route::resource('contact/{contact}/reviews', 'ContactReviewController');
+
+
 
 });
 
