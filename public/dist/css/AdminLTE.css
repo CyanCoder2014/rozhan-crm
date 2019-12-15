@@ -2615,6 +2615,30 @@ a:focus {
  * Component: Products List
  * ------------------------
  */
+ .input-search{
+width: 180px !important;
+float: left;
+ }
+ .select-search{
+  height: 32px;
+  border-radius: 5px;
+  font-size: 13px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+ }
+ .position{
+  position: relative
+}
+  .icon-form{
+    font-size: 15px;
+        font-size: 17px;
+  position: absolute;
+  left: 1px;
+  }
+
+.table-responsive .table {
+    max-width: none;
+}
 .products-list {
   list-style: none;
   margin: 0;
