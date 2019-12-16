@@ -232,7 +232,7 @@ a:focus {
     -o-transition: margin-right 0.3s ease-in-out;
     transition: margin-right 0.3s ease-in-out;
     margin-bottom: 0;
-    margin-right: 230px;
+    /* margin-right: 230px; */
     border: none;
     min-height: 50px;
     border-radius: 0;
@@ -503,7 +503,8 @@ a:focus {
 
 @media (max-width: 767px) {
     .main-sidebar {
-        padding-top: 100px;
+        /* padding-top: 70px; */
+    
     }
 }
 
@@ -666,15 +667,15 @@ a:focus {
     .sidebar-mini.sidebar-collapse .content-wrapper,
     .sidebar-mini.sidebar-collapse .left-side,
     .sidebar-mini.sidebar-collapse .main-footer {
-        margin-right: 50px !important;
+        /* margin-right: 50px !important; */
         z-index: 840;
     }
 
     .sidebar-mini.sidebar-collapse .main-sidebar {
-        -webkit-transform: translate(0, 0);
-        -ms-transform: translate(0, 0);
-        -o-transform: translate(0, 0);
-        transform: translate(0, 0);
+        -webkit-transform: translate(051p, 0);
+        -ms-transform: translate(51px, 0);
+        -o-transform: translate(51px, 0);
+        transform: translate(51px, 0);
         width: 50px !important;
         z-index: 850;
     }
@@ -727,7 +728,7 @@ a:focus {
     }
 
     .sidebar-mini.sidebar-collapse .main-header .navbar {
-        margin-right: 50px;
+        margin-right: 0px;
     }
 }
 
@@ -750,8 +751,8 @@ a:focus {
     position: relative !important;
     float: left;
     width: auto !important;
-    right: 180px !important;
-    top: -22px !important;
+    right:15px !important;
+    top: 0px !important;
     z-index: 900;
 }
 
