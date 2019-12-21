@@ -24,7 +24,7 @@ class ServiceController extends BaseAPIController
     public function index()
     {
         return parent::dataTables(
-            ['parent_id', 'service_categories_id', 'title', 'image', 'description', 'initial_number', 'remaining_number', 'blocked_number', 'reserved', 'price', 'predicted_price', 'default_discount', 'tax', 'min_time', 'max_time', 'type', 'star', 'state',],
+            ['parent_id', 'service_categories_id', 'title', 'image', 'description', 'initial_number', 'remaining_number', 'blocked_number', 'reserved', 'price', 'predicted_price', 'default_discount', 'tax', 'min_time', 'max_time', 'type', 'star', 'state','score',],
             ['title', 'description'],
             ['persons','serviceCategory']
         );
