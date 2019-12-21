@@ -92,7 +92,8 @@
   position: absolute;
   overflow: hidden;
   /*background-color: #576D7C;*/
-  background-color: rgba(22,22,130,.6);
+  /*background-color: rgba(22,22,130,.6);*/
+  background-color: rgba(236, 64, 122,.7);
   padding: 10px;
   box-sizing: border-box;
   box-shadow: -5px -5px 8px rgba(0,0,0,.35);
@@ -101,7 +102,7 @@
   color: #FFFFFF;
   word-wrap: break-word;
   min-width: 0;
-  min-height: 50px;
+  min-height: 30px;
   transition: all .4s;
    border-radius: 6px;
 }
