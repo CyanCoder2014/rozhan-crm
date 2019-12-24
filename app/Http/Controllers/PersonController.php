@@ -153,6 +153,7 @@ class PersonController extends BaseAPIController
         $person = Person::findOrFail($id);
         $user =$this->userRepository->update(\request(),$person->user->id);
 
+        if ($person->user->contact)
         $this->appRepository->edit($parameters ,$person->user->contact->id, new Contact());
 
 

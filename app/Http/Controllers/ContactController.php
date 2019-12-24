@@ -49,6 +49,7 @@ class ContactController extends BaseAPIController
     {
 //        return $this->model->orderBy('id', 'desc')->paginate();
         $data =  parent::dataTables(['first_name','user_id', 'last_name', 'mobile', 'email', 'tell','personal_code','created_at'],['first_name','user_id', 'last_name', 'mobile', 'email', 'tell'],['user']);
+
         $data->getCollection()->transform(function ($value) {
             $value->score = 0;
             if ($value->user)
@@ -94,8 +95,12 @@ class ContactController extends BaseAPIController
 
     public function update($id)
     {
+        $contact = Contact::findOrFail($id);
         \request()->validate($this->validationRules(),$this->validationMessages(),$this->validationAttributes());
+        $user =$this->userRepository->update(\request(),$contact->user_id);
         $data = $this->appRepository->edit(\request()->all() , $id, $this->model);
+        if ($user->person)
+            $this->appRepository->edit(\request()->all() , $user->person->id, new Person());
         $this->DeleteTags($id);
         $this->assignTags($data,\request()->tags);
         return $this->response($data);

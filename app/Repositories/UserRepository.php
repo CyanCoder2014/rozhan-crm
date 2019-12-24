@@ -53,16 +53,20 @@ class UserRepository
     }
     public function update($request,$id){
 
-        if(empty($request->password)){
-            $password = $request->mobile;
-        }else{
-            $password = $request->password;
+        $user = User::findOrFail($id);
+        if(!empty($request->password)){
+            $user->password = \hash($request->password);
         }
+        if(!empty($request->email))
+            $user->password = $request->email;
+        if(!empty($request->mobile))
+            $user->password = $request->mobile;
+
 
         if(empty($request->name) || empty($request->family)){
-            $name = $request->first_name.' '.$request->last_name;
+            $user->name = $request->first_name.' '.$request->last_name;
         }else{
-            $name = $request->name.' '.$request->family;
+            $user->name = $request->name.' '.$request->family;
         }
 
 
@@ -73,12 +77,8 @@ class UserRepository
 //        }
 
 
-
-        return User::where('id',$id)->update([
-            'name'=>$name,
-            'email' => $request->email,
-            'mobile' => $request->mobile,
-        ]);
+        $user->save();
+        return $user;
     }
 
 
