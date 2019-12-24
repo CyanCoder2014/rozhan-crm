@@ -46,7 +46,7 @@ class OrderController extends Controller
     {
 //        $data = $this->appRepository->getAll($this->model);
 
-        $columns =    ['title', 'description', 'file','general_price', 'general_discount', 'general_tax', 'final_price', 'general_date', 'general_start', 'general_end',];
+        $columns =    ['title', 'description', 'file','general_price', 'general_discount', 'general_tax', 'final_price', 'general_date', 'general_start', 'general_end','state'];
         $search_column =   ['title', 'description', 'general_start', 'general_end'];
         $with =['OrderServices','OrderServices.person','OrderServices.service','OrderProducts','OrderProducts.product','user'];
         if ( \request()->input('showdata') ) {
