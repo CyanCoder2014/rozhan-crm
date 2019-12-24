@@ -48,7 +48,7 @@ class ContactController extends BaseAPIController
     public function index()
     {
 //        return $this->model->orderBy('id', 'desc')->paginate();
-        $data =  parent::dataTables(['first_name','user_id', 'last_name', 'mobile', 'email', 'tell'],null,['user']);
+        $data =  parent::dataTables(['first_name','user_id', 'last_name', 'mobile', 'email', 'tell','personal_code','created_at'],['first_name','user_id', 'last_name', 'mobile', 'email', 'tell'],['user']);
         $data->getCollection()->transform(function ($value) {
             $value->score = 0;
             if ($value->user)
