@@ -202,6 +202,7 @@ Route::middleware(['jwt.auth'])->group(function () {
 
         Route::namespace('Reminder')->prefix('reminder')->group(function () {
             Route::get('clients','ReminderController@client');
+            Route::get('user','ReminderController@user');
             Route::get('personnels','ReminderController@personnels');
             Route::get('contact','ReminderController@contact');
             Route::get('setRemember','ReminderController@contact');

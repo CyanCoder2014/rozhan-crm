@@ -54,6 +54,21 @@ class ReminderController extends Controller
         return $this->service->ContactReminder($request->contact_id,$date_from,$date_to);
 
     }
+    public function user(Request $request)
+    {
+
+        $date_from=null;
+        $date_to=null;
+        if (validate_jalili($request->date_from))
+            $date_from= to_georgian_date($request->date_from);
+        if (validate_jalili($request->date_to))
+            $date_to= to_georgian_date($request->date_to);
+
+        if (auth()->user()->contact)
+            return $this->service->ContactReminder(auth()->user()->contact->id,$date_from,$date_to);
+        return $this->response(null,'این کاربر اطلاعات تماس ندارد تا بتواند یاداوری برای ان ثبت شود',400);
+
+    }
 
 
 
