@@ -36,7 +36,7 @@ class UserController extends BaseAPIController
     }
     public function show($id)
     {
-        $data = User::with('contact','profile')->findOrFail($id);
+        $data = User::with('contact','person')->findOrFail($id);
         return $this->response($data);
     }
 
