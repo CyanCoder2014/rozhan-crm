@@ -34,6 +34,12 @@ class UserController extends BaseAPIController
         return $this->response($data);
 
     }
+    public function show($id)
+    {
+        $data = User::with('contact','profile')->findOrFail($id);
+        return $this->response($data);
+    }
+
     public function getCurrentUserUnreadedNotification(Request $request){
 
         $contact = Contact::where('user_id', Auth::id())->first();

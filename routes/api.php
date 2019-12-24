@@ -40,6 +40,12 @@ Route::namespace('API\Client\v1')->prefix('v1')->group(function () {
 
 
 Route::middleware(['jwt.auth'])->group(function () {
+
+    Route::prefix('user')->group(function () {
+        Route::get('/{id}', 'UserController@show');
+    });
+
+
     Route::post('/test', 'HomeController@test');
 
 
