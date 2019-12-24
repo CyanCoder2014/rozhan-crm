@@ -78,8 +78,7 @@ class OrderSrvImpl
         $productModels =Product::whereIn('id',$product_ids)->get()->keyBy('id')->all();
 
         foreach ($request->products??[] as $product)
-            if (!isset($productModels[$product['product_id']]->remaining_number) or
-                $productModels[$product['product_id']]->remaining_number < $product['amount'])
+            if (!$productModels[$product['product_id']]->isAmountAvailable($product['amount']))
                 return ['message' =>'product has not available amount','status'=>400];
         $products =$request->products??[];
         $start = Carbon::createFromFormat('Y-m-d',to_georgian_date($request->date));
@@ -287,8 +286,7 @@ class OrderSrvImpl
             $product_ids = array_column($request->products??[], 'product_id');
             $products =Product::whereIn('id',$product_ids)->get()->keyBy('id')->all();
             foreach ($request->products??[] as $product){
-                if (!isset($products[$product['product_id']]->remaining_number) or
-                    $products[$product['product_id']]->remaining_number < (int)$product['amount'])
+                if (!$products[$product['product_id']]->isAmountAvailable((int)$product['amount']))
                     return ['message' =>'product has not available amount','status'=>400];
                 $price += $product['price']??$products[$product['product_id']]->priceCalculate();
                 $newOrderProducts[] = new OrderProduct([
