@@ -19,23 +19,39 @@ class ProductController extends BaseAPIController
 
     public function index()
     {
-        return parent::dataTables(
+        $data = parent::dataTables(
             ['product_id', 'product_category_id', 'title', 'image', 'description', 'initial_amount', 'remaining_number', 'blocked_number', 'price', 'predicted_price', 'default_discount', 'tax', 'min_time', 'max_time', 'type', 'star', 'state',],
             ['title', 'description',],
             ['productCategory']
         );
-        $data = Product::with('productCategory')->paginate();
+        $data->getCollection()->transform(function ($value) {
+            $value->notAvailable = $value->notAvailable()->sum('amount');
+            $value->Buyed = $value->Buyed()->sum('amount');
+            return $value;
+        });
+//        $data = Product::with('productCategory')->paginate();
         return $data;
 //        return $this->response($data);
     }
 
     public function list()
     {
-        return $this->model::select('id','title')->get();
+        $data = $this->model::select('id','title','remaining_number')->get();
+        foreach ($data as $row)
+        {
+            $row->notAvailable = $row->notAvailable()->sum('amount');
+            $row->Buyed = $row->Buyed()->sum('amount');
+
+        }
+        return $data;
+
     }
     public function show($id)
     {
-        return  Product::with('productCategory')->findOrFail($id);
+        $row =  Product::with('productCategory')->findOrFail($id);
+        $row->notAvailable = $row->notAvailable()->sum('amount');
+        $row->Buyed = $row->Buyed()->sum('amount');
+        return $row;
     }
 
     public function store()
