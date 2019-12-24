@@ -134,8 +134,8 @@ class ReportController extends Controller
                 break;
         }
         switch (request('sort')){
-            case 'inc':
-                $order_sort='inc';
+            case 'asc':
+                $order_sort='asc';
                 break;
             default:
                 $order_sort='desc';
@@ -256,8 +256,8 @@ class ReportController extends Controller
                 break;
         }
         switch (request('sort')){
-            case 'inc':
-                $order_sort='inc';
+            case 'asc':
+                $order_sort='asc';
                 break;
             default:
                 $order_sort='desc';
@@ -363,8 +363,8 @@ class ReportController extends Controller
                 break;
         }
         switch (request('sort')){
-            case 'inc':
-                $order_sort='inc';
+            case 'asc':
+                $order_sort='asc';
                 break;
             default:
                 $order_sort='desc';
@@ -475,8 +475,8 @@ class ReportController extends Controller
                 break;
         }
         switch (request('sort')){
-            case 'inc':
-                $order_sort='inc';
+            case 'asc':
+                $order_sort='asc';
                 break;
             default:
                 $order_sort='desc';
