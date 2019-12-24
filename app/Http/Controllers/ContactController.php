@@ -48,8 +48,38 @@ class ContactController extends BaseAPIController
     public function index()
     {
 //        return $this->model->orderBy('id', 'desc')->paginate();
-        $data =  parent::dataTables(['first_name','user_id', 'last_name', 'mobile', 'email', 'tell','personal_code','created_at'],['first_name','user_id', 'last_name', 'mobile', 'email', 'tell'],['user']);
+//        $data =  parent::dataTables(,,);
+        $columns =['first_name','user_id', 'last_name', 'mobile', 'email', 'tell','personal_code'];
+        $search_column=['first_name','user_id', 'last_name', 'mobile', 'email', 'tell'];
+        $with=['user'];
+        if (!$search_column)
+            $search_column = $columns;
+        if ( \request()->input('showdata') ) {
+            return $this->model::orderBy('created_at', 'desc')->get();
+        }
+        $length = \request()->input('length',15);
+        $column = \request()->input('column');
+        $order = \request()->input('order','desc');
+        $search_input = \request()->input('search');
+        $query = $this->model::select(array_merge($columns,['id','created_at']))
+            ->orderBy($columns[$column]??'id',$order);
+        if ($with)
+            $query->with($with)->doesnthave('user.person');
+        if ($search_input) {
+            $query->where(function($query) use ($search_input,$search_column) {
 
+                foreach ($search_column as $key => $column)
+                    if ($key == array_key_first($search_column))
+                        $query->where($column, 'like', '%' . $search_input . '%');
+                    else
+                        $query->orWhere($column, 'like', '%' . $search_input . '%');
+//                    ->orWhere('mobile', 'like', '%' . $search_input . '%')
+//                    ->orWhere('email', 'like', '%' . $search_input . '%')
+//                    ->orWhere('tell', 'like', '%' . $search_input . '%');
+//                    ->orWhere('created_at', 'like', '%' . $search_input . '%');
+            });
+        }
+        $data = $query->paginate($length);
         $data->getCollection()->transform(function ($value) {
             $value->score = 0;
             if ($value->user)
