@@ -234,6 +234,8 @@ class DiscountRepository
         $Dservices = $discount->services;
         if ($Dproducts->count()> 0)
             $OrderProducts =$order->OrderProducts()->whereIn('product_id',$Dproducts->pluck('id'))->get();
+        elseif ($Dservices->count()> 0)
+            $OrderProducts =[];
         else
             $OrderProducts =$order->OrderProducts;
         foreach ($OrderProducts as $OrderProduct)
@@ -244,6 +246,8 @@ class DiscountRepository
         }
         if ($Dservices->count()> 0)
             $OrderServices =$order->OrderServices()->whereIn('service_id',$Dservices->pluck('id'))->get();
+        elseif ($Dproducts->count()> 0)
+            $OrderServices =[];
         else
             $OrderServices =$order->OrderServices;
         foreach ($OrderServices as $OrderService)
