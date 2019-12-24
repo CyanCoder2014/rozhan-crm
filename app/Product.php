@@ -44,6 +44,25 @@ class Product extends Model
     {
         return $this->price;
     }
+    public function OrderProducts(){
+        return $this->hasMany(OrderProduct::class,'product_id');
+    }
+
+
+    public function isAmountAvailable(int $amount)
+    {
+        if (!isset($this->remaining_number) or ($this->remaining_number - $this->notAvailable()->sum('amount')) < $amount)
+            return false;
+        return true;
+    }
+    public function notAvailable()
+    {
+        return $this->OrderProducts()->where('state','!=',OrderProduct::cancel_state);
+    }
+    public function Buyed()
+    {
+        return $this->OrderProducts()->whereIn('state',[OrderProduct::complete_state,OrderProduct::payed_state]);
+    }
 
 
 }
