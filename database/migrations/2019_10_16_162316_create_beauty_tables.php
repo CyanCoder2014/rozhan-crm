@@ -417,7 +417,7 @@ class CreateBeautyTables extends Migration
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->bigInteger('service_id')->unsigned();
             $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
-            $table->bigInteger('person_id')->unsigned();
+            $table->bigInteger('person_id')->unsigned()->default('1');
             $table->foreign('person_id')->references('id')->on('persons')->onDelete('cascade');
             $table->string('note')->nullable();
             $table->bigInteger('number')->nullable();

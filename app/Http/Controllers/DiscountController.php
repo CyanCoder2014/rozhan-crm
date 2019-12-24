@@ -159,7 +159,7 @@ class DiscountController extends Controller
         if ($statAndmessage['status'] != 200)
             return  $this->response( null, $statAndmessage['message'], 400);
         if ($order->discount()->count() > 0)
-            return $this->response( null,'تخفیف برای این سفارش ثبت شده',  400);
+            return $this->response( null,'تخفیف برای این سفارش قبلا ثبت شده',  400);
 
         $rep= $this->repository->Apply($discount,$order);
         return $this->response($rep['data']??null,$rep['message']??null,$rep['status']??200);
