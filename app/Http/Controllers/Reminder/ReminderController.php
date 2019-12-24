@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Reminder;
 
 use App\Contact;
+use App\Http\Requests\SendContactReminderRequest;
+use App\Http\Requests\SendSelfReminderRequest;
 use App\Services\ReminderService\ReminderObjectValue;
 use App\Services\ReminderService\ReminderService;
 use Illuminate\Http\Request;
@@ -72,7 +74,7 @@ class ReminderController extends Controller
 
 
 
-    public function setRemember(Request $request)
+    public function setRemember(SendSelfReminderRequest $request)
     {
         $reminder = new ReminderObjectValue();
 
@@ -80,7 +82,7 @@ class ReminderController extends Controller
         $reminder->setDesctiprion($request->description);
         $reminder->setReminderAt(\DateTime::createFromFormat('Y-m-d H:i:s',to_georgian($request->reminderAt)));//
         $reminder->setExecuteAt(\DateTime::createFromFormat('Y-m-d H:i:s',to_georgian($request->executeAt)));
-        $reminder->setReceiverId(auth()->contact->id);
+        $reminder->setReceiverId(auth()->user()->contact->id);
         $reminder->setReceiverName(Contact::class);
         $reminder->setDb(1);
         $reminder->setEmail(0);
@@ -96,20 +98,20 @@ class ReminderController extends Controller
     }
 
 
-    public function sendRemember(Request $request)
+    public function sendRemember(SendContactReminderRequest $request)
     {
         $reminder = new ReminderObjectValue();
 
         $reminder->setTitle($request->title);
         $reminder->setDesctiprion($request->description);
-        $reminder->setReminderAt(to_georgian_date($request->reminderAt));//
-        $reminder->setExecuteAt(to_georgian_date($request->executeAt));
+        $reminder->setReminderAt(\DateTime::createFromFormat('Y-m-d H:i:s',to_georgian($request->reminderAt)));//
+        $reminder->setExecuteAt(\DateTime::createFromFormat('Y-m-d H:i:s',to_georgian($request->executeAt)));
         $reminder->setReceiverId($request->contactId);
         $reminder->setReceiverName(Contact::class);
         $reminder->setDb(1);
         $reminder->setEmail(0);
         $reminder->setSms(0);
-        $reminder->setSenderId(auth()->id);
+        $reminder->setSenderId(auth()->id());
         $reminder->setSenderName('App\User');
 
         $data = $this->service->Send($reminder);

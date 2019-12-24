@@ -21,7 +21,7 @@ class ReminderService
     public function Send(ReminderObjectValue $reminder)
     {
 
-        $this->repository->add([
+        return $this->repository->add([
             'parent_id'=>$reminder->getParentId(),
             'title'=>$reminder->getTitle(),
             'description'=>$reminder->getDesctiprion(),
@@ -41,7 +41,7 @@ class ReminderService
     public function Edit(ReminderObjectValue $reminder)
     {
 
-        $this->repository->edit([
+        return $this->repository->edit([
             'id'=>$reminder->getId(),
             'parent_id'=>$reminder->getParentId(),
             'title'=>$reminder->getTitle(),
