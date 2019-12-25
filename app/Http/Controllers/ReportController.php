@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contact;
 use App\Http\Requests\RepotRequest;
 use App\Http\Requests\UserReportRequest;
 use App\Order;
@@ -170,7 +171,7 @@ class ReportController extends Controller
 
                 foreach ($query as $row)
                     $output[]=[
-                        'label' => $row->user->name,
+                        'label' => Contact::where('user_id', $row->user_id)->first()->last_name,
                         'value' => $row->total
                     ];
                 return $output;
