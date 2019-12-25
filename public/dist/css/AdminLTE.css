@@ -2789,6 +2789,13 @@ a:focus {
     margin: auto;
     top: 134px;
 }
+.icon-home-screen2 {
+    font-size: 20px !important;
+    position: absolute;
+    top: 16px;
+    color: white;
+    right: 14px;
+}
 .btn-app {
     border-radius: 3px;
     position: relative;
