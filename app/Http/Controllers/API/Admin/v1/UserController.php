@@ -11,6 +11,7 @@ use App\Repositories\RoleRepository;
 use App\Repositories\UserRepository;
 use App\Services\CreateUser\CreateUser;
 use App\Services\CreateUser\ValueObjects\CreateUserValueObject;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -46,7 +47,7 @@ class UserController extends Controller
         $valueObject = new CreateUserValueObject();
         $valueObject->setName($data['name'])
             ->setEmail($data['email'])
-            ->setPassword($data['password']);
+            ->setPassword(Hash::make($data['password']));
 
         $user = $createUser->create($valueObject);
         $data['user_id'] = $user->id;
