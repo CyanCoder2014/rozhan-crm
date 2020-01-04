@@ -170,16 +170,26 @@ class ReportController extends Controller
             case 'user':
 
                 foreach ($query as $row)
+
+                    $contactLabel = 'نا مشخص';
+                    if (Contact::where('user_id', $row->user_id)->first() != null)
+                    $contactLabel = Contact::where('user_id', $row->user_id)->first()->last_name;
+
                     $output[]=[
-                        'label' => Contact::where('user_id', $row->user_id)->first()->last_name,
+                        'label' => $contactLabel,
                         'value' => $row->total
                     ];
                 return $output;
             case 'person':
 
                 foreach ($query as $row)
+
+                    $personLabel = 'نا مشخص';
+                    if ($row->person != null)
+                        $personLabel = $row->person->name.' '.$row->person->family;
+
                     $output[]=[
-                        'label' => $row->person->name.' '.$row->person->family,
+                        'label' => $personLabel,
                         'value' => $row->total
                     ];
                 return $output;
