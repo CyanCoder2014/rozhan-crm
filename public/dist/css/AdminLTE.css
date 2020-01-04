@@ -6077,3 +6077,8 @@ table.text-center th {
         white-space: normal !important;
     }
 }
+.modal-lgg{
+    width: 100% !important;
+    margin: 0 !important;
+
+}
