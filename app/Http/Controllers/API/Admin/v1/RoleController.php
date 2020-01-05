@@ -129,4 +129,19 @@ class RoleController extends Controller
             'data'   => $rolePermissions
         ]);
     }
+
+    public function destroy($id)
+    {
+        if ($id == 1)
+            abort(404);
+
+        $role = Role::find($id);
+        $role->delete();
+
+        return '';
+
+    }
+
+
+
 }

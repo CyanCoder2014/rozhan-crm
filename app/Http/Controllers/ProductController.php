@@ -20,7 +20,7 @@ class ProductController extends BaseAPIController
     public function index()
     {
         $data = parent::dataTables(
-            ['product_id', 'product_category_id', 'title', 'image', 'description', 'initial_amount', 'remaining_number', 'blocked_number', 'price', 'predicted_price', 'default_discount', 'tax', 'min_time', 'max_time', 'type', 'star', 'state',],
+            ['product_id', 'product_category_id', 'title', 'image', 'description', 'initial_amount', 'remaining_number', 'blocked_number', 'price', 'predicted_price', 'default_discount', 'tax', 'min_time', 'max_time', 'type', 'star', 'state','score'],
             ['title', 'description',],
             ['productCategory']
         );

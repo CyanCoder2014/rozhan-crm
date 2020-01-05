@@ -130,7 +130,12 @@ class SpecialDateController extends Controller
     {
         if ($specialDate->contact_id != $contact_id)
             abort(404);
+
+        $discount_data = Discount::find($specialDate->discount_id);
+        $discount = $this->discountRepository->delete($discount_data);
+
         $specialDate->delete();
+
         return $this->response($specialDate);
 
     }

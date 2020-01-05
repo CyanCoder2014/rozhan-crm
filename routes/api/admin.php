@@ -17,6 +17,8 @@ Route::namespace('v1')->prefix('v1')->group(function () {
 
             Route::get('/list', 'RoleController@list');
 
+            Route::get('/delete/{id}', 'RoleController@destroy');
+
         });
 
     Route::prefix('permission')
@@ -32,6 +34,10 @@ Route::namespace('v1')->prefix('v1')->group(function () {
 
 
         Route::get('list', 'UserController@list');
+
+
+        Route::get('/delete/{id}', 'UserController@destroy');
+
 
     });
 

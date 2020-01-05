@@ -66,7 +66,7 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
     public function contact(){
-        return $this->hasOne(contact::class,'user_id','user_id');
+        return $this->hasOne(Contact::class,'user_id','user_id');
     }
 
     public function discount(){

@@ -13,7 +13,16 @@ html,
 body {
     height: 100%;
 }
+.content-wrapper {
+   
+    background: url(/images/bg.jpg);
+    background-repeat: round;
+    background-size: cover;
 
+}
+.sidebar-collapse .content-wrapper, .sidebar-collapse .main-footer{
+    margin-right: 0;
+}
 .layout-boxed html,
 .layout-boxed body {
     height: 100%;
@@ -492,12 +501,12 @@ a:focus {
  */
 .main-sidebar {
     position: absolute;
-    top: 0;
-    right: 0;
+    /* top: 0; */
+    /* right: 0; */
     padding-top: 50px;
-    min-height: 100%;
+    /* min-height: 100%; */
     width: 230px;
-    z-index: 810;
+    /* z-index: 810; */
     -webkit-transition: -webkit-transform 0.3s ease-in-out, width 0.3s ease-in-out;
     -moz-transition: -moz-transform 0.3s ease-in-out, width 0.3s ease-in-out;
     -o-transition: -o-transform 0.3s ease-in-out, width 0.3s ease-in-out;
@@ -539,7 +548,7 @@ a:focus {
 }
 
 .sidebar {
-    padding-bottom: 10px;
+    /* padding-bottom: 10px; */
 }
 
 .sidebar-form input:focus {
@@ -2788,6 +2797,13 @@ a:focus {
     right: 0;
     margin: auto;
     top: 134px;
+}
+.icon-home-screen2 {
+    font-size: 20px !important;
+    position: absolute;
+    top: 16px;
+    color: white;
+    right: 14px;
 }
 .btn-app {
     border-radius: 3px;
@@ -6060,4 +6076,9 @@ table.text-center th {
     .table-responsive>.table tr td {
         white-space: normal !important;
     }
+}
+.modal-lgg{
+    width: 100% !important;
+    margin: 0 !important;
+
 }

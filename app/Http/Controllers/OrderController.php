@@ -86,7 +86,7 @@ class OrderController extends Controller
     public function show($id)
     {
         $data = Order::where('id',$id)
-            ->with(['OrderServices','OrderProducts','OrderServices.person','OrderServices.service','OrderProducts.product','user'])
+            ->with(['OrderServices','OrderProducts','OrderServices.person','OrderServices.service','OrderProducts.product','user','contact'])
             ->first();
         return $this->response($data);
     }

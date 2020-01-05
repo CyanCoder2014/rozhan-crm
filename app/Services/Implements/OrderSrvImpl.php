@@ -129,8 +129,14 @@ class OrderSrvImpl
             /****************************************************************/
             if (isset($service['person_id']) && !in_array($service['person_id'],$availableServices->pluck('person_id')->all()))
                 return ['message' =>'فرد '.$service['person_id'].' در این تاریخ در دسترس نیست','status'=>400];
+
+
+//            $service['price']= 300000;
         }
         //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 
         Cache::put('preorder_id_'.$order_cache_id,compact('order','services','products'));
 
@@ -199,6 +205,8 @@ class OrderSrvImpl
 //
 //            }
 //            $service->availblePerson = $availblePerson;
+
+
         }
 
 
