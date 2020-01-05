@@ -47,6 +47,8 @@ Route::middleware(['jwt.auth'])->group(function () {
 
 
     Route::post('/test', 'HomeController@test');
+    Route::get('/sms/info', 'SmsController@info');
+    Route::get('/sms/', 'SmsController@index');
 
 
 
