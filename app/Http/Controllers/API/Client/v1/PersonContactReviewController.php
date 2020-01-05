@@ -1,11 +1,12 @@
 <?php
 
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\Client\v1;
 
 
 use App\Contact;
 use App\ContactReview;
+use App\Http\Controllers\ContactReviewController;
 use App\Http\Requests\ContactReviewRequest;
 use Illuminate\Validation\ValidationException;
 
