@@ -214,33 +214,67 @@ Route::middleware(['jwt.auth'])->group(function () {
     });
     //SpecialDateController
     Route::resource('contact/{contact_id}/specialDates', 'SpecialDateController')->except('edit','create')
-//        ->middleware([
-//        'index' => 'permission:specialdate.index',
-//        'store' => 'permission:specialdate.store',
-//        'update' => 'permission:specialdate.edit',
-//        'show' => 'permission:specialdate.show',
-//        'destroy' => 'permission:specialdate.destroy',
-//    ])
+        ->middleware([
+        'index' => 'permission:specialdate.index',
+        'store' => 'permission:specialdate.store',
+        'update' => 'permission:specialdate.edit',
+        'show' => 'permission:specialdate.show',
+        'destroy' => 'permission:specialdate.destroy',
+    ])
     ;
 
     Route::post('orders/discount', 'DiscountController@ApplyDiscountToOrder')->name('order.discount');
-    Route::post('orders/completed', 'OrderController@doneOrder')->name('order.Completed');
-    Route::post('orders/cancel', 'OrderController@cancelOrder')->name('order.Cancel');
-    Route::get('discounts/{discount}/notify', 'DiscountController@notify')->name('discount.notify');
+    Route::post('orders/completed', 'OrderController@doneOrder')->name('order.Completed')->middleware('order.completed');
+    Route::post('orders/cancel', 'OrderController@cancelOrder')->name('order.Cancel')->middleware('order.cancel');
+    Route::post('orders/payed', 'OrderController@paymentCompleted')->name('order.paymentCompleted')->middleware('permission:order.payed');
+    Route::get('discounts/{discount}/notify', 'DiscountController@notify')->name('discount.notify')->middleware('discount.notify');
 
-    Route::resource('contact/groups', 'ContactGroupController')->except('edit','create');
-    Route::resource('contact/tags', 'CTagController')->except('edit','create');
-    Route::resource('vacations', 'VacationDateController')->except('edit','create');
-    Route::resource('scoregifts', 'ScoreGiftsController')->except('edit','create');
-    Route::resource('usergift', 'UserGiftController')->except('edit','create','update');
-    Route::get('/productReport', 'ReportController@productReport');
-    Route::get('/incomeReport', 'ReportController@incomeReport');
+    Route::resource('contact/groups', 'ContactGroupController')->except('edit','create')
+        ->middleware([
+            'index' => 'permission:contact.groups.index',
+            'store' => 'permission:contact.groups.store',
+            'update' => 'permission:contact.groups.edit',
+            'show' => 'permission:contact.groups.show',
+            'destroy' => 'permission:contact.groups.destroy',
+        ]);
+    Route::resource('contact/tags', 'CTagController')->except('edit','create')
+        ->middleware([
+            'index' => 'permission:contact.tags.index',
+            'store' => 'permission:contact.tags.store',
+            'update' => 'permission:contact.tags.edit',
+            'show' => 'permission:contact.tags.show',
+            'destroy' => 'permission:contact.tags.destroy',
+        ]);
+    Route::resource('vacations', 'VacationDateController')->except('edit','create')
+        ->middleware([
+            'index' => 'permission:vacation.index',
+            'store' => 'permission:vacation.store',
+            'update' => 'permission:vacation.edit',
+            'show' => 'permission:vacation.show',
+            'destroy' => 'permission:vacation.destroy',
+        ]);
+    Route::resource('scoregifts', 'ScoreGiftsController')->except('edit','create')
+        ->middleware([
+            'index' => 'permission:scoregifts.index',
+            'store' => 'permission:scoregifts.store',
+            'update' => 'permission:scoregifts.edit',
+            'show' => 'permission:scoregifts.show',
+            'destroy' => 'permission:scoregifts.destroy',
+        ]);
+    Route::resource('usergift', 'UserGiftController')->except('edit','create','update')
+        ->middleware([
+            'index' => 'permission:usergift.index',
+            'store' => 'permission:usergift.store',
+            'show' => 'permission:usergift.show',
+            'destroy' => 'permission:usergift.destroy',
+        ]);
+    Route::get('/productReport', 'ReportController@productReport')->middleware('Report.product');
+    Route::get('/incomeReport', 'ReportController@incomeReport')->middleware('Report.income');
 
 
     Route::get('/notifications','UserController@getCurrentUserUnreadedNotification');
     Route::post('/notifications','UserController@readNotification');
 
-    Route::post('orders/payed', 'OrderController@paymentCompleted')->name('order.paymentCompleted');//->middleware('permission:orders.payed');
     Route::get('serviceCategorieslist', 'ServiceCategoryController@list');
     Route::get('serviceslist', 'ServiceController@list');
     Route::get('userslist', 'UserController@list');
@@ -249,16 +283,33 @@ Route::middleware(['jwt.auth'])->group(function () {
     Route::get('contact/groupslist', 'ContactGroupController@list');
     Route::get('productCategorieslist', 'ProductCategoryController@list');
     Route::get('productslist', 'ProductController@list');
-    Route::post('contact/sendReminder', 'ContactNotifyController@sendReminder');
-    Route::get('contact/{number}/info', 'ContactController@FindByNumber');
-    Route::post('discount/{discount}/remind','DiscountController@remind');
+    Route::post('contact/sendReminder', 'ContactNotifyController@sendReminder')->middleware('Reminder.send');
+    Route::get('contact/{number}/info', 'ContactController@FindByNumber')->middleware('contact.info');
+    Route::post('discount/{discount}/remind','DiscountController@remind')->middleware('discount.reminder');
 
-    Route::resource('contact/{contact}/reviews', 'ContactReviewController');
-    Route::resource('customer/{contact}/reviews', 'PersonContactReviewController');
-    Route::get('mycostomer/list', 'PersonContactReviewController@PersonCustomers');
+    Route::resource('contact/{contact}/reviews', 'ContactReviewController')->except('edit','create')->middleware([
+        'index' => 'permission:contact.reviews.index',
+        'store' => 'permission:contact.reviews.store',
+        'show' => 'permission:contact.reviews.show',
+        'update' => 'permission:contact.reviews.edit',
+        'destroy' => 'permission:contact.reviews.destroy',
+    ]);
 
-    Route::resource('productDiscount', 'ProductDiscountController')->except('edit','create');
-    Route::resource('serviceDiscount', 'ServiceDiscountController')->except('edit','create');
+
+    Route::resource('productDiscount', 'ProductDiscountController')->except('edit','create')->middleware([
+        'index' => 'permission:product.discount.index',
+        'store' => 'permission:product.discount.store',
+        'show' => 'permission:product.discount.show',
+        'update' => 'permission:product.discount.edit',
+        'destroy' => 'permission:product.discount.destroy',
+    ]);
+    Route::resource('serviceDiscount', 'ServiceDiscountController')->except('edit','create')->middleware([
+        'index' => 'permission:service.discount.index',
+        'store' => 'permission:service.discount.store',
+        'show' => 'permission:service.discount.show',
+        'update' => 'permission:service.discount.edit',
+        'destroy' => 'permission:service.discount.destroy',
+    ]);
 
 
 
