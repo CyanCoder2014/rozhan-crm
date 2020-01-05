@@ -58,10 +58,11 @@ class PersonTimingController extends Controller
 
         if($request->description == true){
 
+            $data = [];
             for ($i = 0; $i <= 30; $i++){
 
                 if (date('w', strtotime($request->castsforDays($i)['date']))  != '5' && !VacationDate::where('date',$request->castsforDays($i)['date'])->first() )
-                    $this->add($request->castsforDays($i));
+                    $data[] = $this->add($request->castsforDays($i));
             }
 
         }else{
