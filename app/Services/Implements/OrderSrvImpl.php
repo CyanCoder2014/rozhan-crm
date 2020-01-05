@@ -235,7 +235,11 @@ class OrderSrvImpl
                 $start->setTime($start_time[0],$start_time[1]);
                 $end = $start->clone()->addMinutes($service->max_time);
                 $price += $serv['price']??$service->priceCalculate();
-
+                /************* price *******************/
+                if (isset($cacheData['services'][$service->id]['price']))
+                    $service_price = $cacheData['services'][$service->id]['price'];
+                else
+                    $service_price = $service->price;
                 /********************* set start and end of  the order ***************************/
                 if ($general_start->gt($start))
                     $general_start = $start->clone();
@@ -248,7 +252,7 @@ class OrderSrvImpl
                     'person_id'=> $person->id,
                     'note' => $serv['note']??null,
                     'number' => null,
-                    'price' => $serv['price']??$service->price,
+                    'price' => $serv['price']??$service_price,
                     'discount' => $service->default_discount,
                     'tax' => $service->tax,
                     'date' => $start->format('Y-m-d'),
@@ -288,13 +292,17 @@ class OrderSrvImpl
             foreach ($request->products??[] as $product){
                 if (!$products[$product['product_id']]->isAmountAvailable((int)$product['amount']))
                     return ['message' =>'product has not available amount','status'=>400];
+                if (isset($cacheData['products'][$product['product_id']]['price']))
+                    $product_price = $cacheData['products'][$product['product_id']]['price'];
+                else
+                    $product_price = $products[$product['product_id']]['price']??0;
                 $price += $product['price']??$products[$product['product_id']]->priceCalculate();
                 $newOrderProducts[] = new OrderProduct([
                     'product_id' => $product['product_id'],
                     'note' => $product['note']?? null,
                     'unit' => $product['unit']?? null,
                     'amount' => $product['amount']?? null,
-                    'price' => $product['price']??$products[$product['product_id']]['price']??0,
+                    'price' => $product['price']??$product_price,
                     'discount' => $products[$product['product_id']]['default_discount']??0,
                     'tax' => $products[$product['product_id']]['tax']??0 ,
                     'date' => $order->general_date,
@@ -360,6 +368,8 @@ class OrderSrvImpl
             $price = 0;
 
             $newOrderServices=[];
+            /********************* make new Order Services***************************/
+
             foreach ($services as $serv){
                 $service = Service::findOrFail($serv['service_id']);
                 if (isset($serv['person_id']))
@@ -369,7 +379,6 @@ class OrderSrvImpl
                 $price += $service->priceCalculate();
 
 
-                /********************* make new Order Services***************************/
 
                 $orderService = new OrderService();
                 $orderService->fill([
@@ -377,7 +386,7 @@ class OrderSrvImpl
                     'person_id'=> $person->id,
                     'note' => $serv['note']??null,
                     'number' => null,
-                    'price' => $service->price,
+                    'price' => $serv['price']??$service->price,
                     'discount' => $service->default_discount,
                     'tax' => $service->tax,
                     'date' => $start->format('Y-m-d'),
