@@ -8,6 +8,8 @@ use App\Http\Requests\UserReportRequest;
 use App\Order;
 use App\OrderProduct;
 use App\OrderService;
+use App\Payment\CompanyPayment;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -561,4 +563,201 @@ class ReportController extends Controller
         }
 
     }
+
+
+
+
+
+
+
+
+
+    public function generalServiceReport(RepotRequest $request){
+
+        $groupBy=[];
+        switch (request('filter')){
+            case 'service':
+                $groupBy[]='service_id';
+                break;
+            case 'user':
+                $groupBy[]='user_id';
+                break;
+            case 'person':
+                $groupBy[]='person_id';
+                break;
+        }
+        switch (request('time')){
+            case 'y':
+                $groupBy[]=DB::raw('YEAR(order_services.created_at)');
+                break;
+            case 'm':
+                $groupBy[]=DB::raw('MONTH(order_services.created_at)');
+                break;
+            case 'w':
+                $groupBy[]=DB::raw('WEEK(order_services.created_at)');
+                break;
+            case 'd':
+                $groupBy[]=DB::raw('order_services.created_at');
+                break;
+            default:
+                if(count($groupBy) == 0)
+                    $groupBy[]=DB::raw('order_services.created_at');
+                break;
+        }
+
+
+
+        switch (request('order')){
+            case 'price':
+                $order='total';
+                break;
+            default:
+                $order='order_services.created_at';
+                break;
+        }
+        switch (request('sort')){
+            case 'asc':
+                $order_sort='asc';
+                break;
+            default:
+                $order_sort='desc';
+                break;
+        }
+
+        $serviceQuery = OrderService::
+        with(['service','person'])->
+        select('order_services.service_id','orders.user_id','order_services.person_id',
+            DB::raw('order_services.created_at'),'user_id',
+            DB::raw('SUM(order_services.price) as total'),
+            DB::raw('WEEK(order_services.created_at) as week'))
+            ->where('orders.created_at','>=',to_georgian_date(\request('date_from')))
+            ->where('orders.created_at','<=',(new Carbon(to_georgian_date(to_georgian_date(\request('date_to')))))->addDays(1))
+            ->where('orders.state',Order::created_state)
+            ->join('orders','orders.id','order_services.order_id')
+            ->groupBy($groupBy)
+            ->orderBy($order,$order_sort);
+        if (isset($request->limit) && ctype_digit($request->limit))
+            $serviceQuery->limit($request->limit);
+        $serviceQuery = $serviceQuery->with(['service'])->get();
+
+        return $serviceQuery;
+    }
+
+
+
+
+    public function generalProductReport(RepotRequest $request){
+
+        $groupBy=[];
+        switch (request('filter')){
+            case 'product':
+                $groupBy[]='product_id';
+                break;
+            case 'user':
+                $groupBy[]='user_id';
+                break;
+            case 'person':
+                $groupBy[]='person_id';
+                break;
+        }
+        switch (request('time')){
+            case 'y':
+                $groupBy[]=DB::raw('YEAR(order_products.created_at)');
+                break;
+            case 'm':
+                $groupBy[]=DB::raw('MONTH(order_products.created_at)');
+                break;
+            case 'w':
+                $groupBy[]=DB::raw('WEEK(order_products.created_at)');
+                break;
+            case 'd':
+                $groupBy[]=DB::raw('order_products.created_at');
+                break;
+            default:
+                if(count($groupBy) == 0)
+                    $groupBy[]=DB::raw('order_products.created_at');
+                break;
+        }
+
+        switch (request('order')){
+            case 'price':
+                $order='total';
+                break;
+            default:
+                $order='order_products.created_at';
+                break;
+        }
+        switch (request('sort')){
+            case 'asc':
+                $order_sort='asc';
+                break;
+            default:
+                $order_sort='desc';
+                break;
+        }
+
+        $productQuery = OrderProduct::
+        select('orders.user_id','order_products.product_id',
+            DB::raw('order_products.created_at'),'user_id',
+            DB::raw('SUM(order_products.price) as total'),
+            DB::raw('WEEK(order_products.created_at) as week'))
+            ->where('orders.created_at','>=',to_georgian_date(\request('date_from')))
+            ->where('orders.created_at','<=',(new Carbon(to_georgian_date(to_georgian_date(\request('date_to')))))->addDays(1))
+            ->where('orders.state',Order::created_state)
+            ->join('orders','orders.id','order_products.order_id')
+            ->groupBy($groupBy)
+            ->orderBy($order,$order_sort);
+        if (isset($request->limit) && ctype_digit($request->limit))
+            $productQuery->limit($request->limit);
+        $productQuery = $productQuery->with(['product'])->get();
+
+        return $productQuery;
+    }
+
+
+
+    public function generalCostReport(RepotRequest $request){
+
+        $costQuery = CompanyPayment::
+        select('type',
+            DB::raw('SUM(company_payments.amount) as total'),
+            DB::raw('WEEK(company_payments.created_at) as week'))
+            ->where('company_payments.created_at','>=',to_georgian_date(\request('date_from')))
+            ->where('company_payments.created_at','<=',(new Carbon(to_georgian_date(to_georgian_date(\request('date_to')))))->addDays(1))
+            ->groupBy('type')->get();
+
+        return $costQuery;
+    }
+
+
+
+
+    public function generalOrderReport(RepotRequest $request){
+
+        $orderQuery = Order::
+        select(
+            DB::raw('orders.created_at'),'user_id',
+            DB::raw('COUNT(orders.user_id) as clientNumber'),
+            DB::raw('COUNT(orders.id) as total'),
+            DB::raw('SUM(orders.final_price) as total_price'))
+            ->where('orders.created_at','>=',to_georgian_date(\request('date_from')))
+            ->where('orders.created_at','<=',(new Carbon(to_georgian_date(to_georgian_date(\request('date_to')))))->addDays(1))
+            ->where('orders.state',Order::created_state)
+            ->get();
+
+        return $orderQuery;
+    }
+
+
+
+
 }
+
+
+
+
+
+
+
+
+

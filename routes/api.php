@@ -271,6 +271,16 @@ Route::middleware(['jwt.auth'])->group(function () {
     Route::get('/productReport', 'ReportController@productReport')->middleware('Report.product');
     Route::get('/incomeReport', 'ReportController@incomeReport')->middleware('Report.income');
 
+    ///*** middleware must be add later ****///
+    Route::get('/generalServiceReport', 'ReportController@generalServiceReport');
+    Route::get('/generalProductReport', 'ReportController@generalProductReport');
+    Route::get('/generalCostReport', 'ReportController@generalCostReport');
+    Route::get('/generalOrderReport', 'ReportController@generalOrderReport');
+
+
+
+
+
 
     Route::get('/notifications','UserController@getCurrentUserUnreadedNotification');
     Route::post('/notifications','UserController@readNotification');
