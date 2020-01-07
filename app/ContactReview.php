@@ -3,9 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class ContactReview extends Model
 {
+    use SoftDeletes;
+
     protected $fillable=[
         'contact_id',
         'person_id',
@@ -19,9 +23,7 @@ class ContactReview extends Model
     /***************** relations ********************/
     public function contact()
     {
-//        return $this->belongsTo(Contact::class);
-        return $this->belongsTo('App\Contact', 'contact_id');
-
+        return $this->belongsTo(Contact::class);
     }
     public function person()
     {

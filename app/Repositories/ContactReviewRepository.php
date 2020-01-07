@@ -25,9 +25,12 @@ class ContactReviewRepository
         $parameter['created_by'] = auth()->id();
         return $contactReview->update($parameter);
     }
-    public function delete(ContactReview $contactReview)
+    public function delete($id, ContactReview $contactReview)
     {
-        return $contactReview->delete();
+////        return $contactReview->delete();
+//
+//        $data =  ContactReview::findOrFail($id);
+//        $data->delete();
     }
 
 }
