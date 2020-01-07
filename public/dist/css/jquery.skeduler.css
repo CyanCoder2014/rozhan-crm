@@ -6,13 +6,13 @@
 
 
 .skeduler-container * {
-    box-sizing: content-box;
+    /* box-sizing: content-box; */
 }
 
 .skeduler-headers {
   /* border-left: 1px solid #b0cee9; */
   display: flex;
-  padding-right: 62.9px;
+  padding-right: 50.9px;
   position: relative;
 }
 

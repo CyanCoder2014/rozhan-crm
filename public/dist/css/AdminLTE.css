@@ -37,7 +37,13 @@ body {
 .font-main{
     font-family: 'Sahel', sans-serif;
 }
-
+.btn-pulus{
+    float: left;
+    /* margin: -2px; */
+    top: 14px;
+    position: absolute;
+    left: 33px;
+}
 .modal-content {
     margin-top: 75px;
 }
@@ -6081,4 +6087,8 @@ table.text-center th {
     width: 100% !important;
     margin: 0 !important;
 
+}
+.form-control-feedbac{
+    left: 1px !important;
+    right: auto;
 }
