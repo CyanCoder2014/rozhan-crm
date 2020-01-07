@@ -19,7 +19,9 @@ class ContactReview extends Model
     /***************** relations ********************/
     public function contact()
     {
-        return $this->belongsTo(Contact::class);
+//        return $this->belongsTo(Contact::class);
+        return $this->belongsTo('App\Contact', 'contact_id');
+
     }
     public function person()
     {
