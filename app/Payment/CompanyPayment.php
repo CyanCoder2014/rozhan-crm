@@ -33,4 +33,11 @@ class CompanyPayment extends Model
         'created_by',
         'updated_by',
     ];
+
+
+
+
+    public function account(){
+        return $this->belongsTo('App\Payment\Account', 'account');
+    }
 }

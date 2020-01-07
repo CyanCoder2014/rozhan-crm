@@ -224,10 +224,14 @@ Route::middleware(['jwt.auth'])->group(function () {
     ;
 
     Route::post('orders/discount', 'DiscountController@ApplyDiscountToOrder')->name('order.discount');
-    Route::post('orders/completed', 'OrderController@doneOrder')->name('order.Completed')->middleware('order.completed');
-    Route::post('orders/cancel', 'OrderController@cancelOrder')->name('order.Cancel')->middleware('order.cancel');
-    Route::post('orders/payed', 'OrderController@paymentCompleted')->name('order.paymentCompleted')->middleware('permission:order.payed');
-    Route::get('discounts/{discount}/notify', 'DiscountController@notify')->name('discount.notify')->middleware('discount.notify');
+//    Route::post('orders/completed', 'OrderController@doneOrder')->name('order.Completed')->middleware('order.completed');
+    Route::post('orders/completed', 'OrderController@doneOrder')->name('order.Completed');
+//    Route::post('orders/cancel', 'OrderController@cancelOrder')->name('order.Cancel')->middleware('order.cancel');
+    Route::post('orders/cancel', 'OrderController@cancelOrder')->name('order.Cancel');
+//    Route::post('orders/payed', 'OrderController@paymentCompleted')->name('order.paymentCompleted')->middleware('permission:order.payed');
+    Route::post('orders/payed', 'OrderController@paymentCompleted')->name('order.paymentCompleted');
+//    Route::get('discounts/{discount}/notify', 'DiscountController@notify')->name('discount.notify')->middleware('discount.notify');
+    Route::get('discounts/{discount}/notify', 'DiscountController@notify')->name('discount.notify');
 
     Route::resource('contact/groups', 'ContactGroupController')->except('edit','create')
         ->middleware([
@@ -268,8 +272,10 @@ Route::middleware(['jwt.auth'])->group(function () {
             'show' => 'permission:usergift.show',
             'destroy' => 'permission:usergift.destroy',
         ]);
-    Route::get('/productReport', 'ReportController@productReport')->middleware('Report.product');
-    Route::get('/incomeReport', 'ReportController@incomeReport')->middleware('Report.income');
+//    Route::get('/productReport', 'ReportController@productReport')->middleware('Report.product');
+//    Route::get('/incomeReport', 'ReportController@incomeReport')->middleware('Report.income');
+    Route::get('/productReport', 'ReportController@productReport');
+    Route::get('/incomeReport', 'ReportController@incomeReport');
 
     ///*** middleware must be add later ****///
     Route::get('/generalServiceReport', 'ReportController@generalServiceReport');
@@ -293,9 +299,12 @@ Route::middleware(['jwt.auth'])->group(function () {
     Route::get('contact/groupslist', 'ContactGroupController@list');
     Route::get('productCategorieslist', 'ProductCategoryController@list');
     Route::get('productslist', 'ProductController@list');
-    Route::post('contact/sendReminder', 'ContactNotifyController@sendReminder')->middleware('Reminder.send');
-    Route::get('contact/{number}/info', 'ContactController@FindByNumber')->middleware('contact.info');
-    Route::post('discount/{discount}/remind','DiscountController@remind')->middleware('discount.reminder');
+//    Route::post('contact/sendReminder', 'ContactNotifyController@sendReminder')->middleware('Reminder.send');
+    Route::post('contact/sendReminder', 'ContactNotifyController@sendReminder');
+//    Route::get('contact/{number}/info', 'ContactController@FindByNumber')->middleware('contact.info');
+    Route::get('contact/{number}/info', 'ContactController@FindByNumber');
+//    Route::post('discount/{discount}/remind','DiscountController@remind')->middleware('discount.reminder');
+    Route::post('discount/{discount}/remind','DiscountController@remind');
 
     Route::resource('contact/{contact}/reviews', 'ContactReviewController')->except('edit','create')->middleware([
         'index' => 'permission:contact.reviews.index',

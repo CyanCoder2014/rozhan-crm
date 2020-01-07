@@ -33,4 +33,10 @@ class CustomerPayment extends Model
         'updated_by',
         'user_id',
     ];
+
+
+
+    public function account(){
+        return $this->belongsTo('App\Payment\Account', 'account');
+    }
 }

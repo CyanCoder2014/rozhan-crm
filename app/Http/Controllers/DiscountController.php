@@ -41,7 +41,7 @@ class DiscountController extends Controller
         $order = \request()->input('order','desc');
         $search_input = \request()->input('search');
         $query = Discount::select(array_merge($columns,['id','created_at']))
-            ->where('status' , null)->orderBy($columns[$column]??'id',$order);
+            ->where('type' , 0)->orderBy($columns[$column]??'id',$order);
         if ($with)
             $query->with($with);
         if ($search_input) {
