@@ -48,7 +48,7 @@ class UserController extends Controller
         $valueObject = new CreateUserValueObject();
         $valueObject->setName($data['name'])
             ->setEmail($data['email'])
-            ->setPassword(Hash::make($data['password']));
+            ->setPassword($data['password']);
 
         $user = $createUser->create($valueObject);
         $data['user_id'] = $user->id;
