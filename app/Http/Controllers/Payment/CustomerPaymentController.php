@@ -57,7 +57,7 @@ class CustomerPaymentController extends BaseAPIController
                 'description'
             ]
         );
-        return $this->model->whit('account')->paginate();
+        return $this->model->with(['account'])->paginate();
     }
 
     protected function validationRules(){
