@@ -48,7 +48,7 @@ class OrderController extends Controller
 
         $columns =    ['title', 'description', 'file','general_price', 'general_discount', 'general_tax', 'final_price', 'general_date', 'general_start', 'general_end','state'];
         $search_column =   ['title', 'description', 'general_start', 'general_end'];
-        $with =['OrderServices','OrderServices.person','OrderServices.service','OrderProducts','OrderProducts.product','user'];
+        $with =['OrderServices','OrderServices.person','OrderServices.service','OrderProducts','OrderProducts.product','user', 'OrderServices.feedback'];
         if ( \request()->input('showdata') ) {
             return $this->model::orderBy('created_at', 'desc')->get();
         }
@@ -86,7 +86,7 @@ class OrderController extends Controller
     public function show($id)
     {
         $data = Order::where('id',$id)
-            ->with(['OrderServices','OrderProducts','OrderServices.person','OrderServices.service','OrderProducts.product','user','contact'])
+            ->with(['OrderServices','OrderProducts','OrderServices.person','OrderServices.service','OrderProducts.product','user','contact', 'OrderServices.feedback'])
             ->first();
         return $this->response($data);
     }
