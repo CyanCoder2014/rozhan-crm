@@ -55,7 +55,9 @@ class CustomerPaymentController extends BaseAPIController
                 'payment_account',
                 'finance_state',
                 'description'
-            ]
+            ],
+            ['account']
+
         );
         return $this->model->with(['account'])->paginate();
     }

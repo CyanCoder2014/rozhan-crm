@@ -18,7 +18,9 @@ class CompanyPaymentController extends BaseAPIController
     {
         return parent::dataTables(
             ['number', 'reason', 'buyer', 'recipient', 'recipient_code', 'recipient_name', 'period', 'pay_state', 'register_date', 'due_date', 'amount', 'account', 'contract_number', 'bank', 'bank_calculate', 'cheque_number', 'term', 'receiver_account', 'payed', 'type', 'description', 'state', 'status',],
-            ['number', 'reason', 'buyer', 'recipient_code', 'recipient_name', 'period', 'pay_state', 'contract_number', 'bank_calculate', 'cheque_number', 'receiver_account', 'description',]
+            ['number', 'reason', 'buyer', 'recipient_code', 'recipient_name', 'period', 'pay_state', 'contract_number', 'bank_calculate', 'cheque_number', 'receiver_account', 'description',],
+            ['account']
+
         );
         return $this->model->with(['account'])->paginate();
     }
