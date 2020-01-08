@@ -55,13 +55,20 @@ class UserRepository
 
         $user = User::findOrFail($id);
         if(!empty($request->password)){
-            $user->password = \hash($request->password);
+            $user->password =  Hash::make($request->password);
         }
         if(!empty($request->email))
-            $user->password = $request->email;
+            $user->password =  Hash::make($request->email);
         if(!empty($request->mobile))
-            $user->password = $request->mobile;
+            $user->password =  Hash::make($request->mobile);
 
+
+        if(!empty($request->mobile))
+            $user->password =  $request->mobile;
+
+
+        if(!empty($request->email))
+            $user->email =  $request->email;
 
         if(empty($request->name) || empty($request->family)){
             $user->name = $request->first_name.' '.$request->last_name;
@@ -83,7 +90,7 @@ class UserRepository
 
 
 
-public function existsWithEmail(string $email): bool
+    public function existsWithEmail(string $email): bool
     {
         return $this->model::where('email', $email)->exists();
     }
