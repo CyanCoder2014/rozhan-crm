@@ -120,4 +120,15 @@ class ReminderController extends Controller
     }
 
 
+    public function deleteRemember($id)
+    {
+        $reminder = new ReminderObjectValue();
+        $reminder->setId($id);
+
+        $this->service->destroy($reminder);
+        return '';
+
+    }
+
+
 }

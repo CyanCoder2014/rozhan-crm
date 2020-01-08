@@ -67,7 +67,7 @@ class ReminderService
     public function destroy(ReminderObjectValue $reminder)
     {
 
-        return $this->repository->destroy( $reminder->getId());
+        return $this->repository->destroy($reminder->getId());
     }
 
     public function paginate($perPage=15)
