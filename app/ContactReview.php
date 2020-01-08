@@ -16,6 +16,7 @@ class ContactReview extends Model
         'rate',
         'comment',
         'state',
+        'image',
         'created_by',
         'updated_by',
     ];

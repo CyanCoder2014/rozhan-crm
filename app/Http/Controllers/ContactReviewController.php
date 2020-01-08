@@ -5,14 +5,19 @@ namespace App\Http\Controllers;
 use App\ContactReview;
 use App\Http\Requests\ContactReviewRequest;
 use App\Repositories\ContactReviewRepository;
+use App\Services\UploadFileService\UploadImageService;
 use Illuminate\Http\Request;
 
 class ContactReviewController extends Controller
 {
     protected $repository;
-    public function __construct(ContactReviewRepository $repository )
+    protected $imageService;
+
+    public function __construct(ContactReviewRepository $repository ,UploadImageService $imageService)
     {
         $this->repository = $repository;
+        $this->imageService =$imageService;
+
     }
 
     /**
@@ -43,7 +48,12 @@ class ContactReviewController extends Controller
      */
     public function store(ContactReviewRequest $request,$contact)
     {
-        return $this->response($this->repository->add($request->all()));
+        $parameters = $request->all();
+        if($request->hasFile('image'))
+            $parameters['image'] = $this->imageService->upload('image')->resize(400,400)->getFileAddress();
+
+
+        return $this->response($this->repository->add($parameters));
     }
 
     /**
@@ -93,10 +103,10 @@ class ContactReviewController extends Controller
      * @param  \App\ContactReview  $contactReview
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id,$contact)
+    public function destroy($contact,$id)
     {
         $contactReview = ContactReview::findOrFail($id);
 
-        return $this->response($this->repository->delete($contactReview));
+        return $this->response($contactReview->delete());
     }
 }

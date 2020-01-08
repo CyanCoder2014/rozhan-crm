@@ -16,6 +16,7 @@ class UpdateReviewTable extends Migration
 
         Schema::table('contact_reviews',function (Blueprint $table){
             $table->softDeletes();
+            $table->string('image')->nullable();
         });
     }
 
