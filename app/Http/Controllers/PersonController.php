@@ -166,7 +166,7 @@ class PersonController extends BaseAPIController
     {
         return [
             ////////// person validation //////////////
-            'image'=>['nullable','image'],
+//            'image'=>['nullable','image'],
             'name'=>['required'],
             'family'=>['required'],
             'description'=>[],
