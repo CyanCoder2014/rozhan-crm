@@ -72,6 +72,7 @@ Route::middleware(['jwt.auth'])->group(function () {
         'destroy' => 'permission:contacts.destroy',
     ]);
     Route::get('contactslist','ContactController@list');
+    Route::get('contact/{id}/usedDiscounts','ContactController@UsedDiscount');
 
     Route::resource('productCategories', 'ProductCategoryController')->except('edit','create')->middleware([
         'index' => 'permission:product.categories.index',

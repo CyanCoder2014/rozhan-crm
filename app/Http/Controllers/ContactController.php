@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Contact;
 use App\ContactTag;
 use App\CTag;
+use App\Order;
 use App\Person;
 use App\Repositories\Interfaces\AppRepository;
 use App\Repositories\RoleRepository;
@@ -181,5 +182,9 @@ class ContactController extends BaseAPIController
         return $this->response($contact);
 
     }
-
+    public function UsedDiscount($id)
+    {
+        $contact = Contact::findOrFail($id);
+        return Order::whereHas('discount')->where('user_id',$contact->user_id)->with(['discount','discount.services','discount.products'])->paginate();
+    }
 }
