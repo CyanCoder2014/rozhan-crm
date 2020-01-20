@@ -81,7 +81,7 @@ class PersonTimingController extends Controller
 
     public function add($parametes)
     {
-        $priviouses= $this->model::where('date',$parametes['date'])->get();
+        $priviouses= $this->model::where('date',$parametes['date'])->where('person_id',$parametes['person_id'])->get();
         foreach ($priviouses as $privious)
         {
             if ((strTimeToInt($privious->start)<= strTimeToInt($parametes['start']) && strTimeToInt($privious->end)> strTimeToInt($parametes['start'])) ||
