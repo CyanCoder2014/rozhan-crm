@@ -50,13 +50,13 @@ class OrderController extends Controller
         $search_column =   ['title', 'description', 'general_start', 'general_end'];
         $with =['OrderServices','OrderServices.person','OrderServices.service','OrderProducts','OrderProducts.product','user', 'OrderServices.feedback'];
         if ( \request()->input('showdata') ) {
-            return $this->model::orderBy('created_at', 'desc')->get();
+            return $this->model->orderBy('created_at', 'desc')->get();
         }
         $length = \request()->input('length',15);
         $column = \request()->input('column');
         $order = \request()->input('order','desc');
         $search_input = \request()->input('search');
-        $query = $this->model::select(array_merge($columns,['id','created_at']))
+        $query = $this->model->select(array_merge($columns,['id','created_at']))
             ->orderBy($columns[$column]??'id',$order);
         if ($with)
             $query->with($with);

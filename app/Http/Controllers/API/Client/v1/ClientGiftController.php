@@ -18,7 +18,7 @@ class ClientGiftController extends Controller
 
     public function index()
     {
-        return UserGift::where('user_id',auth()->id())->paginate();
+        return UserGift::where('user_id',auth()->id())->with(['scoreGift', 'order'])->paginate();
     }
 
     public function scoreGiftsList()
