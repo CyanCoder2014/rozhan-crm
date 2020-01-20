@@ -57,14 +57,14 @@ class UserRepository
         if(!empty($request->password)){
             $user->password =  Hash::make($request->password);
         }
-        if(!empty($request->email))
-            $user->password =  Hash::make($request->email);
-        if(!empty($request->mobile))
-            $user->password =  Hash::make($request->mobile);
+//        if(!empty($request->email))
+//            $user->password =  Hash::make($request->email);
+//        if(!empty($request->mobile))
+//            $user->password =  Hash::make($request->mobile);
 
 
         if(!empty($request->mobile))
-            $user->password =  $request->mobile;
+            $user->mobile =  $request->mobile;
 
 
         if(!empty($request->email))
