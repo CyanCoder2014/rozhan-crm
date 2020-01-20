@@ -332,8 +332,9 @@ Route::middleware(['jwt.auth'])->group(function () {
         'destroy' => 'permission:service.discount.destroy',
     ]);
 
-
-
+    Route::resource('contact/{contact_id}/favorite', 'FavoriteController')->except('edit','create');
+    Route::get('contact/{contact_id}/profile', 'ContactProfileController@index');
+    Route::post('contact/{contact_id}/profile', 'ContactProfileController@update');
 
 
 
