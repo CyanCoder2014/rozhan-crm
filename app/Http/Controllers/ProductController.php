@@ -36,13 +36,13 @@ class ProductController extends BaseAPIController
 
     public function list()
     {
-        $data = $this->model::select('id','title','remaining_number')->get();
-        foreach ($data as $row)
-        {
-            $row->notAvailable = $row->notAvailable()->sum('amount');
-            $row->Buyed = $row->Buyed()->sum('amount');
-
-        }
+        $data = $this->model::select('id','title','remaining_number')->paginate(1000);
+//        foreach ($data as $row)
+//        {
+//            $row->notAvailable = $row->notAvailable()->sum('amount');
+//            $row->Buyed = $row->Buyed()->sum('amount');
+//
+//        }
         return $data;
 
     }
