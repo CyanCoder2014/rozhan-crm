@@ -36,7 +36,7 @@ class ProductController extends BaseAPIController
 
     public function list()
     {
-        $data = $this->model::select('id','title','remaining_number')->paginate(1000);
+        $data = $this->model::select('id','title', 'description','remaining_number', 'price', 'type',  'image','state')->paginate(1000);
 //        foreach ($data as $row)
 //        {
 //            $row->notAvailable = $row->notAvailable()->sum('amount');
