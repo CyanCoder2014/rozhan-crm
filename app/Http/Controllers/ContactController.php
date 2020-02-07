@@ -57,7 +57,7 @@ class ContactController extends BaseAPIController
 //        return $this->model->orderBy('id', 'desc')->paginate();
 //        $data =  parent::dataTables(,,);
         $columns =['first_name','user_id', 'last_name', 'mobile', 'email', 'tell','personal_code'];
-        $search_column=['first_name','user_id', 'last_name', 'mobile', 'email', 'tell'];
+        $search_column=['first_name','user_id', 'last_name', 'mobile', 'email', 'tell','personal_code'];
         $with=['user'];
         if (!$search_column)
             $search_column = $columns;

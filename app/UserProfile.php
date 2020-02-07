@@ -19,5 +19,58 @@ class UserProfile extends Model
         'visitor_note',
         'type',
         'state',
+
+        'regent',
+        'reagent_detail',
+        'reagent_state',
+        'reagent_page',
+        'reagent_site',
+        'reagent_type',
+        'regent_id',
+
+        'weight',
+        'height',
+
+        'disease',
+        'drug',
+        'heart',
+        'respiratory',
+        'Liver',
+        'Diabetes',
+        'Seizure',
+        'infectiousdisease',
+        'tumor',
+        'asthma',
+        'hormonaldisorder',
+        'otherHerpes',
+        'asprin',
+        'deyper',
+        'convulsion',
+        'arpharin',
+        'heparin',
+        'minoxide',
+        'rakuten',
+        'cream',
+        'otherpharmacy',
+        'boronz',
+        'surgery',
+        'typeSurgery',
+        'getpregnant',
+        'milch',
+        'Botox',
+        'zhel',
+
+
+        'Kidney',
+        'thyroid',
+        'hormonal',
+        'allergy',
+        'Laser',
+
+
+
+
+        'text',
+        
     ];
 }
