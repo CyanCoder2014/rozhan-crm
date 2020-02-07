@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateReviewTable extends Migration
+class OrderServicesTableUpdate extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,18 @@ class UpdateReviewTable extends Migration
      */
     public function up()
     {
+        Schema::table('order_services', function (Blueprint $table) {
 
-        Schema::table('contact_reviews',function (Blueprint $table){
-            $table->softDeletes();
-            $table->string('image')->nullable();
-            $table->unsignedBigInteger('order_id')->nullable();
-            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+
+
+            $table->string('degree')->nullable();
+            $table->string('amount')->nullable();
+            $table->string('detail')->nullable();
+            $table->string('detail_type')->nullable();
+
+
+
+
         });
     }
 
