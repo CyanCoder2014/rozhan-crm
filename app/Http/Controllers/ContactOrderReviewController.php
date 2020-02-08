@@ -50,7 +50,7 @@ class ContactOrderReviewController extends Controller
     {
         $parameters = $request->all();
         if($request->hasFile('image'))
-            $parameters['image'] = $this->imageService->upload('image')->resize(400,400)->getFileAddress();
+            $parameters['image'] = $this->imageService->upload('image')->resize(500,500)->getFileAddress();
 
 
         return $this->response($this->repository->add($parameters));
