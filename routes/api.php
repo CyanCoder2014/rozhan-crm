@@ -317,6 +317,20 @@ Route::middleware(['jwt.auth'])->group(function () {
     ]);
 
 
+
+    Route::resource('contactOrder/{contact}/{contactOrder}/reviews', 'ContactOrderReviewController')->except('edit','create')->middleware([
+        'index' => 'permission:contact.reviews.index',
+        'store' => 'permission:contact.reviews.store',
+        'show' => 'permission:contact.reviews.show',
+        'update' => 'permission:contact.reviews.edit',
+        'destroy' => 'permission:contact.reviews.destroy',
+    ]);
+
+
+
+
+
+
     Route::resource('productDiscount', 'ProductDiscountController')->except('edit','create')->middleware([
         'index' => 'permission:product.discount.index',
         'store' => 'permission:product.discount.store',
