@@ -742,7 +742,7 @@ class ReportController extends Controller
             DB::raw('SUM(orders.final_price) as total_price'))
             ->where('orders.created_at','>=',to_georgian_date(\request('date_from')))
             ->where('orders.created_at','<=',(new Carbon(to_georgian_date(to_georgian_date(\request('date_to')))))->addDays(1))
-            ->where('orders.state',Order::complete_state)
+//            ->where('orders.state',Order::complete_state)
             ->get();
 
         return $orderQuery;
