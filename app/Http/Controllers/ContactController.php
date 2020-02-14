@@ -117,7 +117,7 @@ class ContactController extends BaseAPIController
             'first_name'=>['required'],
             'last_name'=>['required'],
 //            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'mobile' => ['required', 'string', 'digits:11', 'unique:contacts', 'unique:users'],
+            'mobile' => ['required', 'string', 'min:8', 'unique:contacts', 'unique:users'],
 //            'password' => ['required', 'string', 'min:8']
 ]);
         $user =$this->userRepository->add(\request());
