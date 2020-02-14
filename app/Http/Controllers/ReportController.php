@@ -152,13 +152,15 @@ class ReportController extends Controller
             DB::raw('WEEK(order_services.created_at) as week'))
             ->where('orders.created_at','>=',to_georgian_date(\request('date_from')))
             ->where('orders.created_at','<',to_georgian_date(\request('date_to')))
-            ->where('orders.state',Order::complete_state)
+//            ->where('orders.state',Order::complete_state)
             ->join('orders','orders.id','order_services.order_id')
             ->groupBy($groupBy)
             ->orderBy($order,$order_sort);
         if (isset($request->limit) && ctype_digit($request->limit))
             $query->limit($request->limit);
         $query = $query->get();
+
+//        return $query;
 
         $output=[];
         switch (request('filter')){
@@ -170,22 +172,23 @@ class ReportController extends Controller
                     ];
                 return $output;
             case 'user':
-
-                foreach ($query as $row)
+                foreach ($query as $row){
 
                     $contactLabel = 'نا مشخص';
-                    if (Contact::where('user_id', $row->user_id)->first() != null)
-                    $contactLabel = Contact::where('user_id', $row->user_id)->first()->last_name;
+                    if (Contact::where('user_id', $row->user_id)->first() != null){
+                        $contactLabel = Contact::where('user_id', $row->user_id)->first()->last_name;
+                    }
 
                     $output[]=[
                         'label' => $contactLabel,
                         'value' => $row->total
                     ];
+                }
+
                 return $output;
             case 'person':
 
-                foreach ($query as $row)
-
+                foreach ($query as $row){
                     $personLabel = 'نا مشخص';
                     if ($row->person != null)
                         $personLabel = $row->person->name.' '.$row->person->family;
@@ -194,6 +197,9 @@ class ReportController extends Controller
                         'label' => $personLabel,
                         'value' => $row->total
                     ];
+                }
+
+
                 return $output;
             default:
                 switch (request('time')){
