@@ -42,6 +42,7 @@ class Order extends Model
         'created_by',
         'updated_by',
         'deleted_at',
+
     ];
 
     public function is_editable(){

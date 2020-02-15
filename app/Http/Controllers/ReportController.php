@@ -82,7 +82,7 @@ class ReportController extends Controller
             DB::raw('WEEK(order_services.created_at) as week'))
             ->where('orders.created_at','>=',to_georgian_date(\request('date_from')))
             ->where('orders.created_at','<',to_georgian_date(\request('date_to')))
-            ->where('orders.state',Order::complete_state)
+            ->where('orders.state','!=', Order::cancel_state)
             ->join('orders','orders.id','order_services.order_id')
             ->groupBy($groupBy)
             ->orderBy($order,$order_sort);
@@ -152,7 +152,7 @@ class ReportController extends Controller
             DB::raw('WEEK(order_services.created_at) as week'))
             ->where('orders.created_at','>=',to_georgian_date(\request('date_from')))
             ->where('orders.created_at','<',to_georgian_date(\request('date_to')))
-//            ->where('orders.state',Order::complete_state)
+            ->where('orders.state','!=', Order::cancel_state)
             ->join('orders','orders.id','order_services.order_id')
             ->groupBy($groupBy)
             ->orderBy($order,$order_sort);
@@ -290,7 +290,7 @@ class ReportController extends Controller
             DB::raw('WEEK(order_products.created_at) as week'))
             ->where('orders.created_at','>=',to_georgian_date(\request('date_from')))
             ->where('orders.created_at','<',to_georgian_date(\request('date_to')))
-            ->where('orders.state',Order::complete_state)
+            ->where('orders.state','!=', Order::cancel_state)
             ->join('orders','orders.id','order_products.order_id')
             ->groupBy($groupBy)
             ->orderBy($order,$order_sort);
@@ -397,7 +397,7 @@ class ReportController extends Controller
             DB::raw('WEEK(orders.created_at) as week'))
             ->where('orders.created_at','>=',to_georgian_date(\request('date_from')))
             ->where('orders.created_at','<',to_georgian_date(\request('date_to')))
-            ->where('orders.state',Order::complete_state)
+            ->where('orders.state','!=', Order::cancel_state)
             ->join('orders','orders.id','order_products.order_id')
             ->join('order_services','order_services.order_id','order_products.order_id')
             ->groupBy($groupBy)
@@ -509,7 +509,7 @@ class ReportController extends Controller
             DB::raw('WEEK(order_services.created_at) as week'))
             ->where('orders.created_at','>=',to_georgian_date(\request('date_from')))
             ->where('orders.created_at','<',to_georgian_date(\request('date_to')))
-            ->where('orders.state',Order::complete_state)
+            ->where('orders.state','!=', Order::cancel_state)
             ->join('orders','orders.id','order_services.order_id')
             ->where('order_services.person_id',\request('person_id'))
             ->orderBy($order,$order_sort);
@@ -638,7 +638,7 @@ class ReportController extends Controller
             DB::raw('WEEK(order_services.created_at) as week'))
             ->where('orders.created_at','>=',to_georgian_date(\request('date_from')))
             ->where('orders.created_at','<=',(new Carbon(to_georgian_date(to_georgian_date(\request('date_to')))))->addDays(1))
-            ->where('orders.state',Order::complete_state)
+            ->where('orders.state','!=', Order::cancel_state)
             ->join('orders','orders.id','order_services.order_id')
             ->groupBy($groupBy)
             ->orderBy($order,$order_sort);
@@ -709,7 +709,7 @@ class ReportController extends Controller
             DB::raw('WEEK(order_products.created_at) as week'))
             ->where('orders.created_at','>=',to_georgian_date(\request('date_from')))
             ->where('orders.created_at','<=',(new Carbon(to_georgian_date(to_georgian_date(\request('date_to')))))->addDays(1))
-            ->where('orders.state',Order::complete_state)
+            ->where('orders.state','!=', Order::cancel_state)
             ->join('orders','orders.id','order_products.order_id')
             ->groupBy($groupBy)
             ->orderBy($order,$order_sort);
@@ -748,7 +748,7 @@ class ReportController extends Controller
             DB::raw('SUM(orders.final_price) as total_price'))
             ->where('orders.created_at','>=',to_georgian_date(\request('date_from')))
             ->where('orders.created_at','<=',(new Carbon(to_georgian_date(to_georgian_date(\request('date_to')))))->addDays(1))
-//            ->where('orders.state',Order::complete_state)
+            ->where('orders.state','!=', Order::cancel_state)
             ->get();
 
         return $orderQuery;
