@@ -14,7 +14,9 @@ class Order extends Model
     const state_diagram=[
       self::created_state =>[
           self::payed_state =>true,
-          self::cancel_state =>true
+          self::cancel_state =>true,
+          self::complete_state =>true
+
       ] ,
       self::payed_state =>[
           self::cancel_state =>true,

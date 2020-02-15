@@ -34,7 +34,13 @@ class ContactPaymentController extends Controller
 
     public function paymentsSum($contactId)
     {
-        return CustomerPayment::where('contact_id',$contactId)->where('pay_state',2)->paginate();
+        return CustomerPayment::where('contact_id',$contactId)->where('pay_state',2)->sum('amount');
+    }
+
+
+    public function orderPaymentsSum($orderId)
+    {
+        return CustomerPayment::where('order_id',$orderId)->where('pay_state',2)->sum('amount');
     }
 
 

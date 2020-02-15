@@ -539,18 +539,18 @@ class OrderSrvImpl
 
         if (!Order::canChangeState($order->state,Order::payed_state))
             ValidationException::withMessages( ['message' =>'نمی توان سفارش را پرداخت کرد']);
-        $order->state = Order::payed_state;
-        foreach ($order->OrderServices as $OrderServices)
-        {
-            $OrderServices->state = OrderService::payed_state;
-            $OrderServices->save();
-        }
-
-        foreach ($order->OrderProducts as $OrderProducts)
-        {
-            $OrderProducts->state = OrderProduct::payed_state;
-            $OrderProducts->save();
-        }
+        $order->state = Order::created_state; /// for test --> correct state: payed_state
+//        foreach ($order->OrderServices as $OrderServices)
+//        {
+//            $OrderServices->state = OrderService::payed_state;
+//            $OrderServices->save();
+//        }
+//
+//        foreach ($order->OrderProducts as $OrderProducts)
+//        {
+//            $OrderProducts->state = OrderProduct::payed_state;
+//            $OrderProducts->save();
+//        }
         $order->save();
         return ['message' =>'successful','data' =>$order];
 

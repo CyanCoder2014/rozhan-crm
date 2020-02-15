@@ -139,9 +139,14 @@ class OrderController extends Controller
         $data['number'] = 'order-'.$order->user_id.$order->id;
         $data['user_id'] = $order->user_id;
         $data['buyer'] = $order->user->name;
-        $data['amount'] = $order->final_price;
+//        $data['amount'] = $order->final_price;
+        $data['amount'] = $request->amount;
         $data['register_date'] = Carbon::now()->format('Y-m-d H:i:s');
         $data['due_date'] = Carbon::now()->format('Y-m-d H:i:s');
+
+        $data['order_id'] = $request->order_id;
+        $data['contact_id'] = $order->user->contact->id;
+
         $array = $this->orderService->payedOrder($order);
         if ($array['data']) // if order state changed
             $array = $this->customerPaymentRepository->add($data);
