@@ -352,8 +352,8 @@ Route::middleware(['jwt.auth'])->group(function () {
 
 
 
-    Route::get('contact/orders/{contact_id}', 'ContactProfileController@index');
-    Route::get('contact/payments/{contact_id}', 'ContactProfileController@index');
+    Route::get('contact/orders/{contact_id}', 'ContactPaymentController@ordersSum');
+    Route::get('contact/payments/{contact_id}', 'ContactPaymentController@paymentsSum');
 
 
 
