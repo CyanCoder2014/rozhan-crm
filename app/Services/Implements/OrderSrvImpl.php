@@ -231,9 +231,14 @@ class OrderSrvImpl
             $start = Carbon::createFromFormat('Y-m-d',to_georgian_date($request->date));
             $order = $cacheData['order'];
             $service_price=[];
+            $service_note=[];
             foreach ($cacheData['services'] as $service)
                 if (isset($service['price']))
+                {
                     $service_price[$service['service_id']] = $service['price'];
+                    $service_note[$service['service_id']] = $service['note'];
+                }
+
             $product_price=[];
             foreach ($cacheData['products'] as $product)
                 if (isset($product['price']))
@@ -263,7 +268,7 @@ class OrderSrvImpl
                 $newOrderService->fill([
                     'service_id' => $service->id,
                     'person_id'=> $person->id,
-                    'note' => $serv['note']??null,
+                    'note' => $service_note[$service['service_id']]??$serv['note']??null,
                     'number' => null,
                     'price' => $service_price[$serv['service_id']]??$service->priceCalculate(),
                     'discount' => $service->default_discount,
@@ -389,7 +394,7 @@ class OrderSrvImpl
                     $person = Person::findOrFail($serv['person_id']);
                 else
                     $person = new Person();
-                $price += $service->priceCalculate();
+                $price += $service_price[$serv['service_id']]??$service->priceCalculate();
 
 
 
