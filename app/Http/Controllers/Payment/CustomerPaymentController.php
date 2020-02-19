@@ -42,6 +42,8 @@ class CustomerPaymentController extends BaseAPIController
                 'created_by',
                 'updated_by',
                 'user_id',
+                'contact_id',
+                'order_id',
             ],[
                 'number',
                 'reason',
@@ -54,7 +56,9 @@ class CustomerPaymentController extends BaseAPIController
                 'cheque_number',
                 'payment_account',
                 'finance_state',
-                'description'
+                'description',
+                'contact_id',
+                'order_id',
             ],
             ['account']
 
