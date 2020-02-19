@@ -47,8 +47,8 @@ class OrderController extends Controller
 //        $data = $this->appRepository->getAll($this->model);
 
         $columns =    ['title', 'description', 'file','general_price', 'general_discount', 'general_tax', 'final_price', 'general_date', 'general_start', 'general_end','state'];
-        $search_column =   ['title', 'description', 'general_start', 'general_end'];
-        $with =['OrderServices','OrderServices.person','OrderServices.service','OrderProducts','OrderProducts.product','user', 'OrderServices.feedback'];
+        $search_column =   ['title', 'description', 'general_start', 'general_end','general_price', 'general_discount', 'final_price'];
+        $with =['OrderServices','OrderServices.person','OrderServices.service','OrderProducts','OrderProducts.product','user','user.contact','contact','OrderServices.feedback'];
         if ( \request()->input('showdata') ) {
             return $this->model->orderBy('created_at', 'desc')->get();
         }
@@ -75,9 +75,9 @@ class OrderController extends Controller
             });
         }
         $data = $query->paginate($length);
-        return $data;
+//        return $data;
 
-        return Order::with(['OrderServices','OrderServices.person','OrderServices.service','OrderProducts','OrderProducts.product','user'])->orderBy('id', 'desc')->paginate();
+        return Order::with(['OrderServices','OrderServices.person','OrderServices.service','OrderProducts','OrderProducts.product','user','contact','OrderServices.feedback'])->orderBy('id', 'desc')->paginate();
 
 //        return $this->response($data);
     }
@@ -86,7 +86,7 @@ class OrderController extends Controller
     public function show($id)
     {
         $data = Order::where('id',$id)
-            ->with(['OrderServices','OrderProducts','OrderServices.person','OrderServices.service','OrderProducts.product','user','contact', 'OrderServices.feedback'])
+            ->with(['OrderServices','OrderProducts','OrderServices.person','OrderServices.service','OrderProducts.product','user','contact', 'OrderServices.feedback', 'discount'])
             ->first();
         return $this->response($data);
     }
@@ -139,9 +139,14 @@ class OrderController extends Controller
         $data['number'] = 'order-'.$order->user_id.$order->id;
         $data['user_id'] = $order->user_id;
         $data['buyer'] = $order->user->name;
-        $data['amount'] = $order->final_price;
+//        $data['amount'] = $order->final_price;
+        $data['amount'] = $request->amount;
         $data['register_date'] = Carbon::now()->format('Y-m-d H:i:s');
         $data['due_date'] = Carbon::now()->format('Y-m-d H:i:s');
+
+        $data['order_id'] = $request->order_id;
+        $data['contact_id'] = $order->user->contact->id;
+
         $array = $this->orderService->payedOrder($order);
         if ($array['data']) // if order state changed
             $array = $this->customerPaymentRepository->add($data);

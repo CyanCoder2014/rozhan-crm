@@ -3,8 +3,10 @@
  * ----------
  */
 .skin-blue .main-header .navbar {
-  background: linear-gradient(45deg, #a01c7d, #5c2278);
-  border-bottom: 2px solid #673AB7;
+  /*background: linear-gradient(45deg, #343a40, #5c2278);*/
+  background: #343a40;
+  border-bottom: 4px solid #6A1B9A;
+
 }
 .skin-blue .main-header .navbar .nav > li > a {
   color: #ffffff;
@@ -40,7 +42,7 @@
     color: #fff;
   }
   .skin-blue .main-header .navbar .dropdown-menu li a:hover {
-    background: linear-gradient(45deg, #a01c7d, #5c2278);
+    background: linear-gradient(45deg, #343a40, #5c2278);
   }
 }
 .skin-blue .main-header .logo {
@@ -52,7 +54,7 @@
   background-color: #673AB7;
 }
 .skin-blue .main-header li.user-header {
-  background: linear-gradient(45deg, #a01c7d, #5c2278);
+  background: linear-gradient(45deg, #343a40, #5c2278);
 }
 .skin-blue .content-header {
   background: transparent;
@@ -84,7 +86,7 @@
 }
 .skin-blue .sidebar-menu > li > .treeview-menu {
   margin: 0 1px;
-  background: linear-gradient(45deg, #a01c7d, #5c2278);
+  background: linear-gradient(45deg, #343a40, #5c2278);
 }
 .skin-blue .sidebar a {
   color: #616161;
@@ -134,7 +136,7 @@
   border-bottom-left-radius: 0;
 }
 .skin-blue.layout-top-nav .main-header > .logo {
-  background: linear-gradient(45deg, #a01c7d, #5c2278);
+  background: linear-gradient(45deg, #343a40, #5c2278);
   color: #ffffff;
   border-bottom: 0 solid transparent;
 }

@@ -32,6 +32,9 @@ class CustomerPayment extends Model
         'created_by',
         'updated_by',
         'user_id',
+
+        'contact_id',
+        'order_id',
     ];
 
 

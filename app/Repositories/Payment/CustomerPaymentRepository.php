@@ -36,6 +36,9 @@ class CustomerPaymentRepository
             'created_by'=>$data['created_by']??null,
             'updated_by'=>$data['updated_by']??null,
             'user_id'=>$data['user_id']??null,
+
+            'order_id'=>$data['order_id']??null,
+            'contact_id'=>$data['contact_id']??null,
             ]);
         $new->save();
         return ['data' =>$new,'message'=>'successful','status'=>200];

@@ -11,6 +11,7 @@ use App\Person;
 use App\Repositories\Interfaces\AppRepository;
 use App\Repositories\RoleRepository;
 use App\Repositories\UserRepository;
+use App\Services\UploadFileService\UploadImageService;
 use App\Services\UserScoreService\UserScoreService;
 use App\User;
 use function GuzzleHttp\Psr7\str;
@@ -27,11 +28,13 @@ class ContactController extends BaseAPIController
     protected $userRepository;
     protected $scoreService;
 
+    protected $imageService;
+
     /**
      * @var UserRepository
      */
 
-    public function __construct(AppRepository $appRepository,UserRepository $userRepository,UserScoreService $scoreService)
+    public function __construct(AppRepository $appRepository,UserRepository $userRepository,UserScoreService $scoreService, UploadImageService $imageService)
     {
         $this->appRepository = $appRepository;
         $this->model = new Contact();
@@ -39,11 +42,14 @@ class ContactController extends BaseAPIController
         $this->person = new Person();
         $this->userRepository = $userRepository;
         $this->scoreService =$scoreService;
+
+        $this->imageService =$imageService;
+
     }
 
     public function list()
     {
-        return $this->model::select('id','first_name', 'last_name')->get();
+        return $this->model->select('id','first_name', 'last_name')->get();
     }
 
     public function index()
@@ -51,18 +57,18 @@ class ContactController extends BaseAPIController
 //        return $this->model->orderBy('id', 'desc')->paginate();
 //        $data =  parent::dataTables(,,);
         $columns =['first_name','user_id', 'last_name', 'mobile', 'email', 'tell','personal_code'];
-        $search_column=['first_name','user_id', 'last_name', 'mobile', 'email', 'tell'];
+        $search_column=['first_name','user_id', 'last_name', 'mobile', 'email', 'tell','personal_code'];
         $with=['user'];
         if (!$search_column)
             $search_column = $columns;
         if ( \request()->input('showdata') ) {
-            return $this->model::orderBy('created_at', 'desc')->get();
+            return $this->model->orderBy('created_at', 'desc')->get();
         }
         $length = \request()->input('length',15);
         $column = \request()->input('column');
         $order = \request()->input('order','desc');
         $search_input = \request()->input('search');
-        $query = $this->model::select(array_merge($columns,['id','created_at']))
+        $query = $this->model->select(array_merge($columns,['id','created_at']))
             ->orderBy($columns[$column]??'id',$order);
         if ($with)
             $query->with($with)->doesnthave('user.person');
@@ -111,7 +117,7 @@ class ContactController extends BaseAPIController
             'first_name'=>['required'],
             'last_name'=>['required'],
 //            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'mobile' => ['required', 'string', 'digits:11', 'unique:contacts', 'unique:users'],
+            'mobile' => ['required', 'string', 'min:8', 'unique:contacts', 'unique:users'],
 //            'password' => ['required', 'string', 'min:8']
 ]);
         $user =$this->userRepository->add(\request());
@@ -127,9 +133,15 @@ class ContactController extends BaseAPIController
     public function update($id)
     {
         $contact = Contact::findOrFail($id);
+
         \request()->validate($this->validationRules(),$this->validationMessages(),$this->validationAttributes());
+
+        $parameters = \request()->all();
+        if(\request()->hasFile('image'))
+            $parameters['image'] = $this->imageService->upload('image')->resize(100,100)->getFileAddress();
+
         $user =$this->userRepository->update(\request(),$contact->user_id);
-        $data = $this->appRepository->edit(\request()->all() , $id, $this->model);
+        $data = $this->appRepository->edit($parameters, $id,$this->model);
         if ($user->person)
             $this->appRepository->edit(\request()->all() , $user->person->id, new Person());
         $this->DeleteTags($id);

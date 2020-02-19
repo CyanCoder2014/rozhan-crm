@@ -14,7 +14,9 @@ class Order extends Model
     const state_diagram=[
       self::created_state =>[
           self::payed_state =>true,
-          self::cancel_state =>true
+          self::cancel_state =>true,
+          self::complete_state =>true
+
       ] ,
       self::payed_state =>[
           self::cancel_state =>true,
@@ -42,6 +44,7 @@ class Order extends Model
         'created_by',
         'updated_by',
         'deleted_at',
+
     ];
 
     public function is_editable(){
@@ -66,7 +69,7 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
     public function contact(){
-        return $this->hasOne(Contact::class,'user_id','user_id');
+        return $this->hasOneThrough(Contact::class,User::class,'id','user_id','user_id','id');
     }
 
     public function discount(){

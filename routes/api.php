@@ -317,6 +317,20 @@ Route::middleware(['jwt.auth'])->group(function () {
     ]);
 
 
+
+    Route::resource('contactOrder/{contact}/{contactOrder}/reviews', 'ContactOrderReviewController')->except('edit','create')->middleware([
+        'index' => 'permission:contact.reviews.index',
+        'store' => 'permission:contact.reviews.store',
+        'show' => 'permission:contact.reviews.show',
+        'update' => 'permission:contact.reviews.edit',
+        'destroy' => 'permission:contact.reviews.destroy',
+    ]);
+
+
+
+
+
+
     Route::resource('productDiscount', 'ProductDiscountController')->except('edit','create')->middleware([
         'index' => 'permission:product.discount.index',
         'store' => 'permission:product.discount.store',
@@ -335,6 +349,14 @@ Route::middleware(['jwt.auth'])->group(function () {
     Route::resource('contact/{contact_id}/favorite', 'FavoriteController')->except('edit','create');
     Route::get('contact/{contact_id}/profile', 'ContactProfileController@index');
     Route::post('contact/{contact_id}/profile', 'ContactProfileController@update');
+
+
+
+    Route::get('contact/orders/{contact_id}', 'ContactPaymentController@ordersSum');
+    Route::get('contact/payments/{contact_id}', 'ContactPaymentController@paymentsSum');
+
+    Route::get('order/payments/{order_id}', 'ContactPaymentController@orderPaymentsSum');
+
 
 
 

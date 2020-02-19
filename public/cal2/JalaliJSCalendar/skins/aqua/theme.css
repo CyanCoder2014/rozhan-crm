@@ -11,7 +11,7 @@ div.calendar {
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 3px 3px 25px grey;
-    background-color: rgb(236, 64, 122);
+    background-color: #17a2b8;
 }
 
 .calendar, .calendar table {
@@ -70,13 +70,13 @@ div.calendar {
 }
 
 .calendar thead .weekend { /* How a weekend day name shows in header */
-    color: #29b6f6
+    color: #6A1B9A
 
 ;
 }
 
 .calendar thead .hilite { /* How do the buttons in header appear when hover */
-    background-color: #29b6f6;
+    background-color: #6A1B9A;
     border-radius: 50%;
     cursor: pointer;
     color: white!important;
@@ -126,7 +126,7 @@ div.calendar {
 }
 
 .calendar tbody td.hilite { /* Hovered cells <TD> */
-    background-color: #29b6f6;
+    background-color: #6A1B9A;
     border-radius: 50%;
     cursor: pointer;
     color: white!important;
@@ -137,12 +137,12 @@ div.calendar {
 }
 
 .calendar tbody td.weekend { /* Cells showing weekend days */
-    color: #29b6f6;
+    color: #6A1B9A;
 }
 
 .calendar tbody td.selected { /* Cell showing selected date */
     font-weight: bold;
-    background-color: #29b6f6;
+    background-color: #6A1B9A;
     border-radius: 50%;
     color: white;
 }
@@ -211,7 +211,7 @@ div.calendar {
 }
 
 .calendar .combo .hilite {
-    background-color: #29b6f6;
+    background-color: #6A1B9A;
     border-radius: 50%;
     cursor: pointer;
     color: white!important;
@@ -254,7 +254,7 @@ div.calendar {
 }
 
 .calendar td.time span.hilite {
-    background-color: #29b6f6;
+    background-color: #6A1B9A;
     border-radius: 50%;
     cursor: pointer;
     color: white!important;

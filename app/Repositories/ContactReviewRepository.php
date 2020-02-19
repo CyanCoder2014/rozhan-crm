@@ -13,10 +13,10 @@ class ContactReviewRepository
     {
 
         $user = auth()->user();
-        if (!$user->person)
-            ValidationException::withMessages(['person' => 'شما جزو پرسنل نیستید']);
+//        if (!$user->person)
+//            ValidationException::withMessages(['person' => 'شما جزو پرسنل نیستید']);
         $parameter['created_by'] = $user->id;
-        $parameter['person_id'] = $user->person->id;
+//        $parameter['person_id'] = $user->person->id;
 
         return ContactReview::create($parameter);
     }

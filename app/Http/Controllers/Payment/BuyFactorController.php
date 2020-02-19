@@ -54,7 +54,7 @@ class BuyFactorController extends BaseAPIController
             'tell_number',
             'economic_code',
         ]);
-        return $this->model::paginate();
+        return $this->model->paginate();
     }
 
     protected function validationRules(){

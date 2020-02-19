@@ -19,6 +19,7 @@ class ContactReview extends Model
         'image',
         'created_by',
         'updated_by',
+        'order_id',
     ];
 
     /***************** relations ********************/
