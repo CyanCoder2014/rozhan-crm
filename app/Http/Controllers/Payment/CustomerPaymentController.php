@@ -66,6 +66,31 @@ class CustomerPaymentController extends BaseAPIController
         return $this->model->with(['account'])->paginate();
     }
 
+
+
+
+
+
+    public function store(){
+
+        \request()->request->add([
+            'register_date'=>to_georgian2(\request()->register_date),
+            'due_date'=> to_georgian2(\request()->due_date),
+        ]);
+        $payment = new CustomerPayment();
+        $payment->fill(\request()->all());
+        $payment->created_by = auth()->id();
+        $payment->save();
+        return $this->response($payment);
+    }
+
+
+
+
+
+
+
+
     protected function validationRules(){
         return [
             'number'=>['required'],

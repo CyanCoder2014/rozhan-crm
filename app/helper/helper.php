@@ -113,6 +113,18 @@ function to_georgian($dateTime)
 
 }
 
+function to_georgian2($dateTime)
+{
+    $datetime = explode(' ', preg_replace('/\s+/', ' ',unpersian($dateTime)));
+    if(validate_jalili($datetime[0])){
+        $date = explode('/', unpersian($datetime[0]));
+        $date = implode('-', jalali_to123_gregorian((int)$date[0], (int)$date[1], (int)$date[2]));
+        return $date.' 00:00:00';
+    }
+    return null;
+
+}
+
 
 function to_jalali_month($date)
 {

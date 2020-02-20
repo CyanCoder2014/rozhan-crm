@@ -358,7 +358,7 @@ Route::middleware(['jwt.auth'])->group(function () {
     Route::get('order/payments/{order_id}', 'ContactPaymentController@orderPaymentsSum');
 
 
-
+    Route::resource('contact/{contact_id}/ContactPayment', 'ContactPaymentController');
 
 });
 

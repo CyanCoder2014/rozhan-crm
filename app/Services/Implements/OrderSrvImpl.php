@@ -394,7 +394,7 @@ class OrderSrvImpl
                     $person = Person::findOrFail($serv['person_id']);
                 else
                     $person = new Person();
-                $price += $service_price[$serv['service_id']]??$service->priceCalculate();
+                $price += $serv['price']??$service->priceCalculate();
 
 
 
