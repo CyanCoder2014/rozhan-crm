@@ -35,27 +35,7 @@ class ContactPaymentController extends Controller
 
 
 
-    public function update($contact_id,$id){
-        \request()->validate($this->validationRules(),$this->validationMessages(),$this->validationAttributes());
-        $payment = CustomerPayment::where('contact_id',$contact_id)->where('id',$id)->first();
-        if (!$payment)
-            return abort(404);
 
-        /// not ok  --- for test
-        $contact = Contact::find($contact_id);
-        \request()->request->add([
-            'contact_id'=>$contact_id,
-            'buyer'=> $contact->first_name.' '.$contact->last_name,
-            'register_date'=>to_georgian2(\request()->register_date),
-            'due_date'=> to_georgian2(\request()->due_date),
-        ]);
-        ////
-
-        $payment->fill(\request()->all());
-        $payment->updated_by = auth()->id();
-        $payment->save();
-        return $this->response($payment);
-    }
 
 
 
@@ -78,7 +58,27 @@ class ContactPaymentController extends Controller
     }
 
 
+    public function update($contact_id,$id){
+        \request()->validate($this->validationRules(),$this->validationMessages(),$this->validationAttributes());
+        $payment = CustomerPayment::where('contact_id',$contact_id)->where('id',$id)->first();
+        if (!$payment)
+            return abort(404);
 
+        /// not ok  --- for test
+        $contact = Contact::find($contact_id);
+        \request()->request->add([
+            'contact_id'=>$contact_id,
+            'buyer'=> $contact->first_name.' '.$contact->last_name,
+            'register_date'=>to_georgian2(\request()->register_date),
+            'due_date'=> to_georgian2(\request()->due_date),
+        ]);
+        ////
+
+        $payment->fill(\request()->all());
+        $payment->updated_by = auth()->id();
+        $payment->save();
+        return $this->response($payment);
+    }
 
 
     public function destroy($contact_id,$id){

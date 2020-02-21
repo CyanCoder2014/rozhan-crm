@@ -77,6 +77,7 @@ class CustomerPaymentController extends BaseAPIController
             'register_date'=>to_georgian2(\request()->register_date),
             'due_date'=> to_georgian2(\request()->due_date),
         ]);
+
         $payment = new CustomerPayment();
         $payment->fill(\request()->all());
         $payment->created_by = auth()->id();
@@ -86,7 +87,24 @@ class CustomerPaymentController extends BaseAPIController
 
 
 
+    public function update($id){
 
+        $payment = CustomerPayment::where('id',$id)->first();
+        if (!$payment)
+            return abort(404);
+
+        /// not ok  --- for test
+        \request()->request->add([
+            'register_date'=>to_georgian2(\request()->register_date),
+            'due_date'=> to_georgian2(\request()->due_date),
+        ]);
+        ////
+
+        $payment->fill(\request()->all());
+        $payment->updated_by = auth()->id();
+        $payment->save();
+        return $this->response($payment);
+    }
 
 
 
