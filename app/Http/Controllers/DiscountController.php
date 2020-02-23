@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Discount;
+use App\Http\Requests\DiscountGroupCreateRequest;
 use App\Http\Requests\DiscountRequest;
 use App\Http\Requests\DiscountUpdateRequest;
 use App\Http\Requests\OrderDiscountRequest;
@@ -83,6 +84,42 @@ class DiscountController extends Controller
     {
         $rep =$this->repository->add($request->all());
         return $this->response($rep['data']??null,$rep['message']??null,$rep['status']??200);
+    }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeGrouo(DiscountGroupCreateRequest $request)
+    {
+
+        $output=[];
+        for($i=0;$i<$request->discount_quantity;$i++)
+        {
+            $code='';
+            while (true)
+            {
+                $code=$request->code.generateRandomString(5);
+                if (Discount::where('code',$code)->count() < 1)
+                    break;
+            }
+            $output[]=$code;
+            $rep =$this->repository->add([
+                'title'=>$request->title,
+                'quantity'=>$request->quantity,
+                'type'=>$request->type,
+                'amount'=>$request->amount,
+                'amount_type'=>$request->amount_type,
+                'code'=>$code,
+                'services' =>$request->services,
+                'products' =>$request->products,
+                'start_at'=> $request->start_at,
+                'expired_at'=> $request->expired_at,
+            ]);
+        }
+
+        return $this->response($output??null,null,200);
     }
 
     /**
