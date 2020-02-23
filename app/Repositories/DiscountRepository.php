@@ -267,6 +267,9 @@ class DiscountRepository
 
     protected function ApplyMoneyType(Discount $discount,Order $order)
     {
+        $order->general_discount=$discount->amount;
+        $order->final_price-=$order->general_discount;
+        $order->save();
 
     }
     protected function ApplyScoreType(Discount $discount,Order $order)

@@ -95,7 +95,7 @@ class Discount extends Model
             }
 
         }
-        if ($this->orders()->where('state',Order::complete_state)->count() >= $this->quantity)
+        if ($this->orders()->where('state','!=',Order::cancel_state)->count() >= $this->quantity)
         {
             $status = 403 ;
             $message = 'این کاربر از تعداد سقف تخفبف استفاده کرده است';
