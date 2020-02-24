@@ -5,15 +5,22 @@ namespace App\Http\Controllers;
 use App\Contact;
 use App\Person;
 use App\Repositories\AppRepositoryImpl;
+use App\Repositories\UserRepository;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends BaseAPIController
 {
-    public function __construct(AppRepositoryImpl $appRepository)
+
+    protected $userRepository;
+
+
+    public function __construct(AppRepositoryImpl $appRepository,UserRepository $userRepository)
     {
         $this->appRepository = $appRepository;
+        $this->userRepository = $userRepository;
         $this->model = new User();
     }
 
@@ -39,6 +46,31 @@ class UserController extends BaseAPIController
         $data = User::with('contact','person')->findOrFail($id);
         return $this->response($data);
     }
+
+
+
+
+    public function update($id)
+    {
+        \request()->validate($this->validationRules(),$this->validationMessages(),$this->validationAttributes());
+
+//        $data =$this->userRepository->update(\request(),$id);
+
+
+            $user = User::findOrFail($id);
+            $user->password =  Hash::make(\request()->password);
+            $user->mobile =  \request()->mobile;
+            $user->email =  \request()->email;
+            $user->name = \request()->name;
+            $user->save();
+
+
+        return $this->response($user);
+    }
+
+
+
+
 
     public function getCurrentUserUnreadedNotification(Request $request){
 

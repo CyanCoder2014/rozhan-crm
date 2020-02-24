@@ -35,6 +35,7 @@ Route::namespace('v1')->prefix('v1')->group(function () {
 
         Route::get('list', 'UserController@list');
 
+        Route::post('/update/{id}', 'UserController@update');
 
         Route::get('/delete/{id}', 'UserController@destroy');
 
