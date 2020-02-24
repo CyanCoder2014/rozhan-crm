@@ -1,0 +1,94 @@
+body{
+    direction: ltr;
+}
+.content-wrapper, .main-footer{
+    margin-left: 230px;
+    margin-right: 0;
+}
+.pull-left-ltr {
+    float: left!important;
+}
+.pull-right-ltr {
+    float: right!important;
+}
+.main-header .sidebar-toggle {
+    float: left;
+}
+.icon-home-screen{
+    left: 45px
+}
+.ltr-position-nav{
+    position: absolute;
+    right: 0;
+}
+.ltr-position-booking{
+    position: absolute;
+    right: 130px;
+}
+.dropdown-menu{
+    right: 0 !important;
+    left: auto !important;
+}
+.products-list .product-img {
+    float: left;
+}
+.products-list .product-info {
+    margin-left: 60px;
+    margin-right: 0px;
+    text-align: left;
+}
+th, tr {
+
+    width: 150px !important;
+    text-align: left !important;
+}
+@media (min-width: 768px){
+.sidebar-mini.sidebar-collapse .main-sidebar {
+    -webkit-transform: translate(0, 0);
+    -ms-transform: translate(0px, 0);
+    -o-transform: translate(0px, 0);
+    transform: translate(0, 0);
+    width: 50px !important;
+    z-index: 850;
+}
+}
+@media (min-width:768px) {
+    .sidebar-collapse .main-sidebar {
+        -webkit-transform: translate(0, 0);
+        -ms-transform: translate(0, 0);
+        -o-transform: translate(0, 0);
+        transform: translate(0, 0)
+    }
+}
+
+
+@media (min-width: 768px){
+.sidebar-collapse .content-wrapper, .sidebar-collapse .main-footer {
+    margin-left: 51px;
+}
+}
+
+@media (max-width:767px) {
+    .main-sidebar {
+        -webkit-transform: translate(0, 0);
+        -ms-transform: translate(0, 0);
+        -o-transform: translate(0, 0);
+        transform: translate(0, 0)
+    }
+    .sidebar-open .main-sidebar {
+        -webkit-transform: translate(0, 0);
+        -ms-transform: translate(0, 0);
+        -o-transform: translate(0, 0);
+        transform: translate(0, 0)
+    }
+    .content-wrapper, .main-footer {
+        margin-right: -230px;
+    }
+
+    /* .sidebar-open .content-wrapper, .sidebar-open .main-footer {
+        -webkit-transform: translate(0, 0);
+        -ms-transform: translate(0, 0);
+        -o-transform: translate(0, 0);
+        transform: translate(0, 0);
+    } */
+}
