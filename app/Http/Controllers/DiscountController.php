@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Discount;
-use App\Http\Requests\DiscountGroupCreateRequest;
+use App\Http\Requests\DiscountManyStoreRequest;
 use App\Http\Requests\DiscountRequest;
 use App\Http\Requests\DiscountUpdateRequest;
 use App\Http\Requests\OrderDiscountRequest;
@@ -91,7 +91,7 @@ class DiscountController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function storeGrouo(DiscountGroupCreateRequest $request)
+    public function storeMany(DiscountManyStoreRequest $request)
     {
 
         $output=[];

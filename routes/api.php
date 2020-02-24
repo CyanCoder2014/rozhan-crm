@@ -197,6 +197,8 @@ Route::middleware(['jwt.auth'])->group(function () {
         'show' => 'permission:discount.show',
         'destroy' => 'permission:discount.destroy',
     ]);
+    Route::post('discount/storeMany', 'DiscountController@storeMany')
+        ->middleware('permission:discount.store');
     Route::get('discount/list','DiscountController@list');
 
     Route::post('discount/{discount}/notify','DiscountController@notify')->middleware('permission:discount.notify');
