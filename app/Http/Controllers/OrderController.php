@@ -141,6 +141,7 @@ class OrderController extends Controller
         $data['buyer'] = $order->user->name;
 //        $data['amount'] = $order->final_price;
         $data['amount'] = $request->amount;
+        $data['account'] = $request->account;
         $data['register_date'] = Carbon::now()->format('Y-m-d H:i:s');
         $data['due_date'] = Carbon::now()->format('Y-m-d H:i:s');
 

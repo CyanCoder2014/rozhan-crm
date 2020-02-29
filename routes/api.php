@@ -286,6 +286,8 @@ Route::middleware(['jwt.auth'])->group(function () {
     Route::get('/generalProductReport', 'ReportController@generalProductReport');
     Route::get('/generalCostReport', 'ReportController@generalCostReport');
     Route::get('/generalOrderReport', 'ReportController@generalOrderReport');
+    Route::get('/generalPaymentReport', 'ReportController@generalPaymentReport');
+    Route::get('/generalPersonReport', 'ReportController@generalPersonReport');
 
 
 
