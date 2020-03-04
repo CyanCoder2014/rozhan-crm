@@ -208,27 +208,20 @@ class OrderController extends Controller
 
         $array = $this->orderService->updateServicesOrder($request, $id);
         return $this->response($array['data']??null,$array['message']??null,$array['status']??200);
-
     }
-
 
 
     public function updateProductItem(Request $request, $id){
 
-
         $array = $this->orderService->updateProductsOrder($request, $id);
         return $this->response($array['data']??null,$array['message']??null,$array['status']??200);
-
-
     }
 
 
-    public function updateDiscount(){
+    public function updateOrderFields(Request $request, $id){
 
-
-
-
-
+        $array = $this->orderService->editOrder($request, $id);
+        return $this->response($array['data']??null,$array['message']??null,$array['status']??200);
     }
 
 

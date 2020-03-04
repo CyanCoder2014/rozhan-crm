@@ -12,6 +12,7 @@ use App\Repositories\UserRepository;
 use App\Services\CreateUser\CreateUser;
 use App\Services\CreateUser\ValueObjects\CreateUserValueObject;
 use App\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -77,4 +78,45 @@ class UserController extends Controller
         return '';
 
     }
+
+
+
+
+    public function update(Request $request, $id)
+    {
+//        \request()->request->add(['first_name' => request('name')]);
+//        $data = $request->all();
+//
+//        $valueObject = new CreateUserValueObject();
+//        $valueObject->setName($data['name'])
+//            ->setEmail($data['email'])
+//            ->setPassword($data['password']);
+
+//        $order = User::findOrFail($id);
+//        if($order == null)
+//            return ['message' =>'User is not existed'];
+//
+//
+//        $user = $createUser->create($valueObject);
+//        $data['user_id'] = $user->id;
+//        $this->appRepository->add($data , new Contact());
+//
+//        $order->name = $request;
+//        $order->email = $request;
+//        $order->mobile = $request;
+//        $order->pasword = $request;
+//        $order->save();
+
+        $user =$this->userRepository->update(\request(),$id);
+
+
+        return response()->json([
+            'status'  => true,
+            'result'  => $user,
+            'message' => 'User is updated successfully!'
+        ]);
+    }
+
+
+
 }

@@ -374,6 +374,7 @@ Route::middleware(['jwt.auth'])->group(function () {
     Route::post('updateOrder/addServiceItem/{order_id}', 'OrderController@addServiceItem')->middleware('permission:orders.edit');
     Route::post('updateOrder/addProductItem/{order_id}', 'OrderController@addProductItem')->middleware('permission:orders.edit');
 
+    Route::post('updateOrder/updateOrderFields/{order_id}', 'OrderController@updateOrderFields')->middleware('permission:orders.edit');
     Route::post('updateOrder/updateDiscount/{order_id}', 'OrderController@updateDiscount')->middleware('permission:orders.edit');
 
 

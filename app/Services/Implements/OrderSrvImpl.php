@@ -490,15 +490,16 @@ class OrderSrvImpl
 
 //            $generalPrice = $order->general_price;
             $oldDiscount = $order->general_discount;
-            $newDiscount = $request->discount??0;
-            $finalPrice = $order->final_price-$oldDiscount+$newDiscount;
+            $newDiscount = $request->general_discount??0;
+            $finalPrice = $order->final_price+$oldDiscount-$newDiscount;
 
 
 //            $order->general_end = $start->format('H:i:s');
-            $order->note = $order->note.', Discount edited';
+            $order->note = $order->note.', Order edited';
 //            $order->general_price = $generalPrice;
             $order->general_discount = $newDiscount;
             $order->final_price = $finalPrice;
+            $order->description = $request->description??null;
             $order->updated_by = auth()->id();
             $order->save();
 

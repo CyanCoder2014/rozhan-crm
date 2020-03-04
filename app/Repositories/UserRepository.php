@@ -70,10 +70,12 @@ class UserRepository
         if(!empty($request->email))
             $user->email =  $request->email;
 
-        if(empty($request->name) || empty($request->family)){
+        if(empty($request->name)){
             $user->name = $request->first_name.' '.$request->last_name;
-        }else{
+        }elseif(empty($request->family)){
             $user->name = $request->name.' '.$request->family;
+        }else{
+            $user->name = $request->name;
         }
 
 
