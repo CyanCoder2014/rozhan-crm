@@ -479,59 +479,239 @@ class OrderSrvImpl
      *              data
      *          ]
      */
-    public function editOrder( $request ,Order $order)
+
+
+    public function editOrder($request , $orderId)
     {
-//        return DB::transaction(function () use ($request,$order){
-//            $services =$request->services;
+
+            $order = Order::findOrFail($orderId);
+            if($order == null)
+                 return ['message' =>'order is not existed'];
+
+//            $generalPrice = $order->general_price;
+            $oldDiscount = $order->general_discount;
+            $newDiscount = $request->discount??0;
+            $finalPrice = $order->final_price-$oldDiscount+$newDiscount;
+
+
+//            $order->general_end = $start->format('H:i:s');
+            $order->note = $order->note.', Discount edited';
+//            $order->general_price = $generalPrice;
+            $order->general_discount = $newDiscount;
+            $order->final_price = $finalPrice;
+            $order->updated_by = auth()->id();
+            $order->save();
+
+            return ['message' =>'successful','data' =>$order];
+
+
+
+    }
+
+
+
+
+
+    public function updateServicesOrder($request , $orderId)
+    {
+
+        $order = Order::findOrFail($orderId);
+        if($order == null)
+            return ['message' =>'order is not existed'];
+
+        $services =$request->services;
 //            $start = Carbon::createFromFormat('Y-m-d H:i',to_georgian($request->date.' '.$request->start_at));
-//            if(! $order->is_editable())
-//                return ['message' =>'order is not editable'];
-//            $order->fill([
-//                'user_id' => auth()->id(),
-//                'title' => null,
-//                'description' => $request->description,
-//                'file' => null,
-//                'general_price' => null,
-//                'general_discount' => null,
-//                'general_tax' => null,
-//                'final_price' => null,
-//                'general_date' => $start->format('Y-m-d'),
-//                'general_start' => $request->start_at,
-//                'general_end' => $request->end_at,
-//                'type' => null,
-//                'state' => Order::created_state,
-//                'created_by' => auth()->id(),
-//                'updated_by' => null,
-//                'deleted_at' => null,
-//            ]);
-//
-//
-//
-//            $price = 0;
-//            $oldServices = $order->services;
-//            foreach ($services as $serv){
-//                $service = Service::findOrFail($serv['service_id']);
-//                $person = Person::findOrFail($serv['person_id']);
-//
-//                if (! $person->hasService($service))
-//                    return ['message' =>'perosn has not a service'];
-//
+        if(! $order->is_editable())
+            return ['message' =>'order is not editable'];
+
+
+
+
+        $generalPrice = $order->general_price;
+        $finalPrice = $order->final_price;
+
+        foreach ($services as $serv){
+            $service = Service::findOrFail($serv['service_id']);
+            $person = Person::findOrFail($serv['person_id']);
+
+            $orderServiceItem = $order->serviceItem($serv['id']);
+            $generalPrice = $order->general_price-$orderServiceItem->price;
+            $finalPrice = $order->final_price-$orderServiceItem->price;
+
+
+            if (! $person->hasService($service))
+                return ['message' =>'perosn has not a service'];
+
+
+            $orderService = OrderService::findOrFail($serv['id']);
+            if($orderService == null)
+                return ['message' =>'orderService is not existed'];
+
+            $orderService->update([
+                'service_id' => $service->id,
+                'person_id'=> $person->id??null,
+                'note' => $serv['note']??null,
+//                    'number' => null,
+                'price' => $serv['price']??$service->price,
+//                    'discount' => $service->default_discount,
+//                    'tax' => $service->tax,
+//                    'date' => $start->format('Y-m-d'),
+//                    'state' => OrderService::created_state,
+//                    'type' => OrderService::quick_type,
+                'updated_by' => auth()->id(),
+            ]);
+
 //                if (!$this->BookService($service,$person,
 //                    $start->format('Y-m-d'),$start->format('H:i'),$start->addMinutes($service->max_time)->format('H:i:s')
 //                    ,$serv['note']??null,
 //                    $oldServices->shift()))
 //                    return ['message' =>'perosn is not available'];
-//                $price += $service->priceCalculate();
-//
-//            }
+            $generalPrice += $serv['price'];
+            $finalPrice += $serv['price'];
+        }
+
+
+//        $order->update([
+//                'user_id' => auth()->id(),
+//                'title' => null,
+//            'description' => $request->description,
+//            'general_price' => null,
+//            'general_discount' => null,
+//                'general_tax' => null,
+//            'final_price' => null,
+//                'general_date' => $start->format('Y-m-d'),
+//                'general_start' => $request->start_at,
+//                'general_end' => $request->end_at,
+//                'type' => null,
+//            'note' => 'edited',
+//                'state' => Order::created_state,
+//            'updated_by' => auth()->id(),
+//                'deleted_at' => null,
+//        ]);
+
+
+
+
 //            $order->general_end = $start->format('H:i:s');
-//            $order->final_price = $price;
-//            $order->save();
-//
-//            return ['message' =>'successful','data' =>$order];
+        $order->note = $order->note.', Services edited';
+        $order->general_price = $generalPrice;
+        $order->final_price = $finalPrice;
+        $order->updated_by = auth()->id();
+        $order->save();
+
+        return ['message' =>'successful','data' =>$order];
 //        });
 
+
+
+
+
+
+
     }
+
+
+
+
+    public function updateProductsOrder($request , $orderId)
+    {
+
+        $order = Order::findOrFail($orderId);
+        if($order == null)
+            return ['message' =>'order is not existed'];
+
+
+
+        $generalPrice = $order->general_price;
+        $finalPrice = $order->final_price;
+
+        /************************* add order products *****************/
+        $newOrderProducts=[];
+        $product_ids = array_column($request->products??[], 'product_id');
+        $products =Product::whereIn('id',$product_ids)->get()->keyBy('id')->all();
+        foreach ($request->products??[] as $product){
+            if (!isset($products[$product['product_id']]->remaining_number) or
+                $products[$product['product_id']]->remaining_number < (int)$product['amount'])
+                return ['message' =>'product has not available amount','status'=>400];
+            $price += $product['price']??$products[$product['product_id']]->priceCalculate();
+            $newOrderProducts[] = new OrderProduct([
+                'product_id' => $product['product_id'],
+                'note' => $product['note']?? null,
+                'unit' => $product['unit']?? null,
+                'amount' => $product['amount']?? null,
+                'price' => $product['price']??$products[$product['product_id']]['price']??0,
+                'discount' => $products[$product['product_id']]['default_discount']??0,
+                'tax' => $products[$product['product_id']]['tax']??0 ,
+                'date' => $order->general_date,
+                'start' => null,
+                'end' => null,
+                'type' => null,
+                'state' => null,
+                'created_by' => auth()->id(),
+                'updated_by' => null,
+            ]);
+
+
+            $generalPrice += $product['price'];
+            $finalPrice += $product['price'];
+
+
+        }
+        /*******************************************************/
+
+
+
+
+
+
+
+
+//        $order->update([
+//                'user_id' => auth()->id(),
+//                'title' => null,
+//            'description' => $request->description,
+//            'general_price' => null,
+//            'general_discount' => null,
+//                'general_tax' => null,
+//            'final_price' => null,
+//                'general_date' => $start->format('Y-m-d'),
+//                'general_start' => $request->start_at,
+//                'general_end' => $request->end_at,
+//                'type' => null,
+//            'note' => 'edited',
+//                'state' => Order::created_state,
+//            'updated_by' => auth()->id(),
+//                'deleted_at' => null,
+//        ]);
+
+
+
+
+//            $order->general_end = $start->format('H:i:s');
+        $order->note = $order->note.', Products edited';
+        $order->general_price = $generalPrice;
+        $order->final_price = $finalPrice;
+        $order->updated_by = auth()->id();
+        $order->save();
+
+        return ['message' =>'successful','data' =>$order];
+//        });
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
 
 
     public function deleteOrder()

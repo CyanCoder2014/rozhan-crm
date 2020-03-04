@@ -90,4 +90,9 @@ class Order extends Model
         return false;
     }
 
+
+    public function serviceItem($id){
+        return OrderService::findOrFail($id);
+    }
+
 }

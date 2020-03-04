@@ -14,7 +14,9 @@ interface OrderSrv
     public function getOrders();
     public function getOrderById();
     public function addOrder(Request $request);
-    public function editOrder(Request $request,Order $order);
+    public function editOrder(Request $request,$orderId);
+    public function updateServicesOrder(Request $request, $orderId);
+    public function updateProductsOrder(Request $request,$orderId);
     public function deleteOrder();
     public function changeOrderState();
     public function makePayment();

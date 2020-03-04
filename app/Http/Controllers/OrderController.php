@@ -86,7 +86,7 @@ class OrderController extends Controller
     public function show($id)
     {
         $data = Order::where('id',$id)
-            ->with(['OrderServices','OrderProducts','OrderServices.person','OrderServices.service','OrderProducts.product','user','contact', 'OrderServices.feedback', 'discount'])
+            ->with(['OrderServices','OrderProducts','OrderServices.person','OrderServices.service','OrderServices.service.persons','OrderProducts.product','user','contact', 'OrderServices.feedback', 'discount'])
             ->first();
         return $this->response($data);
     }
@@ -182,11 +182,9 @@ class OrderController extends Controller
 
     public function getAvailableServices(Request $request)
     {
-
         $data = Service::
             with(['serviceCategory','persons'])
             ->get();
-
 
         foreach ($data as $key => $service){
 
@@ -198,10 +196,38 @@ class OrderController extends Controller
 
             if (!$persons_available_flag)
                 unset($data[$key]);
-
         }
-
         return $this->response($data);
+    }
+
+
+
+
+
+    public function updateServiceItem(Request $request, $id){
+
+        $array = $this->orderService->updateServicesOrder($request, $id);
+        return $this->response($array['data']??null,$array['message']??null,$array['status']??200);
+
+    }
+
+
+
+    public function updateProductItem(){
+
+
+
+
+
+    }
+
+
+    public function updateDiscount(){
+
+
+
+
+
     }
 
 

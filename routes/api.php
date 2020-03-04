@@ -278,16 +278,16 @@ Route::middleware(['jwt.auth'])->group(function () {
         ]);
 //    Route::get('/productReport', 'ReportController@productReport')->middleware('Report.product');
 //    Route::get('/incomeReport', 'ReportController@incomeReport')->middleware('Report.income');
-    Route::get('/productReport', 'ReportController@productReport');
-    Route::get('/incomeReport', 'ReportController@incomeReport');
+    Route::get('/productReport', 'ReportController@productReport')->middleware('permission:report');
+    Route::get('/incomeReport', 'ReportController@incomeReport')->middleware('permission:report');
 
-    ///*** middleware must be add later ****///
-    Route::get('/generalServiceReport', 'ReportController@generalServiceReport');
-    Route::get('/generalProductReport', 'ReportController@generalProductReport');
-    Route::get('/generalCostReport', 'ReportController@generalCostReport');
-    Route::get('/generalOrderReport', 'ReportController@generalOrderReport');
-    Route::get('/generalPaymentReport', 'ReportController@generalPaymentReport');
-    Route::get('/generalPersonReport', 'ReportController@generalPersonReport');
+    ///*** middleware must be change later ****///
+    Route::get('/generalServiceReport', 'ReportController@generalServiceReport')->middleware('permission:report');
+    Route::get('/generalProductReport', 'ReportController@generalProductReport')->middleware('permission:report');
+    Route::get('/generalCostReport', 'ReportController@generalCostReport')->middleware('permission:report');
+    Route::get('/generalOrderReport', 'ReportController@generalOrderReport')->middleware('permission:report');
+    Route::get('/generalPaymentReport', 'ReportController@generalPaymentReport')->middleware('permission:report');
+    Route::get('/generalPersonReport', 'ReportController@generalPersonReport')->middleware('permission:report');
 
 
 
@@ -363,6 +363,21 @@ Route::middleware(['jwt.auth'])->group(function () {
 
 
     Route::resource('contact/{contact_id}/ContactPayment', 'ContactPaymentController');
+
+
+
+
+
+    Route::post('updateOrder/updateServiceItem/{order_id}', 'OrderController@updateServiceItem')->middleware('permission:orders.edit');
+    Route::post('updateOrder/updateProductItem/{order_id}', 'OrderController@updateProductItem')->middleware('permission:orders.edit');
+
+    Route::post('updateOrder/addServiceItem/{order_id}', 'OrderController@addServiceItem')->middleware('permission:orders.edit');
+    Route::post('updateOrder/addProductItem/{order_id}', 'OrderController@addProductItem')->middleware('permission:orders.edit');
+
+    Route::post('updateOrder/updateDiscount/{order_id}', 'OrderController@updateDiscount')->middleware('permission:orders.edit');
+
+
+
 
 });
 
