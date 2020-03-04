@@ -534,7 +534,7 @@ class OrderSrvImpl
             $service = Service::findOrFail($serv['service_id']);
 
             if ($serv['person_id'] != ''){
-                $personId = Person::findOrFail($serv['person_id']);
+                $personId = Person::findOrFail($serv['person_id'])->id;
             }else{
                 $personId = null;
             }
