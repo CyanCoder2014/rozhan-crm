@@ -532,15 +532,20 @@ class OrderSrvImpl
 
         foreach ($services as $serv){
             $service = Service::findOrFail($serv['service_id']);
-            $person = Person::findOrFail($serv['person_id']);
+
+            if ($serv['person_id'] != ''){
+                $personId = Person::findOrFail($serv['person_id']);
+            }else{
+                $personId = null;
+            }
 
             $orderServiceItem = $order->serviceItem($serv['id']);
             $generalPrice = $order->general_price-$orderServiceItem->price;
             $finalPrice = $order->final_price-$orderServiceItem->price;
 
 
-            if (! $person->hasService($service))
-                return ['message' =>'perosn has not a service'];
+//            if (! $person->hasService($service))
+//                return ['message' =>'perosn has not a service'];
 
 
             $orderService = OrderService::findOrFail($serv['id']);
@@ -549,7 +554,7 @@ class OrderSrvImpl
 
             $orderService->update([
                 'service_id' => $service->id,
-                'person_id'=> $person->id??null,
+                'person_id'=> $personId,
                 'note' => $serv['note']??null,
 //                    'number' => null,
                 'price' => $serv['price']??$service->price,
@@ -626,29 +631,36 @@ class OrderSrvImpl
         $finalPrice = $order->final_price;
 
         /************************* add order products *****************/
-        $newOrderProducts=[];
-        $product_ids = array_column($request->products??[], 'product_id');
-        $products =Product::whereIn('id',$product_ids)->get()->keyBy('id')->all();
+//        $newOrderProducts=[];
+//        $product_ids = array_column($request->products??[], 'product_id');
+//        $products =Product::whereIn('id',$product_ids)->get()->keyBy('id')->all();
         foreach ($request->products??[] as $product){
-            if (!isset($products[$product['product_id']]->remaining_number) or
-                $products[$product['product_id']]->remaining_number < (int)$product['amount'])
-                return ['message' =>'product has not available amount','status'=>400];
-            $price += $product['price']??$products[$product['product_id']]->priceCalculate();
-            $newOrderProducts[] = new OrderProduct([
-                'product_id' => $product['product_id'],
-                'note' => $product['note']?? null,
-                'unit' => $product['unit']?? null,
-                'amount' => $product['amount']?? null,
-                'price' => $product['price']??$products[$product['product_id']]['price']??0,
-                'discount' => $products[$product['product_id']]['default_discount']??0,
-                'tax' => $products[$product['product_id']]['tax']??0 ,
-                'date' => $order->general_date,
-                'start' => null,
-                'end' => null,
-                'type' => null,
-                'state' => null,
-                'created_by' => auth()->id(),
-                'updated_by' => null,
+//            if (!isset($products[$product['product_id']]->remaining_number) or
+//                $products[$product['product_id']]->remaining_number < (int)$product['amount'])
+//                return ['message' =>'product has not available amount','status'=>400];
+//            $price += $product['price']??$products[$product['product_id']]->priceCalculate();
+
+
+            $orderProductItem = $order->productItem($product['id']);
+            $generalPrice = $order->general_price-$orderProductItem->price;
+            $finalPrice = $order->final_price-$orderProductItem->price;
+
+
+            $orderProducts = OrderProduct::findOrFail($product['id']);
+            if($orderProducts == null)
+                return ['message' =>'Order Product is not existed'];
+
+            $orderProducts->update([
+//                'note' => $product['note']?? null,
+//                'unit' => $product['unit']?? null,
+//                'amount' => $product['amount']?? null,
+                'price' => $product['price']??0,
+//                'discount' => $products[$product['product_id']]['default_discount']??0,
+//                'tax' => $products[$product['product_id']]['tax']??0 ,
+//                'date' => $order->general_date,
+//                'type' => null,
+//                'state' => null,
+                'updated_by' => auth()->id(),
             ]);
 
 

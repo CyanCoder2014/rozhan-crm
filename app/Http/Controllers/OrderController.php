@@ -213,10 +213,11 @@ class OrderController extends Controller
 
 
 
-    public function updateProductItem(){
+    public function updateProductItem(Request $request, $id){
 
 
-
+        $array = $this->orderService->updateProductsOrder($request, $id);
+        return $this->response($array['data']??null,$array['message']??null,$array['status']??200);
 
 
     }

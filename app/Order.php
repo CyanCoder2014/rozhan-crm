@@ -95,4 +95,9 @@ class Order extends Model
         return OrderService::findOrFail($id);
     }
 
+
+    public function productItem($id){
+        return OrderProduct::findOrFail($id);
+    }
+
 }
