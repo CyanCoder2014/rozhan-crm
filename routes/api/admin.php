@@ -27,7 +27,7 @@ Route::namespace('v1')->prefix('v1')->group(function () {
             Route::get('list', 'PermissionController@list');
         });
 
-    Route::prefix('user')->middleware(['jwt.auth'])->group(function () {
+    Route::prefix('user')->middleware(['jwt.auth', 'role:superadministrator'])->group(function () {
         Route::
 //        middleware(['permission:create-users'])->
         post('create', 'UserController@create');
