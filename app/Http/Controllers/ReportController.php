@@ -636,6 +636,7 @@ class ReportController extends Controller
         select('order_services.service_id','orders.user_id','order_services.person_id',
             DB::raw('order_services.created_at'),'user_id',
             DB::raw('SUM(order_services.price) as total'),
+            DB::raw('COUNT(order_services.id) as servicesNumber'),
             DB::raw('WEEK(order_services.created_at) as week'))
             ->where('orders.general_date','>=',to_georgian_date(\request('date_from')))
             ->where('orders.general_date','<=',(new Carbon(to_georgian_date(to_georgian_date(\request('date_to')))))->addDays(1))
@@ -707,6 +708,7 @@ class ReportController extends Controller
         select('orders.user_id','order_products.product_id',
             DB::raw('order_products.created_at'),'user_id',
             DB::raw('SUM(order_products.price) as total'),
+            DB::raw('COUNT(order_products.id) as productNumber'),
             DB::raw('WEEK(order_products.created_at) as week'))
             ->where('orders.general_date','>=',to_georgian_date(\request('date_from')))
             ->where('orders.general_date','<=',(new Carbon(to_georgian_date(to_georgian_date(\request('date_to')))))->addDays(1))
@@ -828,6 +830,8 @@ class ReportController extends Controller
         select('order_services.service_id','orders.user_id','order_services.person_id',
             DB::raw('order_services.created_at'),'user_id',
             DB::raw('SUM(order_services.price) as total'),
+            DB::raw('COUNT(order_services.id) as serveNumber'),
+            DB::raw('COUNT(orders.user_id) as clientNumber'),
             DB::raw('WEEK(order_services.created_at) as week'))
             ->where('orders.general_date','>=',to_georgian_date(\request('date_from')))
             ->where('orders.general_date','<=',(new Carbon(to_georgian_date(to_georgian_date(\request('date_to')))))->addDays(1))

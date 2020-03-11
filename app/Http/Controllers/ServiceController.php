@@ -19,7 +19,7 @@ class ServiceController extends BaseAPIController
 
     public function list()
     {
-        return $this->model::select('id','title')->get();
+        return $this->model->select('id','title')->orderBy('id', 'desc')->get();
     }
     public function index()
     {
