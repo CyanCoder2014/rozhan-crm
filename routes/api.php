@@ -120,6 +120,9 @@ Route::middleware(['jwt.auth'])->group(function () {
         'destroy' => 'permission:orders.destroy',
     ]);
 
+    Route::get('orderPayment/personsOrderServices/{id}', 'OrderController@personsOrderServices')->middleware('permission:orders.show');
+
+
     Route::get('order/getAvailableServices', 'OrderController@getAvailableServices');
 
     Route::post('orders/add/step1', 'OrderController@preOrder')->middleware('permission:orders.store');

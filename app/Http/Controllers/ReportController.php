@@ -769,7 +769,7 @@ class ReportController extends Controller
             ->where('customer_payments.created_at','>=',to_georgian_date(\request('date_from')))
             ->where('customer_payments.created_at','<=',(new Carbon(to_georgian_date(to_georgian_date(\request('date_to')))))->addDays(1))
             ->join('accounts','accounts.id','customer_payments.account')
-            ->groupBy('account')->get();
+            ->groupBy(['account'])->get();
 
         return $costQuery;
     }

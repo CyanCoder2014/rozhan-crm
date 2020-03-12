@@ -11,6 +11,8 @@ use App\Http\Requests\UpdateOrderRequest;
 use App\Notifications\MessageNotification;
 use App\Notifications\TemplateNotification;
 use App\Order;
+use App\OrderService;
+use App\Person;
 use App\Repositories\Interfaces\AppRepository;
 use App\Repositories\OrderSrvImpl;
 use App\Repositories\Payment\CustomerPaymentRepository;
@@ -18,6 +20,7 @@ use App\Service;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 
 class OrderController extends Controller
@@ -223,6 +226,25 @@ class OrderController extends Controller
         $array = $this->orderService->editOrder($request, $id);
         return $this->response($array['data']??null,$array['message']??null,$array['status']??200);
     }
+
+
+
+
+
+
+
+    public function personsOrderServices($id)
+    {
+        $serviceQuery = OrderService::
+        with(['service','person'])->where('order_id',$id )->with(['service'])->get();
+
+        $collection = collect($serviceQuery);
+        $grouped = $collection->groupBy('person_id')->toArray();
+
+        return $grouped;
+
+    }
+
 
 
 
