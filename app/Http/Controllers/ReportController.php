@@ -853,6 +853,24 @@ class ReportController extends Controller
 
 
 
+
+    public function contactPaymentReport(RepotRequest $request){
+
+//        $costQuery = CustomerPayment::
+//        select('type', 'account','accounts.title',
+//            DB::raw('SUM(customer_payments.amount) as total'),
+//            DB::raw('WEEK(customer_payments.created_at) as week'))
+//            ->where('customer_payments.created_at','>=',to_georgian_date(\request('date_from')))
+//            ->where('customer_payments.created_at','<=',(new Carbon(to_georgian_date(to_georgian_date(\request('date_to')))))->addDays(1))
+//            ->join(' ','accounts.id','customer_payments.account')
+//            ->groupBy(['account'])->get();
+//
+//        return $costQuery;
+    }
+
+
+
+
 }
 
 

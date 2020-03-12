@@ -36,17 +36,18 @@ class UserRepository
         }
 
 
-//        if(empty($request->email)){
-//            $email = $request->mobile;
-//        }else{
-//            $email = $request->email;
-//        }
+        if(empty($request->email)){
+//            $email = $request->mobile.'@sayanbusiness.com';
+            $email = $request->mobile;
+        }else{
+            $email = $request->email;
+        }
 
 
 
         return User::create([
             'name'=>$name,
-            'email' => $request->email,
+            'email' => $email,
             'mobile' => $request->mobile,
             'password' => Hash::make($password),
         ]);
