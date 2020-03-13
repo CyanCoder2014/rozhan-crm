@@ -13,6 +13,7 @@ use App\Repositories\UserRepository;
 use App\Services\CreateUser\CreateUser;
 use App\Services\CreateUser\ValueObjects\CreateUserValueObject;
 use App\Services\UploadFileService\UploadImageService;
+use App\Services\UserScoreService\UserScoreService;
 use App\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Auth\Events\Registered;
@@ -30,18 +31,21 @@ class UserController extends Controller
      * @var UserRepository
      */
     protected $userRepository;
-
     protected $imageService;
+    protected $scoreService;
 
     public function __construct(
         UserRepository $userRepository,
         RoleRepository $roleRepository,
-        UploadImageService $imageService
+        UploadImageService $imageService,
+        UserScoreService $scoreService
     )
     {
         $this->roleRepository = $roleRepository;
         $this->userRepository = $userRepository;
         $this->imageService =$imageService;
+        $this->scoreService =$scoreService;
+
 
     }
 
@@ -51,6 +55,7 @@ class UserController extends Controller
         $data = Contact::where('user_id',auth()->id())
             ->with(['user.orders','user.orders.OrderServices','user.orders.OrderServices.person','user.orders.OrderServices.service','user'])
             ->first();
+        $data->score = $this->scoreService->getScore($data->user);
         return $this->response($data);
     }
 
