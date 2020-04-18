@@ -74,6 +74,9 @@ Route::middleware(['jwt.auth'])->group(function () {
     Route::get('contactslist','ContactController@list');
     Route::get('contact/{id}/usedDiscounts','ContactController@UsedDiscount');
 
+    Route::post('contactAdd/importExcel', 'ContactController@import')->middleware('permission:contacts.store');
+
+
     Route::resource('productCategories', 'ProductCategoryController')->except('edit','create')->middleware([
         'index' => 'permission:product.categories.index',
         'store' => 'permission:product.categories.store',

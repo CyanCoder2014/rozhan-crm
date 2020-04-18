@@ -16,6 +16,8 @@ use App\Services\UserScoreService\UserScoreService;
 use App\User;
 use function GuzzleHttp\Psr7\str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ContactController extends BaseAPIController
 {
@@ -199,4 +201,67 @@ class ContactController extends BaseAPIController
         $contact = Contact::findOrFail($id);
         return Order::whereHas('discount')->where('user_id',$contact->user_id)->with(['discount','discount.services','discount.products'])->paginate();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+    function import(Request $request)
+    {
+        $this->validate($request, [
+            'file'  => 'required|mimes:xls,xlsx'
+        ]);
+
+        $path = $request->file('file')->getRealPath();
+
+        $data = Excel::load($path)->get();
+
+        if($data->count() > 0)
+        {
+            foreach($data->toArray() as $key => $value)
+            {
+                    $insert_data[] = array(
+                        'first_name'  => $value['first_name']??null,
+                        'last_name'   => $value['last_name']??null,
+                        'mobile'   => $value['mobile']??'0000000000',
+                        'email'    => $value['email']??null,
+                        'state'  => 1,
+                    );
+            }
+
+            if(!empty($insert_data))
+            {
+                foreach ($data as $row){
+
+                    if(!empty($row->mobile) && empty(User::where('mobile', $row->mobile)->first())
+                     ){
+                        $user =$this->userRepository->add($row);
+
+                        Contact::create([
+                                'first_name'  => $row->first_name??null,
+                                'last_name'   => $row->last_name??null,
+                                'mobile'   => $row->mobile??'0000000000',
+                                'email'    => $row->email??null,
+                                'state'  => 1,
+                                'created_by'  => auth()->id(),
+                                'user_id' => $user->id
+                            ]);
+                    }
+                }
+            }
+        }
+        return $this->response($data);
+
+    }
+
+
+
+
 }

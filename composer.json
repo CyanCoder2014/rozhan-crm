@@ -17,6 +17,7 @@
         "kavenegar/laravel": "^1.1",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
+        "maatwebsite/excel": "^2.1.0",
         "morilog/jalali": "3.*",
         "nwidart/laravel-modules": "^6.1",
         "parsidev/persian": "dev-master",
