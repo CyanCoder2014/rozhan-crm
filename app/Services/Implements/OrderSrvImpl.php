@@ -247,8 +247,8 @@ class OrderSrvImpl
             $order->save();
 
             $price = 0;
-            $general_start = $start->clone()->setTime(23,59);
-            $general_end = $start->clone()->setTime(0,0);
+            $general_start = $start->copy()->setTime(23,59);
+            $general_end = $start->copy()->setTime(0,0);
             /*************************** add order Services **********/
             $newOrderServices=[];
             foreach ($services as $serv){
@@ -256,13 +256,13 @@ class OrderSrvImpl
                 $person = Person::findOrFail($serv['person_id']);
                 $start_time = explode(':',$serv['start_at']);
                 $start->setTime($start_time[0],$start_time[1]);
-                $end = $start->clone()->addMinutes($service->max_time);
+                $end = $start->copy()->addMinutes($service->max_time);
                 $price += $service_price[$serv['service_id']]??$service->priceCalculate();
                 /********************* set start and end of  the order ***************************/
                 if ($general_start->gt($start))
-                    $general_start = $start->clone();
+                    $general_start = $start->copy();
                 if ($general_end->lt($end))
-                    $general_end = $end->clone();
+                    $general_end = $end->copy();
                 /********************* make new Order Services***************************/
                 $newOrderService = new OrderService();
                 $newOrderService->fill([
