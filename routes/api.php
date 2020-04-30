@@ -124,6 +124,7 @@ Route::middleware(['jwt.auth'])->group(function () {
     ]);
 
     Route::get('orderPayment/personsOrderServices/{id}', 'OrderController@personsOrderServices')->middleware('permission:orders.show');
+    Route::get('personOrder/getOrderServicesForPerson/{id}', 'OrderController@getOrderServicesForPerson')->middleware('permission:workCalendar');
 
 
     Route::get('order/getAvailableServices', 'OrderController@getAvailableServices');

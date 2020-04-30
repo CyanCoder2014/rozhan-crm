@@ -7,6 +7,7 @@ use App\Contact;
 use App\Http\Requests\Order\CustomerPaymentRequest;
 use App\Http\Requests\OrderRequest;
 use App\Http\Requests\PreOrderRequest;
+use App\Http\Requests\RepotRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use App\Notifications\MessageNotification;
 use App\Notifications\TemplateNotification;
@@ -242,6 +243,33 @@ class OrderController extends Controller
         $grouped = $collection->groupBy('person_id')->toArray();
 
         return $grouped;
+
+    }
+
+
+
+    public function getOrderServicesForPerson($id, RepotRequest $request)
+    {
+
+        $personServiceQuery = OrderService::
+        with(['service','person'])->
+        select('order_services.note','order_services.price','order_services.state','order_services.order_id',
+            'order_services.date','order_services.start','order_services.end',
+            'order_services.service_id','orders.user_id','orders.general_date','order_services.person_id')
+//            DB::raw('order_services.created_at'),'user_id',
+//            DB::raw('SUM(order_services.price) as total'),
+//            DB::raw('COUNT(order_services.id) as servicesNumber'),
+//            DB::raw('WEEK(order_services.created_at) as week'))
+            ->where('person_id',$id)
+            ->where('orders.general_date','>=',to_georgian_date(\request('date_from')))
+            ->where('orders.general_date','<=',(new Carbon(to_georgian_date(\request('date_to'))))->addDays(1))
+            ->where('orders.state','!=', Order::cancel_state)
+            ->join('orders','orders.id','order_services.order_id')->get();
+
+//        $collection = collect($serviceQuery);
+//        $grouped = $collection->groupBy('person_id')->toArray();
+
+        return $personServiceQuery;
 
     }
 
