@@ -639,7 +639,7 @@ class ReportController extends Controller
             DB::raw('COUNT(order_services.id) as servicesNumber'),
             DB::raw('WEEK(order_services.created_at) as week'))
             ->where('orders.general_date','>=',to_georgian_date(\request('date_from')))
-            ->where('orders.general_date','<=',(new Carbon(to_georgian_date(to_georgian_date(\request('date_to')))))->addDays(1))
+            ->where('orders.general_date','<=',(new Carbon(to_georgian_date(\request('date_to'))))->addDays(1))
             ->where('orders.state','!=', Order::cancel_state)
             ->join('orders','orders.id','order_services.order_id')
             ->groupBy($groupBy)
@@ -711,7 +711,7 @@ class ReportController extends Controller
             DB::raw('COUNT(order_products.id) as productNumber'),
             DB::raw('WEEK(order_products.created_at) as week'))
             ->where('orders.general_date','>=',to_georgian_date(\request('date_from')))
-            ->where('orders.general_date','<=',(new Carbon(to_georgian_date(to_georgian_date(\request('date_to')))))->addDays(1))
+            ->where('orders.general_date','<=',(new Carbon(to_georgian_date(\request('date_to'))))->addDays(1))
             ->where('orders.state','!=', Order::cancel_state)
             ->join('orders','orders.id','order_products.order_id')
             ->groupBy($groupBy)
@@ -732,7 +732,7 @@ class ReportController extends Controller
             DB::raw('SUM(company_payments.amount) as total'),
             DB::raw('WEEK(company_payments.created_at) as week'))
             ->where('company_payments.created_at','>=',to_georgian_date(\request('date_from')))
-            ->where('company_payments.created_at','<=',(new Carbon(to_georgian_date(to_georgian_date(\request('date_to')))))->addDays(1))
+            ->where('company_payments.created_at','<=',(new Carbon(to_georgian_date(\request('date_to'))))->addDays(1))
             ->groupBy('type')->get();
 
         return $costQuery;
@@ -750,7 +750,7 @@ class ReportController extends Controller
             DB::raw('COUNT(orders.id) as total'),
             DB::raw('SUM(orders.final_price) as total_price'))
             ->where('orders.general_date','>=',to_georgian_date(\request('date_from')))
-            ->where('orders.general_date','<=',(new Carbon(to_georgian_date(to_georgian_date(\request('date_to')))))->addDays(1))
+            ->where('orders.general_date','<=',(new Carbon(to_georgian_date(\request('date_to'))))->addDays(1))
             ->where('orders.state','!=', Order::cancel_state)
             ->get();
 
@@ -767,7 +767,7 @@ class ReportController extends Controller
             DB::raw('SUM(customer_payments.amount) as total'),
             DB::raw('WEEK(customer_payments.created_at) as week'))
             ->where('customer_payments.created_at','>=',to_georgian_date(\request('date_from')))
-            ->where('customer_payments.created_at','<=',(new Carbon(to_georgian_date(to_georgian_date(\request('date_to')))))->addDays(1))
+            ->where('customer_payments.created_at','<=',(new Carbon(to_georgian_date(\request('date_to'))))->addDays(1))
             ->join('accounts','accounts.id','customer_payments.account')
             ->groupBy(['account'])->get();
 
@@ -834,7 +834,7 @@ class ReportController extends Controller
             DB::raw('COUNT(orders.user_id) as clientNumber'),
             DB::raw('WEEK(order_services.created_at) as week'))
             ->where('orders.general_date','>=',to_georgian_date(\request('date_from')))
-            ->where('orders.general_date','<=',(new Carbon(to_georgian_date(to_georgian_date(\request('date_to')))))->addDays(1))
+            ->where('orders.general_date','<=',(new Carbon(to_georgian_date(\request('date_to'))))->addDays(1))
             ->where('orders.state','!=', Order::cancel_state)
             ->join('orders','orders.id','order_services.order_id')
             ->groupBy($groupBy)
