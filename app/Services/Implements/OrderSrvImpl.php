@@ -79,7 +79,7 @@ class OrderSrvImpl
 
         foreach ($request->products??[] as $product)
             if (!$productModels[$product['product_id']]->isAmountAvailable($product['amount']))
-                return ['message' =>'product has not available amount','status'=>400];
+                return ['message' => 'موجودی محصول "'. $product['note'] . '" به اتمام رسیده است' ,'status'=>400];
         $products =$request->products??[];
         $start = Carbon::createFromFormat('Y-m-d',to_georgian_date($request->date));
         $order = new Order([
@@ -423,9 +423,9 @@ class OrderSrvImpl
             $product_ids = array_column($request->products??[], 'product_id');
             $products =Product::whereIn('id',$product_ids)->get()->keyBy('id')->all();
             foreach ($request->products??[] as $product){
-                if (!isset($products[$product['product_id']]->remaining_number) or
-                    $products[$product['product_id']]->remaining_number < (int)$product['amount'])
-                    return ['message' =>'product has not available amount','status'=>400];
+                if (!$products[$product['product_id']]->isAmountAvailable($product['amount']))
+                    return ['message' => 'موجودی محصول "'. $product['note'] . '" به اتمام رسیده است' ,'status'=>400];
+
                 $price += $product['price']??$products[$product['product_id']]->priceCalculate();
                 $newOrderProducts[] = new OrderProduct([
                     'product_id' => $product['product_id'],
