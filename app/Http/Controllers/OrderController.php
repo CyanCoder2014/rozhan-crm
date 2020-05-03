@@ -252,7 +252,7 @@ class OrderController extends Controller
     {
 
         $personServiceQuery = OrderService::
-        with(['service','person'])->
+        with(['service','person','order.contact'])->
         select('order_services.note','order_services.price','order_services.state','order_services.order_id',
             'order_services.date','order_services.start','order_services.end',
             'order_services.service_id','orders.user_id','orders.general_date','order_services.person_id')

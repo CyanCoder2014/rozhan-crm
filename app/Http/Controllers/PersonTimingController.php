@@ -29,7 +29,8 @@ class PersonTimingController extends Controller
 
     public function index($person_id)
     {
-        $data = PersonTiming::where('person_id',$person_id)->orderBy('date', 'desc')->paginate();
+        $data = PersonTiming::where('person_id',$person_id)->orderBy('date', 'desc')
+            ->with(['person'])->paginate();
 
         $data = $this->format_date($data);
 
@@ -81,7 +82,7 @@ class PersonTimingController extends Controller
 
     public function add($parametes)
     {
-        $priviouses= $this->model::where('date',$parametes['date'])->where('person_id',$parametes['person_id'])->get();
+        $priviouses= $this->model->where('date',$parametes['date'])->where('person_id',$parametes['person_id'])->get();
         foreach ($priviouses as $privious)
         {
             if ((strTimeToInt($privious->start)<= strTimeToInt($parametes['start']) && strTimeToInt($privious->end)> strTimeToInt($parametes['start'])) ||
@@ -98,7 +99,7 @@ class PersonTimingController extends Controller
     }
     public function edit($parametes,$id)
     {
-        $priviouses= $this->model::where('id','!=',$id)->where('date',$parametes['date'])->get();
+        $priviouses= $this->model->where('id','!=',$id)->where('date',$parametes['date'])->get();
         foreach ($priviouses as $privious)
         {
             if ((strTimeToInt($privious->start)<= strTimeToInt($parametes['start']) && strTimeToInt($privious->end)> strTimeToInt($parametes['start'])) ||

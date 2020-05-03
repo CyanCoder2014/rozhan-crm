@@ -19,4 +19,9 @@ class PersonTiming extends Model
         'updated_by',
         'deleted_at',
     ];
+
+
+    public function person(){
+        return $this->belongsTo(Person::class);
+    }
 }
