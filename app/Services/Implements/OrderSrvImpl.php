@@ -327,7 +327,7 @@ class OrderSrvImpl
                     'start' => null,
                     'end' => null,
                     'type' => null,
-                    'state' => null,
+                    'state' => OrderProduct::created_state,
                     'created_by' => auth()->id(),
                     'updated_by' => null,
                 ]);
@@ -439,7 +439,7 @@ class OrderSrvImpl
                     'start' => null,
                     'end' => null,
                     'type' => null,
-                    'state' => null,
+                    'state' => OrderProduct::created_state,
                     'created_by' => auth()->id(),
                     'updated_by' => null,
                 ]);

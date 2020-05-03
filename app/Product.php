@@ -57,7 +57,7 @@ class Product extends Model
     }
     public function notAvailable()
     {
-        return $this->OrderProducts()->where('state',null);
+        return $this->OrderProducts()->where('state','!=',OrderProduct::cancel_state);
         // null state must be deleted for completed orders ->where('state','!=',OrderProduct::cancel_state)
     }
     public function Buyed()
