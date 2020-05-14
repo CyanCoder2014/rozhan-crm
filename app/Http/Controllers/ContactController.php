@@ -14,6 +14,7 @@ use App\Repositories\UserRepository;
 use App\Services\UploadFileService\UploadImageService;
 use App\Services\UserScoreService\UserScoreService;
 use App\User;
+use App\UserProfile;
 use function GuzzleHttp\Psr7\str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -129,6 +130,12 @@ class ContactController extends BaseAPIController
         $data->personal_code = generateRandomString(abs(5-strlen((string)$data->id)),'0123456789').$data->id;
         $data->save();
         $this->assignTags($data,\request()->tags);
+
+
+        $userProfile = new UserProfile();
+        $userProfile->contact_id = $data->id;
+        $userProfile->save();
+
         return $this->response($data);
     }
 
