@@ -127,7 +127,7 @@ class ContactController extends BaseAPIController
         \request()->request->add(['created_by' => auth()->id(),'user_id' => $user->id]);
         \request()->validate($this->validationRules(),$this->validationMessages(),$this->validationAttributes());
         $data = $this->appRepository->add(\request()->all() , $this->model);
-        $data->personal_code = generateRandomString(abs(5-strlen((string)$data->id)),'0123456789').$data->id;
+        $data->personal_code = generateRandomString(abs(6-strlen((string)$data->id)),'0123456789').$data->id;
         $data->save();
         $this->assignTags($data,\request()->tags);
 
