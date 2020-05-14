@@ -255,7 +255,6 @@ class ContactController extends BaseAPIController
                 'first_name'  => $value['first_name']??null,
                 'last_name'   => $value['last_name']??null,
                 'mobile'   => $value['mobile']??'0000000000',
-                'tell'   => $value['tell']??null,
                 'email'    => $value['email']??null,
                 'state'  => 1,
             );
@@ -273,6 +272,7 @@ class ContactController extends BaseAPIController
                         'first_name'  => $row->first_name??null,
                         'last_name'   => $row->last_name??null,
                         'mobile'   => $row->mobile??'0000000000',
+                        'tell'   => $row->tell??null,
                         'email'    => $row->email??null,
                         'state'  => 1,
                         'created_by'  => auth()->id(),
