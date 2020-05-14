@@ -149,6 +149,8 @@ class ContactController extends BaseAPIController
         if(\request()->hasFile('image'))
             $parameters['image'] = $this->imageService->upload('image')->resize(100,100)->getFileAddress();
 
+        $parameters['personal_code'] = generateRandomString(abs(6-strlen((string)$contact->user_id)),'0123456789').$contact->user_id;
+
         $user =$this->userRepository->update(\request(),$contact->user_id);
         $data = $this->appRepository->edit($parameters, $id,$this->model);
         if ($user->person)
@@ -167,6 +169,7 @@ class ContactController extends BaseAPIController
             'last_name'=>['string','required'],
             'mobile'=>['string','required'],
             'group_id'=>['nullable','exists:contact_groups,id'],
+//            'personal_code'=>['nullable','unique:contacts'],
 //            'email'=>['string','required'],
 //            'image'=>['image'],
 
@@ -232,40 +235,52 @@ class ContactController extends BaseAPIController
 
         if($data->count() > 0)
         {
-            foreach($data->toArray() as $key => $value)
-            {
-                    $insert_data[] = array(
-                        'first_name'  => $value['first_name']??null,
-                        'last_name'   => $value['last_name']??null,
-                        'mobile'   => $value['mobile']??'0000000000',
-                        'email'    => $value['email']??null,
-                        'state'  => 1,
-                    );
-            }
-
-            if(!empty($insert_data))
-            {
-                foreach ($data as $row){
-
-                    if(!empty($row->mobile) && empty(User::where('mobile', $row->mobile)->first())
-                     ){
-                        $user =$this->userRepository->add($row);
-
-                        Contact::create([
-                                'first_name'  => $row->first_name??null,
-                                'last_name'   => $row->last_name??null,
-                                'mobile'   => $row->mobile??'0000000000',
-                                'email'    => $row->email??null,
-                                'state'  => 1,
-                                'created_by'  => auth()->id(),
-                                'user_id' => $user->id
-                            ]);
-                    }
-                }
-            }
+           $this->addContact($data);
         }
         return $this->response($data);
 
+    }
+
+
+
+
+
+
+
+    function addContact($data){
+
+        foreach($data->toArray() as $key => $value)
+        {
+            $insert_data[] = array(
+                'first_name'  => $value['first_name']??null,
+                'last_name'   => $value['last_name']??null,
+                'mobile'   => $value['mobile']??'0000000000',
+                'tell'   => $value['tell']??null,
+                'email'    => $value['email']??null,
+                'state'  => 1,
+            );
+        }
+
+        if(!empty($insert_data))
+        {
+            foreach ($data as $row){
+
+                if(!empty($row->mobile) && empty(User::where('mobile', $row->mobile)->first())
+                ){
+                    $user =$this->userRepository->add($row);
+
+                    Contact::create([
+                        'first_name'  => $row->first_name??null,
+                        'last_name'   => $row->last_name??null,
+                        'mobile'   => $row->mobile??'0000000000',
+                        'email'    => $row->email??null,
+                        'state'  => 1,
+                        'created_by'  => auth()->id(),
+                        'user_id' => $user->id
+                    ]);
+                }
+            }
+        }
     }
 
 
