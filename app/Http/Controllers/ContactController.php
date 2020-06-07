@@ -61,7 +61,7 @@ class ContactController extends BaseAPIController
 //        $data =  parent::dataTables(,,);
         $columns =['first_name','user_id', 'last_name', 'mobile', 'email', 'tell','personal_code'];
         $search_column=['first_name','user_id', 'last_name', 'mobile', 'email', 'tell','personal_code'];
-        $with=['user'];
+        $with=['user','userProfile'];
         if (!$search_column)
             $search_column = $columns;
         if ( \request()->input('showdata') ) {

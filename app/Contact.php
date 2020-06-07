@@ -44,6 +44,10 @@ class Contact extends Model
         return $this->hasMany(ContactReview::class);
     }
 
+    public function userProfile(){
+        return $this->hasMany(UserProfile::class, 'contact_id');
+    }
+
 
 
 }
