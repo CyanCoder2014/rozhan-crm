@@ -71,6 +71,16 @@ Route::middleware(['jwt.auth'])->group(function () {
         'show' => 'permission:contacts.show',
         'destroy' => 'permission:contacts.destroy',
     ]);
+
+    Route::resource('contactProfiles', 'ProfileController')->except('edit','create')->middleware([
+        'index' => 'permission:contacts.index',
+        'store' => 'permission:contacts.store',
+        'update' => 'permission:contacts.edit',
+        'show' => 'permission:contacts.show',
+        'destroy' => 'permission:contacts.destroy',
+    ]);
+
+
     Route::get('contactslist','ContactController@list');
     Route::get('contact/{id}/usedDiscounts','ContactController@UsedDiscount');
 

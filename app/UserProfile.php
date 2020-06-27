@@ -73,4 +73,13 @@ class UserProfile extends Model
         'text',  // used as profile code and detail
 
     ];
+
+
+
+    public function contact(){
+        return $this->belongsTo(Contact::class);
+    }
+
+
+
 }
