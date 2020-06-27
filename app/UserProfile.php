@@ -70,7 +70,7 @@ class UserProfile extends Model
 
 
 
-        'text',
-        
+        'text',  // used as profile code and detail
+
     ];
 }
