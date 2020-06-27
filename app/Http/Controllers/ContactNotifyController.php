@@ -9,6 +9,7 @@ use App\Http\Requests\ContactNotifyByTagRequest;
 use App\Http\Requests\ContactNotifyRequest;
 use App\Http\Requests\ContactReminderRequest;
 use App\Notifications\MessageNotification;
+use App\Notifications\TemplateNotification;
 use App\Services\ReminderService\ReminderObjectValue;
 use App\Services\ReminderService\ReminderService;
 use App\User;
@@ -73,15 +74,35 @@ class ContactNotifyController extends Controller
         if($request->state)
             $contacts->where('state',$request->state);
 
+
         $contacts = $contacts->get();
+
         if ($contacts->count() > 0)
         {
-            Notification::send($contacts,new MessageNotification($request->message,$methods));
-            return $this->response(null,'success',200);
+            if ($request->sendByTemplate) {
+                foreach ($contacts as $contact){
+                    $selectedContact = [$contact];
+                    Notification::send($selectedContact,new TemplateNotification($request->template,['sms','db'],$contact->getContactCode(),$contact->user_id,$contact->email, $contact->getContactName(), $request->message));
+                    return $this->response(null,'success',200);
+                }
+            }else{
+                Notification::send($contacts,new MessageNotification($request->message,$methods));
+                return $this->response(null,'success',200);
+            }
+
         }
         else
             return $this->response(null,'مخاطبی پیدا نشد',400);
     }
+
+
+
+
+
+
+
+
+
 
     public function sendReminder(ContactReminderRequest $request){
         $reminder = new ReminderObjectValue();

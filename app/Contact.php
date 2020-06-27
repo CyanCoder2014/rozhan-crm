@@ -22,6 +22,16 @@ class Contact extends Model
         return $this->email;
     }
 
+    public function getContactName()
+    {
+        return $this->first_name.' '.$this->last_name;
+    }
+
+    public function getContactCode()
+    {
+        return $this->personal_code;
+    }
+
 
 
 
