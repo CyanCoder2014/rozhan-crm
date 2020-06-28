@@ -29,7 +29,7 @@ class ContactNotifyRequest extends FormRequest
             'tag_ids.*' =>['nullable','exists:c_tags,id'],
             'except_tag_ids.*' =>['nullable','exists:c_tags,id'],
             'group_ids.*' =>['nullable','exists:contact_groups,id'],
-            'message' => ['string','required'],
+//            'message' => ['string','required'],
             'email' =>[],
             'sms' =>[],
             'db' =>[],
