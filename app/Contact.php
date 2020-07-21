@@ -3,10 +3,16 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 
 class Contact extends Model
 {
+
+    use SoftDeletes;
+
+
+
     use Notifiable;
     protected $fillable = ['user_id', 'personal_code', 'image', 'first_name'
         , 'last_name', 'mobile', 'email', 'tell', 'country', 'city', 'address'

@@ -3,9 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class OrderServiceFeedback extends Model
 {
+
+//    use SoftDeletes;
+
+
     const created_state = 0;
     const accepted_state = 1;
     protected $fillable=[

@@ -116,8 +116,15 @@ class OrderController extends Controller
             $contacts->where('user_id',$array['data']->user_id);
             $contacts = $contacts->get();
 
-            Notification::send($contacts,new TemplateNotification('Reserve',['sms','db'],'#120'.$array['data']->id,null,null, 'همکاران با شما درتماس خواهند بود', null));
-//        Notification::send($contacts,new MessageNotification('درخواست شما با موفقیت در سالن زیبایی ثبت شد',['sms']));
+
+            foreach ($contacts as $contact){
+                $selectedContact = [$contact];
+                Notification::send($selectedContact,new TemplateNotification('Reserve',['sms','db'],'#120'.$array['data']->id,null,null, $contact->getContactName(), 'همکاران با شما درتماس خواهند بود'));
+            }
+
+
+//        Notification::send($contacts,new TemplateNotification('Reserve',['sms','db'],'#120'.$array['data']->id,null,null, 'مشتری', 'همکاران با شما درتماس خواهند بود'));
+//        Notification::send($contacts,new MessageNotification('درخواست شما با موفقیت در سالن ثبت شد',['sms']));
 
 
         }
@@ -260,6 +267,8 @@ class OrderController extends Controller
 //            DB::raw('SUM(order_services.price) as total'),
 //            DB::raw('COUNT(order_services.id) as servicesNumber'),
 //            DB::raw('WEEK(order_services.created_at) as week'))
+//            ->whereNull('deleted_at')
+//            ->where('orders.deleted_at',null)
             ->where('person_id',$id)
             ->where('orders.general_date','>=',to_georgian_date(\request('date_from')))
             ->where('orders.general_date','<=',(new Carbon(to_georgian_date(\request('date_to'))))->addDays(1))

@@ -3,9 +3,15 @@
 namespace App\Payment;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CustomerPayment extends Model
 {
+
+
+//    use SoftDeletes;
+
+
     protected $fillable = [
         'number',
         'reason',
@@ -42,4 +48,9 @@ class CustomerPayment extends Model
     public function account(){
         return $this->belongsTo('App\Payment\Account', 'account');
     }
+
+    public function contact(){
+        return $this->belongsTo('App\Contact', 'contact_id');
+    }
+
 }

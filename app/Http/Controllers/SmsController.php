@@ -27,7 +27,7 @@ class SmsController extends Controller
             $query->whereDate('created_at','<=',to_georgian_date(\request('date_to')));
         if (\request('receptor'))
             $query->where('receptor',\request('receptor'));
-        $data = $query->paginate(25);
+        $data = $query->orderBy('id', 'desc')->paginate(25);
         return $data;
 
 

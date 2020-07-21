@@ -179,6 +179,26 @@ class ContactController extends BaseAPIController
     }
 
 
+    public function destroy($id){
+
+        $contact = Contact::findOrFail($id);
+
+        $rndDeleted ='--'.generateRandomString(abs(4),'0123456789');
+        $contact->mobile = ($contact->mobile??'') .$rndDeleted;
+        $contact->email = ($contact->email??'') .$rndDeleted;
+        $contact->save();
+
+        $user = $contact->user()->update([
+            'mobile' => ($contact->user()->mobile??'') .$rndDeleted,
+            'email' => ($contact->user()->email??'') .$rndDeleted,
+        ]);
+
+        $contact->delete();
+
+        return '';
+    }
+
+
     public  function assignTags($contact,$tags)
     {
         $contactTags=[];

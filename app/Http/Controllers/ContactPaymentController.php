@@ -23,14 +23,14 @@ class ContactPaymentController extends Controller
 
     public function index($contact_id){
 
-        $data = CustomerPayment::where('contact_id',$contact_id)->paginate();
+        $data = CustomerPayment::with(['account', 'contact'])->where('contact_id',$contact_id)->paginate();
 //        $data = $this->format_date($data);
 
         return $data;
     }
     public function show($contact_id,$id){
 
-        return $this->response(CustomerPayment::where('contact_id',$contact_id)->where('id',$id)->first());
+        return $this->response(CustomerPayment::with(['account', 'contact'])->where('contact_id',$contact_id)->where('id',$id)->first());
     }
 
 

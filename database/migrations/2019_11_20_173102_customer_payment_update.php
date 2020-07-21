@@ -16,7 +16,7 @@ class CustomerPaymentUpdate extends Migration
         Schema::table('customer_payments', function (Blueprint $table){
 
             $table->foreign('account')->references('id')->on('accounts')->onDelete('cascade');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
         });

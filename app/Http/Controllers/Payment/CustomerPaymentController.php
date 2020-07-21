@@ -63,11 +63,15 @@ class CustomerPaymentController extends BaseAPIController
             ['account']
 
         );
-        return $this->model->with(['account'])->paginate();
+        return $this->model->with(['account', 'contact'])->paginate();
     }
 
 
 
+    public function show($id){
+
+        return $this->response(CustomerPayment::with(['account', 'contact'])->where('id',$id)->first());
+    }
 
 
 
