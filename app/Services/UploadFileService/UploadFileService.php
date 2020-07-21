@@ -12,15 +12,18 @@ class UploadFileService
 
     static $mimetypes=[
         'jpg',
+        'jpeg',
         'gif',
         'png',
-        'zip',
+        'pdf',
         'txt',
+        'docx',
+        'xlsx',
         'xls',
         'doc'
     ];
     static $setting=[
-        'upload_max_filesize' => '21000000', // bytes
+        'upload_max_filesize' => '210000000', // bytes
 
     ];
     /**
@@ -56,7 +59,7 @@ class UploadFileService
         $this->BaseDir = public_path();
 
     }
-    
+
     public function upload($filename,string $uploadDir=null,array $mimeTypes=null,array $setting=null): UploadFileService{
         if (!isset($_FILES[$filename]))
         {
