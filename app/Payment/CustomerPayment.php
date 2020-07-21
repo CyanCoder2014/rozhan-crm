@@ -9,7 +9,7 @@ class CustomerPayment extends Model
 {
 
 
-//    use SoftDeletes;
+    use SoftDeletes;
 
 
     protected $fillable = [
