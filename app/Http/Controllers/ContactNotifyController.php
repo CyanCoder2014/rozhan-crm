@@ -81,13 +81,18 @@ class ContactNotifyController extends Controller
         {
             if ($request->sendByTemplate) {
                 foreach ($contacts as $contact){
+
+
                     $selectedContact = [$contact];
                     Notification::send($selectedContact,new TemplateNotification($request->template,['sms','db'],$contact->getContactCode(),$contact->user_id,$contact->email, $contact->getContactName(), $request->message));
-                    return $this->response(null,'success',200);
+//                    return $this->response(null,'success',200);
+
+
+
                 }
             }else{
                 Notification::send($contacts,new MessageNotification($request->message,$methods));
-                return $this->response(null,'success',200);
+//                return $this->response(null,'success',200);
             }
 
         }
