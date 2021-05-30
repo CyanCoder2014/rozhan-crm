@@ -40,6 +40,6 @@ Route::get('/', 'HomeController@index')->name('index');
 
 
 Route::get('/{catchall?}', 'HomeController@index');
-Route::get('/{any}', 'HomeController@index')->where('any', '(.*)');
+Route::any('{all}', 'HomeController@index')->where('all', '^((?!api).)*$');
 
 //Route::get('/{route?}', 'HomeController@index')->where('route', '([0-9]+(\/){0,1})*');
