@@ -2,15 +2,15 @@
 
 namespace App;
 
+use App\Traits\CooperationAccountTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
-
-
     use SoftDeletes;
 
+    use CooperationAccountTrait;
 
     protected $fillable = [
         'product_id',
@@ -44,6 +44,11 @@ class Product extends Model
 
     public function productCategory(){
         return $this->belongsTo('App\ProductCategory', 'product_category_id');
+    }
+
+    public function cooperationAccount()
+    {
+        return $this->belongsTo(CooperationAccount::class, 'co_account_id', 'id');
     }
 
     public function priceCalculate()

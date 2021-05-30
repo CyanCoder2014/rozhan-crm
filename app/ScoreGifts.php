@@ -2,10 +2,13 @@
 
 namespace App;
 
+use App\Traits\CooperationAccountTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class ScoreGifts extends Model
 {
+    use CooperationAccountTrait;
+
     protected $fillable=[
         'title',
         'score',
@@ -18,5 +21,10 @@ class ScoreGifts extends Model
     public function reference()
     {
         return $this->morphTo();
+    }
+
+    public function cooperationAccount()
+    {
+        return $this->belongsTo(CooperationAccount::class, 'co_account_id', 'id');
     }
 }

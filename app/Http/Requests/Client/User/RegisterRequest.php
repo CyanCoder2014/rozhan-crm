@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Client\User;
 
-
 use App\Http\Requests\BaseFormRequest;
 
 class RegisterRequest extends BaseFormRequest
@@ -16,6 +15,8 @@ class RegisterRequest extends BaseFormRequest
     {
         return [
             'name'     => ['required', 'string', 'max:255'],
+            'co_name'  => ['required', 'string', 'max:255', 'unique:cooperation_accounts,name'],
+            'mobile'   => ['required', 'string', 'unique:users'],
             'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8']
         ];
@@ -41,6 +42,7 @@ class RegisterRequest extends BaseFormRequest
         return [
             'email.required'    => 'Email is required!',
             'name.required'     => 'Name is required!',
+            'co_name.required'  => 'Cooperation name is required!',
             'password.required' => 'Password is required!'
         ];
     }

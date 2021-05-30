@@ -2,12 +2,16 @@
 
 namespace App;
 
+use App\Traits\CooperationAccountTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SpecialDate extends Model
 {
     use SoftDeletes;
+
+    use CooperationAccountTrait;
+
     protected $fillable =[
         'contact_id',
         'title',
@@ -26,6 +30,11 @@ class SpecialDate extends Model
     }
     public function discount(){
         return $this->belongsTo(Discount::class);
+    }
+
+    public function cooperationAccount()
+    {
+        return $this->belongsTo(CooperationAccount::class, 'co_account_id', 'id');
     }
     /*************************************/
 }

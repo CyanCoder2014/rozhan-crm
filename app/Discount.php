@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Traits\CooperationAccountTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,6 +11,9 @@ use Morilog\Jalali\CalendarUtils;
 class Discount extends Model
 {
     use SoftDeletes;
+
+    use CooperationAccountTrait;
+
     const general_type= 0;
     const contacts_only_type = 1;
     const special_date_type = 2;
@@ -59,6 +63,11 @@ class Discount extends Model
     }
     public function orders(){
         return $this->hasManyThrough(Order::class,DiscountOrder::class,'discount_id','id','id','order_id');
+    }
+
+    public function cooperationAccount()
+    {
+        return $this->belongsTo(CooperationAccount::class, 'co_account_id', 'id');
     }
 
     /**************************************************/

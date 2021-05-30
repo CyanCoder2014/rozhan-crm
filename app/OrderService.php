@@ -2,14 +2,15 @@
 
 namespace App;
 
+use App\Traits\CooperationAccountTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class OrderService extends Model
 {
-
     use SoftDeletes;
 
+    use CooperationAccountTrait;
 
     const created_state = 0;
     const payed_state = 2;
@@ -56,6 +57,12 @@ class OrderService extends Model
     public function contact(){
         return $this->hasOneThrough(Contact::class,Order::class,'id','user_id','order_id','user_id');
     }
+
+    public function cooperationAccount()
+    {
+        return $this->belongsTo(CooperationAccount::class, 'co_account_id', 'id');
+    }
+
     public function hasConflictWith(OrderService $service):bool{
         if ($this->date != $service->date)
             false;

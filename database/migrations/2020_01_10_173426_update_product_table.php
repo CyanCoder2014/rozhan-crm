@@ -14,7 +14,7 @@ class UpdateProductTable extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-
+            $table->unsignedInteger('score')->nullable();
             $table->bigInteger('brand_id')->unsigned()->nullable();
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
 

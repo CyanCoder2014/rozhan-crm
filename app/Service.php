@@ -2,15 +2,16 @@
 
 namespace App;
 
+use App\Traits\CooperationAccountTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Service extends Model
 {
-
     use SoftDeletes;
 
+    use CooperationAccountTrait;
 
     protected $fillable = [
         'parent_id',
@@ -49,6 +50,12 @@ class Service extends Model
     public function persons(){
         return $this->hasManyThrough(Person::class,PersonService::class,'service_id','id','id','person_id');
     }
+
+    public function cooperationAccount()
+    {
+        return $this->belongsTo(CooperationAccount::class, 'co_account_id', 'id');
+    }
+
     public function availablePersons($date){
         return $this->persons()->whereHas('timing',function ($query) use($date){
             $query->where('date',$date);

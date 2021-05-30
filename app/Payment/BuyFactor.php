@@ -2,10 +2,14 @@
 
 namespace App\Payment;
 
+use App\CooperationAccount;
+use App\Traits\CooperationAccountTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class BuyFactor extends Model
 {
+    use CooperationAccountTrait;
+
     protected $fillable = [
         'product_code',
         'product_name',
@@ -33,4 +37,9 @@ class BuyFactor extends Model
         'created_by',
         'updated_by',
     ];
+
+    public function cooperationAccount()
+    {
+        return $this->belongsTo(CooperationAccount::class, 'co_account_id', 'id');
+    }
 }

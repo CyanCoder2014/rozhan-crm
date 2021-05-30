@@ -2,7 +2,6 @@
 
 namespace App\Services\CreateUser\ValueObjects;
 
-
 class CreateUserValueObject
 {
     /**
@@ -14,6 +13,11 @@ class CreateUserValueObject
      * @var string
      */
     protected $email;
+
+    /**
+     * @var string
+     */
+    protected $mobile;
 
     /**
      * @var string
@@ -53,6 +57,24 @@ class CreateUserValueObject
     public function setEmail(string $email): CreateUserValueObject
     {
         $this->email = $email;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMobile(): string
+    {
+        return $this->mobile;
+    }
+
+    /**
+     * @param string $mobile
+     * @return CreateUserValueObject
+     */
+    public function setMobile(string $mobile): CreateUserValueObject
+    {
+        $this->mobile = $mobile;
         return $this;
     }
 

@@ -2,15 +2,15 @@
 
 namespace App;
 
+use App\Traits\CooperationAccountTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class UserProfile extends Model
 {
-
-
     use SoftDeletes;
 
+    use CooperationAccountTrait;
 
     protected $fillable=[
         'contact_id',
@@ -86,6 +86,8 @@ class UserProfile extends Model
         return $this->belongsTo(Contact::class);
     }
 
-
-
+    public function cooperationAccount()
+    {
+        return $this->belongsTo(CooperationAccount::class, 'co_account_id', 'id');
+    }
 }

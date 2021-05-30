@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Traits\CooperationAccountTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -9,7 +10,7 @@ class OrderProduct extends Model
 {
     use SoftDeletes;
 
-
+    use CooperationAccountTrait;
 
     const created_state = 0;
     const payed_state = 2;
@@ -35,5 +36,10 @@ class OrderProduct extends Model
 
     public function product(){
         return $this->belongsTo(Product::class);
+    }
+
+    public function cooperationAccount()
+    {
+        return $this->belongsTo(CooperationAccount::class, 'co_account_id', 'id');
     }
 }

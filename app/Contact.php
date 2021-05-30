@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Traits\CooperationAccountTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
@@ -10,6 +11,7 @@ class Contact extends Model
 {
 
     use SoftDeletes;
+    use CooperationAccountTrait;
 
 
 
@@ -64,6 +66,8 @@ class Contact extends Model
         return $this->hasMany(UserProfile::class, 'contact_id');
     }
 
-
-
+    public function cooperationAccount()
+    {
+        return $this->belongsTo(CooperationAccount::class, 'co_account_id', 'id');
+    }
 }

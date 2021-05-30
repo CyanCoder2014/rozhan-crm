@@ -2,14 +2,15 @@
 
 namespace App;
 
+use App\Traits\CooperationAccountTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Person extends Model
 {
-
     use SoftDeletes;
 
+    use CooperationAccountTrait;
 
     protected $table='persons';
 
@@ -50,6 +51,11 @@ class Person extends Model
     }
     public function serviceFeedback(){
         return $this->hasManyThrough(OrderServiceFeedback::class,OrderService::class,'person_id','order_service_id','id','id');
+    }
+
+    public function cooperationAccount()
+    {
+        return $this->belongsTo(CooperationAccount::class, 'co_account_id', 'id');
     }
     ///////////////////////////////////////////////////////
     public function hasService(Service $service):bool{

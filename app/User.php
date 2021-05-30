@@ -2,12 +2,12 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Scopes\CooperationAccountScope;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laratrust\Traits\LaratrustUserTrait;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -18,6 +18,18 @@ class User extends Authenticatable implements JWTSubject
     use LaratrustUserTrait;
     use Notifiable;
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new CooperationAccountScope());
+
+        static::creating(function ($model) {
+            if (Auth::id()) {
+                $model->co_account_id = Auth::user()->co_account_id;
+            }
+        });
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -101,6 +113,12 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasManyThrough(SpecialDate::class,Contact::class,'user_id','contact_id','id','id');
     }
+
+    public function cooperationAccount()
+    {
+        return $this->belongsTo(CooperationAccount::class, 'co_account_id', 'id');
+    }
+
     /*******************************************/
 
     public function routeNotificationForSms($notification)

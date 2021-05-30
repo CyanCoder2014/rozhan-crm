@@ -2,14 +2,15 @@
 
 namespace App;
 
+use App\Traits\CooperationAccountTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
 {
-
     use SoftDeletes;
 
+    use CooperationAccountTrait;
 
     const created_state = 0;
     const payed_state = 2;
@@ -80,6 +81,12 @@ class Order extends Model
     public function discount(){
         return $this->hasManyThrough(Discount::class,DiscountOrder::class,'order_id','id','id','discount_id');
     }
+
+    public function cooperationAccount()
+    {
+        return $this->belongsTo(CooperationAccount::class, 'co_account_id', 'id');
+    }
+
     /*****************************************************/
     public function CanClientEdit(): bool {
         return true;

@@ -2,10 +2,13 @@
 
 namespace App;
 
+use App\Traits\CooperationAccountTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Favorites extends Model
 {
+    use CooperationAccountTrait;
+
     protected $fillable=[
         'contact_id',
         'title',
@@ -18,4 +21,8 @@ class Favorites extends Model
         'updated_by',
     ];
 
+    public function cooperationAccount()
+    {
+        return $this->belongsTo(CooperationAccount::class, 'co_account_id', 'id');
+    }
 }

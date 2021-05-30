@@ -2,16 +2,12 @@
 
 namespace App;
 
+use App\Traits\CooperationAccountTrait;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PersonService extends Model
 {
-
-
-//    use SoftDeletes;
-
-
+    use CooperationAccountTrait;
 
     protected $fillable=[
         'person_id',
@@ -27,5 +23,10 @@ class PersonService extends Model
 
     public function personTiming(){
         return $this->hasMany(PersonTiming::class,'person_id','person_id');
+    }
+
+    public function cooperationAccount()
+    {
+        return $this->belongsTo(CooperationAccount::class, 'co_account_id', 'id');
     }
 }

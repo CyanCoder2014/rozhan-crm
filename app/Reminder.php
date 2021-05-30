@@ -2,10 +2,13 @@
 
 namespace App;
 
+use App\Traits\CooperationAccountTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Reminder extends Model
 {
+    use CooperationAccountTrait;
+
     const notify_types =[
       'db' => 1,
       'email' => 2,
@@ -36,6 +39,10 @@ class Reminder extends Model
 
     ];
 
+    public function cooperationAccount()
+    {
+        return $this->belongsTo(CooperationAccount::class, 'co_account_id', 'id');
+    }
 
     public function getNotifyType(){
         $notify = $this->notify_type;

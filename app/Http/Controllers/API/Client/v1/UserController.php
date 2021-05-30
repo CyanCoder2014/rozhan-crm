@@ -10,6 +10,7 @@ use App\Http\Requests\Client\User\RegisterRequest;
 use App\Http\Requests\Client\User\ResetPassword;
 use App\Repositories\RoleRepository;
 use App\Repositories\UserRepository;
+use App\Services\CreateCooperationAccount\CreateCooperationAccount;
 use App\Services\CreateUser\CreateUser;
 use App\Services\CreateUser\ValueObjects\CreateUserValueObject;
 use App\Services\UploadFileService\UploadImageService;
@@ -80,16 +81,27 @@ class UserController extends Controller
 
 
 
-    public function register(RegisterRequest $request, CreateUser $createUser)
-    {
+    public function register(
+        RegisterRequest $request,
+        CreateUser $createUser,
+        CreateCooperationAccount $createCooperation
+    ) {
         $data = $request->all();
 
         $valueObject = new CreateUserValueObject();
         $valueObject->setName($data['name'])
-            ->setEmail($data['email'])
-            ->setPassword($data['password']);
+                    ->setEmail($data['email'])
+                    ->setMobile($data['mobile'])
+                    ->setPassword($data['password']);
 
         $user = $createUser->create($valueObject);
+
+        $cooperationAccount = $createCooperation->perform($data['co_name'], $user->id);
+
+        $user->co_account_id = $cooperationAccount->id;
+
+        $user->save();
+
         event(new Registered($user));
 
         $credentials = $request->all(['email', 'password']);

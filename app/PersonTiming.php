@@ -2,10 +2,13 @@
 
 namespace App;
 
+use App\Traits\CooperationAccountTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class PersonTiming extends Model
 {
+    use CooperationAccountTrait;
+
     protected $fillable=[
         'person_id',
         'title',
@@ -23,5 +26,10 @@ class PersonTiming extends Model
 
     public function person(){
         return $this->belongsTo(Person::class);
+    }
+
+    public function cooperationAccount()
+    {
+        return $this->belongsTo(CooperationAccount::class, 'co_account_id', 'id');
     }
 }

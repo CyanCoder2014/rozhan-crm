@@ -2,13 +2,16 @@
 
 namespace App;
 
+use App\Traits\CooperationAccountTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class UserGift extends Model
 {
     use SoftDeletes;
-    //  	 	 	created_at 	updated_at 	deleted_at
+
+    use CooperationAccountTrait;
+
     protected $fillable =[
         'user_id',
         'score_gift_id',
@@ -43,5 +46,11 @@ class UserGift extends Model
     {
         return $this->belongsTo(ScoreGifts::class);
     }
+
+    public function cooperationAccount()
+    {
+        return $this->belongsTo(CooperationAccount::class, 'co_account_id', 'id');
+    }
+
     /***************************************/
 }

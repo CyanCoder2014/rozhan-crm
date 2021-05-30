@@ -2,15 +2,13 @@
 
 namespace App\Payment;
 
+use App\CooperationAccount;
+use App\Traits\CooperationAccountTrait;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CompanyPayment extends Model
 {
-
-
-//    use SoftDeletes;
-
+    use CooperationAccountTrait;
 
     protected $fillable=[
         'number',
@@ -41,9 +39,12 @@ class CompanyPayment extends Model
     ];
 
 
-
-
     public function account(){
         return $this->belongsTo('App\Payment\Account', 'account');
+    }
+
+    public function cooperationAccount()
+    {
+        return $this->belongsTo(CooperationAccount::class, 'co_account_id', 'id');
     }
 }
