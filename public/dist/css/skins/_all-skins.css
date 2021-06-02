@@ -3,9 +3,9 @@
  * ----------
  */
 .skin-blue .main-header .navbar {
-  /*background: linear-gradient(45deg, #343a40, #5c2278);*/
-  background: #343a40;
-  border-bottom: 4px solid #6A1B9A;
+  background: linear-gradient(45deg, #673AB7, #5c2060);
+  /*background: #343a40;*/
+  /*border-bottom: 4px solid #6A1B9A;*/
 
 }
 .skin-blue .main-header .navbar .nav > li > a {
