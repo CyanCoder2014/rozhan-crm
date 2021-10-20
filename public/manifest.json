@@ -1,6 +1,6 @@
 {
-    "name": "Beauty plus",
-    "short_name": "Beauty plus",
+    "name": "Rozhan CRM",
+    "short_name": "Rozhan CRM",
     "description": "An offline-approach personal note application to show we love PWA.",
     "background_color": "#fff",
     "theme_color": "#3f51b5",
@@ -73,4 +73,3 @@
       }
     ]
   }
-  
